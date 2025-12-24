@@ -10,7 +10,6 @@ import UIKit
 
 struct ContentView: View {
     @State private var totalSeries: Int = 4
-    @State private var repeticiones: Int = 12
     @State private var tiempoDescanso: Int = 90
     @State private var serieActual: Int = 1
     @State private var descansando: Bool = false
@@ -64,14 +63,6 @@ struct ContentView: View {
                 Divider()
                     .foregroundStyle(Theme.divider)
                 configStepper(
-                    title: "Repeticiones por serie",
-                    icon: "repeat",
-                    value: $repeticiones,
-                    range: 1...50
-                )
-                Divider()
-                    .foregroundStyle(Theme.divider)
-                configStepper(
                     title: "Descanso (segundos)",
                     icon: "timer",
                     value: $tiempoDescanso,
@@ -94,7 +85,6 @@ struct ContentView: View {
                 VStack(alignment: .leading, spacing: Layout.metricSpacing) {
                     HStack(spacing: Layout.metricSpacing) {
                         MetricView(title: "SERIE", value: "\(serieActual) / \(totalSeries)")
-                        MetricView(title: "REP", value: "0 / \(repeticiones)")
                     }
 
                     HStack(spacing: 12) {
