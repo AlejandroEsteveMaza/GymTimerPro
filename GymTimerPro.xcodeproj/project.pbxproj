@@ -6,8 +6,37 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E384231333AA795398E2CC4F /* GymTimerProWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F89DC3B8F751986802AF17A1 /* GymTimerProWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5134D0011CB25E53B770306B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0EE57A22EFC163F008AD710 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 85F60896C2756689B89477C6;
+			remoteInfo = GymTimerProWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6DBB1428DF0826A2C59AAFE3 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E384231333AA795398E2CC4F /* GymTimerProWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		C0EE57AA2EFC163F008AD710 /* GymTimerPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymTimerPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F89DC3B8F751986802AF17A1 /* GymTimerProWidget.appex */ = {isa = PBXFileReference; explicitFileType = wrapper.app-extension; includeInIndex = 0; path = GymTimerProWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +45,27 @@
 			path = GymTimerPro;
 			sourceTree = "<group>";
 		};
+		0F0579A477150C44C7EF81DB /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		F5C29A69624CE8575D8B27C2 /* GymTimerProWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GymTimerProWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C0EE57A72EFC163F008AD710 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9560D947E7B2F16E9E2920A6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +79,8 @@
 			isa = PBXGroup;
 			children = (
 				C0EE57AC2EFC163F008AD710 /* GymTimerPro */,
+				0F0579A477150C44C7EF81DB /* Shared */,
+				F5C29A69624CE8575D8B27C2 /* GymTimerProWidget */,
 				C0EE57AB2EFC163F008AD710 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				C0EE57AA2EFC163F008AD710 /* GymTimerPro.app */,
+				F89DC3B8F751986802AF17A1 /* GymTimerProWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,13 +104,16 @@
 				C0EE57A62EFC163F008AD710 /* Sources */,
 				C0EE57A72EFC163F008AD710 /* Frameworks */,
 				C0EE57A82EFC163F008AD710 /* Resources */,
+				6DBB1428DF0826A2C59AAFE3 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FA172DD1B4EFDE4E4B2ED787 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				C0EE57AC2EFC163F008AD710 /* GymTimerPro */,
+				0F0579A477150C44C7EF81DB /* Shared */,
 			);
 			name = GymTimerPro;
 			packageProductDependencies = (
@@ -69,6 +121,29 @@
 			productName = GymTimerPro;
 			productReference = C0EE57AA2EFC163F008AD710 /* GymTimerPro.app */;
 			productType = "com.apple.product-type.application";
+		};
+		85F60896C2756689B89477C6 /* GymTimerProWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E29B3CA9047F9D2C444A93FC /* Build configuration list for PBXNativeTarget "GymTimerProWidget" */;
+			buildPhases = (
+				E85B1153A25CCF88690CEFAF /* Sources */,
+				9560D947E7B2F16E9E2920A6 /* Frameworks */,
+				A6B4800DB30AA453BD5ED5DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F5C29A69624CE8575D8B27C2 /* GymTimerProWidget */,
+				0F0579A477150C44C7EF81DB /* Shared */,
+			);
+			name = GymTimerProWidget;
+			packageProductDependencies = (
+			);
+			productName = GymTimerProWidget;
+			productReference = F89DC3B8F751986802AF17A1 /* GymTimerProWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +156,9 @@
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					C0EE57A92EFC163F008AD710 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					85F60896C2756689B89477C6 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 				};
@@ -100,12 +178,20 @@
 			projectRoot = "";
 			targets = (
 				C0EE57A92EFC163F008AD710 /* GymTimerPro */,
+				85F60896C2756689B89477C6 /* GymTimerProWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C0EE57A82EFC163F008AD710 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6B4800DB30AA453BD5ED5DC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +208,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E85B1153A25CCF88690CEFAF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA172DD1B4EFDE4E4B2ED787 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 85F60896C2756689B89477C6 /* GymTimerProWidget */;
+			targetProxy = 5134D0011CB25E53B770306B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C0EE57B32EFC1641008AD710 /* Debug */ = {
@@ -258,12 +359,14 @@
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -303,12 +406,14 @@
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -331,6 +436,49 @@
 			};
 			name = Release;
 		};
+		A46568FD92E3A336528B23A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SKW35UFUH2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = GymTimerProWidget-Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = alejandroestevemaza.GymTimerPro.GymTimerProWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		18456F189F339EA5CAF2AACA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SKW35UFUH2;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = GymTimerProWidget-Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = alejandroestevemaza.GymTimerPro.GymTimerProWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -348,6 +496,15 @@
 			buildConfigurations = (
 				C0EE57B62EFC1641008AD710 /* Debug */,
 				C0EE57B72EFC1641008AD710 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E29B3CA9047F9D2C444A93FC /* Build configuration list for PBXNativeTarget "GymTimerProWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A46568FD92E3A336528B23A6 /* Debug */,
+				18456F189F339EA5CAF2AACA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

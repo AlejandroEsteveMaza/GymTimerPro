@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var completado: Bool = false
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
     @StateObject private var restTimer = RestTimerModel()
+    @StateObject private var liveActivityManager = LiveActivityManager()
 
     @Environment(\.scenePhase) private var scenePhase
 
@@ -38,6 +39,7 @@ struct ContentView: View {
         }
         .onAppear {
             UIApplication.shared.isIdleTimerDisabled = true
+            restoreLiveActivityIfNeeded()
         }
         .onDisappear {
             UIApplication.shared.isIdleTimerDisabled = false
@@ -57,9 +59,18 @@ struct ContentView: View {
                 handleRestFinished()
             }
         }
+        .onChange(of: restTimer.endDate) { _, newDate in
+            guard let newDate, isResting else { return }
+            updateLiveActivity(endDate: newDate, mode: .resting)
+        }
         .onChange(of: restTimer.didFinish) { _, finished in
             if finished, scenePhase == .active {
                 handleRestFinished()
+            }
+        }
+        .onChange(of: restTimer.isRunning) { _, running in
+            if !running {
+                liveActivityManager.end()
             }
         }
     }
@@ -259,15 +270,21 @@ struct ContentView: View {
         }
 
         restTimer.start(duration: TimeInterval(tiempoDescanso))
+
+        if let endDate = restTimer.endDate {
+            updateLiveActivity(endDate: endDate, mode: .resting)
+        }
     }
 
     private func handleRestFinished() {
         restTimer.acknowledgeFinish()
+        liveActivityManager.end()
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
 
     private func completeWorkout() {
         restTimer.reset()
+        liveActivityManager.end()
 
         withAnimation(.snappy) {
             completado = true
@@ -282,11 +299,26 @@ struct ContentView: View {
 
     private func resetWorkout() {
         restTimer.reset()
+        liveActivityManager.end()
 
         withAnimation(.snappy) {
             serieActual = 1
             completado = false
         }
+    }
+
+    private func restoreLiveActivityIfNeeded() {
+        guard restTimer.isRunning, let endDate = restTimer.endDate else { return }
+        updateLiveActivity(endDate: endDate, mode: .resting)
+    }
+
+    private func updateLiveActivity(endDate: Date, mode: GymTimerAttributes.Mode) {
+        liveActivityManager.startOrUpdate(
+            currentSet: serieActual,
+            totalSets: totalSeries,
+            endDate: endDate,
+            mode: mode
+        )
     }
 }
 
