@@ -6,17 +6,18 @@
 //
 
 import SwiftUI
+import Combine
 import UIKit
 
 struct ContentView: View {
     @State private var totalSeries: Int = 4
     @State private var tiempoDescanso: Int = 90
     @State private var serieActual: Int = 1
-    @State private var descansando: Bool = false
-    @State private var tiempoRestante: Int = 0
-    @State private var timer: Timer? = nil
     @State private var completado: Bool = false
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
+    @StateObject private var restTimer = RestTimerModel()
+
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
@@ -40,7 +41,7 @@ struct ContentView: View {
         }
         .onDisappear {
             UIApplication.shared.isIdleTimerDisabled = false
-            self.stopTimer()
+            restTimer.persist()
         }
         .onChange(of: totalSeries) { _, newValue in
             if self.serieActual > newValue {
@@ -48,6 +49,17 @@ struct ContentView: View {
             }
             if self.serieActual < 1 {
                 self.serieActual = 1
+            }
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            restTimer.handleScenePhase(newPhase)
+            if newPhase == .active, restTimer.didFinish {
+                handleRestFinished()
+            }
+        }
+        .onChange(of: restTimer.didFinish) { _, finished in
+            if finished, scenePhase == .active {
+                handleRestFinished()
             }
         }
     }
@@ -84,30 +96,17 @@ struct ContentView: View {
 
     private var progressSection: some View {
         SectionCard(title: "Progreso", systemImage: "chart.line.uptrend.xyaxis") {
-            if completado {
-                completionView
-                    .transition(.opacity.combined(with: .scale))
-            } else {
-                VStack(alignment: .leading, spacing: Layout.metricSpacing) {
-                    HStack(spacing: Layout.metricSpacing) {
-                        MetricView(title: "SERIE", value: "\(serieActual) / \(totalSeries)")
-                    }
+            TimelineView(.periodic(from: .now, by: 1)) { _ in
+                let now = Date.now
+                let tickID = Int(now.timeIntervalSince1970)
 
-                    HStack(spacing: 12) {
-                        Text("Estado")
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(Theme.textSecondary)
-                        statusBadge
-                        Spacer(minLength: 0)
+                progressContent(now: now)
+                    .task(id: tickID) {
+                        restTimer.tick(now: now)
                     }
-
-                    if descansando {
-                        restTimerView
-                    }
-                }
             }
         }
-        .animation(.snappy, value: descansando)
+        .animation(.snappy, value: isResting)
         .animation(.snappy, value: completado)
     }
 
@@ -117,7 +116,7 @@ struct ContentView: View {
                 Label("EMPEZAR DESCANSO", systemImage: "pause.circle.fill")
             }
             .buttonStyle(PrimaryButtonStyle(height: Layout.primaryButtonHeight))
-            .disabled(descansando || completado)
+            .disabled(isResting || completado)
 
             Button(action: resetWorkout) {
                 Label("REINICIAR", systemImage: "arrow.counterclockwise")
@@ -159,6 +158,32 @@ struct ContentView: View {
         .frame(minHeight: Layout.minTapHeight)
     }
 
+    @ViewBuilder
+    private func progressContent(now: Date) -> some View {
+        if completado {
+            completionView
+                .transition(.opacity.combined(with: .scale))
+        } else {
+            VStack(alignment: .leading, spacing: Layout.metricSpacing) {
+                HStack(spacing: Layout.metricSpacing) {
+                    MetricView(title: "SERIE", value: "\(serieActual) / \(totalSeries)")
+                }
+
+                HStack(spacing: 12) {
+                    Text("Estado")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Theme.textSecondary)
+                    statusBadge
+                    Spacer(minLength: 0)
+                }
+
+                if isResting {
+                    restTimerView(remainingSeconds: restTimer.remainingSeconds(now: now))
+                }
+            }
+        }
+    }
+
     private var statusBadge: some View {
         let status = statusStyle
         return Label(status.text, systemImage: status.icon)
@@ -171,13 +196,13 @@ struct ContentView: View {
     }
 
     private var statusStyle: (text: String, icon: String, color: Color) {
-        if descansando {
+        if isResting {
             return ("DESCANSANDO", "hourglass", Theme.resting)
         }
         return ("ENTRENANDO", "figure.walk", Theme.training)
     }
 
-    private var restTimerView: some View {
+    private func restTimerView(remainingSeconds: Int) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Label("Tiempo de descanso", systemImage: "timer")
                 .font(.caption.weight(.semibold))
@@ -185,13 +210,13 @@ struct ContentView: View {
                 .textCase(.uppercase)
                 .symbolRenderingMode(.hierarchical)
 
-            Text("\(tiempoRestante)")
+            Text("\(remainingSeconds)")
                 .font(.system(size: Layout.timerFontSize, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.resting)
                 .monospacedDigit()
                 .minimumScaleFactor(0.6)
                 .contentTransition(.numericText())
-                .animation(.linear(duration: 0.9), value: tiempoRestante)
+                .animation(.linear(duration: 0.9), value: remainingSeconds)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Layout.timerPadding)
@@ -214,11 +239,15 @@ struct ContentView: View {
     }
 
     private var isTimerActive: Bool {
-        timer != nil
+        restTimer.isRunning
+    }
+
+    private var isResting: Bool {
+        restTimer.isRunning
     }
 
     private func startRest() {
-        guard !descansando, !completado, timer == nil else { return }
+        guard !isResting, !completado else { return }
 
         if serieActual >= totalSeries {
             completeWorkout()
@@ -227,41 +256,21 @@ struct ContentView: View {
 
         withAnimation(.snappy) {
             serieActual += 1
-            descansando = true
-            tiempoRestante = tiempoDescanso
         }
 
-        // Timer for the rest countdown.
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            if self.tiempoRestante > 0 {
-                self.tiempoRestante -= 1
-            }
-
-            if self.tiempoRestante == 0 {
-                self.endRest()
-            }
-        }
+        restTimer.start(duration: TimeInterval(tiempoDescanso))
     }
 
-    private func endRest() {
-        guard descansando else { return }
-        stopTimer()
-
+    private func handleRestFinished() {
+        restTimer.acknowledgeFinish()
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-
-        withAnimation(.snappy) {
-            descansando = false
-            tiempoRestante = 0
-        }
     }
 
     private func completeWorkout() {
-        stopTimer()
+        restTimer.reset()
 
         withAnimation(.snappy) {
             completado = true
-            descansando = false
-            tiempoRestante = 0
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -272,19 +281,149 @@ struct ContentView: View {
     }
 
     private func resetWorkout() {
-        stopTimer()
+        restTimer.reset()
 
         withAnimation(.snappy) {
             serieActual = 1
-            descansando = false
-            tiempoRestante = 0
             completado = false
         }
     }
+}
 
-    private func stopTimer() {
-        timer?.invalidate()
-        timer = nil
+// Countdown state is derived from endDate; remaining is stored for paused state and persistence.
+private final class RestTimerModel: ObservableObject {
+    @Published private(set) var isRunning: Bool
+    @Published private(set) var remaining: TimeInterval
+    @Published private(set) var endDate: Date?
+    @Published var didFinish: Bool = false
+
+    private let storage: UserDefaults
+
+    private enum Keys {
+        static let endDate = "restTimer.endDate"
+        static let isRunning = "restTimer.isRunning"
+        static let remaining = "restTimer.remaining"
+    }
+
+    init(storage: UserDefaults = .standard) {
+        self.storage = storage
+        self.isRunning = storage.bool(forKey: Keys.isRunning)
+        self.remaining = storage.double(forKey: Keys.remaining)
+        self.endDate = storage.object(forKey: Keys.endDate) as? Date
+        reconcile(now: .now)
+    }
+
+    var remainingSeconds: Int {
+        remainingSeconds(now: .now)
+    }
+
+    func remainingSeconds(now: Date) -> Int {
+        let interval: TimeInterval
+        if isRunning, let endDate {
+            interval = max(0, endDate.timeIntervalSince(now))
+        } else {
+            interval = remaining
+        }
+        return max(0, Int(interval.rounded(.up)))
+    }
+
+    func start(duration: TimeInterval, now: Date = .now) {
+        remaining = max(0, duration)
+        endDate = now.addingTimeInterval(remaining)
+        isRunning = remaining > 0
+        didFinish = false
+        persist()
+    }
+
+    func pause(now: Date = .now) {
+        guard isRunning, let endDate else { return }
+        remaining = max(0, endDate.timeIntervalSince(now))
+        self.endDate = nil
+        isRunning = false
+        persist()
+    }
+
+    func resume(now: Date = .now) {
+        guard !isRunning, remaining > 0 else { return }
+        endDate = now.addingTimeInterval(remaining)
+        isRunning = true
+        persist()
+    }
+
+    func tick(now: Date) {
+        guard isRunning, let endDate else { return }
+        let newRemaining = max(0, endDate.timeIntervalSince(now))
+        if newRemaining != remaining {
+            remaining = newRemaining
+        }
+        if newRemaining <= 0 {
+            finish()
+        }
+    }
+
+    func reset() {
+        isRunning = false
+        endDate = nil
+        remaining = 0
+        didFinish = false
+        persist()
+    }
+
+    func handleScenePhase(_ phase: ScenePhase) {
+        switch phase {
+        case .active:
+            tick(now: .now)
+        case .inactive, .background:
+            tick(now: .now)
+            persist()
+        @unknown default:
+            persist()
+        }
+    }
+
+    func persist() {
+        storage.set(isRunning, forKey: Keys.isRunning)
+        storage.set(remaining, forKey: Keys.remaining)
+        if let endDate {
+            storage.set(endDate, forKey: Keys.endDate)
+        } else {
+            storage.removeObject(forKey: Keys.endDate)
+        }
+    }
+
+    func acknowledgeFinish() {
+        didFinish = false
+    }
+
+    private func reconcile(now: Date) {
+        guard isRunning else {
+            if endDate != nil {
+                endDate = nil
+                persist()
+            }
+            return
+        }
+        guard let endDate else {
+            isRunning = false
+            remaining = 0
+            persist()
+            return
+        }
+        let newRemaining = max(0, endDate.timeIntervalSince(now))
+        remaining = newRemaining
+        if newRemaining <= 0 {
+            finish()
+        }
+    }
+
+    private func finish() {
+        isRunning = false
+        endDate = nil
+        remaining = 0
+        if !didFinish {
+            didFinish = true
+        }
+        persist()
     }
 }
 
