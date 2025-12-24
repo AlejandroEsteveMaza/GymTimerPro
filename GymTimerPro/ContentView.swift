@@ -322,6 +322,7 @@ private enum Layout {
     static let wheelStepDivisor: CGFloat = 6
     static let wheelStepMinWidth: CGFloat = 10
     static let wheelHitTarget: CGFloat = 44
+    static let wheelClipInset: CGFloat = 1
 }
 
 private enum Theme {
@@ -395,6 +396,7 @@ private struct HorizontalWheelStepper: View {
     var body: some View {
         let size = resolvedSize
         let stepWidth = max(Layout.wheelStepMinWidth, size.width / Layout.wheelStepDivisor)
+        let tickPitch = Layout.wheelTickSpacing + Layout.wheelTickWidth
         let hitPaddingX = max(0, (Layout.wheelHitTarget - size.width) / 2)
         let hitPaddingY = max(0, (Layout.wheelHitTarget - size.height) / 2)
 
@@ -404,17 +406,27 @@ private struct HorizontalWheelStepper: View {
             RoundedRectangle(cornerRadius: Layout.wheelCornerRadius, style: .continuous)
                 .stroke(Theme.wheelStroke, lineWidth: 1)
 
-            HStack(spacing: Layout.wheelTickSpacing) {
-                ForEach(-2...2, id: \.self) { index in
-                    Capsule()
-                        .frame(
-                            width: Layout.wheelTickWidth,
-                            height: index == 0 ? Layout.wheelTickHeightLarge : Layout.wheelTickHeightSmall
-                        )
-                        .foregroundStyle(Theme.wheelTick)
+            Canvas { context, canvasSize in
+                let inset = Layout.wheelClipInset
+                let clipRect = CGRect(origin: .zero, size: canvasSize).insetBy(dx: inset, dy: inset)
+                let radius = max(0, Layout.wheelCornerRadius - inset)
+                let clipPath = Path(roundedRect: clipRect, cornerRadius: radius)
+                context.clip(to: clipPath)
+
+                let phase = dragTranslation.truncatingRemainder(dividingBy: tickPitch)
+                let startX = -tickPitch * 2 + phase
+                let endX = canvasSize.width + tickPitch * 2
+                let tickHeight = Layout.wheelTickHeightSmall
+                let y = (canvasSize.height - tickHeight) / 2
+
+                var x = startX
+                while x <= endX {
+                    let rect = CGRect(x: x, y: y, width: Layout.wheelTickWidth, height: tickHeight)
+                    let path = Path(roundedRect: rect, cornerRadius: Layout.wheelTickWidth / 2)
+                    context.fill(path, with: .color(Theme.wheelTick))
+                    x += tickPitch
                 }
             }
-            .offset(x: dragTranslation * 0.2)
 
             Capsule()
                 .frame(width: Layout.wheelTickWidth, height: Layout.wheelTickHeightLarge + 6)
@@ -441,6 +453,7 @@ private struct HorizontalWheelStepper: View {
                     let startValue = dragStartValue ?? value
                     let predicted = gesture.predictedEndTranslation.width
                     let stepDelta = Int((predicted / stepWidth).rounded())
+                    dragTranslation = predicted
                     value = clampedValue(startValue + stepDelta * step)
                     dragStartValue = nil
                     withAnimation(.snappy) {
