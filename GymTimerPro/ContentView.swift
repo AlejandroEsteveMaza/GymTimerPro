@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var tiempoRestante: Int = 0
     @State private var timer: Timer? = nil
     @State private var completado: Bool = false
+    @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
 
     var body: some View {
         ZStack {
@@ -54,26 +55,31 @@ struct ContentView: View {
     private var configurationSection: some View {
         SectionCard(title: "Configuración", systemImage: "slider.horizontal.3") {
             VStack(spacing: Layout.rowSpacing) {
-                configStepper(
+                configWheelRow(
                     title: "Series totales",
                     icon: "square.stack.3d.up",
                     value: $totalSeries,
-                    range: 1...10
+                    range: 1...10,
+                    accessibilityValue: "\(totalSeries) series"
                 )
                 Divider()
                     .foregroundStyle(Theme.divider)
-                configStepper(
+                configWheelRow(
                     title: "Descanso (segundos)",
                     icon: "timer",
                     value: $tiempoDescanso,
                     range: 15...300,
-                    step: 15
+                    step: 15,
+                    accessibilityValue: "\(tiempoDescanso) segundos"
                 )
             }
         }
         .disabled(isTimerActive || completado)
         .opacity(isTimerActive || completado ? 0.55 : 1.0)
         .tint(Theme.primaryButton)
+        .overlay(alignment: .topTrailing) {
+            StepperSizeReader(size: $stepperControlSize)
+        }
     }
 
     private var progressSection: some View {
@@ -129,15 +135,26 @@ struct ContentView: View {
         .shadow(color: Theme.cardShadow, radius: 12, x: 0, y: -6)
     }
 
-    private func configStepper(
+    private func configWheelRow(
         title: String,
         icon: String,
         value: Binding<Int>,
         range: ClosedRange<Int>,
-        step: Int = 1
+        step: Int = 1,
+        accessibilityValue: String
     ) -> some View {
-        Stepper(value: value, in: range, step: step) {
+        HStack(spacing: 12) {
             ConfigRow(icon: icon, title: title, value: "\(value.wrappedValue)")
+                .layoutPriority(1)
+                .accessibilityHidden(true)
+            HorizontalWheelStepper(
+                value: value,
+                range: range,
+                step: step,
+                controlSize: stepperControlSize,
+                accessibilityLabel: title,
+                accessibilityValue: accessibilityValue
+            )
         }
         .frame(minHeight: Layout.minTapHeight)
     }
@@ -296,6 +313,15 @@ private enum Layout {
     static let secondaryButtonHeight: CGFloat = 56
     static let buttonCornerRadius: CGFloat = 16
     static let scrollBottomPadding: CGFloat = 24 + primaryButtonHeight + secondaryButtonHeight
+    static let defaultStepperControlSize = CGSize(width: 94, height: 32)
+    static let wheelCornerRadius: CGFloat = 10
+    static let wheelTickSpacing: CGFloat = 6
+    static let wheelTickWidth: CGFloat = 2
+    static let wheelTickHeightSmall: CGFloat = 8
+    static let wheelTickHeightLarge: CGFloat = 14
+    static let wheelStepDivisor: CGFloat = 6
+    static let wheelStepMinWidth: CGFloat = 10
+    static let wheelHitTarget: CGFloat = 44
 }
 
 private enum Theme {
@@ -320,6 +346,10 @@ private enum Theme {
     static let timerBackground = resting.opacity(0.12)
     static let cardBorder = Color(uiColor: .separator).opacity(0.3)
     static let cardShadow = Color.black.opacity(0.08)
+    static let wheelBackground = Color(uiColor: .tertiarySystemBackground)
+    static let wheelStroke = Color(uiColor: .systemGray4)
+    static let wheelTick = Color(uiColor: .systemGray2)
+    static let wheelIndicator = Color(uiColor: .systemBlue)
 }
 
 private struct ConfigRow: View {
@@ -343,6 +373,113 @@ private struct ConfigRow: View {
                 .foregroundStyle(Theme.textPrimary)
                 .monospacedDigit()
         }
+    }
+}
+
+private struct HorizontalWheelStepper: View {
+    @Binding var value: Int
+    let range: ClosedRange<Int>
+    let step: Int
+    let controlSize: CGSize
+    let accessibilityLabel: String
+    let accessibilityValue: String
+
+    @Environment(\.isEnabled) private var isEnabled
+    @State private var dragStartValue: Int? = nil
+    @State private var dragTranslation: CGFloat = 0
+
+    private var resolvedSize: CGSize {
+        controlSize == .zero ? Layout.defaultStepperControlSize : controlSize
+    }
+
+    var body: some View {
+        let size = resolvedSize
+        let stepWidth = max(Layout.wheelStepMinWidth, size.width / Layout.wheelStepDivisor)
+        let hitPaddingX = max(0, (Layout.wheelHitTarget - size.width) / 2)
+        let hitPaddingY = max(0, (Layout.wheelHitTarget - size.height) / 2)
+
+        ZStack {
+            RoundedRectangle(cornerRadius: Layout.wheelCornerRadius, style: .continuous)
+                .fill(Theme.wheelBackground)
+            RoundedRectangle(cornerRadius: Layout.wheelCornerRadius, style: .continuous)
+                .stroke(Theme.wheelStroke, lineWidth: 1)
+
+            HStack(spacing: Layout.wheelTickSpacing) {
+                ForEach(-2...2, id: \.self) { index in
+                    Capsule()
+                        .frame(
+                            width: Layout.wheelTickWidth,
+                            height: index == 0 ? Layout.wheelTickHeightLarge : Layout.wheelTickHeightSmall
+                        )
+                        .foregroundStyle(Theme.wheelTick)
+                }
+            }
+            .offset(x: dragTranslation * 0.2)
+
+            Capsule()
+                .frame(width: Layout.wheelTickWidth, height: Layout.wheelTickHeightLarge + 6)
+                .foregroundStyle(Theme.wheelIndicator)
+        }
+        .frame(width: size.width, height: size.height)
+        .contentShape(HitTargetShape(xPadding: hitPaddingX, yPadding: hitPaddingY))
+        .gesture(
+            DragGesture(minimumDistance: 0)
+                .onChanged { gesture in
+                    guard isEnabled else { return }
+                    if dragStartValue == nil {
+                        dragStartValue = value
+                    }
+                    dragTranslation = gesture.translation.width
+                    let stepDelta = Int((gesture.translation.width / stepWidth).rounded())
+                    let newValue = clampedValue((dragStartValue ?? value) + stepDelta * step)
+                    if newValue != value {
+                        value = newValue
+                    }
+                }
+                .onEnded { gesture in
+                    guard isEnabled else { return }
+                    let startValue = dragStartValue ?? value
+                    let predicted = gesture.predictedEndTranslation.width
+                    let stepDelta = Int((predicted / stepWidth).rounded())
+                    value = clampedValue(startValue + stepDelta * step)
+                    dragStartValue = nil
+                    withAnimation(.snappy) {
+                        dragTranslation = 0
+                    }
+                }
+        )
+        .sensoryFeedback(.selection, trigger: value)
+        .accessibilityElement()
+        .accessibilityLabel(accessibilityLabel)
+        .accessibilityValue(accessibilityValue)
+        .accessibilityAdjustableAction { direction in
+            switch direction {
+            case .increment:
+                value = clampedValue(value + step)
+            case .decrement:
+                value = clampedValue(value - step)
+            default:
+                break
+            }
+        }
+    }
+
+    private func clampedValue(_ candidate: Int) -> Int {
+        let minValue = range.lowerBound
+        let maxValue = range.upperBound
+        let clamped = min(max(candidate, minValue), maxValue)
+        let remainder = (clamped - minValue) % step
+        return clamped - remainder
+    }
+}
+
+private struct HitTargetShape: Shape {
+    let xPadding: CGFloat
+    let yPadding: CGFloat
+
+    func path(in rect: CGRect) -> Path {
+        let hitRect = rect.insetBy(dx: -xPadding, dy: -yPadding)
+        return Path(hitRect)
     }
 }
 
@@ -440,5 +577,36 @@ private struct SecondaryButtonStyle: ButtonStyle {
             .opacity(isEnabled ? 1 : 0.6)
             .scaleEffect(configuration.isPressed ? 0.98 : 1)
             .animation(.snappy, value: configuration.isPressed)
+    }
+}
+
+private struct StepperSizeReader: View {
+    @Binding var size: CGSize
+
+    var body: some View {
+        Stepper("", value: .constant(0))
+            .labelsHidden()
+            .fixedSize()
+            .background(
+                GeometryReader { proxy in
+                    Color.clear.preference(key: StepperSizeKey.self, value: proxy.size)
+                }
+            )
+            .onPreferenceChange(StepperSizeKey.self) { newSize in
+                if newSize != .zero && newSize != size {
+                    size = newSize
+                }
+            }
+            .opacity(0.001)
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
+    }
+}
+
+private struct StepperSizeKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = nextValue()
     }
 }
