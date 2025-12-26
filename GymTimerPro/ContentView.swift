@@ -154,9 +154,15 @@ struct ContentView: View {
         accessibilityValue: String
     ) -> some View {
         HStack(spacing: 12) {
-            ConfigRow(icon: icon, title: title, value: "\(value.wrappedValue)")
+            ConfigRow(icon: icon, title: title) {
+                ConfigValueEditorButton(
+                    title: title,
+                    value: value,
+                    range: range,
+                    step: step
+                )
+            }
                 .layoutPriority(1)
-                .accessibilityHidden(true)
             HorizontalWheelStepper(
                 value: value,
                 range: range,
@@ -535,10 +541,16 @@ private enum Theme {
     static let wheelThumbStroke = Color.white.opacity(0.75)
 }
 
-private struct ConfigRow: View {
+private struct ConfigRow<ValueContent: View>: View {
     let icon: String
     let title: String
-    let value: String
+    let valueContent: ValueContent
+
+    init(icon: String, title: String, @ViewBuilder valueContent: () -> ValueContent) {
+        self.icon = icon
+        self.title = title
+        self.valueContent = valueContent()
+    }
 
     var body: some View {
         HStack(spacing: 12) {
@@ -547,15 +559,133 @@ private struct ConfigRow: View {
                 .foregroundStyle(Theme.iconTint)
                 .frame(width: 28, height: 28)
                 .background(Theme.iconBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .accessibilityHidden(true)
             Text(title)
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(Theme.textPrimary)
+                .accessibilityHidden(true)
             Spacer(minLength: 0)
-            Text(value)
+            valueContent
+        }
+    }
+}
+
+private struct ConfigValueEditorButton: View {
+    let title: String
+    @Binding var value: Int
+    let range: ClosedRange<Int>
+    let step: Int
+
+    @State private var isPresenting = false
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    var body: some View {
+        let button = Button {
+            isPresenting = true
+        } label: {
+            Text("\(value)")
                 .font(.system(size: 18, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.textPrimary)
                 .monospacedDigit()
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Editar \(title)")
+        .accessibilityValue("\(value)")
+
+        Group {
+            if horizontalSizeClass == .regular {
+                button.popover(isPresented: $isPresenting, arrowEdge: .bottom) {
+                    DiscreteValueEditor(
+                        title: title,
+                        value: $value,
+                        range: range,
+                        step: step
+                    )
+                    .frame(minWidth: 260, minHeight: 320)
+                }
+            } else {
+                button.sheet(isPresented: $isPresenting) {
+                    DiscreteValueEditor(
+                        title: title,
+                        value: $value,
+                        range: range,
+                        step: step
+                    )
+                    .presentationDetents([.medium, .large])
+                }
+            }
+        }
+    }
+}
+
+private struct DiscreteValueEditor: View {
+    let title: String
+    @Binding var value: Int
+    let range: ClosedRange<Int>
+    let step: Int
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var selection: Int
+
+    init(title: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int) {
+        self.title = title
+        _value = value
+        self.range = range
+        self.step = step
+        let initial = DiscreteValueHelper.clampAndRound(value.wrappedValue, range: range, step: step)
+        _selection = State(initialValue: initial)
+    }
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 0) {
+                Picker(title, selection: $selection) {
+                    ForEach(DiscreteValueHelper.values(range: range, step: step), id: \.self) { option in
+                        Text("\(option)")
+                            .tag(option)
+                    }
+                }
+                .pickerStyle(.wheel)
+                .labelsHidden()
+            }
+            .navigationTitle(title)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancelar") {
+                        dismiss()
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Aceptar") {
+                        value = DiscreteValueHelper.clampAndRound(selection, range: range, step: step)
+                        dismiss()
+                    }
+                }
+            }
+        }
+        .onAppear {
+            selection = DiscreteValueHelper.clampAndRound(value, range: range, step: step)
+        }
+    }
+}
+
+private enum DiscreteValueHelper {
+    static func clampAndRound(_ candidate: Int, range: ClosedRange<Int>, step: Int) -> Int {
+        let minValue = range.lowerBound
+        let maxValue = range.upperBound
+        let clamped = min(max(candidate, minValue), maxValue)
+        guard step > 0 else { return clamped }
+        let maxStepIndex = max(0, (maxValue - minValue) / step)
+        let offset = clamped - minValue
+        let roundedIndex = Int((Double(offset) / Double(step)).rounded())
+        let clampedIndex = min(max(roundedIndex, 0), maxStepIndex)
+        return minValue + clampedIndex * step
+    }
+
+    static func values(range: ClosedRange<Int>, step: Int) -> [Int] {
+        guard step > 0 else { return [range.lowerBound] }
+        let maxStepIndex = max(0, (range.upperBound - range.lowerBound) / step)
+        return (0...maxStepIndex).map { range.lowerBound + $0 * step }
     }
 }
 
