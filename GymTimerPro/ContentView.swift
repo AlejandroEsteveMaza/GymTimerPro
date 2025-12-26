@@ -490,6 +490,12 @@ private enum Layout {
     static let wheelTickWidth: CGFloat = 2
     static let wheelTickHeightSmall: CGFloat = 8
     static let wheelTickHeightLarge: CGFloat = 14
+    static let wheelTrackHeight: CGFloat = 12
+    static let wheelTrackInset: CGFloat = 8
+    static let wheelTrackVerticalInset: CGFloat = 6
+    static let wheelTrackStrokeWidth: CGFloat = 1
+    static let wheelThumbSize = CGSize(width: 16, height: 16)
+    static let wheelThumbStrokeWidth: CGFloat = 1
     static let wheelStepDivisor: CGFloat = 6
     static let wheelStepMinWidth: CGFloat = 10
     static let wheelHitTarget: CGFloat = 44
@@ -522,6 +528,11 @@ private enum Theme {
     static let wheelStroke = Color(uiColor: .systemGray4)
     static let wheelTick = Color(uiColor: .systemGray2)
     static let wheelIndicator = Color(uiColor: .systemBlue)
+    static let wheelTrack = Color(uiColor: .secondarySystemFill)
+    static let wheelTrackStroke = Color(uiColor: .systemGray4)
+    static let wheelFill = wheelIndicator.opacity(0.2)
+    static let wheelThumb = wheelIndicator
+    static let wheelThumbStroke = Color.white.opacity(0.75)
 }
 
 private struct ConfigRow: View {
@@ -555,6 +566,14 @@ private struct HorizontalWheelStepper: View {
     let controlSize: CGSize
     let accessibilityLabel: String
     let accessibilityValue: String
+    let trackColor: Color = Theme.wheelTrack
+    let trackStroke: Color = Theme.wheelTrackStroke
+    let fillColor: Color = Theme.wheelFill
+    let thumbColor: Color = Theme.wheelThumb
+    let thumbStroke: Color = Theme.wheelThumbStroke
+    let trackHeight: CGFloat = Layout.wheelTrackHeight
+    let trackInset: CGFloat = Layout.wheelTrackInset
+    let thumbSize: CGSize = Layout.wheelThumbSize
 
     @Environment(\.isEnabled) private var isEnabled
     @State private var dragStartValue: Int? = nil
@@ -564,12 +583,26 @@ private struct HorizontalWheelStepper: View {
         controlSize == .zero ? Layout.defaultStepperControlSize : controlSize
     }
 
+    private var normalizedProgress: CGFloat {
+        let span = CGFloat(range.upperBound - range.lowerBound)
+        guard span > 0 else { return 0 }
+        let progress = CGFloat(value - range.lowerBound) / span
+        return min(max(progress, 0), 1)
+    }
+
     var body: some View {
         let size = resolvedSize
         let stepWidth = max(Layout.wheelStepMinWidth, size.width / Layout.wheelStepDivisor)
         let tickPitch = Layout.wheelTickSpacing + Layout.wheelTickWidth
         let hitPaddingX = max(0, (Layout.wheelHitTarget - size.width) / 2)
         let hitPaddingY = max(0, (Layout.wheelHitTarget - size.height) / 2)
+        let progress = normalizedProgress
+        let safeTrackInset = max(trackInset, thumbSize.width / 2)
+        let trackWidth = max(0, size.width - safeTrackInset * 2)
+        let maxTrackHeight = max(0, size.height - Layout.wheelTrackVerticalInset * 2)
+        let resolvedTrackHeight = max(0, min(trackHeight, maxTrackHeight))
+        let fillWidth = trackWidth * progress
+        let thumbOffsetX = trackWidth == 0 ? 0 : (-trackWidth / 2 + trackWidth * progress)
 
         ZStack {
             RoundedRectangle(cornerRadius: Layout.wheelCornerRadius, style: .continuous)
@@ -577,31 +610,47 @@ private struct HorizontalWheelStepper: View {
             RoundedRectangle(cornerRadius: Layout.wheelCornerRadius, style: .continuous)
                 .stroke(Theme.wheelStroke, lineWidth: 1)
 
-            Canvas { context, canvasSize in
-                let inset = Layout.wheelClipInset
-                let clipRect = CGRect(origin: .zero, size: canvasSize).insetBy(dx: inset, dy: inset)
-                let radius = max(0, Layout.wheelCornerRadius - inset)
-                let clipPath = Path(roundedRect: clipRect, cornerRadius: radius)
-                context.clip(to: clipPath)
+            Capsule()
+                .fill(trackColor)
+                .frame(width: trackWidth, height: resolvedTrackHeight)
+                .overlay(
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .fill(fillColor)
+                            .frame(width: fillWidth, height: resolvedTrackHeight)
+                        Canvas { context, canvasSize in
+                            let tickHeight = min(Layout.wheelTickHeightSmall, max(0, canvasSize.height - 4))
+                            guard tickHeight > 0 else { return }
+                            let phase = dragTranslation.truncatingRemainder(dividingBy: tickPitch)
+                            let startX = -tickPitch * 2 + phase
+                            let endX = canvasSize.width + tickPitch * 2
+                            let y = (canvasSize.height - tickHeight) / 2
 
-                let phase = dragTranslation.truncatingRemainder(dividingBy: tickPitch)
-                let startX = -tickPitch * 2 + phase
-                let endX = canvasSize.width + tickPitch * 2
-                let tickHeight = Layout.wheelTickHeightSmall
-                let y = (canvasSize.height - tickHeight) / 2
-
-                var x = startX
-                while x <= endX {
-                    let rect = CGRect(x: x, y: y, width: Layout.wheelTickWidth, height: tickHeight)
-                    let path = Path(roundedRect: rect, cornerRadius: Layout.wheelTickWidth / 2)
-                    context.fill(path, with: .color(Theme.wheelTick))
-                    x += tickPitch
-                }
-            }
+                            var x = startX
+                            while x <= endX {
+                                let rect = CGRect(x: x, y: y, width: Layout.wheelTickWidth, height: tickHeight)
+                                let path = Path(roundedRect: rect, cornerRadius: Layout.wheelTickWidth / 2)
+                                context.fill(path, with: .color(Theme.wheelTick))
+                                x += tickPitch
+                            }
+                        }
+                    }
+                    .frame(width: trackWidth, height: resolvedTrackHeight)
+                    .clipShape(Capsule())
+                )
+                .overlay(
+                    Capsule()
+                        .stroke(trackStroke, lineWidth: Layout.wheelTrackStrokeWidth)
+                )
 
             Capsule()
-                .frame(width: Layout.wheelTickWidth, height: Layout.wheelTickHeightLarge + 6)
-                .foregroundStyle(Theme.wheelIndicator)
+                .fill(thumbColor)
+                .frame(width: thumbSize.width, height: thumbSize.height)
+                .overlay(
+                    Capsule()
+                        .stroke(thumbStroke, lineWidth: Layout.wheelThumbStrokeWidth)
+                )
+                .offset(x: thumbOffsetX)
         }
         .frame(width: size.width, height: size.height)
         .contentShape(HitTargetShape(xPadding: hitPaddingX, yPadding: hitPaddingY))
