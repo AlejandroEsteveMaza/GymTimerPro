@@ -129,10 +129,7 @@ struct ContentView: View {
             .buttonStyle(PrimaryButtonStyle(height: Layout.primaryButtonHeight))
             .disabled(isResting || completado)
 
-            Button(action: resetWorkout) {
-                Label("REINICIAR", systemImage: "arrow.counterclockwise")
-            }
-            .buttonStyle(SecondaryButtonStyle(height: Layout.secondaryButtonHeight))
+            HoldToResetButton(action: resetWorkout, height: Layout.secondaryButtonHeight)
         }
         .padding(.horizontal, Layout.horizontalPadding)
         .padding(.top, Layout.controlsVerticalPadding)
@@ -526,6 +523,7 @@ private enum Theme {
     static let primaryButtonText = Color.white
     static let secondaryButtonFill = Color(uiColor: .secondarySystemBackground)
     static let secondaryButtonBorder = Color(uiColor: .systemGray3)
+    static let resetProgressFill = primaryButton.opacity(0.2)
     static let metricBackground = Color(uiColor: .tertiarySystemBackground)
     static let timerBackground = resting.opacity(0.12)
     static let cardBorder = Color(uiColor: .separator).opacity(0.3)
@@ -896,6 +894,85 @@ private struct SectionCard<Content: View>: View {
                 .stroke(Theme.cardBorder, lineWidth: 1)
         )
         .shadow(color: Theme.cardShadow, radius: 12, x: 0, y: 6)
+    }
+}
+
+private struct HoldToResetButton: View {
+    let action: () -> Void
+    let height: CGFloat
+
+    @Environment(\.isEnabled) private var isEnabled
+    @State private var progress: CGFloat = 0
+    @State private var didTriggerAction = false
+    @State private var isPressing = false
+
+    private enum HoldConfig {
+        static let duration: TimeInterval = 1.0
+        static let maxDistance: CGFloat = 16
+        static let releaseDuration: TimeInterval = 0.25
+        static let dischargeDuration: TimeInterval = 0.45
+    }
+
+    var body: some View {
+        let shape = RoundedRectangle(cornerRadius: Layout.buttonCornerRadius, style: .continuous)
+
+        ZStack {
+            shape.fill(Theme.secondaryButtonFill)
+
+            GeometryReader { proxy in
+                Rectangle()
+                    .fill(Theme.resetProgressFill)
+                    .frame(width: proxy.size.width * progress, height: proxy.size.height)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            }
+            .clipShape(shape)
+            .allowsHitTesting(false)
+
+            shape.stroke(Theme.secondaryButtonBorder, lineWidth: 1)
+
+            Label("REINICIAR", systemImage: "arrow.counterclockwise")
+                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                .foregroundStyle(Theme.textPrimary)
+        }
+        .frame(maxWidth: .infinity, minHeight: height, maxHeight: height)
+        .contentShape(shape)
+        .opacity(isEnabled ? 1 : 0.6)
+        .scaleEffect(isPressing ? 0.98 : 1)
+        .animation(.snappy, value: isPressing)
+        .allowsHitTesting(isEnabled)
+        .onLongPressGesture(
+            minimumDuration: HoldConfig.duration,
+            maximumDistance: HoldConfig.maxDistance,
+            pressing: { pressing in
+                guard isEnabled else { return }
+                isPressing = pressing
+
+                if pressing {
+                    didTriggerAction = false
+                    progress = 0
+                    withAnimation(.linear(duration: HoldConfig.duration)) {
+                        progress = 1
+                    }
+                } else if !didTriggerAction {
+                    withAnimation(.easeOut(duration: HoldConfig.releaseDuration)) {
+                        progress = 0
+                    }
+                }
+            },
+            perform: {
+                guard isEnabled else { return }
+                didTriggerAction = true
+                action()
+                progress = 1
+                withAnimation(.linear(duration: HoldConfig.dischargeDuration)) {
+                    progress = 0
+                }
+            }
+        )
+        .accessibilityElement()
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel("Reiniciar")
+        .accessibilityHint("Mantén pulsado 1,0 segundo para reiniciar")
     }
 }
 
