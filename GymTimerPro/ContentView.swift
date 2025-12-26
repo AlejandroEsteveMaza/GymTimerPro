@@ -905,6 +905,7 @@ private struct HoldToResetButton: View {
     @State private var progress: CGFloat = 0
     @State private var didTriggerAction = false
     @State private var isPressing = false
+    @State private var holdTask: Task<Void, Never>? = nil
 
     private enum HoldConfig {
         static let duration: TimeInterval = 1.0
@@ -940,6 +941,10 @@ private struct HoldToResetButton: View {
         .scaleEffect(isPressing ? 0.98 : 1)
         .animation(.snappy, value: isPressing)
         .allowsHitTesting(isEnabled)
+        .onDisappear {
+            holdTask?.cancel()
+            holdTask = nil
+        }
         .onLongPressGesture(
             minimumDuration: HoldConfig.duration,
             maximumDistance: HoldConfig.maxDistance,
@@ -950,29 +955,52 @@ private struct HoldToResetButton: View {
                 if pressing {
                     didTriggerAction = false
                     progress = 0
+                    holdTask?.cancel()
                     withAnimation(.linear(duration: HoldConfig.duration)) {
                         progress = 1
                     }
-                } else if !didTriggerAction {
-                    withAnimation(.easeOut(duration: HoldConfig.releaseDuration)) {
-                        progress = 0
+
+                    // Manual timer guarantees the reset even if the system long-press callback skips the perform block.
+                    holdTask = Task {
+                        let delay = UInt64(HoldConfig.duration * 1_000_000_000)
+                        try? await Task.sleep(nanoseconds: delay)
+                        guard !Task.isCancelled else { return }
+                        await MainActor.run {
+                            guard isPressing, !didTriggerAction, isEnabled else { return }
+                            triggerReset()
+                        }
+                    }
+                } else {
+                    holdTask?.cancel()
+                    holdTask = nil
+                    if !didTriggerAction {
+                        withAnimation(.easeOut(duration: HoldConfig.releaseDuration)) {
+                            progress = 0
+                        }
                     }
                 }
             },
             perform: {
                 guard isEnabled else { return }
-                didTriggerAction = true
-                action()
-                progress = 1
-                withAnimation(.linear(duration: HoldConfig.dischargeDuration)) {
-                    progress = 0
-                }
+                triggerReset()
             }
         )
         .accessibilityElement()
         .accessibilityAddTraits(.isButton)
         .accessibilityLabel("Reiniciar")
         .accessibilityHint("Mantén pulsado 1,0 segundo para reiniciar")
+    }
+
+    private func triggerReset() {
+        guard !didTriggerAction else { return }
+        didTriggerAction = true
+        holdTask?.cancel()
+        holdTask = nil
+        action()
+        progress = 1
+        withAnimation(.linear(duration: HoldConfig.dischargeDuration)) {
+            progress = 0
+        }
     }
 }
 
