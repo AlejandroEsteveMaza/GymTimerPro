@@ -42,7 +42,12 @@ struct ContentView: View {
         .onAppear {
             UIApplication.shared.isIdleTimerDisabled = true
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
-            restoreLiveActivityIfNeeded()
+            restTimer.tick(now: .now)
+            if restTimer.didFinish {
+                handleRestFinished()
+            } else {
+                restoreLiveActivityIfNeeded()
+            }
         }
         .onDisappear {
             UIApplication.shared.isIdleTimerDisabled = false
@@ -319,6 +324,13 @@ struct ContentView: View {
 
     private func restoreLiveActivityIfNeeded() {
         guard restTimer.isRunning, let endDate = restTimer.endDate else { return }
+        if endDate <= .now {
+            restTimer.tick(now: .now)
+            if restTimer.didFinish {
+                handleRestFinished()
+            }
+            return
+        }
         updateLiveActivity(endDate: endDate, mode: .resting)
     }
 

@@ -51,6 +51,9 @@ final class LiveActivityManager: ObservableObject {
     }
 
     func end(dismissalPolicy: ActivityUIDismissalPolicy = .immediate) {
+        if activity == nil {
+            activity = Activity<GymTimerAttributes>.activities.first
+        }
         guard let activity else { return }
         Task {
             await activity.end(dismissalPolicy: dismissalPolicy)
