@@ -67,8 +67,8 @@ struct GymTimerLiveActivityWidget: Widget {
                 LiveActivityCountdownText(endDate: context.state.endDate)
                     .font(.caption2.weight(.semibold))
             } minimal: {
-                Image(systemName: modeSymbolName(for: context.state.mode))
-                    .foregroundStyle(accent)
+                LiveActivityCountdownText(endDate: context.state.endDate)
+                    .font(.caption2.weight(.semibold))
             }
         }
     }
