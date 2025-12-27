@@ -92,12 +92,7 @@ struct GymTimerLiveActivityWidget: Widget {
     }
 
     private func modeSymbolName(for mode: GymTimerAttributes.Mode) -> String {
-        switch mode {
-        case .resting:
-            return "pause.fill"
-        case .training:
-            return "flame.fill"
-        }
+        "timer"
     }
 
     private func setProgress(currentSet: Int, totalSets: Int) -> Double {
@@ -169,12 +164,7 @@ private struct LiveActivityLockScreenView: View {
     }
 
     private func modeSymbolName(for mode: GymTimerAttributes.Mode) -> String {
-        switch mode {
-        case .resting:
-            return "pause.fill"
-        case .training:
-            return "flame.fill"
-        }
+        "timer"
     }
 
     private func setProgress(currentSet: Int, totalSets: Int) -> Double {
