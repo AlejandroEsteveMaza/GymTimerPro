@@ -8,6 +8,13 @@ final class LiveActivityManager: ObservableObject {
     private var activity: Activity<GymTimerAttributes>?
     private let notificationCenter = UNUserNotificationCenter.current()
 
+    func requestNotificationAuthorizationIfNeeded() {
+        notificationCenter.getNotificationSettings { [notificationCenter] settings in
+            guard settings.authorizationStatus == .notDetermined else { return }
+            notificationCenter.requestAuthorization(options: [.alert, .sound]) { _, _ in }
+        }
+    }
+
     func startOrUpdate(currentSet: Int, totalSets: Int, endDate: Date, mode: GymTimerAttributes.Mode) {
         let state = GymTimerAttributes.ContentState(
             currentSet: currentSet,
@@ -28,7 +35,7 @@ final class LiveActivityManager: ObservableObject {
         }
 
         guard ActivityAuthorizationInfo().areActivitiesEnabled else {
-            scheduleFallbackNotification(endDate: endDate, currentSet: currentSet, totalSets: totalSets)
+            scheduleEndNotification(endDate: endDate, currentSet: currentSet, totalSets: totalSets)
             return
         }
 
@@ -39,7 +46,7 @@ final class LiveActivityManager: ObservableObject {
                 content: ActivityContent(state: state, staleDate: endDate)
             )
         } catch {
-            scheduleFallbackNotification(endDate: endDate, currentSet: currentSet, totalSets: totalSets)
+            scheduleEndNotification(endDate: endDate, currentSet: currentSet, totalSets: totalSets)
         }
     }
 
@@ -51,7 +58,7 @@ final class LiveActivityManager: ObservableObject {
         self.activity = nil
     }
 
-    private func scheduleFallbackNotification(endDate: Date, currentSet: Int, totalSets: Int) {
+    func scheduleEndNotification(endDate: Date, currentSet: Int, totalSets: Int) {
         notificationCenter.getNotificationSettings { [notificationCenter] settings in
             guard settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional else {
                 return
@@ -69,5 +76,9 @@ final class LiveActivityManager: ObservableObject {
             notificationCenter.removePendingNotificationRequests(withIdentifiers: ["restTimer.end"])
             notificationCenter.add(request)
         }
+    }
+
+    func cancelEndNotification() {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: ["restTimer.end"])
     }
 }

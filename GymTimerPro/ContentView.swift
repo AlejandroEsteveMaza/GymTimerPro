@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import UIKit
+import AudioToolbox
 
 struct ContentView: View {
     @State private var totalSeries: Int = 4
@@ -17,6 +18,7 @@ struct ContentView: View {
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
     @StateObject private var restTimer = RestTimerModel()
     @StateObject private var liveActivityManager = LiveActivityManager()
+    private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
 
@@ -39,6 +41,7 @@ struct ContentView: View {
         }
         .onAppear {
             UIApplication.shared.isIdleTimerDisabled = true
+            liveActivityManager.requestNotificationAuthorizationIfNeeded()
             restoreLiveActivityIfNeeded()
         }
         .onDisappear {
@@ -282,12 +285,15 @@ struct ContentView: View {
     private func handleRestFinished() {
         restTimer.acknowledgeFinish()
         liveActivityManager.end()
+        liveActivityManager.cancelEndNotification()
         UINotificationFeedbackGenerator().notificationOccurred(.success)
+        AudioServicesPlaySystemSound(restFinishedSoundID)
     }
 
     private func completeWorkout() {
         restTimer.reset()
         liveActivityManager.end()
+        liveActivityManager.cancelEndNotification()
 
         withAnimation(.snappy) {
             completado = true
@@ -303,6 +309,7 @@ struct ContentView: View {
     private func resetWorkout() {
         restTimer.reset()
         liveActivityManager.end()
+        liveActivityManager.cancelEndNotification()
 
         withAnimation(.snappy) {
             serieActual = 1
@@ -322,6 +329,13 @@ struct ContentView: View {
             endDate: endDate,
             mode: mode
         )
+        if mode == .resting {
+            liveActivityManager.scheduleEndNotification(
+                endDate: endDate,
+                currentSet: serieActual,
+                totalSets: totalSeries
+            )
+        }
     }
 }
 
