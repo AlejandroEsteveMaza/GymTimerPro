@@ -40,7 +40,7 @@ struct GymTimerLiveActivityWidget: Widget {
                                 .accessibilityLabel("Serie")
                                 .accessibilityValue("\(context.state.currentSet) de \(context.state.totalSets)")
                             Spacer(minLength: 0)
-                            Text("GymTimer")
+                            Text(appDisplayName())
                                 .font(.caption2.weight(.semibold))
                                 .foregroundStyle(.secondary)
                                 .lineLimit(1)
@@ -133,7 +133,7 @@ private struct LiveActivityLockScreenView: View {
             Spacer(minLength: 0)
 
             VStack(alignment: .trailing, spacing: 4) {
-                Text("Restante")
+                Text(appDisplayName())
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
 
@@ -143,6 +143,7 @@ private struct LiveActivityLockScreenView: View {
             }
         }
         .padding(.vertical, 12)
+        .padding(.horizontal, 16)
     }
 
     private func modeLabel(for mode: GymTimerAttributes.Mode) -> String {
@@ -171,6 +172,12 @@ private struct LiveActivityLockScreenView: View {
         guard totalSets > 0 else { return 0 }
         return min(max(Double(currentSet) / Double(totalSets), 0), 1)
     }
+}
+
+private func appDisplayName() -> String {
+    let displayName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+    let bundleName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
+    return displayName ?? bundleName ?? "GymTimerPro"
 }
 
 private struct LiveActivityCountdownText: View {
