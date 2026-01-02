@@ -1,0 +1,41 @@
+"section.configuration.title" = "Configuration";
+"section.progress.title" = "Progress";
+
+"config.total_sets.title" = "Total sets";
+"config.rest_seconds.title" = "Rest (seconds)";
+
+"button.start_rest.title" = "START REST";
+"button.reset.title" = "RESET";
+
+"metric.set.title" = "SET";
+
+"label.state" = "State";
+"label.rest_time" = "Rest time";
+
+"status.resting" = "RESTING";
+"status.training" = "TRAINING";
+
+"workout.completed" = "WORKOUT COMPLETED!";
+
+"common.cancel" = "Cancel";
+"common.ok" = "OK";
+
+"accessibility.edit_value_label_format" = "Edit %@";
+"accessibility.total_sets_value_format" = "%ld sets";
+"accessibility.rest_seconds_value_format" = "%ld seconds";
+"accessibility.reset_label" = "Reset";
+"accessibility.reset_hint" = "Hold for 1 second to reset";
+
+"notification.rest_finished.title" = "Rest finished";
+"notification.rest_finished.body_format" = "Set %ld/%ld";
+
+"live_activity.mode.resting" = "Rest";
+"live_activity.mode.training" = "Training";
+"live_activity.set_progress_format" = "Set %ld/%ld";
+"live_activity.set_progress_expanded_format" = "Set %ld of %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "Set";
+"accessibility.set_value_format" = "%ld of %ld";
+"accessibility.set_progress_label" = "Set progress";
+"accessibility.time_remaining" = "Time remaining";

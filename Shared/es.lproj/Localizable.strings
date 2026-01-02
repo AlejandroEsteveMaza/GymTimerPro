@@ -1,0 +1,41 @@
+"section.configuration.title" = "Configuración";
+"section.progress.title" = "Progreso";
+
+"config.total_sets.title" = "Series totales";
+"config.rest_seconds.title" = "Descanso (segundos)";
+
+"button.start_rest.title" = "EMPEZAR DESCANSO";
+"button.reset.title" = "REINICIAR";
+
+"metric.set.title" = "SERIE";
+
+"label.state" = "Estado";
+"label.rest_time" = "Tiempo de descanso";
+
+"status.resting" = "DESCANSANDO";
+"status.training" = "ENTRENANDO";
+
+"workout.completed" = "¡ENTRENAMIENTO COMPLETADO!";
+
+"common.cancel" = "Cancelar";
+"common.ok" = "Aceptar";
+
+"accessibility.edit_value_label_format" = "Editar %@";
+"accessibility.total_sets_value_format" = "%ld series";
+"accessibility.rest_seconds_value_format" = "%ld segundos";
+"accessibility.reset_label" = "Reiniciar";
+"accessibility.reset_hint" = "Mantén pulsado 1 segundo para reiniciar";
+
+"notification.rest_finished.title" = "Descanso terminado";
+"notification.rest_finished.body_format" = "Serie %ld/%ld";
+
+"live_activity.mode.resting" = "Descanso";
+"live_activity.mode.training" = "Entrenando";
+"live_activity.set_progress_format" = "Serie %ld/%ld";
+"live_activity.set_progress_expanded_format" = "Serie %ld de %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "Serie";
+"accessibility.set_value_format" = "%ld de %ld";
+"accessibility.set_progress_label" = "Progreso de series";
+"accessibility.time_remaining" = "Tiempo restante";

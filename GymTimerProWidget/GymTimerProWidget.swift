@@ -35,10 +35,10 @@ struct GymTimerLiveActivityWidget: Widget {
                 DynamicIslandExpandedRegion(.bottom) {
                     VStack(alignment: .leading, spacing: 6) {
                         HStack {
-                            Text("Serie \(context.state.currentSet)/\(context.state.totalSets)")
+                            Text(L10n.format("live_activity.set_progress_expanded_format", context.state.currentSet, context.state.totalSets))
                                 .font(.caption.weight(.semibold))
-                                .accessibilityLabel("Serie")
-                                .accessibilityValue("\(context.state.currentSet) de \(context.state.totalSets)")
+                                .accessibilityLabel(Text("accessibility.set_label"))
+                                .accessibilityValue(L10n.format("accessibility.set_value_format", context.state.currentSet, context.state.totalSets))
                             Spacer(minLength: 0)
                             Text(appDisplayName())
                                 .font(.caption2.weight(.semibold))
@@ -49,8 +49,8 @@ struct GymTimerLiveActivityWidget: Widget {
 
                         ProgressView(value: setProgress(currentSet: context.state.currentSet, totalSets: context.state.totalSets))
                             .tint(accent)
-                            .accessibilityLabel("Progreso de series")
-                            .accessibilityValue("\(context.state.currentSet) de \(context.state.totalSets)")
+                            .accessibilityLabel(Text("accessibility.set_progress_label"))
+                            .accessibilityValue(L10n.format("accessibility.set_value_format", context.state.currentSet, context.state.totalSets))
                     }
                     .padding(.horizontal)
                 }
@@ -59,7 +59,7 @@ struct GymTimerLiveActivityWidget: Widget {
                     Image(systemName: modeSymbolName(for: context.state.mode))
                         .font(.caption2.weight(.semibold))
                         .foregroundStyle(accent)
-                    Text("\(context.state.currentSet)/\(context.state.totalSets)")
+                    Text(L10n.format("live_activity.set_progress_compact_format", context.state.currentSet, context.state.totalSets))
                         .font(.caption2.weight(.semibold))
                         .lineLimit(1)
                 }
@@ -73,12 +73,12 @@ struct GymTimerLiveActivityWidget: Widget {
         }
     }
 
-    private func modeLabel(for mode: GymTimerAttributes.Mode) -> String {
+    private func modeLabel(for mode: GymTimerAttributes.Mode) -> LocalizedStringKey {
         switch mode {
         case .resting:
-            return "Descanso"
+            return "live_activity.mode.resting"
         case .training:
-            return "Entrenando"
+            return "live_activity.mode.training"
         }
     }
 
@@ -118,16 +118,16 @@ private struct LiveActivityLockScreenView: View {
                         .font(.headline.weight(.semibold))
                 }
 
-                Text("Serie \(state.currentSet)/\(state.totalSets)")
+                Text(L10n.format("live_activity.set_progress_expanded_format", state.currentSet, state.totalSets))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.secondary)
-                    .accessibilityLabel("Serie")
-                    .accessibilityValue("\(state.currentSet) de \(state.totalSets)")
+                    .accessibilityLabel(Text("accessibility.set_label"))
+                    .accessibilityValue(L10n.format("accessibility.set_value_format", state.currentSet, state.totalSets))
 
                 ProgressView(value: setProgress(currentSet: state.currentSet, totalSets: state.totalSets))
                     .tint(accent)
-                    .accessibilityLabel("Progreso de series")
-                    .accessibilityValue("\(state.currentSet) de \(state.totalSets)")
+                    .accessibilityLabel(Text("accessibility.set_progress_label"))
+                    .accessibilityValue(L10n.format("accessibility.set_value_format", state.currentSet, state.totalSets))
             }
 
             Spacer(minLength: 0)
@@ -137,21 +137,21 @@ private struct LiveActivityLockScreenView: View {
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
 
-                LiveActivityCountdownText(endDate: state.endDate)
-                    .font(.system(size: 34, weight: .bold, design: .rounded))
-                    .foregroundStyle(.primary)
-            }
+            LiveActivityCountdownText(endDate: state.endDate)
+                .font(.system(size: 34, weight: .bold, design: .rounded))
+                .foregroundStyle(.primary)
+        }
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
     }
 
-    private func modeLabel(for mode: GymTimerAttributes.Mode) -> String {
+    private func modeLabel(for mode: GymTimerAttributes.Mode) -> LocalizedStringKey {
         switch mode {
         case .resting:
-            return "Descanso"
+            return "live_activity.mode.resting"
         case .training:
-            return "Entrenando"
+            return "live_activity.mode.training"
         }
     }
 
@@ -188,6 +188,6 @@ private struct LiveActivityCountdownText: View {
         let end = max(endDate, now)
         Text(timerInterval: now...end, countsDown: true)
             .monospacedDigit()
-            .accessibilityLabel("Tiempo restante")
+            .accessibilityLabel(Text("accessibility.time_remaining"))
     }
 }

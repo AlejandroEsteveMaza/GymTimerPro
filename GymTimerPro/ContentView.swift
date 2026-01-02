@@ -84,24 +84,24 @@ struct ContentView: View {
     }
 
     private var configurationSection: some View {
-        SectionCard(title: "Configuración", systemImage: "slider.horizontal.3") {
+        SectionCard(titleKey: "section.configuration.title", systemImage: "slider.horizontal.3") {
             VStack(spacing: Layout.rowSpacing) {
                 configWheelRow(
-                    title: "Series totales",
+                    titleKey: "config.total_sets.title",
                     icon: "square.stack.3d.up",
                     value: $totalSeries,
                     range: 1...10,
-                    accessibilityValue: "\(totalSeries) series"
+                    accessibilityValue: L10n.format("accessibility.total_sets_value_format", totalSeries)
                 )
                 Divider()
                     .foregroundStyle(Theme.divider)
                 configWheelRow(
-                    title: "Descanso (segundos)",
+                    titleKey: "config.rest_seconds.title",
                     icon: "timer",
                     value: $tiempoDescanso,
                     range: 15...300,
                     step: 15,
-                    accessibilityValue: "\(tiempoDescanso) segundos"
+                    accessibilityValue: L10n.format("accessibility.rest_seconds_value_format", tiempoDescanso)
                 )
             }
         }
@@ -114,7 +114,7 @@ struct ContentView: View {
     }
 
     private var progressSection: some View {
-        SectionCard(title: "Progreso", systemImage: "chart.line.uptrend.xyaxis") {
+        SectionCard(titleKey: "section.progress.title", systemImage: "chart.line.uptrend.xyaxis") {
             TimelineView(.periodic(from: .now, by: 1)) { _ in
                 let now = Date.now
                 let tickID = Int(now.timeIntervalSince1970)
@@ -132,7 +132,7 @@ struct ContentView: View {
     private var controlsSection: some View {
         VStack(spacing: Layout.buttonSpacing) {
             Button(action: startRest) {
-                Label("EMPEZAR DESCANSO", systemImage: "pause.circle.fill")
+                Label("button.start_rest.title", systemImage: "pause.circle.fill")
             }
             .buttonStyle(PrimaryButtonStyle(height: Layout.primaryButtonHeight))
             .disabled(isResting || completado)
@@ -151,17 +151,18 @@ struct ContentView: View {
     }
 
     private func configWheelRow(
-        title: String,
+        titleKey: String,
         icon: String,
         value: Binding<Int>,
         range: ClosedRange<Int>,
         step: Int = 1,
         accessibilityValue: String
     ) -> some View {
-        HStack(spacing: 12) {
-            ConfigRow(icon: icon, title: title) {
+        let localizedTitle = L10n.tr(titleKey)
+        return HStack(spacing: 12) {
+            ConfigRow(icon: icon, titleKey: titleKey) {
                 ConfigValueEditorButton(
-                    title: title,
+                    titleKey: titleKey,
                     value: value,
                     range: range,
                     step: step
@@ -173,7 +174,7 @@ struct ContentView: View {
                 range: range,
                 step: step,
                 controlSize: stepperControlSize,
-                accessibilityLabel: title,
+                accessibilityLabel: localizedTitle,
                 accessibilityValue: accessibilityValue
             )
         }
@@ -188,11 +189,11 @@ struct ContentView: View {
         } else {
             VStack(alignment: .leading, spacing: Layout.metricSpacing) {
                 HStack(spacing: Layout.metricSpacing) {
-                    MetricView(title: "SERIE", value: "\(serieActual) / \(totalSeries)")
+                    MetricView(titleKey: "metric.set.title", value: "\(serieActual) / \(totalSeries)")
                 }
 
                 HStack(spacing: 12) {
-                    Text("Estado")
+                    Text("label.state")
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Theme.textSecondary)
                     statusBadge
@@ -208,7 +209,7 @@ struct ContentView: View {
 
     private var statusBadge: some View {
         let status = statusStyle
-        return Label(status.text, systemImage: status.icon)
+        return Label(LocalizedStringKey(status.textKey), systemImage: status.icon)
             .font(.subheadline.weight(.semibold))
             .padding(.horizontal, 12)
             .padding(.vertical, 6)
@@ -217,16 +218,16 @@ struct ContentView: View {
             .symbolRenderingMode(.hierarchical)
     }
 
-    private var statusStyle: (text: String, icon: String, color: Color) {
+    private var statusStyle: (textKey: String, icon: String, color: Color) {
         if isResting {
-            return ("DESCANSANDO", "hourglass", Theme.resting)
+            return ("status.resting", "hourglass", Theme.resting)
         }
-        return ("ENTRENANDO", "figure.walk", Theme.training)
+        return ("status.training", "figure.walk", Theme.training)
     }
 
     private func restTimerView(remainingSeconds: Int) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("Tiempo de descanso", systemImage: "timer")
+            Label("label.rest_time", systemImage: "timer")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(Theme.textSecondary)
                 .textCase(.uppercase)
@@ -251,7 +252,7 @@ struct ContentView: View {
                 .font(.system(size: 30, weight: .semibold))
                 .foregroundStyle(Theme.completed)
                 .symbolRenderingMode(.hierarchical)
-            Text("¡ENTRENAMIENTO COMPLETADO!")
+            Text("workout.completed")
                 .font(.system(size: 22, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.textPrimary)
                 .multilineTextAlignment(.leading)
@@ -567,12 +568,12 @@ private enum Theme {
 
 private struct ConfigRow<ValueContent: View>: View {
     let icon: String
-    let title: String
+    let titleKey: String
     let valueContent: ValueContent
 
-    init(icon: String, title: String, @ViewBuilder valueContent: () -> ValueContent) {
+    init(icon: String, titleKey: String, @ViewBuilder valueContent: () -> ValueContent) {
         self.icon = icon
-        self.title = title
+        self.titleKey = titleKey
         self.valueContent = valueContent()
     }
 
@@ -584,7 +585,7 @@ private struct ConfigRow<ValueContent: View>: View {
                 .frame(width: 28, height: 28)
                 .background(Theme.iconBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                 .accessibilityHidden(true)
-            Text(title)
+            Text(LocalizedStringKey(titleKey))
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(Theme.textPrimary)
                 .accessibilityHidden(true)
@@ -595,7 +596,7 @@ private struct ConfigRow<ValueContent: View>: View {
 }
 
 private struct ConfigValueEditorButton: View {
-    let title: String
+    let titleKey: String
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
@@ -613,14 +614,14 @@ private struct ConfigValueEditorButton: View {
                 .monospacedDigit()
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("Editar \(title)")
+        .accessibilityLabel(L10n.format("accessibility.edit_value_label_format", L10n.tr(titleKey)))
         .accessibilityValue("\(value)")
 
         Group {
             if horizontalSizeClass == .regular {
                 button.popover(isPresented: $isPresenting, arrowEdge: .bottom) {
                     DiscreteValueEditor(
-                        title: title,
+                        titleKey: titleKey,
                         value: $value,
                         range: range,
                         step: step
@@ -630,7 +631,7 @@ private struct ConfigValueEditorButton: View {
             } else {
                 button.sheet(isPresented: $isPresenting) {
                     DiscreteValueEditor(
-                        title: title,
+                        titleKey: titleKey,
                         value: $value,
                         range: range,
                         step: step
@@ -643,7 +644,7 @@ private struct ConfigValueEditorButton: View {
 }
 
 private struct DiscreteValueEditor: View {
-    let title: String
+    let titleKey: String
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
@@ -651,8 +652,8 @@ private struct DiscreteValueEditor: View {
     @Environment(\.dismiss) private var dismiss
     @State private var selection: Int
 
-    init(title: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int) {
-        self.title = title
+    init(titleKey: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int) {
+        self.titleKey = titleKey
         _value = value
         self.range = range
         self.step = step
@@ -663,7 +664,7 @@ private struct DiscreteValueEditor: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                Picker(title, selection: $selection) {
+                Picker(LocalizedStringKey(titleKey), selection: $selection) {
                     ForEach(DiscreteValueHelper.values(range: range, step: step), id: \.self) { option in
                         Text("\(option)")
                             .tag(option)
@@ -672,15 +673,15 @@ private struct DiscreteValueEditor: View {
                 .pickerStyle(.wheel)
                 .labelsHidden()
             }
-            .navigationTitle(title)
+            .navigationTitle(LocalizedStringKey(titleKey))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancelar") {
+                    Button("common.cancel") {
                         dismiss()
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Aceptar") {
+                    Button("common.ok") {
                         value = DiscreteValueHelper.clampAndRound(selection, range: range, step: step)
                         dismiss()
                     }
@@ -871,12 +872,12 @@ private struct HitTargetShape: Shape {
 }
 
 private struct MetricView: View {
-    let title: String
+    let titleKey: String
     let value: String
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title)
+            Text(LocalizedStringKey(titleKey))
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(Theme.textSecondary)
             Text(value)
@@ -892,19 +893,19 @@ private struct MetricView: View {
 }
 
 private struct SectionCard<Content: View>: View {
-    let title: String
+    let titleKey: String
     let systemImage: String
     let content: Content
 
-    init(title: String, systemImage: String, @ViewBuilder content: () -> Content) {
-        self.title = title
+    init(titleKey: String, systemImage: String, @ViewBuilder content: () -> Content) {
+        self.titleKey = titleKey
         self.systemImage = systemImage
         self.content = content()
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: Layout.cardSpacing) {
-            Label(title, systemImage: systemImage)
+            Label(LocalizedStringKey(titleKey), systemImage: systemImage)
                 .font(.headline.weight(.semibold))
                 .foregroundStyle(Theme.textPrimary)
                 .symbolRenderingMode(.hierarchical)
@@ -957,7 +958,7 @@ private struct HoldToResetButton: View {
 
             shape.stroke(Theme.secondaryButtonBorder, lineWidth: 1)
 
-            Label("REINICIAR", systemImage: "arrow.counterclockwise")
+            Label("button.reset.title", systemImage: "arrow.counterclockwise")
                 .font(.system(size: 17, weight: .semibold, design: .rounded))
                 .foregroundStyle(Theme.textPrimary)
         }
@@ -1013,8 +1014,8 @@ private struct HoldToResetButton: View {
         )
         .accessibilityElement()
         .accessibilityAddTraits(.isButton)
-        .accessibilityLabel("Reiniciar")
-        .accessibilityHint("Mantén pulsado 1,0 segundo para reiniciar")
+        .accessibilityLabel(Text("accessibility.reset_label"))
+        .accessibilityHint(Text("accessibility.reset_hint"))
     }
 
     private func triggerReset() {

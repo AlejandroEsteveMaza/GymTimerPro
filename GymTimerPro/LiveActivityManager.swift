@@ -68,8 +68,8 @@ final class LiveActivityManager: ObservableObject {
             }
 
             let content = UNMutableNotificationContent()
-            content.title = "Descanso terminado"
-            content.body = "Serie \(currentSet)/\(totalSets)"
+            content.title = L10n.tr("notification.rest_finished.title")
+            content.body = L10n.format("notification.rest_finished.body_format", currentSet, totalSets)
             content.sound = .default
 
             let interval = max(1, endDate.timeIntervalSince(Date()))
