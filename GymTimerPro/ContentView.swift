@@ -18,9 +18,12 @@ struct ContentView: View {
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
     @StateObject private var restTimer = RestTimerModel()
     @StateObject private var liveActivityManager = LiveActivityManager()
+    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 2)
+    @State private var isPresentingPaywall = false
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
+    @EnvironmentObject private var purchaseManager: PurchaseManager
 
     var body: some View {
         ZStack {
@@ -42,6 +45,7 @@ struct ContentView: View {
         .onAppear {
             UIApplication.shared.isIdleTimerDisabled = true
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
+            usageLimiter.refresh(now: .now)
             restTimer.tick(now: .now)
             if restTimer.didFinish {
                 handleRestFinished()
@@ -63,6 +67,9 @@ struct ContentView: View {
         }
         .onChange(of: scenePhase) { _, newPhase in
             restTimer.handleScenePhase(newPhase)
+            if newPhase == .active {
+                usageLimiter.refresh(now: .now)
+            }
             if newPhase == .active, restTimer.didFinish {
                 handleRestFinished()
             }
@@ -80,6 +87,13 @@ struct ContentView: View {
             if !running {
                 liveActivityManager.end()
             }
+        }
+        .sheet(isPresented: $isPresentingPaywall) {
+            PaywallView(
+                dailyLimit: usageLimiter.status.dailyLimit,
+                consumedToday: usageLimiter.status.consumedToday
+            )
+            .environmentObject(purchaseManager)
         }
     }
 
@@ -103,6 +117,9 @@ struct ContentView: View {
                     step: 15,
                     accessibilityValue: L10n.format("accessibility.rest_seconds_value_format", tiempoDescanso)
                 )
+                Divider()
+                    .foregroundStyle(Theme.divider)
+                proRow
             }
         }
         .disabled(isTimerActive || completado)
@@ -277,6 +294,13 @@ struct ContentView: View {
             return
         }
 
+        let now = Date.now
+        guard usageLimiter.canConsume(now: now, isPro: purchaseManager.isPro) else {
+            isPresentingPaywall = true
+            return
+        }
+        usageLimiter.consume(now: now, isPro: purchaseManager.isPro)
+
         withAnimation(.snappy) {
             serieActual += 1
         }
@@ -349,6 +373,39 @@ struct ContentView: View {
                 totalSets: totalSeries
             )
         }
+    }
+
+    private var proRow: some View {
+        HStack(spacing: 12) {
+            Image(systemName: purchaseManager.isPro ? "checkmark.seal.fill" : "lock.fill")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(purchaseManager.isPro ? Theme.completed : Theme.iconTint)
+                .frame(width: 28, height: 28)
+                .background(Theme.iconBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(purchaseManager.isPro ? "pro.status.pro" : "pro.status.free")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(Theme.textPrimary)
+
+                if !purchaseManager.isPro {
+                    Text(L10n.format("pro.usage_today_format", usageLimiter.status.consumedToday, usageLimiter.status.dailyLimit))
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.textSecondary)
+                }
+            }
+
+            Spacer(minLength: 0)
+
+            if !purchaseManager.isPro {
+                Button("pro.button.upgrade") {
+                    isPresentingPaywall = true
+                }
+                .buttonStyle(.bordered)
+            }
+        }
+        .frame(minHeight: Layout.minTapHeight)
     }
 }
 
@@ -491,6 +548,7 @@ private final class RestTimerModel: ObservableObject {
 
 #Preview {
     ContentView()
+        .environmentObject(PurchaseManager(startTasks: false))
 }
 
 private enum Layout {

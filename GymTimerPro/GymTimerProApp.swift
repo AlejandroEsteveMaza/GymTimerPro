@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct GymTimerProApp: App {
+    @StateObject private var purchaseManager = PurchaseManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(purchaseManager)
         }
     }
 }

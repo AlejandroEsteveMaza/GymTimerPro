@@ -17,6 +17,26 @@
 
 "workout.completed" = "WORKOUT COMPLETED!";
 
+"pro.status.free" = "Free";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld today";
+"pro.button.upgrade" = "Unlock";
+
+"paywall.title" = "Unlock Pro";
+"paywall.subtitle_limit_format" = "You’ve reached today’s free limit (%ld/%ld).";
+"paywall.benefit.unlimited" = "Unlimited use";
+"paywall.benefit.simple" = "Unlock full access to the app.";
+"paywall.button.buy" = "Buy Pro";
+"paywall.button.restore" = "Restore purchases";
+"paywall.button.not_now" = "Not now";
+"paywall.price.loading" = "Loading price…";
+"paywall.error.title" = "Purchase failed";
+"paywall.error.product_unavailable" = "The product is currently unavailable.";
+"paywall.error.failed_verification" = "We couldn’t verify the purchase.";
+"paywall.error.user_cancelled" = "Purchase cancelled.";
+"paywall.error.pending" = "The purchase is pending.";
+"paywall.error.unknown" = "Something went wrong. Please try again.";
+
 "common.cancel" = "Cancel";
 "common.ok" = "OK";
 

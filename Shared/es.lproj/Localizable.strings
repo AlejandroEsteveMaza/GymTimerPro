@@ -17,6 +17,26 @@
 
 "workout.completed" = "¡ENTRENAMIENTO COMPLETADO!";
 
+"pro.status.free" = "Gratis";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld hoy";
+"pro.button.upgrade" = "Desbloquear";
+
+"paywall.title" = "Desbloquea Pro";
+"paywall.subtitle_limit_format" = "Has alcanzado el límite gratuito de hoy (%ld/%ld).";
+"paywall.benefit.unlimited" = "Uso ilimitado";
+"paywall.benefit.simple" = "Desbloquea el uso completo de la app.";
+"paywall.button.buy" = "Comprar Pro";
+"paywall.button.restore" = "Restaurar compras";
+"paywall.button.not_now" = "Ahora no";
+"paywall.price.loading" = "Cargando precio…";
+"paywall.error.title" = "No se pudo completar la compra";
+"paywall.error.product_unavailable" = "El producto no está disponible en este momento.";
+"paywall.error.failed_verification" = "No se pudo verificar la compra.";
+"paywall.error.user_cancelled" = "Compra cancelada.";
+"paywall.error.pending" = "La compra está pendiente.";
+"paywall.error.unknown" = "Ha ocurrido un error. Inténtalo de nuevo.";
+
 "common.cancel" = "Cancelar";
 "common.ok" = "Aceptar";
 
