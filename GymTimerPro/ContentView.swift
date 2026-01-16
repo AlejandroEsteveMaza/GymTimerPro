@@ -402,7 +402,9 @@ struct ContentView: View {
                 Button("pro.button.upgrade") {
                     isPresentingPaywall = true
                 }
-                .buttonStyle(.bordered)
+                .buttonStyle(.borderedProminent)
+                .tint(Theme.primaryButton)
+                .bold()
             }
         }
         .frame(minHeight: Layout.minTapHeight)
