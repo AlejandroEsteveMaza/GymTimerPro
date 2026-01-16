@@ -91,7 +91,8 @@ struct ContentView: View {
         .sheet(isPresented: $isPresentingPaywall) {
             PaywallView(
                 dailyLimit: usageLimiter.status.dailyLimit,
-                consumedToday: usageLimiter.status.consumedToday
+                consumedToday: usageLimiter.status.consumedToday,
+                accentColor: Theme.primaryButton
             )
             .environmentObject(purchaseManager)
         }

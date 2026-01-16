@@ -22,12 +22,21 @@
 "pro.usage_today_format" = "%ld/%ld today";
 "pro.button.upgrade" = "Unlock";
 
-"paywall.title" = "Unlock Pro";
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Train without limits";
+"paywall.value.subtitle" = "Full access to the timer with a one-time purchase.";
 "paywall.subtitle_limit_format" = "You’ve reached today’s free limit (%ld/%ld).";
+"paywall.section.benefits" = "Included benefits";
+"paywall.section.purchase" = "Purchase";
 "paywall.benefit.unlimited" = "Unlimited use";
-"paywall.benefit.simple" = "Unlock full access to the app.";
-"paywall.button.buy" = "Buy Pro";
-"paywall.button.restore" = "Restore purchases";
+"paywall.benefit.no_limits" = "No daily limits";
+"paywall.benefit.one_time" = "One-time purchase, no subscription";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Unlimited use";
+"paywall.purchase.one_time" = "One-time";
+"paywall.button.buy" = "Unlock Pro";
+"paywall.button.restore" = "Restore purchase";
+"paywall.button.terms" = "View terms";
 "paywall.button.not_now" = "Not now";
 "paywall.price.loading" = "Loading price…";
 "paywall.error.title" = "Purchase failed";

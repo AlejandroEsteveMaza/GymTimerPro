@@ -22,12 +22,21 @@
 "pro.usage_today_format" = "%ld/%ld hoy";
 "pro.button.upgrade" = "Desbloquear";
 
-"paywall.title" = "Desbloquea Pro";
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Entrena sin límites";
+"paywall.value.subtitle" = "Acceso completo al temporizador con un pago único.";
 "paywall.subtitle_limit_format" = "Has alcanzado el límite gratuito de hoy (%ld/%ld).";
+"paywall.section.benefits" = "Beneficios incluidos";
+"paywall.section.purchase" = "Compra";
 "paywall.benefit.unlimited" = "Uso ilimitado";
-"paywall.benefit.simple" = "Desbloquea el uso completo de la app.";
-"paywall.button.buy" = "Comprar Pro";
-"paywall.button.restore" = "Restaurar compras";
+"paywall.benefit.no_limits" = "Sin límites diarios";
+"paywall.benefit.one_time" = "Pago único, sin suscripción";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Uso ilimitado";
+"paywall.purchase.one_time" = "Pago único";
+"paywall.button.buy" = "Desbloquear Pro";
+"paywall.button.restore" = "Restaurar compra";
+"paywall.button.terms" = "Ver términos";
 "paywall.button.not_now" = "Ahora no";
 "paywall.price.loading" = "Cargando precio…";
 "paywall.error.title" = "No se pudo completar la compra";
