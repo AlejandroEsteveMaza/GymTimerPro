@@ -18,7 +18,7 @@ struct ContentView: View {
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
     @StateObject private var restTimer = RestTimerModel()
     @StateObject private var liveActivityManager = LiveActivityManager()
-    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 2)
+    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 19)
     @State private var isPresentingPaywall = false
     private let restFinishedSoundID: SystemSoundID = 1322
 
