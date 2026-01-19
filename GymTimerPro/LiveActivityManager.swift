@@ -9,6 +9,11 @@ final class LiveActivityManager: ObservableObject {
     private let notificationCenter = UNUserNotificationCenter.current()
 
     func requestNotificationAuthorizationIfNeeded() {
+        let args = ProcessInfo.processInfo.arguments
+        if args.contains("ui-testing") || args.contains("-ui_testing") {
+            return
+        }
+
         notificationCenter.getNotificationSettings { [notificationCenter] settings in
             guard settings.authorizationStatus == .notDetermined else { return }
             notificationCenter.requestAuthorization(options: [.alert, .sound]) { _, _ in }

@@ -29,6 +29,27 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F93CCFEF7852394CD1DEADE4"
+               BuildableName = "GymTimerProUITests.xctest"
+               BlueprintName = "GymTimerProUITests"
+               ReferencedContainer = "container:GymTimerPro.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C0EE57A92EFC163F008AD710"
+            BuildableName = "GymTimerPro.app"
+            BlueprintName = "GymTimerPro"
+            ReferencedContainer = "container:GymTimerPro.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

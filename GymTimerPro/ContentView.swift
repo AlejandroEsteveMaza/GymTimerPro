@@ -20,6 +20,8 @@ struct ContentView: View {
     @StateObject private var liveActivityManager = LiveActivityManager()
     @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 19)
     @State private var isPresentingPaywall = false
+    @State private var showNotificationPreview = false
+    @State private var uiTestOverridesApplied = false
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
@@ -38,12 +40,18 @@ struct ContentView: View {
                 .padding(.top, Layout.topPadding)
                 .padding(.bottom, Layout.scrollBottomPadding)
             }
+            .accessibilityIdentifier("homeScreen")
+
+            if showNotificationPreview {
+                notificationPreviewOverlay
+            }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             controlsSection
         }
         .onAppear {
             UIApplication.shared.isIdleTimerDisabled = true
+            applyUITestOverridesIfNeeded()
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
             usageLimiter.refresh(now: .now)
             restTimer.tick(now: .now)
@@ -106,6 +114,8 @@ struct ContentView: View {
                     icon: "square.stack.3d.up",
                     value: $totalSeries,
                     range: 1...10,
+                    valueEditorIdentifier: "totalSetsValueButton",
+                    editorPickerIdentifier: "totalSetsPicker",
                     accessibilityValue: L10n.format("accessibility.total_sets_value_format", totalSeries)
                 )
                 Divider()
@@ -153,6 +163,7 @@ struct ContentView: View {
                 Label("button.start_rest.title", systemImage: "pause.circle.fill")
             }
             .buttonStyle(PrimaryButtonStyle(height: Layout.primaryButtonHeight))
+            .accessibilityIdentifier("startRestButton")
             .disabled(isResting || completado)
 
             HoldToResetButton(action: resetWorkout, height: Layout.secondaryButtonHeight)
@@ -174,6 +185,8 @@ struct ContentView: View {
         value: Binding<Int>,
         range: ClosedRange<Int>,
         step: Int = 1,
+        valueEditorIdentifier: String? = nil,
+        editorPickerIdentifier: String? = nil,
         accessibilityValue: String
     ) -> some View {
         let localizedTitle = L10n.tr(titleKey)
@@ -183,7 +196,9 @@ struct ContentView: View {
                     titleKey: titleKey,
                     value: value,
                     range: range,
-                    step: step
+                    step: step,
+                    accessibilityIdentifier: valueEditorIdentifier,
+                    editorPickerIdentifier: editorPickerIdentifier
                 )
             }
                 .layoutPriority(1)
@@ -262,6 +277,7 @@ struct ContentView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Layout.timerPadding)
         .background(Theme.timerBackground, in: RoundedRectangle(cornerRadius: Layout.metricCornerRadius, style: .continuous))
+        .accessibilityIdentifier("restTimerView")
     }
 
     private var completionView: some View {
@@ -409,6 +425,112 @@ struct ContentView: View {
             }
         }
         .frame(minHeight: Layout.minTapHeight)
+    }
+
+    private var isUITesting: Bool {
+        let args = ProcessInfo.processInfo.arguments
+        return args.contains("-ui_testing") || args.contains("ui-testing")
+    }
+
+    private func applyUITestOverridesIfNeeded() {
+        guard isUITesting, !uiTestOverridesApplied else { return }
+        uiTestOverridesApplied = true
+        let env = ProcessInfo.processInfo.environment
+
+        if let setsValue = env["UITEST_TOTAL_SETS"], let sets = Int(setsValue) {
+            totalSeries = sets
+            if serieActual > sets {
+                serieActual = sets
+            }
+        }
+        if let restValue = env["UITEST_REST_SECONDS"], let rest = Int(restValue) {
+            tiempoDescanso = rest
+        }
+        if let currentValue = env["UITEST_CURRENT_SET"], let current = Int(currentValue) {
+            serieActual = current
+        }
+        if env["UITEST_SHOW_NOTIFICATION_PREVIEW"] == "1" {
+            showNotificationPreview = true
+        }
+    }
+
+    private var notificationPreviewOverlay: some View {
+        VStack(spacing: 12) {
+            notificationPreviewBanner
+            liveActivityPreviewCard
+        }
+        .padding(.horizontal, Layout.horizontalPadding)
+        .padding(.top, Layout.topPadding)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .accessibilityIdentifier("notificationPreview")
+    }
+
+    private var notificationPreviewBanner: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: "bell.fill")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(Theme.resting)
+                .frame(width: 28, height: 28)
+                .background(Theme.iconBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(L10n.tr("notification.rest_finished.title"))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.textPrimary)
+                Text(L10n.format("notification.rest_finished.body_format", serieActual, totalSeries))
+                    .font(.caption)
+                    .foregroundStyle(Theme.textSecondary)
+            }
+
+            Spacer(minLength: 0)
+
+            Text("now")
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(Theme.textSecondary)
+        }
+        .padding(12)
+        .background(Theme.cardBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: Theme.cardShadow, radius: 12, x: 0, y: 6)
+    }
+
+    private var liveActivityPreviewCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Label("live_activity.mode.resting", systemImage: "timer")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(Theme.resting)
+                Spacer(minLength: 0)
+                Text(previewTimeString)
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .foregroundStyle(Theme.textPrimary)
+                    .monospacedDigit()
+            }
+
+            Text(L10n.format("live_activity.set_progress_expanded_format", serieActual, totalSeries))
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Theme.textSecondary)
+
+            ProgressView(value: previewSetProgress)
+                .tint(Theme.resting)
+        }
+        .padding(16)
+        .background(Theme.cardBackground, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(color: Theme.cardShadow, radius: 12, x: 0, y: 6)
+    }
+
+    private var previewSetProgress: Double {
+        guard totalSeries > 0 else { return 0 }
+        return min(max(Double(serieActual) / Double(totalSeries), 0), 1)
+    }
+
+    private var previewTimeString: String {
+        formatTime(max(1, tiempoDescanso))
+    }
+
+    private func formatTime(_ seconds: Int) -> String {
+        let minutes = max(0, seconds) / 60
+        let remaining = max(0, seconds) % 60
+        return String(format: "%d:%02d", minutes, remaining)
     }
 }
 
@@ -661,6 +783,8 @@ private struct ConfigValueEditorButton: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
+    let accessibilityIdentifier: String?
+    let editorPickerIdentifier: String?
 
     @State private var isPresenting = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -675,6 +799,7 @@ private struct ConfigValueEditorButton: View {
                 .monospacedDigit()
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier(accessibilityIdentifier ?? "")
         .accessibilityLabel(L10n.format("accessibility.edit_value_label_format", L10n.tr(titleKey)))
         .accessibilityValue("\(value)")
 
@@ -685,7 +810,8 @@ private struct ConfigValueEditorButton: View {
                         titleKey: titleKey,
                         value: $value,
                         range: range,
-                        step: step
+                        step: step,
+                        pickerIdentifier: editorPickerIdentifier
                     )
                     .frame(minWidth: 260, minHeight: 320)
                 }
@@ -695,7 +821,8 @@ private struct ConfigValueEditorButton: View {
                         titleKey: titleKey,
                         value: $value,
                         range: range,
-                        step: step
+                        step: step,
+                        pickerIdentifier: editorPickerIdentifier
                     )
                     .presentationDetents([.medium, .large])
                 }
@@ -709,15 +836,17 @@ private struct DiscreteValueEditor: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
+    let pickerIdentifier: String?
 
     @Environment(\.dismiss) private var dismiss
     @State private var selection: Int
 
-    init(titleKey: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int) {
+    init(titleKey: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int, pickerIdentifier: String? = nil) {
         self.titleKey = titleKey
         _value = value
         self.range = range
         self.step = step
+        self.pickerIdentifier = pickerIdentifier
         let initial = DiscreteValueHelper.clampAndRound(value.wrappedValue, range: range, step: step)
         _selection = State(initialValue: initial)
     }
@@ -733,6 +862,7 @@ private struct DiscreteValueEditor: View {
                 }
                 .pickerStyle(.wheel)
                 .labelsHidden()
+                .accessibilityIdentifier(pickerIdentifier ?? "")
             }
             .navigationTitle(LocalizedStringKey(titleKey))
             .toolbar {
