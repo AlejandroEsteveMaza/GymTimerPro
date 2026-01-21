@@ -1,0 +1,70 @@
+"section.configuration.title" = "Konfiguration";
+"section.progress.title" = "Fortschritt";
+
+"config.total_sets.title" = "Gesamtzahl Sätze";
+"config.rest_seconds.title" = "Pause (Sekunden)";
+
+"button.start_rest.title" = "PAUSE STARTEN";
+"button.reset.title" = "ZURÜCKSETZEN";
+
+"metric.set.title" = "SATZ";
+
+"label.state" = "Status";
+"label.rest_time" = "Pausenzeit";
+
+"status.resting" = "PAUSE";
+"status.training" = "TRAINING";
+
+"workout.completed" = "WORKOUT ABGESCHLOSSEN!";
+
+"pro.status.free" = "Gratis";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld heute";
+"pro.button.upgrade" = "Freischalten";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Trainiere ohne Limits";
+"paywall.value.subtitle" = "Voller Zugriff auf den Timer mit einem Einmalkauf.";
+"paywall.subtitle_limit_format" = "Du hast das heutige Freilimit erreicht (%ld/%ld).";
+"paywall.section.benefits" = "Enthaltene Vorteile";
+"paywall.section.purchase" = "Kauf";
+"paywall.benefit.unlimited" = "Unbegrenzte Nutzung";
+"paywall.benefit.no_limits" = "Keine täglichen Limits";
+"paywall.benefit.one_time" = "Einmaliger Kauf, kein Abo";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Unbegrenzte Nutzung";
+"paywall.purchase.one_time" = "Einmalig";
+"paywall.button.buy" = "Pro freischalten";
+"paywall.button.restore" = "Kauf wiederherstellen";
+"paywall.button.terms" = "Bedingungen anzeigen";
+"paywall.button.not_now" = "Nicht jetzt";
+"paywall.price.loading" = "Preis wird geladen…";
+"paywall.error.title" = "Kauf fehlgeschlagen";
+"paywall.error.product_unavailable" = "Das Produkt ist derzeit nicht verfügbar.";
+"paywall.error.failed_verification" = "Der Kauf konnte nicht verifiziert werden.";
+"paywall.error.user_cancelled" = "Kauf abgebrochen.";
+"paywall.error.pending" = "Der Kauf ist ausstehend.";
+"paywall.error.unknown" = "Etwas ist schiefgelaufen. Bitte versuche es erneut.";
+
+"common.cancel" = "Abbrechen";
+"common.ok" = "OK";
+
+"accessibility.edit_value_label_format" = "%@ bearbeiten";
+"accessibility.total_sets_value_format" = "%ld Sätze";
+"accessibility.rest_seconds_value_format" = "%ld Sekunden";
+"accessibility.reset_label" = "Zurücksetzen";
+"accessibility.reset_hint" = "1 Sekunde halten zum Zurücksetzen";
+
+"notification.rest_finished.title" = "Pause beendet";
+"notification.rest_finished.body_format" = "Satz %ld/%ld";
+
+"live_activity.mode.resting" = "Pause";
+"live_activity.mode.training" = "Training";
+"live_activity.set_progress_format" = "Satz %ld/%ld";
+"live_activity.set_progress_expanded_format" = "Satz %ld von %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "Satz";
+"accessibility.set_value_format" = "%ld von %ld";
+"accessibility.set_progress_label" = "Satzfortschritt";
+"accessibility.time_remaining" = "Verbleibende Zeit";

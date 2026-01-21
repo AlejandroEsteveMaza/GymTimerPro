@@ -1,0 +1,70 @@
+"section.configuration.title" = "設定";
+"section.progress.title" = "進行状況";
+
+"config.total_sets.title" = "総セット";
+"config.rest_seconds.title" = "休憩（秒）";
+
+"button.start_rest.title" = "休憩開始";
+"button.reset.title" = "リセット";
+
+"metric.set.title" = "セット";
+
+"label.state" = "状態";
+"label.rest_time" = "休憩時間";
+
+"status.resting" = "休憩中";
+"status.training" = "トレーニング";
+
+"workout.completed" = "ワークアウト完了！";
+
+"pro.status.free" = "無料";
+"pro.status.pro" = "プロ";
+"pro.usage_today_format" = "%ld/%ld 本日";
+"pro.button.upgrade" = "アンロック";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "制限なくトレーニング";
+"paywall.value.subtitle" = "一度の購入でタイマーをフル活用。";
+"paywall.subtitle_limit_format" = "本日の無料上限に達しました（%ld/%ld）。";
+"paywall.section.benefits" = "含まれる特典";
+"paywall.section.purchase" = "購入";
+"paywall.benefit.unlimited" = "無制限の利用";
+"paywall.benefit.no_limits" = "1日の上限なし";
+"paywall.benefit.one_time" = "買い切り、サブスクリプションなし";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "無制限の利用";
+"paywall.purchase.one_time" = "一度だけ";
+"paywall.button.buy" = "Proをアンロック";
+"paywall.button.restore" = "購入を復元";
+"paywall.button.terms" = "利用規約を見る";
+"paywall.button.not_now" = "後で";
+"paywall.price.loading" = "価格を読み込み中…";
+"paywall.error.title" = "購入に失敗しました";
+"paywall.error.product_unavailable" = "現在この商品は利用できません。";
+"paywall.error.failed_verification" = "購入を確認できませんでした。";
+"paywall.error.user_cancelled" = "購入がキャンセルされました。";
+"paywall.error.pending" = "購入は保留中です。";
+"paywall.error.unknown" = "問題が発生しました。もう一度お試しください。";
+
+"common.cancel" = "キャンセル";
+"common.ok" = "OK";
+
+"accessibility.edit_value_label_format" = "%@を編集";
+"accessibility.total_sets_value_format" = "%ldセット";
+"accessibility.rest_seconds_value_format" = "%ld秒";
+"accessibility.reset_label" = "リセット";
+"accessibility.reset_hint" = "リセットするには1秒長押し";
+
+"notification.rest_finished.title" = "休憩終了";
+"notification.rest_finished.body_format" = "セット %ld/%ld";
+
+"live_activity.mode.resting" = "休憩";
+"live_activity.mode.training" = "トレーニング";
+"live_activity.set_progress_format" = "セット %ld/%ld";
+"live_activity.set_progress_expanded_format" = "%ld/%ld セット";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "セット";
+"accessibility.set_value_format" = "%ld / %ld";
+"accessibility.set_progress_label" = "セットの進行状況";
+"accessibility.time_remaining" = "残り時間";

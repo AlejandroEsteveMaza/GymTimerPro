@@ -1,0 +1,70 @@
+"section.configuration.title" = "Konfiguration";
+"section.progress.title" = "Framsteg";
+
+"config.total_sets.title" = "Totalt antal set";
+"config.rest_seconds.title" = "Vila (sekunder)";
+
+"button.start_rest.title" = "STARTA VILA";
+"button.reset.title" = "ÅTERSTÄLL";
+
+"metric.set.title" = "SET";
+
+"label.state" = "Status";
+"label.rest_time" = "Vilotid";
+
+"status.resting" = "VILAR";
+"status.training" = "TRÄNAR";
+
+"workout.completed" = "PASS SLUTFÖRT!";
+
+"pro.status.free" = "Gratis";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld idag";
+"pro.button.upgrade" = "Lås upp";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Träna utan gränser";
+"paywall.value.subtitle" = "Full tillgång till timern med ett engångsköp.";
+"paywall.subtitle_limit_format" = "Du har nått dagens gratistak (%ld/%ld).";
+"paywall.section.benefits" = "Inkluderade fördelar";
+"paywall.section.purchase" = "Köp";
+"paywall.benefit.unlimited" = "Obegränsad användning";
+"paywall.benefit.no_limits" = "Inga dagliga gränser";
+"paywall.benefit.one_time" = "Engångsköp, inget abonnemang";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Obegränsad användning";
+"paywall.purchase.one_time" = "Engångs";
+"paywall.button.buy" = "Lås upp Pro";
+"paywall.button.restore" = "Återställ köp";
+"paywall.button.terms" = "Visa villkor";
+"paywall.button.not_now" = "Inte nu";
+"paywall.price.loading" = "Laddar pris…";
+"paywall.error.title" = "Köp misslyckades";
+"paywall.error.product_unavailable" = "Produkten är inte tillgänglig just nu.";
+"paywall.error.failed_verification" = "Köpet kunde inte verifieras.";
+"paywall.error.user_cancelled" = "Köp avbrutet.";
+"paywall.error.pending" = "Köpet väntar.";
+"paywall.error.unknown" = "Något gick fel. Försök igen.";
+
+"common.cancel" = "Avbryt";
+"common.ok" = "OK";
+
+"accessibility.edit_value_label_format" = "Redigera %@";
+"accessibility.total_sets_value_format" = "%ld set";
+"accessibility.rest_seconds_value_format" = "%ld sekunder";
+"accessibility.reset_label" = "Återställ";
+"accessibility.reset_hint" = "Håll i 1 sekund för att återställa";
+
+"notification.rest_finished.title" = "Vila avslutad";
+"notification.rest_finished.body_format" = "Set %ld/%ld";
+
+"live_activity.mode.resting" = "Vila";
+"live_activity.mode.training" = "Tränar";
+"live_activity.set_progress_format" = "Set %ld/%ld";
+"live_activity.set_progress_expanded_format" = "Set %ld av %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "Set";
+"accessibility.set_value_format" = "%ld av %ld";
+"accessibility.set_progress_label" = "Set-förlopp";
+"accessibility.time_remaining" = "Återstående tid";

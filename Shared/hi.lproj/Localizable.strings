@@ -1,0 +1,70 @@
+"section.configuration.title" = "कॉन्फ़िगरेशन";
+"section.progress.title" = "प्रगति";
+
+"config.total_sets.title" = "कुल सेट";
+"config.rest_seconds.title" = "आराम (सेकंड)";
+
+"button.start_rest.title" = "आराम शुरू करें";
+"button.reset.title" = "रीसेट";
+
+"metric.set.title" = "सेट";
+
+"label.state" = "स्थिति";
+"label.rest_time" = "आराम का समय";
+
+"status.resting" = "आराम";
+"status.training" = "ट्रेनिंग";
+
+"workout.completed" = "वर्कआउट पूरा हुआ!";
+
+"pro.status.free" = "मुफ़्त";
+"pro.status.pro" = "प्रो";
+"pro.usage_today_format" = "%ld/%ld आज";
+"pro.button.upgrade" = "अनलॉक";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "सीमाओं के बिना ट्रेन करें";
+"paywall.value.subtitle" = "एक बार की खरीद से टाइमर का पूरा उपयोग।";
+"paywall.subtitle_limit_format" = "आपने आज की मुफ़्त सीमा (%ld/%ld) पूरी कर ली है।";
+"paywall.section.benefits" = "शामिल लाभ";
+"paywall.section.purchase" = "खरीद";
+"paywall.benefit.unlimited" = "असीमित उपयोग";
+"paywall.benefit.no_limits" = "कोई दैनिक सीमा नहीं";
+"paywall.benefit.one_time" = "एक बार की खरीद, कोई सब्सक्रिप्शन नहीं";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "असीमित उपयोग";
+"paywall.purchase.one_time" = "एक बार";
+"paywall.button.buy" = "प्रो अनलॉक करें";
+"paywall.button.restore" = "खरीद पुनर्स्थापित करें";
+"paywall.button.terms" = "शर्तें देखें";
+"paywall.button.not_now" = "अभी नहीं";
+"paywall.price.loading" = "कीमत लोड हो रही है…";
+"paywall.error.title" = "खरीद असफल";
+"paywall.error.product_unavailable" = "उत्पाद अभी उपलब्ध नहीं है।";
+"paywall.error.failed_verification" = "हम खरीद सत्यापित नहीं कर पाए।";
+"paywall.error.user_cancelled" = "खरीद रद्द कर दी गई।";
+"paywall.error.pending" = "खरीद लंबित है।";
+"paywall.error.unknown" = "कुछ गलत हुआ। कृपया फिर से कोशिश करें।";
+
+"common.cancel" = "रद्द करें";
+"common.ok" = "ठीक है";
+
+"accessibility.edit_value_label_format" = "%@ संपादित करें";
+"accessibility.total_sets_value_format" = "%ld सेट";
+"accessibility.rest_seconds_value_format" = "%ld सेकंड";
+"accessibility.reset_label" = "रीसेट";
+"accessibility.reset_hint" = "रीसेट करने के लिए 1 सेकंड दबाए रखें";
+
+"notification.rest_finished.title" = "आराम समाप्त";
+"notification.rest_finished.body_format" = "सेट %ld/%ld";
+
+"live_activity.mode.resting" = "आराम";
+"live_activity.mode.training" = "ट्रेनिंग";
+"live_activity.set_progress_format" = "सेट %ld/%ld";
+"live_activity.set_progress_expanded_format" = "सेट %ld में से %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "सेट";
+"accessibility.set_value_format" = "%ld में से %ld";
+"accessibility.set_progress_label" = "सेट प्रगति";
+"accessibility.time_remaining" = "बचा हुआ समय";

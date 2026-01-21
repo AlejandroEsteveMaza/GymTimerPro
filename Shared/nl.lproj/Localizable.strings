@@ -1,0 +1,70 @@
+"section.configuration.title" = "Configuratie";
+"section.progress.title" = "Voortgang";
+
+"config.total_sets.title" = "Totaal sets";
+"config.rest_seconds.title" = "Rust (seconden)";
+
+"button.start_rest.title" = "RUST STARTEN";
+"button.reset.title" = "RESETTEN";
+
+"metric.set.title" = "SET";
+
+"label.state" = "Status";
+"label.rest_time" = "Rusttijd";
+
+"status.resting" = "RUST";
+"status.training" = "TRAINING";
+
+"workout.completed" = "WORK-OUT VOLTOOID!";
+
+"pro.status.free" = "Gratis";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld vandaag";
+"pro.button.upgrade" = "Ontgrendelen";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Train zonder grenzen";
+"paywall.value.subtitle" = "Volledige toegang tot de timer met een eenmalige aankoop.";
+"paywall.subtitle_limit_format" = "Je hebt de gratis limiet van vandaag bereikt (%ld/%ld).";
+"paywall.section.benefits" = "Inbegrepen voordelen";
+"paywall.section.purchase" = "Aankoop";
+"paywall.benefit.unlimited" = "Onbeperkt gebruik";
+"paywall.benefit.no_limits" = "Geen dagelijkse limieten";
+"paywall.benefit.one_time" = "Eenmalige aankoop, geen abonnement";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Onbeperkt gebruik";
+"paywall.purchase.one_time" = "Eenmalig";
+"paywall.button.buy" = "Pro ontgrendelen";
+"paywall.button.restore" = "Aankoop herstellen";
+"paywall.button.terms" = "Voorwaarden bekijken";
+"paywall.button.not_now" = "Niet nu";
+"paywall.price.loading" = "Prijs laden…";
+"paywall.error.title" = "Aankoop mislukt";
+"paywall.error.product_unavailable" = "Het product is momenteel niet beschikbaar.";
+"paywall.error.failed_verification" = "We konden de aankoop niet verifiëren.";
+"paywall.error.user_cancelled" = "Aankoop geannuleerd.";
+"paywall.error.pending" = "Aankoop in behandeling.";
+"paywall.error.unknown" = "Er is iets misgegaan. Probeer opnieuw.";
+
+"common.cancel" = "Annuleren";
+"common.ok" = "OK";
+
+"accessibility.edit_value_label_format" = "%@ bewerken";
+"accessibility.total_sets_value_format" = "%ld sets";
+"accessibility.rest_seconds_value_format" = "%ld seconden";
+"accessibility.reset_label" = "Resetten";
+"accessibility.reset_hint" = "Houd 1 seconde ingedrukt om te resetten";
+
+"notification.rest_finished.title" = "Rust voorbij";
+"notification.rest_finished.body_format" = "Set %ld/%ld";
+
+"live_activity.mode.resting" = "Rust";
+"live_activity.mode.training" = "Training";
+"live_activity.set_progress_format" = "Set %ld/%ld";
+"live_activity.set_progress_expanded_format" = "Set %ld van %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "Set";
+"accessibility.set_value_format" = "%ld van %ld";
+"accessibility.set_progress_label" = "Setvoortgang";
+"accessibility.time_remaining" = "Resterende tijd";
