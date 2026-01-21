@@ -94,9 +94,11 @@ struct PaywallView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
-            Label(L10n.format("paywall.subtitle_limit_format", consumedToday, dailyLimit), systemImage: "exclamationmark.circle")
-                .font(.footnote.weight(.semibold))
-                .foregroundStyle(.secondary)
+            if hasReachedDailyLimit {
+                Label(L10n.format("paywall.subtitle_limit_format", consumedToday, dailyLimit), systemImage: "exclamationmark.circle")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
@@ -155,6 +157,10 @@ struct PaywallView: View {
         .buttonBorderShape(.roundedRectangle(radius: 14))
         .tint(accentColor)
         .disabled(isProcessing || purchaseManager.isLoading)
+    }
+
+    private var hasReachedDailyLimit: Bool {
+        consumedToday >= dailyLimit
     }
 
     private var secondaryActions: some View {
