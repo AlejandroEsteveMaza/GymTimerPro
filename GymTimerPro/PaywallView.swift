@@ -152,6 +152,7 @@ struct PaywallView: View {
                 .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.roundedRectangle(radius: 14))
         .tint(accentColor)
         .disabled(isProcessing || purchaseManager.isLoading)
     }

@@ -420,6 +420,7 @@ struct ContentView: View {
                     isPresentingPaywall = true
                 }
                 .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.roundedRectangle(radius: 12))
                 .tint(Theme.primaryButton)
                 .bold()
             }
