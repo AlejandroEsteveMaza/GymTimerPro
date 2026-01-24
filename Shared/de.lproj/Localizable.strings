@@ -66,3 +66,15 @@
 "accessibility.set_progress_label" = "Satzfortschritt";
 "accessibility.time_remaining" = "Verbleibende Zeit";
 "accessibility.reset_label" = "Zurücksetzen";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "Training";
+"tab.routines" = "Routinen";
+"tab.progress" = "Fortschritt";
+"tab.settings" = "Einstellungen";

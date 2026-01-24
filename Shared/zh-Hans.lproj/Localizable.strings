@@ -66,3 +66,15 @@
 "accessibility.set_progress_label" = "组进度";
 "accessibility.time_remaining" = "剩余时间";
 "accessibility.reset_label" = "重置";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "训练";
+"tab.routines" = "例程";
+"tab.progress" = "进度";
+"tab.settings" = "设置";

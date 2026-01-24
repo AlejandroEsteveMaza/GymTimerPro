@@ -66,3 +66,15 @@
 "accessibility.set_progress_label" = "세트 진행";
 "accessibility.time_remaining" = "남은 시간";
 "accessibility.reset_label" = "리셋";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "운동";
+"tab.routines" = "루틴";
+"tab.progress" = "진행";
+"tab.settings" = "설정";

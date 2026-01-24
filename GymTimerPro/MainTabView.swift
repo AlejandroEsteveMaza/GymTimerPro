@@ -14,40 +14,40 @@ struct MainTabView: View {
                 ContentView()
             }
             .tabItem {
-                Label("Entrenamiento", systemImage: "bolt.heart")
+                Label("tab.training", systemImage: "figure.strengthtraining.traditional")
             }
 
             NavigationStack {
-                TabPlaceholderView(message: "Proximamente")
+                TabPlaceholderView(messageKey: "placeholder.coming_soon")
             }
             .tabItem {
-                Label("Guardado", systemImage: "bookmark")
+                Label("tab.routines", systemImage: "list.bullet.rectangle")
             }
 
             NavigationStack {
-                TabPlaceholderView(message: "Proximamente")
+                TabPlaceholderView(messageKey: "placeholder.coming_soon")
             }
             .tabItem {
-                Label("Seguimiento", systemImage: "chart.line.uptrend.xyaxis")
+                Label("tab.progress", systemImage: "chart.line.uptrend.xyaxis")
             }
 
             NavigationStack {
-                TabPlaceholderView(message: "Proximamente")
+                TabPlaceholderView(messageKey: "placeholder.coming_soon")
             }
             .tabItem {
-                Label("Ajustes", systemImage: "gear")
+                Label("tab.settings", systemImage: "gear")
             }
         }
     }
 }
 
 private struct TabPlaceholderView: View {
-    let message: String
+    let messageKey: String
 
     var body: some View {
         ZStack {
             Color(uiColor: .systemBackground)
-            Text(message)
+            Text(LocalizedStringKey(messageKey))
                 .font(.callout)
                 .foregroundStyle(Color(uiColor: .secondaryLabel))
                 .multilineTextAlignment(.center)

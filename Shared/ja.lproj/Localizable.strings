@@ -66,3 +66,15 @@
 "accessibility.set_progress_label" = "セットの進行状況";
 "accessibility.time_remaining" = "残り時間";
 "accessibility.reset_label" = "リセット";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "トレーニング";
+"tab.routines" = "ルーティン";
+"tab.progress" = "進捗";
+"tab.settings" = "設定";

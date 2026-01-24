@@ -66,3 +66,15 @@
 "accessibility.set_progress_label" = "Avanzamento serie";
 "accessibility.time_remaining" = "Tempo rimanente";
 "accessibility.reset_label" = "Reset";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "Allenamento";
+"tab.routines" = "Routine";
+"tab.progress" = "Progresso";
+"tab.settings" = "Impostazioni";

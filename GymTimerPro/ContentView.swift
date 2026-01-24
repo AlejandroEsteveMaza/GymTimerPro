@@ -514,7 +514,7 @@ struct ContentView: View {
 
             Spacer(minLength: 0)
 
-            Text("now")
+            Text("common.now")
                 .font(.caption2.weight(.semibold))
                 .foregroundStyle(Theme.textSecondary)
         }

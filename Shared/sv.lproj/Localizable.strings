@@ -66,3 +66,15 @@
 "accessibility.set_progress_label" = "Set-förlopp";
 "accessibility.time_remaining" = "Återstående tid";
 "accessibility.reset_label" = "Återställ";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "Träning";
+"tab.routines" = "Rutiner";
+"tab.progress" = "Framsteg";
+"tab.settings" = "Inställningar";
