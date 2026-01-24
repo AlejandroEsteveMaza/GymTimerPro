@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Pause (sekunder)";
 
 "button.start_rest.title" = "START PAUSE";
-"button.reset.title" = "TILBAKESTILL";
 
 "metric.set.title" = "SETT";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "Rediger %@";
 "accessibility.total_sets_value_format" = "%ld sett";
 "accessibility.rest_seconds_value_format" = "%ld sekunder";
-"accessibility.reset_label" = "Tilbakestill";
-"accessibility.reset_hint" = "Hold inne i 1 sekund for å tilbakestille";
 
 "notification.rest_finished.title" = "Pause ferdig";
 "notification.rest_finished.body_format" = "Sett %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld av %ld";
 "accessibility.set_progress_label" = "Settfremdrift";
 "accessibility.time_remaining" = "Gjenstående tid";
+"accessibility.reset_label" = "Tilbakestill";

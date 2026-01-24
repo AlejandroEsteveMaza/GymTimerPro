@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Riposo (secondi)";
 
 "button.start_rest.title" = "AVVIA RIPOSO";
-"button.reset.title" = "RESET";
 
 "metric.set.title" = "SERIE";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "Modifica %@";
 "accessibility.total_sets_value_format" = "%ld serie";
 "accessibility.rest_seconds_value_format" = "%ld secondi";
-"accessibility.reset_label" = "Reset";
-"accessibility.reset_hint" = "Tieni premuto 1 secondo per resettare";
 
 "notification.rest_finished.title" = "Riposo terminato";
 "notification.rest_finished.body_format" = "Serie %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld di %ld";
 "accessibility.set_progress_label" = "Avanzamento serie";
 "accessibility.time_remaining" = "Tempo rimanente";
+"accessibility.reset_label" = "Reset";

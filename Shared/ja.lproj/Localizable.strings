@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "休憩（秒）";
 
 "button.start_rest.title" = "休憩開始";
-"button.reset.title" = "リセット";
 
 "metric.set.title" = "セット";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "%@を編集";
 "accessibility.total_sets_value_format" = "%ldセット";
 "accessibility.rest_seconds_value_format" = "%ld秒";
-"accessibility.reset_label" = "リセット";
-"accessibility.reset_hint" = "リセットするには1秒長押し";
 
 "notification.rest_finished.title" = "休憩終了";
 "notification.rest_finished.body_format" = "セット %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld / %ld";
 "accessibility.set_progress_label" = "セットの進行状況";
 "accessibility.time_remaining" = "残り時間";
+"accessibility.reset_label" = "リセット";

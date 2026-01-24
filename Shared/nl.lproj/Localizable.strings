@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Rust (seconden)";
 
 "button.start_rest.title" = "RUST STARTEN";
-"button.reset.title" = "RESETTEN";
 
 "metric.set.title" = "SET";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "%@ bewerken";
 "accessibility.total_sets_value_format" = "%ld sets";
 "accessibility.rest_seconds_value_format" = "%ld seconden";
-"accessibility.reset_label" = "Resetten";
-"accessibility.reset_hint" = "Houd 1 seconde ingedrukt om te resetten";
 
 "notification.rest_finished.title" = "Rust voorbij";
 "notification.rest_finished.body_format" = "Set %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld van %ld";
 "accessibility.set_progress_label" = "Setvoortgang";
 "accessibility.time_remaining" = "Resterende tijd";
+"accessibility.reset_label" = "Resetten";

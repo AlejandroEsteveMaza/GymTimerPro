@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Pause (sekunder)";
 
 "button.start_rest.title" = "START PAUSE";
-"button.reset.title" = "NULSTIL";
 
 "metric.set.title" = "SÆT";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "Rediger %@";
 "accessibility.total_sets_value_format" = "%ld sæt";
 "accessibility.rest_seconds_value_format" = "%ld sekunder";
-"accessibility.reset_label" = "Nulstil";
-"accessibility.reset_hint" = "Hold nede i 1 sekund for at nulstille";
 
 "notification.rest_finished.title" = "Pause slut";
 "notification.rest_finished.body_format" = "Sæt %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld af %ld";
 "accessibility.set_progress_label" = "Sæt-fremgang";
 "accessibility.time_remaining" = "Resterende tid";
+"accessibility.reset_label" = "Nulstil";

@@ -171,8 +171,6 @@ struct ContentView: View {
             .buttonStyle(PrimaryButtonStyle(height: Layout.primaryButtonHeight))
             .accessibilityIdentifier("startRestButton")
             .disabled(isResting || completado)
-
-            HoldToResetButton(action: resetWorkout, height: Layout.secondaryButtonHeight)
         }
         .padding(.horizontal, Layout.horizontalPadding)
         .padding(.top, Layout.controlsVerticalPadding)
@@ -705,9 +703,8 @@ private enum Layout {
     static let minTapHeight: CGFloat = 44
     static let controlsVerticalPadding: CGFloat = 12
     static let primaryButtonHeight: CGFloat = 80
-    static let secondaryButtonHeight: CGFloat = 56
     static let buttonCornerRadius: CGFloat = 16
-    static let scrollBottomPadding: CGFloat = 24 + primaryButtonHeight + secondaryButtonHeight
+    static let scrollBottomPadding: CGFloat = 24 + primaryButtonHeight
     static let defaultStepperControlSize = CGSize(width: 94, height: 32)
     static let wheelCornerRadius: CGFloat = 10
     static let wheelTickSpacing: CGFloat = 6
@@ -747,7 +744,6 @@ private enum Theme {
     static let primaryButtonText = Color.white
     static let secondaryButtonFill = Color(uiColor: .secondarySystemBackground)
     static let secondaryButtonBorder = Color(uiColor: .systemGray3)
-    static let resetProgressFill = primaryButton.opacity(0.2)
     static let metricBackground = Color(uiColor: .tertiarySystemBackground)
     static let timerBackground = resting.opacity(0.12)
     static let cardBorder = Color(uiColor: .separator).opacity(0.3)
@@ -1181,113 +1177,6 @@ private struct ResetIconButton: View {
     }
 }
 
-private struct HoldToResetButton: View {
-    let action: () -> Void
-    let height: CGFloat
-
-    @Environment(\.isEnabled) private var isEnabled
-    @State private var progress: CGFloat = 0
-    @State private var didTriggerAction = false
-    @State private var isPressing = false
-    @State private var holdTask: Task<Void, Never>? = nil
-
-    private enum HoldConfig {
-        static let duration: TimeInterval = 1.0
-        static let maxDistance: CGFloat = 16
-        static let releaseDuration: TimeInterval = 0.25
-        static let dischargeDuration: TimeInterval = 0.45
-    }
-
-    var body: some View {
-        let shape = RoundedRectangle(cornerRadius: Layout.buttonCornerRadius, style: .continuous)
-
-        ZStack {
-            shape.fill(Theme.secondaryButtonFill)
-
-            GeometryReader { proxy in
-                Rectangle()
-                    .fill(Theme.resetProgressFill)
-                    .frame(width: proxy.size.width * progress, height: proxy.size.height)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            }
-            .clipShape(shape)
-            .allowsHitTesting(false)
-
-            shape.stroke(Theme.secondaryButtonBorder, lineWidth: 1)
-
-            Label("button.reset.title", systemImage: "arrow.counterclockwise")
-                .font(.system(size: 17, weight: .semibold, design: .rounded))
-                .foregroundStyle(Theme.textPrimary)
-        }
-        .frame(maxWidth: .infinity, minHeight: height, maxHeight: height)
-        .contentShape(shape)
-        .opacity(isEnabled ? 1 : 0.6)
-        .scaleEffect(isPressing ? 0.98 : 1)
-        .animation(.snappy, value: isPressing)
-        .allowsHitTesting(isEnabled)
-        .onDisappear {
-            holdTask?.cancel()
-            holdTask = nil
-        }
-        .onLongPressGesture(
-            minimumDuration: HoldConfig.duration,
-            maximumDistance: HoldConfig.maxDistance,
-            pressing: { pressing in
-                guard isEnabled else { return }
-                isPressing = pressing
-
-                if pressing {
-                    didTriggerAction = false
-                    progress = 0
-                    holdTask?.cancel()
-                    withAnimation(.linear(duration: HoldConfig.duration)) {
-                        progress = 1
-                    }
-
-                    // Manual timer guarantees the reset even if the system long-press callback skips the perform block.
-                    holdTask = Task {
-                        let delay = UInt64(HoldConfig.duration * 1_000_000_000)
-                        try? await Task.sleep(nanoseconds: delay)
-                        guard !Task.isCancelled else { return }
-                        await MainActor.run {
-                            guard isPressing, !didTriggerAction, isEnabled else { return }
-                            triggerReset()
-                        }
-                    }
-                } else {
-                    holdTask?.cancel()
-                    holdTask = nil
-                    if !didTriggerAction {
-                        withAnimation(.easeOut(duration: HoldConfig.releaseDuration)) {
-                            progress = 0
-                        }
-                    }
-                }
-            },
-            perform: {
-                guard isEnabled else { return }
-                triggerReset()
-            }
-        )
-        .accessibilityElement()
-        .accessibilityAddTraits(.isButton)
-        .accessibilityLabel(Text("accessibility.reset_label"))
-        .accessibilityHint(Text("accessibility.reset_hint"))
-    }
-
-    private func triggerReset() {
-        guard !didTriggerAction else { return }
-        didTriggerAction = true
-        holdTask?.cancel()
-        holdTask = nil
-        action()
-        progress = 1
-        withAnimation(.linear(duration: HoldConfig.dischargeDuration)) {
-            progress = 0
-        }
-    }
-}
-
 private struct PrimaryButtonStyle: ButtonStyle {
     let height: CGFloat
 
@@ -1304,30 +1193,6 @@ private struct PrimaryButtonStyle: ButtonStyle {
             )
             .scaleEffect(configuration.isPressed ? 0.98 : 1)
             .shadow(color: Theme.primaryButton.opacity(isEnabled ? 0.25 : 0), radius: 10, x: 0, y: 6)
-            .animation(.snappy, value: configuration.isPressed)
-    }
-}
-
-private struct SecondaryButtonStyle: ButtonStyle {
-    let height: CGFloat
-
-    @Environment(\.isEnabled) private var isEnabled
-
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.system(size: 17, weight: .semibold, design: .rounded))
-            .foregroundStyle(Theme.textPrimary)
-            .frame(maxWidth: .infinity, minHeight: height)
-            .background(
-                RoundedRectangle(cornerRadius: Layout.buttonCornerRadius, style: .continuous)
-                    .fill(Theme.secondaryButtonFill)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: Layout.buttonCornerRadius, style: .continuous)
-                    .stroke(Theme.secondaryButtonBorder, lineWidth: 1)
-            )
-            .opacity(isEnabled ? 1 : 0.6)
-            .scaleEffect(configuration.isPressed ? 0.98 : 1)
             .animation(.snappy, value: configuration.isPressed)
     }
 }

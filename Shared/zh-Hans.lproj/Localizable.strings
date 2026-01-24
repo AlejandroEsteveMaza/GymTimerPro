@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "休息（秒）";
 
 "button.start_rest.title" = "开始休息";
-"button.reset.title" = "重置";
 
 "metric.set.title" = "组";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "编辑 %@";
 "accessibility.total_sets_value_format" = "%ld 组";
 "accessibility.rest_seconds_value_format" = "%ld 秒";
-"accessibility.reset_label" = "重置";
-"accessibility.reset_hint" = "长按 1 秒重置";
 
 "notification.rest_finished.title" = "休息结束";
 "notification.rest_finished.body_format" = "第 %ld/%ld 组";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld / %ld";
 "accessibility.set_progress_label" = "组进度";
 "accessibility.time_remaining" = "剩余时间";
+"accessibility.reset_label" = "重置";

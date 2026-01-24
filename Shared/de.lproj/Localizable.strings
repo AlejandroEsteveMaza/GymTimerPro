@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Pause (Sekunden)";
 
 "button.start_rest.title" = "PAUSE STARTEN";
-"button.reset.title" = "ZURÜCKSETZEN";
 
 "metric.set.title" = "SATZ";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "%@ bearbeiten";
 "accessibility.total_sets_value_format" = "%ld Sätze";
 "accessibility.rest_seconds_value_format" = "%ld Sekunden";
-"accessibility.reset_label" = "Zurücksetzen";
-"accessibility.reset_hint" = "1 Sekunde halten zum Zurücksetzen";
 
 "notification.rest_finished.title" = "Pause beendet";
 "notification.rest_finished.body_format" = "Satz %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld von %ld";
 "accessibility.set_progress_label" = "Satzfortschritt";
 "accessibility.time_remaining" = "Verbleibende Zeit";
+"accessibility.reset_label" = "Zurücksetzen";

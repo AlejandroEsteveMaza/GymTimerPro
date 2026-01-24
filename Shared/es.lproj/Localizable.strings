@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Descanso (segundos)";
 
 "button.start_rest.title" = "EMPEZAR DESCANSO";
-"button.reset.title" = "REINICIAR";
 
 "metric.set.title" = "SERIE";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "Editar %@";
 "accessibility.total_sets_value_format" = "%ld series";
 "accessibility.rest_seconds_value_format" = "%ld segundos";
-"accessibility.reset_label" = "Reiniciar";
-"accessibility.reset_hint" = "Mantén pulsado 1 segundo para reiniciar";
 
 "notification.rest_finished.title" = "Descanso terminado";
 "notification.rest_finished.body_format" = "Serie %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld de %ld";
 "accessibility.set_progress_label" = "Progreso de series";
 "accessibility.time_remaining" = "Tiempo restante";
+"accessibility.reset_label" = "Reiniciar";

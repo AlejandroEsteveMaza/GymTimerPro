@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "आराम (सेकंड)";
 
 "button.start_rest.title" = "आराम शुरू करें";
-"button.reset.title" = "रीसेट";
 
 "metric.set.title" = "सेट";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "%@ संपादित करें";
 "accessibility.total_sets_value_format" = "%ld सेट";
 "accessibility.rest_seconds_value_format" = "%ld सेकंड";
-"accessibility.reset_label" = "रीसेट";
-"accessibility.reset_hint" = "रीसेट करने के लिए 1 सेकंड दबाए रखें";
 
 "notification.rest_finished.title" = "आराम समाप्त";
 "notification.rest_finished.body_format" = "सेट %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld में से %ld";
 "accessibility.set_progress_label" = "सेट प्रगति";
 "accessibility.time_remaining" = "बचा हुआ समय";
+"accessibility.reset_label" = "रीसेट";

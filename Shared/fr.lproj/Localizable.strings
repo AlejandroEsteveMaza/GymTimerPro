@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Repos (secondes)";
 
 "button.start_rest.title" = "COMMENCER LE REPOS";
-"button.reset.title" = "RÉINITIALISER";
 
 "metric.set.title" = "SÉRIE";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "Modifier %@";
 "accessibility.total_sets_value_format" = "%ld séries";
 "accessibility.rest_seconds_value_format" = "%ld secondes";
-"accessibility.reset_label" = "Réinitialiser";
-"accessibility.reset_hint" = "Maintenez 1 seconde pour réinitialiser";
 
 "notification.rest_finished.title" = "Repos terminé";
 "notification.rest_finished.body_format" = "Série %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld sur %ld";
 "accessibility.set_progress_label" = "Progression des séries";
 "accessibility.time_remaining" = "Temps restant";
+"accessibility.reset_label" = "Réinitialiser";

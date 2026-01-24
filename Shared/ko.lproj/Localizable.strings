@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "휴식 (초)";
 
 "button.start_rest.title" = "휴식 시작";
-"button.reset.title" = "리셋";
 
 "metric.set.title" = "세트";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "%@ 편집";
 "accessibility.total_sets_value_format" = "%ld 세트";
 "accessibility.rest_seconds_value_format" = "%ld초";
-"accessibility.reset_label" = "리셋";
-"accessibility.reset_hint" = "리셋하려면 1초 길게 누르세요";
 
 "notification.rest_finished.title" = "휴식 종료";
 "notification.rest_finished.body_format" = "세트 %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld / %ld";
 "accessibility.set_progress_label" = "세트 진행";
 "accessibility.time_remaining" = "남은 시간";
+"accessibility.reset_label" = "리셋";

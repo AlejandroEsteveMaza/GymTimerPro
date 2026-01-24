@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Vila (sekunder)";
 
 "button.start_rest.title" = "STARTA VILA";
-"button.reset.title" = "ÅTERSTÄLL";
 
 "metric.set.title" = "SET";
 
@@ -52,8 +51,6 @@
 "accessibility.edit_value_label_format" = "Redigera %@";
 "accessibility.total_sets_value_format" = "%ld set";
 "accessibility.rest_seconds_value_format" = "%ld sekunder";
-"accessibility.reset_label" = "Återställ";
-"accessibility.reset_hint" = "Håll i 1 sekund för att återställa";
 
 "notification.rest_finished.title" = "Vila avslutad";
 "notification.rest_finished.body_format" = "Set %ld/%ld";
@@ -68,3 +65,4 @@
 "accessibility.set_value_format" = "%ld av %ld";
 "accessibility.set_progress_label" = "Set-förlopp";
 "accessibility.time_remaining" = "Återstående tid";
+"accessibility.reset_label" = "Återställ";
