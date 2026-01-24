@@ -1,0 +1,68 @@
+"section.configuration.title" = "Konfiguration";
+"section.progress.title" = "Fremgang";
+
+"config.total_sets.title" = "Antal sæt";
+"config.rest_seconds.title" = "Pause (sekunder)";
+
+"button.start_rest.title" = "START PAUSE";
+
+"metric.set.title" = "SÆT";
+
+"label.state" = "Status";
+"label.rest_time" = "Pausetid";
+
+"status.resting" = "PAUSER";
+"status.training" = "TRÆNER";
+
+"workout.completed" = "TRÆNING FÆRDIG!";
+
+"pro.status.free" = "Gratis";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld i dag";
+"pro.button.upgrade" = "Lås op";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Træn uden begrænsninger";
+"paywall.value.subtitle" = "Fuld adgang til timeren med et engangskøb.";
+"paywall.subtitle_limit_format" = "Du har nået dagens gratis grænse (%ld/%ld).";
+"paywall.section.benefits" = "Inkluderede fordele";
+"paywall.section.purchase" = "Køb";
+"paywall.benefit.unlimited" = "Ubegrænset brug";
+"paywall.benefit.no_limits" = "Ingen daglige grænser";
+"paywall.benefit.one_time" = "Engangskøb, intet abonnement";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Ubegrænset brug";
+"paywall.purchase.one_time" = "Engang";
+"paywall.button.buy" = "Lås op for Pro";
+"paywall.button.restore" = "Gendan køb";
+"paywall.button.terms" = "Se vilkår";
+"paywall.button.not_now" = "Ikke nu";
+"paywall.price.loading" = "Indlæser pris…";
+"paywall.error.title" = "Køb mislykkedes";
+"paywall.error.product_unavailable" = "Produktet er ikke tilgængeligt i øjeblikket.";
+"paywall.error.failed_verification" = "Kunne ikke verificere købet.";
+"paywall.error.user_cancelled" = "Køb annulleret.";
+"paywall.error.pending" = "Køb afventer.";
+"paywall.error.unknown" = "Der opstod en fejl. Prøv igen.";
+
+"common.cancel" = "Annuller";
+"common.ok" = "OK";
+
+"accessibility.edit_value_label_format" = "Rediger %@";
+"accessibility.total_sets_value_format" = "%ld sæt";
+"accessibility.rest_seconds_value_format" = "%ld sekunder";
+
+"notification.rest_finished.title" = "Pause slut";
+"notification.rest_finished.body_format" = "Sæt %ld/%ld";
+
+"live_activity.mode.resting" = "Pause";
+"live_activity.mode.training" = "Træning";
+"live_activity.set_progress_format" = "Sæt %ld/%ld";
+"live_activity.set_progress_expanded_format" = "Sæt %ld af %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "Sæt";
+"accessibility.set_value_format" = "%ld af %ld";
+"accessibility.set_progress_label" = "Sæt-fremgang";
+"accessibility.time_remaining" = "Resterende tid";
+"accessibility.reset_label" = "Nulstil";

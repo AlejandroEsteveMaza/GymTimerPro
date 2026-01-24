@@ -1,0 +1,68 @@
+"section.configuration.title" = "설정";
+"section.progress.title" = "진행";
+
+"config.total_sets.title" = "총 세트";
+"config.rest_seconds.title" = "휴식 (초)";
+
+"button.start_rest.title" = "휴식 시작";
+
+"metric.set.title" = "세트";
+
+"label.state" = "상태";
+"label.rest_time" = "휴식 시간";
+
+"status.resting" = "휴식 중";
+"status.training" = "운동 중";
+
+"workout.completed" = "운동 완료!";
+
+"pro.status.free" = "무료";
+"pro.status.pro" = "프로";
+"pro.usage_today_format" = "%ld/%ld 오늘";
+"pro.button.upgrade" = "잠금 해제";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "제한 없이 운동";
+"paywall.value.subtitle" = "일회성 구매로 타이머 전체 사용.";
+"paywall.subtitle_limit_format" = "오늘의 무료 한도에 도달했습니다 (%ld/%ld).";
+"paywall.section.benefits" = "포함된 혜택";
+"paywall.section.purchase" = "구매";
+"paywall.benefit.unlimited" = "무제한 사용";
+"paywall.benefit.no_limits" = "일일 제한 없음";
+"paywall.benefit.one_time" = "일회성 구매, 구독 없음";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "무제한 사용";
+"paywall.purchase.one_time" = "한 번";
+"paywall.button.buy" = "프로 잠금 해제";
+"paywall.button.restore" = "구매 복원";
+"paywall.button.terms" = "약관 보기";
+"paywall.button.not_now" = "나중에";
+"paywall.price.loading" = "가격 불러오는 중…";
+"paywall.error.title" = "구매 실패";
+"paywall.error.product_unavailable" = "현재 상품을 사용할 수 없습니다.";
+"paywall.error.failed_verification" = "구매를 확인할 수 없습니다.";
+"paywall.error.user_cancelled" = "구매가 취소되었습니다.";
+"paywall.error.pending" = "구매가 보류 중입니다.";
+"paywall.error.unknown" = "문제가 발생했습니다. 다시 시도하세요.";
+
+"common.cancel" = "취소";
+"common.ok" = "확인";
+
+"accessibility.edit_value_label_format" = "%@ 편집";
+"accessibility.total_sets_value_format" = "%ld 세트";
+"accessibility.rest_seconds_value_format" = "%ld초";
+
+"notification.rest_finished.title" = "휴식 종료";
+"notification.rest_finished.body_format" = "세트 %ld/%ld";
+
+"live_activity.mode.resting" = "휴식";
+"live_activity.mode.training" = "운동";
+"live_activity.set_progress_format" = "세트 %ld/%ld";
+"live_activity.set_progress_expanded_format" = "세트 %ld / %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "세트";
+"accessibility.set_value_format" = "%ld / %ld";
+"accessibility.set_progress_label" = "세트 진행";
+"accessibility.time_remaining" = "남은 시간";
+"accessibility.reset_label" = "리셋";

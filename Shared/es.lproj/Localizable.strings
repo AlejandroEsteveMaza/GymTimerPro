@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Descanso (segundos)";
 
 "button.start_rest.title" = "EMPEZAR DESCANSO";
-"button.reset.title" = "REINICIAR";
 
 "metric.set.title" = "SERIE";
 
@@ -17,14 +16,41 @@
 
 "workout.completed" = "¡ENTRENAMIENTO COMPLETADO!";
 
+"pro.status.free" = "Gratis";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld hoy";
+"pro.button.upgrade" = "Desbloquear";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Entrena sin límites";
+"paywall.value.subtitle" = "Acceso completo al temporizador con un pago único.";
+"paywall.subtitle_limit_format" = "Has alcanzado el límite gratuito de hoy (%ld/%ld).";
+"paywall.section.benefits" = "Beneficios incluidos";
+"paywall.section.purchase" = "Compra";
+"paywall.benefit.unlimited" = "Uso ilimitado";
+"paywall.benefit.no_limits" = "Sin límites diarios";
+"paywall.benefit.one_time" = "Pago único, sin suscripción";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Uso ilimitado";
+"paywall.purchase.one_time" = "Pago único";
+"paywall.button.buy" = "Desbloquear Pro";
+"paywall.button.restore" = "Restaurar compra";
+"paywall.button.terms" = "Ver términos";
+"paywall.button.not_now" = "Ahora no";
+"paywall.price.loading" = "Cargando precio…";
+"paywall.error.title" = "No se pudo completar la compra";
+"paywall.error.product_unavailable" = "El producto no está disponible en este momento.";
+"paywall.error.failed_verification" = "No se pudo verificar la compra.";
+"paywall.error.user_cancelled" = "Compra cancelada.";
+"paywall.error.pending" = "La compra está pendiente.";
+"paywall.error.unknown" = "Ha ocurrido un error. Inténtalo de nuevo.";
+
 "common.cancel" = "Cancelar";
 "common.ok" = "Aceptar";
 
 "accessibility.edit_value_label_format" = "Editar %@";
 "accessibility.total_sets_value_format" = "%ld series";
 "accessibility.rest_seconds_value_format" = "%ld segundos";
-"accessibility.reset_label" = "Reiniciar";
-"accessibility.reset_hint" = "Mantén pulsado 1 segundo para reiniciar";
 
 "notification.rest_finished.title" = "Descanso terminado";
 "notification.rest_finished.body_format" = "Serie %ld/%ld";
@@ -39,3 +65,4 @@
 "accessibility.set_value_format" = "%ld de %ld";
 "accessibility.set_progress_label" = "Progreso de series";
 "accessibility.time_remaining" = "Tiempo restante";
+"accessibility.reset_label" = "Reiniciar";

@@ -1,0 +1,68 @@
+"section.configuration.title" = "Configuration";
+"section.progress.title" = "Progression";
+
+"config.total_sets.title" = "Séries totales";
+"config.rest_seconds.title" = "Repos (secondes)";
+
+"button.start_rest.title" = "COMMENCER LE REPOS";
+
+"metric.set.title" = "SÉRIE";
+
+"label.state" = "État";
+"label.rest_time" = "Temps de repos";
+
+"status.resting" = "EN REPOS";
+"status.training" = "ENTRAÎNEMENT";
+
+"workout.completed" = "ENTRAÎNEMENT TERMINÉ !";
+
+"pro.status.free" = "Gratuit";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld aujourd’hui";
+"pro.button.upgrade" = "Débloquer";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Entraînez-vous sans limites";
+"paywall.value.subtitle" = "Accès complet au minuteur avec un achat unique.";
+"paywall.subtitle_limit_format" = "Vous avez atteint la limite gratuite du jour (%ld/%ld).";
+"paywall.section.benefits" = "Avantages inclus";
+"paywall.section.purchase" = "Achat";
+"paywall.benefit.unlimited" = "Utilisation illimitée";
+"paywall.benefit.no_limits" = "Pas de limite journalière";
+"paywall.benefit.one_time" = "Achat unique, pas d’abonnement";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Utilisation illimitée";
+"paywall.purchase.one_time" = "Une seule fois";
+"paywall.button.buy" = "Débloquer Pro";
+"paywall.button.restore" = "Restaurer l’achat";
+"paywall.button.terms" = "Voir les conditions";
+"paywall.button.not_now" = "Pas maintenant";
+"paywall.price.loading" = "Chargement du prix…";
+"paywall.error.title" = "Achat échoué";
+"paywall.error.product_unavailable" = "Le produit est actuellement indisponible.";
+"paywall.error.failed_verification" = "Nous n’avons pas pu vérifier l’achat.";
+"paywall.error.user_cancelled" = "Achat annulé.";
+"paywall.error.pending" = "L’achat est en attente.";
+"paywall.error.unknown" = "Une erreur est survenue. Veuillez réessayer.";
+
+"common.cancel" = "Annuler";
+"common.ok" = "OK";
+
+"accessibility.edit_value_label_format" = "Modifier %@";
+"accessibility.total_sets_value_format" = "%ld séries";
+"accessibility.rest_seconds_value_format" = "%ld secondes";
+
+"notification.rest_finished.title" = "Repos terminé";
+"notification.rest_finished.body_format" = "Série %ld/%ld";
+
+"live_activity.mode.resting" = "Repos";
+"live_activity.mode.training" = "Entraînement";
+"live_activity.set_progress_format" = "Série %ld/%ld";
+"live_activity.set_progress_expanded_format" = "Série %ld sur %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "Série";
+"accessibility.set_value_format" = "%ld sur %ld";
+"accessibility.set_progress_label" = "Progression des séries";
+"accessibility.time_remaining" = "Temps restant";
+"accessibility.reset_label" = "Réinitialiser";

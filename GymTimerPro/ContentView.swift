@@ -18,9 +18,14 @@ struct ContentView: View {
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
     @StateObject private var restTimer = RestTimerModel()
     @StateObject private var liveActivityManager = LiveActivityManager()
+    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 19)
+    @State private var isPresentingPaywall = false
+    @State private var showNotificationPreview = false
+    @State private var uiTestOverridesApplied = false
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
+    @EnvironmentObject private var purchaseManager: PurchaseManager
 
     var body: some View {
         ZStack {
@@ -35,13 +40,20 @@ struct ContentView: View {
                 .padding(.top, Layout.topPadding)
                 .padding(.bottom, Layout.scrollBottomPadding)
             }
+            .accessibilityIdentifier("homeScreen")
+
+            if showNotificationPreview {
+                notificationPreviewOverlay
+            }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             controlsSection
         }
         .onAppear {
             UIApplication.shared.isIdleTimerDisabled = true
+            applyUITestOverridesIfNeeded()
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
+            usageLimiter.refresh(now: .now)
             restTimer.tick(now: .now)
             if restTimer.didFinish {
                 handleRestFinished()
@@ -63,6 +75,9 @@ struct ContentView: View {
         }
         .onChange(of: scenePhase) { _, newPhase in
             restTimer.handleScenePhase(newPhase)
+            if newPhase == .active {
+                usageLimiter.refresh(now: .now)
+            }
             if newPhase == .active, restTimer.didFinish {
                 handleRestFinished()
             }
@@ -81,16 +96,34 @@ struct ContentView: View {
                 liveActivityManager.end()
             }
         }
+        .sheet(isPresented: $isPresentingPaywall) {
+            PaywallView(
+                dailyLimit: usageLimiter.status.dailyLimit,
+                consumedToday: usageLimiter.status.consumedToday,
+                accentColor: Theme.primaryButton
+            )
+            .environmentObject(purchaseManager)
+        }
     }
 
     private var configurationSection: some View {
-        SectionCard(titleKey: "section.configuration.title", systemImage: "slider.horizontal.3") {
+        SectionCard(
+            titleKey: "section.configuration.title",
+            systemImage: "slider.horizontal.3",
+            trailing: {
+                if purchaseManager.isPro {
+                    proStatusIcon
+                }
+            }
+        ) {
             VStack(spacing: Layout.rowSpacing) {
                 configWheelRow(
                     titleKey: "config.total_sets.title",
                     icon: "square.stack.3d.up",
                     value: $totalSeries,
                     range: 1...10,
+                    valueEditorIdentifier: "totalSetsValueButton",
+                    editorPickerIdentifier: "totalSetsPicker",
                     accessibilityValue: L10n.format("accessibility.total_sets_value_format", totalSeries)
                 )
                 Divider()
@@ -103,6 +136,11 @@ struct ContentView: View {
                     step: 15,
                     accessibilityValue: L10n.format("accessibility.rest_seconds_value_format", tiempoDescanso)
                 )
+                if !purchaseManager.isPro {
+                    Divider()
+                        .foregroundStyle(Theme.divider)
+                    proRow
+                }
             }
         }
         .disabled(isTimerActive || completado)
@@ -114,7 +152,13 @@ struct ContentView: View {
     }
 
     private var progressSection: some View {
-        SectionCard(titleKey: "section.progress.title", systemImage: "chart.line.uptrend.xyaxis") {
+        SectionCard(
+            titleKey: "section.progress.title",
+            systemImage: "chart.line.uptrend.xyaxis",
+            trailing: {
+                ResetIconButton(action: resetWorkout, isEnabled: canReset)
+            }
+        ) {
             TimelineView(.periodic(from: .now, by: 1)) { _ in
                 let now = Date.now
                 let tickID = Int(now.timeIntervalSince1970)
@@ -135,9 +179,8 @@ struct ContentView: View {
                 Label("button.start_rest.title", systemImage: "pause.circle.fill")
             }
             .buttonStyle(PrimaryButtonStyle(height: Layout.primaryButtonHeight))
+            .accessibilityIdentifier("startRestButton")
             .disabled(isResting || completado)
-
-            HoldToResetButton(action: resetWorkout, height: Layout.secondaryButtonHeight)
         }
         .padding(.horizontal, Layout.horizontalPadding)
         .padding(.top, Layout.controlsVerticalPadding)
@@ -156,6 +199,8 @@ struct ContentView: View {
         value: Binding<Int>,
         range: ClosedRange<Int>,
         step: Int = 1,
+        valueEditorIdentifier: String? = nil,
+        editorPickerIdentifier: String? = nil,
         accessibilityValue: String
     ) -> some View {
         let localizedTitle = L10n.tr(titleKey)
@@ -165,7 +210,9 @@ struct ContentView: View {
                     titleKey: titleKey,
                     value: value,
                     range: range,
-                    step: step
+                    step: step,
+                    accessibilityIdentifier: valueEditorIdentifier,
+                    editorPickerIdentifier: editorPickerIdentifier
                 )
             }
                 .layoutPriority(1)
@@ -244,6 +291,7 @@ struct ContentView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Layout.timerPadding)
         .background(Theme.timerBackground, in: RoundedRectangle(cornerRadius: Layout.metricCornerRadius, style: .continuous))
+        .accessibilityIdentifier("restTimerView")
     }
 
     private var completionView: some View {
@@ -269,6 +317,10 @@ struct ContentView: View {
         restTimer.isRunning
     }
 
+    private var canReset: Bool {
+        completado || isResting || serieActual > 1
+    }
+
     private func startRest() {
         guard !isResting, !completado else { return }
 
@@ -276,6 +328,13 @@ struct ContentView: View {
             completeWorkout()
             return
         }
+
+        let now = Date.now
+        guard usageLimiter.canConsume(now: now, isPro: purchaseManager.isPro) else {
+            isPresentingPaywall = true
+            return
+        }
+        usageLimiter.consume(now: now, isPro: purchaseManager.isPro)
 
         withAnimation(.snappy) {
             serieActual += 1
@@ -349,6 +408,159 @@ struct ContentView: View {
                 totalSets: totalSeries
             )
         }
+    }
+
+    private var proRow: some View {
+        HStack(spacing: 12) {
+            Image(systemName: "lock.fill")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(Theme.iconTint)
+                .frame(width: 28, height: 28)
+                .background(Theme.iconBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text("pro.status.free")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(Theme.textPrimary)
+
+                Text(L10n.format("pro.usage_today_format", usageLimiter.status.consumedToday, usageLimiter.status.dailyLimit))
+                    .font(.subheadline)
+                    .foregroundStyle(Theme.textSecondary)
+            }
+
+            Spacer(minLength: 0)
+
+            Button("pro.button.upgrade") {
+                isPresentingPaywall = true
+            }
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.roundedRectangle(radius: 12))
+            .tint(Theme.primaryButton)
+            .bold()
+        }
+        .frame(minHeight: Layout.minTapHeight)
+    }
+
+    private var proStatusIcon: some View {
+        HStack(spacing: 6) {
+            Text("pro.status.pro")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Theme.textPrimary)
+
+            Image(systemName: "checkmark.seal.fill")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(Theme.completed)
+                .frame(width: 24, height: 24)
+                .background(Theme.iconBackground, in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+        }
+        .accessibilityElement(children: .combine)
+    }
+
+    private var isUITesting: Bool {
+        let args = ProcessInfo.processInfo.arguments
+        return args.contains("-ui_testing") || args.contains("ui-testing")
+    }
+
+    private func applyUITestOverridesIfNeeded() {
+        guard isUITesting, !uiTestOverridesApplied else { return }
+        uiTestOverridesApplied = true
+        let env = ProcessInfo.processInfo.environment
+
+        if let setsValue = env["UITEST_TOTAL_SETS"], let sets = Int(setsValue) {
+            totalSeries = sets
+            if serieActual > sets {
+                serieActual = sets
+            }
+        }
+        if let restValue = env["UITEST_REST_SECONDS"], let rest = Int(restValue) {
+            tiempoDescanso = rest
+        }
+        if let currentValue = env["UITEST_CURRENT_SET"], let current = Int(currentValue) {
+            serieActual = current
+        }
+        if env["UITEST_SHOW_NOTIFICATION_PREVIEW"] == "1" {
+            showNotificationPreview = true
+        }
+    }
+
+    private var notificationPreviewOverlay: some View {
+        VStack(spacing: 12) {
+            notificationPreviewBanner
+            liveActivityPreviewCard
+        }
+        .padding(.horizontal, Layout.horizontalPadding)
+        .padding(.top, Layout.topPadding)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .accessibilityIdentifier("notificationPreview")
+    }
+
+    private var notificationPreviewBanner: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: "bell.fill")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(Theme.resting)
+                .frame(width: 28, height: 28)
+                .background(Theme.iconBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(L10n.tr("notification.rest_finished.title"))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.textPrimary)
+                Text(L10n.format("notification.rest_finished.body_format", serieActual, totalSeries))
+                    .font(.caption)
+                    .foregroundStyle(Theme.textSecondary)
+            }
+
+            Spacer(minLength: 0)
+
+            Text("now")
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(Theme.textSecondary)
+        }
+        .padding(12)
+        .background(Theme.cardBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: Theme.cardShadow, radius: 12, x: 0, y: 6)
+    }
+
+    private var liveActivityPreviewCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Label("live_activity.mode.resting", systemImage: "timer")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(Theme.resting)
+                Spacer(minLength: 0)
+                Text(previewTimeString)
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
+                    .foregroundStyle(Theme.textPrimary)
+                    .monospacedDigit()
+            }
+
+            Text(L10n.format("live_activity.set_progress_expanded_format", serieActual, totalSeries))
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Theme.textSecondary)
+
+            ProgressView(value: previewSetProgress)
+                .tint(Theme.resting)
+        }
+        .padding(16)
+        .background(Theme.cardBackground, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(color: Theme.cardShadow, radius: 12, x: 0, y: 6)
+    }
+
+    private var previewSetProgress: Double {
+        guard totalSeries > 0 else { return 0 }
+        return min(max(Double(serieActual) / Double(totalSeries), 0), 1)
+    }
+
+    private var previewTimeString: String {
+        formatTime(max(1, tiempoDescanso))
+    }
+
+    private func formatTime(_ seconds: Int) -> String {
+        let minutes = max(0, seconds) / 60
+        let remaining = max(0, seconds) % 60
+        return String(format: "%d:%02d", minutes, remaining)
     }
 }
 
@@ -491,6 +703,7 @@ private final class RestTimerModel: ObservableObject {
 
 #Preview {
     ContentView()
+        .environmentObject(PurchaseManager(startTasks: false))
 }
 
 private enum Layout {
@@ -511,9 +724,8 @@ private enum Layout {
     static let minTapHeight: CGFloat = 44
     static let controlsVerticalPadding: CGFloat = 12
     static let primaryButtonHeight: CGFloat = 80
-    static let secondaryButtonHeight: CGFloat = 56
     static let buttonCornerRadius: CGFloat = 16
-    static let scrollBottomPadding: CGFloat = 24 + primaryButtonHeight + secondaryButtonHeight
+    static let scrollBottomPadding: CGFloat = 24 + primaryButtonHeight
     static let defaultStepperControlSize = CGSize(width: 94, height: 32)
     static let wheelCornerRadius: CGFloat = 10
     static let wheelTickSpacing: CGFloat = 6
@@ -530,6 +742,9 @@ private enum Layout {
     static let wheelStepMinWidth: CGFloat = 10
     static let wheelHitTarget: CGFloat = 44
     static let wheelClipInset: CGFloat = 1
+    static let resetIconSize: CGFloat = 20
+    static let resetIconCornerRadius: CGFloat = 6
+    static let resetTapWidth: CGFloat = 44
 }
 
 private enum Theme {
@@ -550,7 +765,6 @@ private enum Theme {
     static let primaryButtonText = Color.white
     static let secondaryButtonFill = Color(uiColor: .secondarySystemBackground)
     static let secondaryButtonBorder = Color(uiColor: .systemGray3)
-    static let resetProgressFill = primaryButton.opacity(0.2)
     static let metricBackground = Color(uiColor: .tertiarySystemBackground)
     static let timerBackground = resting.opacity(0.12)
     static let cardBorder = Color(uiColor: .separator).opacity(0.3)
@@ -600,6 +814,8 @@ private struct ConfigValueEditorButton: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
+    let accessibilityIdentifier: String?
+    let editorPickerIdentifier: String?
 
     @State private var isPresenting = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -614,6 +830,7 @@ private struct ConfigValueEditorButton: View {
                 .monospacedDigit()
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier(accessibilityIdentifier ?? "")
         .accessibilityLabel(L10n.format("accessibility.edit_value_label_format", L10n.tr(titleKey)))
         .accessibilityValue("\(value)")
 
@@ -624,7 +841,8 @@ private struct ConfigValueEditorButton: View {
                         titleKey: titleKey,
                         value: $value,
                         range: range,
-                        step: step
+                        step: step,
+                        pickerIdentifier: editorPickerIdentifier
                     )
                     .frame(minWidth: 260, minHeight: 320)
                 }
@@ -634,7 +852,8 @@ private struct ConfigValueEditorButton: View {
                         titleKey: titleKey,
                         value: $value,
                         range: range,
-                        step: step
+                        step: step,
+                        pickerIdentifier: editorPickerIdentifier
                     )
                     .presentationDetents([.medium, .large])
                 }
@@ -648,15 +867,17 @@ private struct DiscreteValueEditor: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
+    let pickerIdentifier: String?
 
     @Environment(\.dismiss) private var dismiss
     @State private var selection: Int
 
-    init(titleKey: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int) {
+    init(titleKey: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int, pickerIdentifier: String? = nil) {
         self.titleKey = titleKey
         _value = value
         self.range = range
         self.step = step
+        self.pickerIdentifier = pickerIdentifier
         let initial = DiscreteValueHelper.clampAndRound(value.wrappedValue, range: range, step: step)
         _selection = State(initialValue: initial)
     }
@@ -672,6 +893,7 @@ private struct DiscreteValueEditor: View {
                 }
                 .pickerStyle(.wheel)
                 .labelsHidden()
+                .accessibilityIdentifier(pickerIdentifier ?? "")
             }
             .navigationTitle(LocalizedStringKey(titleKey))
             .toolbar {
@@ -892,23 +1114,46 @@ private struct MetricView: View {
     }
 }
 
-private struct SectionCard<Content: View>: View {
+private struct SectionCard<Content: View, Trailing: View>: View {
     let titleKey: String
     let systemImage: String
+    let trailing: Trailing
+    let hasTrailing: Bool
     let content: Content
 
-    init(titleKey: String, systemImage: String, @ViewBuilder content: () -> Content) {
+    init(titleKey: String, systemImage: String, @ViewBuilder content: () -> Content) where Trailing == EmptyView {
         self.titleKey = titleKey
         self.systemImage = systemImage
+        self.trailing = EmptyView()
+        self.hasTrailing = false
+        self.content = content()
+    }
+
+    init(titleKey: String, systemImage: String, @ViewBuilder trailing: () -> Trailing, @ViewBuilder content: () -> Content) {
+        self.titleKey = titleKey
+        self.systemImage = systemImage
+        self.trailing = trailing()
+        self.hasTrailing = true
         self.content = content()
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: Layout.cardSpacing) {
-            Label(LocalizedStringKey(titleKey), systemImage: systemImage)
-                .font(.headline.weight(.semibold))
-                .foregroundStyle(Theme.textPrimary)
-                .symbolRenderingMode(.hierarchical)
+            if hasTrailing {
+                HStack(spacing: 10) {
+                    Label(LocalizedStringKey(titleKey), systemImage: systemImage)
+                        .font(.headline.weight(.semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                        .symbolRenderingMode(.hierarchical)
+                    Spacer(minLength: 0)
+                    trailing
+                }
+            } else {
+                Label(LocalizedStringKey(titleKey), systemImage: systemImage)
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(Theme.textPrimary)
+                    .symbolRenderingMode(.hierarchical)
+            }
             content
         }
         .padding(Layout.cardPadding)
@@ -924,110 +1169,32 @@ private struct SectionCard<Content: View>: View {
     }
 }
 
-private struct HoldToResetButton: View {
+private struct ResetIconButton: View {
     let action: () -> Void
-    let height: CGFloat
-
-    @Environment(\.isEnabled) private var isEnabled
-    @State private var progress: CGFloat = 0
-    @State private var didTriggerAction = false
-    @State private var isPressing = false
-    @State private var holdTask: Task<Void, Never>? = nil
-
-    private enum HoldConfig {
-        static let duration: TimeInterval = 1.0
-        static let maxDistance: CGFloat = 16
-        static let releaseDuration: TimeInterval = 0.25
-        static let dischargeDuration: TimeInterval = 0.45
-    }
+    let isEnabled: Bool
 
     var body: some View {
-        let shape = RoundedRectangle(cornerRadius: Layout.buttonCornerRadius, style: .continuous)
-
-        ZStack {
-            shape.fill(Theme.secondaryButtonFill)
-
-            GeometryReader { proxy in
-                Rectangle()
-                    .fill(Theme.resetProgressFill)
-                    .frame(width: proxy.size.width * progress, height: proxy.size.height)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            }
-            .clipShape(shape)
-            .allowsHitTesting(false)
-
-            shape.stroke(Theme.secondaryButtonBorder, lineWidth: 1)
-
-            Label("button.reset.title", systemImage: "arrow.counterclockwise")
-                .font(.system(size: 17, weight: .semibold, design: .rounded))
+        Button(action: action) {
+            Image(systemName: "arrow.counterclockwise")
+                .font(.caption.weight(.semibold))
                 .foregroundStyle(Theme.textPrimary)
+                .frame(width: Layout.resetIconSize, height: Layout.resetIconSize)
+                .background(
+                    RoundedRectangle(cornerRadius: Layout.resetIconCornerRadius, style: .continuous)
+                        .fill(Theme.secondaryButtonFill)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: Layout.resetIconCornerRadius, style: .continuous)
+                                .stroke(Theme.secondaryButtonBorder, lineWidth: 1)
+                        )
+                )
         }
-        .frame(maxWidth: .infinity, minHeight: height, maxHeight: height)
-        .contentShape(shape)
-        .opacity(isEnabled ? 1 : 0.6)
-        .scaleEffect(isPressing ? 0.98 : 1)
-        .animation(.snappy, value: isPressing)
-        .allowsHitTesting(isEnabled)
-        .onDisappear {
-            holdTask?.cancel()
-            holdTask = nil
-        }
-        .onLongPressGesture(
-            minimumDuration: HoldConfig.duration,
-            maximumDistance: HoldConfig.maxDistance,
-            pressing: { pressing in
-                guard isEnabled else { return }
-                isPressing = pressing
-
-                if pressing {
-                    didTriggerAction = false
-                    progress = 0
-                    holdTask?.cancel()
-                    withAnimation(.linear(duration: HoldConfig.duration)) {
-                        progress = 1
-                    }
-
-                    // Manual timer guarantees the reset even if the system long-press callback skips the perform block.
-                    holdTask = Task {
-                        let delay = UInt64(HoldConfig.duration * 1_000_000_000)
-                        try? await Task.sleep(nanoseconds: delay)
-                        guard !Task.isCancelled else { return }
-                        await MainActor.run {
-                            guard isPressing, !didTriggerAction, isEnabled else { return }
-                            triggerReset()
-                        }
-                    }
-                } else {
-                    holdTask?.cancel()
-                    holdTask = nil
-                    if !didTriggerAction {
-                        withAnimation(.easeOut(duration: HoldConfig.releaseDuration)) {
-                            progress = 0
-                        }
-                    }
-                }
-            },
-            perform: {
-                guard isEnabled else { return }
-                triggerReset()
-            }
-        )
-        .accessibilityElement()
-        .accessibilityAddTraits(.isButton)
+        .buttonStyle(.borderless)
+        .frame(width: Layout.resetTapWidth, alignment: .trailing)
+        .contentShape(Rectangle())
+        .opacity(isEnabled ? 1 : 0)
+        .disabled(!isEnabled)
+        .accessibilityHidden(!isEnabled)
         .accessibilityLabel(Text("accessibility.reset_label"))
-        .accessibilityHint(Text("accessibility.reset_hint"))
-    }
-
-    private func triggerReset() {
-        guard !didTriggerAction else { return }
-        didTriggerAction = true
-        holdTask?.cancel()
-        holdTask = nil
-        action()
-        progress = 1
-        withAnimation(.linear(duration: HoldConfig.dischargeDuration)) {
-            progress = 0
-        }
     }
 }
 
@@ -1047,30 +1214,6 @@ private struct PrimaryButtonStyle: ButtonStyle {
             )
             .scaleEffect(configuration.isPressed ? 0.98 : 1)
             .shadow(color: Theme.primaryButton.opacity(isEnabled ? 0.25 : 0), radius: 10, x: 0, y: 6)
-            .animation(.snappy, value: configuration.isPressed)
-    }
-}
-
-private struct SecondaryButtonStyle: ButtonStyle {
-    let height: CGFloat
-
-    @Environment(\.isEnabled) private var isEnabled
-
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.system(size: 17, weight: .semibold, design: .rounded))
-            .foregroundStyle(Theme.textPrimary)
-            .frame(maxWidth: .infinity, minHeight: height)
-            .background(
-                RoundedRectangle(cornerRadius: Layout.buttonCornerRadius, style: .continuous)
-                    .fill(Theme.secondaryButtonFill)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: Layout.buttonCornerRadius, style: .continuous)
-                    .stroke(Theme.secondaryButtonBorder, lineWidth: 1)
-            )
-            .opacity(isEnabled ? 1 : 0.6)
-            .scaleEffect(configuration.isPressed ? 0.98 : 1)
             .animation(.snappy, value: configuration.isPressed)
     }
 }

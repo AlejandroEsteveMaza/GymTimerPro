@@ -1,0 +1,68 @@
+"section.configuration.title" = "Configuração";
+"section.progress.title" = "Progresso";
+
+"config.total_sets.title" = "Séries totais";
+"config.rest_seconds.title" = "Descanso (segundos)";
+
+"button.start_rest.title" = "INICIAR DESCANSO";
+
+"metric.set.title" = "SÉRIE";
+
+"label.state" = "Estado";
+"label.rest_time" = "Tempo de descanso";
+
+"status.resting" = "DESCANSANDO";
+"status.training" = "TREINANDO";
+
+"workout.completed" = "TREINO CONCLUÍDO!";
+
+"pro.status.free" = "Grátis";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld hoje";
+"pro.button.upgrade" = "Desbloquear";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Treine sem limites";
+"paywall.value.subtitle" = "Acesso completo ao temporizador com uma compra única.";
+"paywall.subtitle_limit_format" = "Você atingiu o limite grátis de hoje (%ld/%ld).";
+"paywall.section.benefits" = "Benefícios incluídos";
+"paywall.section.purchase" = "Compra";
+"paywall.benefit.unlimited" = "Uso ilimitado";
+"paywall.benefit.no_limits" = "Sem limites diários";
+"paywall.benefit.one_time" = "Compra única, sem assinatura";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Uso ilimitado";
+"paywall.purchase.one_time" = "Uma vez";
+"paywall.button.buy" = "Desbloquear Pro";
+"paywall.button.restore" = "Restaurar compra";
+"paywall.button.terms" = "Ver termos";
+"paywall.button.not_now" = "Agora não";
+"paywall.price.loading" = "Carregando preço…";
+"paywall.error.title" = "Compra falhou";
+"paywall.error.product_unavailable" = "O produto está indisponível no momento.";
+"paywall.error.failed_verification" = "Não conseguimos verificar a compra.";
+"paywall.error.user_cancelled" = "Compra cancelada.";
+"paywall.error.pending" = "A compra está pendente.";
+"paywall.error.unknown" = "Algo deu errado. Tente novamente.";
+
+"common.cancel" = "Cancelar";
+"common.ok" = "OK";
+
+"accessibility.edit_value_label_format" = "Editar %@";
+"accessibility.total_sets_value_format" = "%ld séries";
+"accessibility.rest_seconds_value_format" = "%ld segundos";
+
+"notification.rest_finished.title" = "Descanso terminado";
+"notification.rest_finished.body_format" = "Série %ld/%ld";
+
+"live_activity.mode.resting" = "Descansando";
+"live_activity.mode.training" = "Treinando";
+"live_activity.set_progress_format" = "Série %ld/%ld";
+"live_activity.set_progress_expanded_format" = "Série %ld de %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "Série";
+"accessibility.set_value_format" = "%ld de %ld";
+"accessibility.set_progress_label" = "Progresso das séries";
+"accessibility.time_remaining" = "Tempo restante";
+"accessibility.reset_label" = "Reiniciar";

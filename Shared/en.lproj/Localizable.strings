@@ -5,7 +5,6 @@
 "config.rest_seconds.title" = "Rest (seconds)";
 
 "button.start_rest.title" = "START REST";
-"button.reset.title" = "RESET";
 
 "metric.set.title" = "SET";
 
@@ -17,14 +16,41 @@
 
 "workout.completed" = "WORKOUT COMPLETED!";
 
+"pro.status.free" = "Free";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld today";
+"pro.button.upgrade" = "Unlock";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Train without limits";
+"paywall.value.subtitle" = "Full access to the timer with a one-time purchase.";
+"paywall.subtitle_limit_format" = "You’ve reached today’s free limit (%ld/%ld).";
+"paywall.section.benefits" = "Included benefits";
+"paywall.section.purchase" = "Purchase";
+"paywall.benefit.unlimited" = "Unlimited use";
+"paywall.benefit.no_limits" = "No daily limits";
+"paywall.benefit.one_time" = "One-time purchase, no subscription";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Unlimited use";
+"paywall.purchase.one_time" = "One-time";
+"paywall.button.buy" = "Unlock Pro";
+"paywall.button.restore" = "Restore purchase";
+"paywall.button.terms" = "View terms";
+"paywall.button.not_now" = "Not now";
+"paywall.price.loading" = "Loading price…";
+"paywall.error.title" = "Purchase failed";
+"paywall.error.product_unavailable" = "The product is currently unavailable.";
+"paywall.error.failed_verification" = "We couldn’t verify the purchase.";
+"paywall.error.user_cancelled" = "Purchase cancelled.";
+"paywall.error.pending" = "The purchase is pending.";
+"paywall.error.unknown" = "Something went wrong. Please try again.";
+
 "common.cancel" = "Cancel";
 "common.ok" = "OK";
 
 "accessibility.edit_value_label_format" = "Edit %@";
 "accessibility.total_sets_value_format" = "%ld sets";
 "accessibility.rest_seconds_value_format" = "%ld seconds";
-"accessibility.reset_label" = "Reset";
-"accessibility.reset_hint" = "Hold for 1 second to reset";
 
 "notification.rest_finished.title" = "Rest finished";
 "notification.rest_finished.body_format" = "Set %ld/%ld";
@@ -39,3 +65,4 @@
 "accessibility.set_value_format" = "%ld of %ld";
 "accessibility.set_progress_label" = "Set progress";
 "accessibility.time_remaining" = "Time remaining";
+"accessibility.reset_label" = "Reset";

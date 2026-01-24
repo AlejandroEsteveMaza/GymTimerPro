@@ -1,0 +1,68 @@
+"section.configuration.title" = "设置";
+"section.progress.title" = "进度";
+
+"config.total_sets.title" = "总组数";
+"config.rest_seconds.title" = "休息（秒）";
+
+"button.start_rest.title" = "开始休息";
+
+"metric.set.title" = "组";
+
+"label.state" = "状态";
+"label.rest_time" = "休息时间";
+
+"status.resting" = "休息中";
+"status.training" = "训练中";
+
+"workout.completed" = "训练完成！";
+
+"pro.status.free" = "免费";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld 今日";
+"pro.button.upgrade" = "解锁";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "无极限训练";
+"paywall.value.subtitle" = "一次性购买，完整使用计时器。";
+"paywall.subtitle_limit_format" = "您已达到今日免费额度（%ld/%ld）。";
+"paywall.section.benefits" = "包含的权益";
+"paywall.section.purchase" = "购买";
+"paywall.benefit.unlimited" = "无限制使用";
+"paywall.benefit.no_limits" = "无每日限制";
+"paywall.benefit.one_time" = "一次性购买，无订阅";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "无限使用";
+"paywall.purchase.one_time" = "一次性";
+"paywall.button.buy" = "解锁 Pro";
+"paywall.button.restore" = "恢复购买";
+"paywall.button.terms" = "查看条款";
+"paywall.button.not_now" = "暂不";
+"paywall.price.loading" = "正在加载价格…";
+"paywall.error.title" = "购买失败";
+"paywall.error.product_unavailable" = "该产品当前不可用。";
+"paywall.error.failed_verification" = "无法验证购买。";
+"paywall.error.user_cancelled" = "购买已取消。";
+"paywall.error.pending" = "购买待处理。";
+"paywall.error.unknown" = "发生错误，请重试。";
+
+"common.cancel" = "取消";
+"common.ok" = "好";
+
+"accessibility.edit_value_label_format" = "编辑 %@";
+"accessibility.total_sets_value_format" = "%ld 组";
+"accessibility.rest_seconds_value_format" = "%ld 秒";
+
+"notification.rest_finished.title" = "休息结束";
+"notification.rest_finished.body_format" = "第 %ld/%ld 组";
+
+"live_activity.mode.resting" = "休息";
+"live_activity.mode.training" = "训练";
+"live_activity.set_progress_format" = "第 %ld/%ld 组";
+"live_activity.set_progress_expanded_format" = "第 %ld 组，共 %ld 组";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "组";
+"accessibility.set_value_format" = "%ld / %ld";
+"accessibility.set_progress_label" = "组进度";
+"accessibility.time_remaining" = "剩余时间";
+"accessibility.reset_label" = "重置";

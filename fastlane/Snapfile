@@ -1,0 +1,23 @@
+devices([
+  "iPhone 17 Pro Max"
+])
+
+languages([
+  "en-US",
+  "es-ES",
+  "hi-IN",
+  "fr-FR",
+  "pt-BR",
+  "pt-PT",
+  "de-DE",
+  "ja-JP",
+  "ko-KR",
+  "it-IT",
+  "nl-NL",
+  "sv-SE",
+  "da-DK",
+  "nb-NO",
+  "zh-Hans"
+])
+
+scheme("GymTimerPro")

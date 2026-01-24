@@ -1,0 +1,68 @@
+"section.configuration.title" = "Configurazione";
+"section.progress.title" = "Avanzamento";
+
+"config.total_sets.title" = "Serie totali";
+"config.rest_seconds.title" = "Riposo (secondi)";
+
+"button.start_rest.title" = "AVVIA RIPOSO";
+
+"metric.set.title" = "SERIE";
+
+"label.state" = "Stato";
+"label.rest_time" = "Tempo di riposo";
+
+"status.resting" = "A RIPOSO";
+"status.training" = "ALLENAMENTO";
+
+"workout.completed" = "ALLENAMENTO COMPLETATO!";
+
+"pro.status.free" = "Gratis";
+"pro.status.pro" = "Pro";
+"pro.usage_today_format" = "%ld/%ld oggi";
+"pro.button.upgrade" = "Sblocca";
+
+"paywall.badge.pro" = "PRO";
+"paywall.value.title" = "Allenati senza limiti";
+"paywall.value.subtitle" = "Accesso completo al timer con un acquisto unico.";
+"paywall.subtitle_limit_format" = "Hai raggiunto il limite gratuito di oggi (%ld/%ld).";
+"paywall.section.benefits" = "Benefici inclusi";
+"paywall.section.purchase" = "Acquisto";
+"paywall.benefit.unlimited" = "Uso illimitato";
+"paywall.benefit.no_limits" = "Nessun limite giornaliero";
+"paywall.benefit.one_time" = "Acquisto una tantum, nessun abbonamento";
+"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_subtitle" = "Uso illimitato";
+"paywall.purchase.one_time" = "Una volta";
+"paywall.button.buy" = "Sblocca Pro";
+"paywall.button.restore" = "Ripristina acquisto";
+"paywall.button.terms" = "Vedi termini";
+"paywall.button.not_now" = "Non ora";
+"paywall.price.loading" = "Caricamento prezzo…";
+"paywall.error.title" = "Acquisto non riuscito";
+"paywall.error.product_unavailable" = "Il prodotto non è disponibile al momento.";
+"paywall.error.failed_verification" = "Non è stato possibile verificare l’acquisto.";
+"paywall.error.user_cancelled" = "Acquisto annullato.";
+"paywall.error.pending" = "Acquisto in sospeso.";
+"paywall.error.unknown" = "Qualcosa è andato storto. Riprova.";
+
+"common.cancel" = "Annulla";
+"common.ok" = "OK";
+
+"accessibility.edit_value_label_format" = "Modifica %@";
+"accessibility.total_sets_value_format" = "%ld serie";
+"accessibility.rest_seconds_value_format" = "%ld secondi";
+
+"notification.rest_finished.title" = "Riposo terminato";
+"notification.rest_finished.body_format" = "Serie %ld/%ld";
+
+"live_activity.mode.resting" = "Riposo";
+"live_activity.mode.training" = "Allenamento";
+"live_activity.set_progress_format" = "Serie %ld/%ld";
+"live_activity.set_progress_expanded_format" = "Serie %ld di %ld";
+"live_activity.set_progress_compact_format" = "%ld/%ld";
+
+"accessibility.set_label" = "Serie";
+"accessibility.set_value_format" = "%ld di %ld";
+"accessibility.set_progress_label" = "Avanzamento serie";
+"accessibility.time_remaining" = "Tempo rimanente";
+"accessibility.reset_label" = "Reset";
