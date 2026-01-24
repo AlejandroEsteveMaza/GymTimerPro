@@ -142,7 +142,13 @@ struct ContentView: View {
     }
 
     private var progressSection: some View {
-        SectionCard(titleKey: "section.progress.title", systemImage: "chart.line.uptrend.xyaxis") {
+        SectionCard(
+            titleKey: "section.progress.title",
+            systemImage: "chart.line.uptrend.xyaxis",
+            trailing: {
+                ResetIconButton(action: resetWorkout, isEnabled: canReset)
+            }
+        ) {
             TimelineView(.periodic(from: .now, by: 1)) { _ in
                 let now = Date.now
                 let tickID = Int(now.timeIntervalSince1970)
@@ -301,6 +307,10 @@ struct ContentView: View {
 
     private var isResting: Bool {
         restTimer.isRunning
+    }
+
+    private var canReset: Bool {
+        completado || isResting || serieActual > 1
     }
 
     private func startRest() {
@@ -714,6 +724,9 @@ private enum Layout {
     static let wheelStepMinWidth: CGFloat = 10
     static let wheelHitTarget: CGFloat = 44
     static let wheelClipInset: CGFloat = 1
+    static let resetIconSize: CGFloat = 20
+    static let resetIconCornerRadius: CGFloat = 6
+    static let resetTapWidth: CGFloat = 44
 }
 
 private enum Theme {
@@ -1084,23 +1097,46 @@ private struct MetricView: View {
     }
 }
 
-private struct SectionCard<Content: View>: View {
+private struct SectionCard<Content: View, Trailing: View>: View {
     let titleKey: String
     let systemImage: String
+    let trailing: Trailing
+    let hasTrailing: Bool
     let content: Content
 
-    init(titleKey: String, systemImage: String, @ViewBuilder content: () -> Content) {
+    init(titleKey: String, systemImage: String, @ViewBuilder content: () -> Content) where Trailing == EmptyView {
         self.titleKey = titleKey
         self.systemImage = systemImage
+        self.trailing = EmptyView()
+        self.hasTrailing = false
+        self.content = content()
+    }
+
+    init(titleKey: String, systemImage: String, @ViewBuilder trailing: () -> Trailing, @ViewBuilder content: () -> Content) {
+        self.titleKey = titleKey
+        self.systemImage = systemImage
+        self.trailing = trailing()
+        self.hasTrailing = true
         self.content = content()
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: Layout.cardSpacing) {
-            Label(LocalizedStringKey(titleKey), systemImage: systemImage)
-                .font(.headline.weight(.semibold))
-                .foregroundStyle(Theme.textPrimary)
-                .symbolRenderingMode(.hierarchical)
+            if hasTrailing {
+                HStack(spacing: 10) {
+                    Label(LocalizedStringKey(titleKey), systemImage: systemImage)
+                        .font(.headline.weight(.semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                        .symbolRenderingMode(.hierarchical)
+                    Spacer(minLength: 0)
+                    trailing
+                }
+            } else {
+                Label(LocalizedStringKey(titleKey), systemImage: systemImage)
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(Theme.textPrimary)
+                    .symbolRenderingMode(.hierarchical)
+            }
             content
         }
         .padding(Layout.cardPadding)
@@ -1113,6 +1149,35 @@ private struct SectionCard<Content: View>: View {
                 .stroke(Theme.cardBorder, lineWidth: 1)
         )
         .shadow(color: Theme.cardShadow, radius: 12, x: 0, y: 6)
+    }
+}
+
+private struct ResetIconButton: View {
+    let action: () -> Void
+    let isEnabled: Bool
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: "arrow.counterclockwise")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Theme.textPrimary)
+                .frame(width: Layout.resetIconSize, height: Layout.resetIconSize)
+                .background(
+                    RoundedRectangle(cornerRadius: Layout.resetIconCornerRadius, style: .continuous)
+                        .fill(Theme.secondaryButtonFill)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: Layout.resetIconCornerRadius, style: .continuous)
+                                .stroke(Theme.secondaryButtonBorder, lineWidth: 1)
+                        )
+                )
+        }
+        .buttonStyle(.borderless)
+        .frame(width: Layout.resetTapWidth, alignment: .trailing)
+        .contentShape(Rectangle())
+        .opacity(isEnabled ? 1 : 0)
+        .disabled(!isEnabled)
+        .accessibilityHidden(!isEnabled)
+        .accessibilityLabel(Text("accessibility.reset_label"))
     }
 }
 
