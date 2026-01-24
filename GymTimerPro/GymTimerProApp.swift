@@ -13,7 +13,7 @@ struct GymTimerProApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabView()
                 .environmentObject(purchaseManager)
         }
     }
