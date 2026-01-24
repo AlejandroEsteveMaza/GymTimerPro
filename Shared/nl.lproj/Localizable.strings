@@ -78,3 +78,23 @@
 "tab.routines" = "Routines";
 "tab.progress" = "Voortgang";
 "tab.settings" = "Instellingen";
+
+"routines.add" = "Nieuwe routine";
+"routines.create.title" = "Nieuwe routine";
+"routines.delete" = "Verwijderen";
+"routines.discard.confirm" = "Negeren";
+"routines.discard.keep_editing" = "Doorgaan met bewerken";
+"routines.discard.message" = "Je hebt niet-opgeslagen wijzigingen.";
+"routines.discard.title" = "Wijzigingen negeren?";
+"routines.edit" = "Bewerken";
+"routines.edit.title" = "Routine bewerken";
+"routines.empty.message" = "Maak een routine om je presets op te slaan.";
+"routines.empty.title" = "Geen routines";
+"routines.field.name" = "Naam";
+"routines.field.weight" = "Gewicht (kg)";
+"routines.save" = "Opslaan";
+"routines.section.details" = "Details";
+"routines.section.parameters" = "Parameters";
+"routines.summary_format" = "%ld sets · %ld s · %@";
+"routines.title" = "Routines";
+"routines.weight.empty" = "Geen gewicht";

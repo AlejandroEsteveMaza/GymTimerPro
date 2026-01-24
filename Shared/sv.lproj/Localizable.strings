@@ -78,3 +78,23 @@
 "tab.routines" = "Rutiner";
 "tab.progress" = "Framsteg";
 "tab.settings" = "Inställningar";
+
+"routines.add" = "Ny rutin";
+"routines.create.title" = "Ny rutin";
+"routines.delete" = "Radera";
+"routines.discard.confirm" = "Kassera";
+"routines.discard.keep_editing" = "Fortsätt redigera";
+"routines.discard.message" = "Du har osparade ändringar.";
+"routines.discard.title" = "Kassera ändringar?";
+"routines.edit" = "Redigera";
+"routines.edit.title" = "Redigera rutin";
+"routines.empty.message" = "Skapa en rutin för att spara dina förinställningar.";
+"routines.empty.title" = "Inga rutiner";
+"routines.field.name" = "Namn";
+"routines.field.weight" = "Vikt (kg)";
+"routines.save" = "Spara";
+"routines.section.details" = "Detaljer";
+"routines.section.parameters" = "Parametrar";
+"routines.summary_format" = "%ld set · %ld s · %@";
+"routines.title" = "Rutiner";
+"routines.weight.empty" = "Ingen vikt";

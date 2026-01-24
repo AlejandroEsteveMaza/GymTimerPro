@@ -78,3 +78,23 @@
 "tab.routines" = "रूटीन";
 "tab.progress" = "प्रगति";
 "tab.settings" = "सेटिंग्स";
+
+"routines.add" = "नई रूटीन";
+"routines.create.title" = "नई रूटीन";
+"routines.delete" = "हटाएं";
+"routines.discard.confirm" = "छोड़ें";
+"routines.discard.keep_editing" = "एडिट जारी रखें";
+"routines.discard.message" = "आपके बदलाव सेव नहीं हुए हैं.";
+"routines.discard.title" = "बदलाव छोड़ें?";
+"routines.edit" = "संपादित करें";
+"routines.edit.title" = "रूटीन संपादित करें";
+"routines.empty.message" = "अपने प्रीसेट सेव करने के लिए एक रूटीन बनाएं.";
+"routines.empty.title" = "कोई रूटीन नहीं";
+"routines.field.name" = "नाम";
+"routines.field.weight" = "वज़न (kg)";
+"routines.save" = "सहेजें";
+"routines.section.details" = "विवरण";
+"routines.section.parameters" = "पैरामीटर";
+"routines.summary_format" = "%ld सेट · %ld s · %@";
+"routines.title" = "रूटीन";
+"routines.weight.empty" = "वज़न नहीं";

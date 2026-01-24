@@ -78,3 +78,23 @@
 "tab.routines" = "ルーティン";
 "tab.progress" = "進捗";
 "tab.settings" = "設定";
+
+"routines.add" = "新規ルーティン";
+"routines.create.title" = "新規ルーティン";
+"routines.delete" = "削除";
+"routines.discard.confirm" = "破棄";
+"routines.discard.keep_editing" = "編集を続ける";
+"routines.discard.message" = "未保存の変更があります。";
+"routines.discard.title" = "変更を破棄しますか？";
+"routines.edit" = "編集";
+"routines.edit.title" = "ルーティンを編集";
+"routines.empty.message" = "ルーティンを作成してプリセットを保存しましょう。";
+"routines.empty.title" = "ルーティンがありません";
+"routines.field.name" = "名前";
+"routines.field.weight" = "重量 (kg)";
+"routines.save" = "保存";
+"routines.section.details" = "詳細";
+"routines.section.parameters" = "パラメータ";
+"routines.summary_format" = "%ldセット · %ld秒 · %@";
+"routines.title" = "ルーティン";
+"routines.weight.empty" = "重量なし";

@@ -706,7 +706,7 @@ private final class RestTimerModel: ObservableObject {
         .environmentObject(PurchaseManager(startTasks: false))
 }
 
-private enum Layout {
+enum Layout {
     static let sectionSpacing: CGFloat = 20
     static let horizontalPadding: CGFloat = 20
     static let topPadding: CGFloat = 12
@@ -747,7 +747,7 @@ private enum Layout {
     static let resetTapWidth: CGFloat = 44
 }
 
-private enum Theme {
+enum Theme {
     static let background = Color(uiColor: .systemGroupedBackground)
     static let cardBackground = Color(uiColor: .secondarySystemGroupedBackground)
     static let controlsBackground = Color(uiColor: .systemBackground)
@@ -780,7 +780,7 @@ private enum Theme {
     static let wheelThumbStroke = Color.white.opacity(0.75)
 }
 
-private struct ConfigRow<ValueContent: View>: View {
+struct ConfigRow<ValueContent: View>: View {
     let icon: String
     let titleKey: String
     let valueContent: ValueContent
@@ -809,7 +809,7 @@ private struct ConfigRow<ValueContent: View>: View {
     }
 }
 
-private struct ConfigValueEditorButton: View {
+struct ConfigValueEditorButton: View {
     let titleKey: String
     @Binding var value: Int
     let range: ClosedRange<Int>
@@ -862,7 +862,7 @@ private struct ConfigValueEditorButton: View {
     }
 }
 
-private struct DiscreteValueEditor: View {
+struct DiscreteValueEditor: View {
     let titleKey: String
     @Binding var value: Int
     let range: ClosedRange<Int>
@@ -916,7 +916,7 @@ private struct DiscreteValueEditor: View {
     }
 }
 
-private enum DiscreteValueHelper {
+enum DiscreteValueHelper {
     static func clampAndRound(_ candidate: Int, range: ClosedRange<Int>, step: Int) -> Int {
         let minValue = range.lowerBound
         let maxValue = range.upperBound
@@ -936,7 +936,7 @@ private enum DiscreteValueHelper {
     }
 }
 
-private struct HorizontalWheelStepper: View {
+struct HorizontalWheelStepper: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
@@ -1218,7 +1218,7 @@ private struct PrimaryButtonStyle: ButtonStyle {
     }
 }
 
-private struct StepperSizeReader: View {
+struct StepperSizeReader: View {
     @Binding var size: CGSize
 
     var body: some View {
@@ -1241,7 +1241,7 @@ private struct StepperSizeReader: View {
     }
 }
 
-private struct StepperSizeKey: PreferenceKey {
+struct StepperSizeKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
 
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {

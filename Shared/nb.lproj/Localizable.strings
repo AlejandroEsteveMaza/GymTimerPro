@@ -78,3 +78,23 @@
 "tab.routines" = "Rutiner";
 "tab.progress" = "Fremdrift";
 "tab.settings" = "Innstillinger";
+
+"routines.add" = "Ny rutine";
+"routines.create.title" = "Ny rutine";
+"routines.delete" = "Slett";
+"routines.discard.confirm" = "Forkast";
+"routines.discard.keep_editing" = "Fortsett å redigere";
+"routines.discard.message" = "Du har ulagrede endringer.";
+"routines.discard.title" = "Forkaste endringer?";
+"routines.edit" = "Rediger";
+"routines.edit.title" = "Rediger rutine";
+"routines.empty.message" = "Opprett en rutine for å lagre forhåndsinnstillinger.";
+"routines.empty.title" = "Ingen rutiner";
+"routines.field.name" = "Navn";
+"routines.field.weight" = "Vekt (kg)";
+"routines.save" = "Lagre";
+"routines.section.details" = "Detaljer";
+"routines.section.parameters" = "Parametere";
+"routines.summary_format" = "%ld sett · %ld s · %@";
+"routines.title" = "Rutiner";
+"routines.weight.empty" = "Ingen vekt";

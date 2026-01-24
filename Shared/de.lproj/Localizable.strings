@@ -78,3 +78,23 @@
 "tab.routines" = "Routinen";
 "tab.progress" = "Fortschritt";
 "tab.settings" = "Einstellungen";
+
+"routines.add" = "Neue Routine";
+"routines.create.title" = "Neue Routine";
+"routines.delete" = "Löschen";
+"routines.discard.confirm" = "Verwerfen";
+"routines.discard.keep_editing" = "Weiter bearbeiten";
+"routines.discard.message" = "Du hast ungespeicherte Änderungen.";
+"routines.discard.title" = "Änderungen verwerfen?";
+"routines.edit" = "Bearbeiten";
+"routines.edit.title" = "Routine bearbeiten";
+"routines.empty.message" = "Erstelle eine Routine, um deine Presets zu speichern.";
+"routines.empty.title" = "Keine Routinen";
+"routines.field.name" = "Name";
+"routines.field.weight" = "Gewicht (kg)";
+"routines.save" = "Speichern";
+"routines.section.details" = "Details";
+"routines.section.parameters" = "Parameter";
+"routines.summary_format" = "%ld Sätze · %ld s · %@";
+"routines.title" = "Routinen";
+"routines.weight.empty" = "Kein Gewicht";

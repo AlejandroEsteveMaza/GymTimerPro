@@ -78,3 +78,23 @@
 "tab.routines" = "Rutiner";
 "tab.progress" = "Fremskridt";
 "tab.settings" = "Indstillinger";
+
+"routines.add" = "Ny rutine";
+"routines.create.title" = "Ny rutine";
+"routines.delete" = "Slet";
+"routines.discard.confirm" = "Kassér";
+"routines.discard.keep_editing" = "Fortsæt redigering";
+"routines.discard.message" = "Du har ændringer, der ikke er gemt.";
+"routines.discard.title" = "Kassér ændringer?";
+"routines.edit" = "Rediger";
+"routines.edit.title" = "Rediger rutine";
+"routines.empty.message" = "Opret en rutine for at gemme dine presets.";
+"routines.empty.title" = "Ingen rutiner";
+"routines.field.name" = "Navn";
+"routines.field.weight" = "Vægt (kg)";
+"routines.save" = "Gem";
+"routines.section.details" = "Detaljer";
+"routines.section.parameters" = "Parametre";
+"routines.summary_format" = "%ld sæt · %ld s · %@";
+"routines.title" = "Rutiner";
+"routines.weight.empty" = "Ingen vægt";

@@ -78,3 +78,23 @@
 "tab.routines" = "Rutinas";
 "tab.progress" = "Progreso";
 "tab.settings" = "Ajustes";
+
+"routines.add" = "Nueva rutina";
+"routines.create.title" = "Nueva rutina";
+"routines.delete" = "Eliminar";
+"routines.discard.confirm" = "Descartar";
+"routines.discard.keep_editing" = "Seguir editando";
+"routines.discard.message" = "Tienes cambios sin guardar.";
+"routines.discard.title" = "¿Descartar cambios?";
+"routines.edit" = "Editar";
+"routines.edit.title" = "Editar rutina";
+"routines.empty.message" = "Crea una rutina para guardar tus presets.";
+"routines.empty.title" = "Sin rutinas";
+"routines.field.name" = "Nombre";
+"routines.field.weight" = "Peso (kg)";
+"routines.save" = "Guardar";
+"routines.section.details" = "Detalles";
+"routines.section.parameters" = "Parámetros";
+"routines.summary_format" = "%ld series · %ld s · %@";
+"routines.title" = "Rutinas";
+"routines.weight.empty" = "Sin peso";

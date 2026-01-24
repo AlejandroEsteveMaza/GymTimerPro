@@ -78,3 +78,23 @@
 "tab.routines" = "Routines";
 "tab.progress" = "Progrès";
 "tab.settings" = "Réglages";
+
+"routines.add" = "Nouvelle routine";
+"routines.create.title" = "Nouvelle routine";
+"routines.delete" = "Supprimer";
+"routines.discard.confirm" = "Ignorer";
+"routines.discard.keep_editing" = "Continuer";
+"routines.discard.message" = "Vous avez des modifications non enregistrées.";
+"routines.discard.title" = "Ignorer les modifications ?";
+"routines.edit" = "Modifier";
+"routines.edit.title" = "Modifier la routine";
+"routines.empty.message" = "Créez une routine pour enregistrer vos préréglages.";
+"routines.empty.title" = "Aucune routine";
+"routines.field.name" = "Nom";
+"routines.field.weight" = "Poids (kg)";
+"routines.save" = "Enregistrer";
+"routines.section.details" = "Détails";
+"routines.section.parameters" = "Paramètres";
+"routines.summary_format" = "%ld séries · %ld s · %@";
+"routines.title" = "Routines";
+"routines.weight.empty" = "Sans poids";

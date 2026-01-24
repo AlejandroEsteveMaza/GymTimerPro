@@ -78,3 +78,23 @@
 "tab.routines" = "例程";
 "tab.progress" = "进度";
 "tab.settings" = "设置";
+
+"routines.add" = "新建例程";
+"routines.create.title" = "新建例程";
+"routines.delete" = "删除";
+"routines.discard.confirm" = "放弃";
+"routines.discard.keep_editing" = "继续编辑";
+"routines.discard.message" = "你有未保存的更改。";
+"routines.discard.title" = "放弃更改？";
+"routines.edit" = "编辑";
+"routines.edit.title" = "编辑例程";
+"routines.empty.message" = "创建例程以保存预设。";
+"routines.empty.title" = "暂无例程";
+"routines.field.name" = "名称";
+"routines.field.weight" = "重量 (kg)";
+"routines.save" = "保存";
+"routines.section.details" = "详细信息";
+"routines.section.parameters" = "参数";
+"routines.summary_format" = "%ld 组 · %ld 秒 · %@";
+"routines.title" = "例程";
+"routines.weight.empty" = "无重量";

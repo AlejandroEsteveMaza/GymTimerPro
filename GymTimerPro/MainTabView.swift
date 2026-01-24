@@ -5,6 +5,7 @@
 //  Created by Alejandro Esteve Maza on 27/12/25.
 //
 
+import SwiftData
 import SwiftUI
 
 struct MainTabView: View {
@@ -18,7 +19,7 @@ struct MainTabView: View {
             }
 
             NavigationStack {
-                TabPlaceholderView(messageKey: "placeholder.coming_soon")
+                RoutinesRootView()
             }
             .tabItem {
                 Label("tab.routines", systemImage: "list.bullet.rectangle")
@@ -59,4 +60,5 @@ private struct TabPlaceholderView: View {
 #Preview {
     MainTabView()
         .environmentObject(PurchaseManager(startTasks: false))
+        .modelContainer(for: Routine.self, inMemory: true)
 }

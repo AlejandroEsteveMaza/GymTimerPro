@@ -78,3 +78,23 @@
 "tab.routines" = "루틴";
 "tab.progress" = "진행";
 "tab.settings" = "설정";
+
+"routines.add" = "새 루틴";
+"routines.create.title" = "새 루틴";
+"routines.delete" = "삭제";
+"routines.discard.confirm" = "폐기";
+"routines.discard.keep_editing" = "계속 편집";
+"routines.discard.message" = "저장되지 않은 변경 사항이 있습니다.";
+"routines.discard.title" = "변경 사항을 폐기할까요?";
+"routines.edit" = "편집";
+"routines.edit.title" = "루틴 편집";
+"routines.empty.message" = "루틴을 만들어 프리셋을 저장하세요.";
+"routines.empty.title" = "루틴 없음";
+"routines.field.name" = "이름";
+"routines.field.weight" = "무게 (kg)";
+"routines.save" = "저장";
+"routines.section.details" = "세부 정보";
+"routines.section.parameters" = "매개변수";
+"routines.summary_format" = "%ld세트 · %ld초 · %@";
+"routines.title" = "루틴";
+"routines.weight.empty" = "무게 없음";
