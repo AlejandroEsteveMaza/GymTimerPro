@@ -107,7 +107,15 @@ struct ContentView: View {
     }
 
     private var configurationSection: some View {
-        SectionCard(titleKey: "section.configuration.title", systemImage: "slider.horizontal.3") {
+        SectionCard(
+            titleKey: "section.configuration.title",
+            systemImage: "slider.horizontal.3",
+            trailing: {
+                if purchaseManager.isPro {
+                    proStatusIcon
+                }
+            }
+        ) {
             VStack(spacing: Layout.rowSpacing) {
                 configWheelRow(
                     titleKey: "config.total_sets.title",
@@ -128,9 +136,11 @@ struct ContentView: View {
                     step: 15,
                     accessibilityValue: L10n.format("accessibility.rest_seconds_value_format", tiempoDescanso)
                 )
-                Divider()
-                    .foregroundStyle(Theme.divider)
-                proRow
+                if !purchaseManager.isPro {
+                    Divider()
+                        .foregroundStyle(Theme.divider)
+                    proRow
+                }
             }
         }
         .disabled(isTimerActive || completado)
@@ -402,38 +412,49 @@ struct ContentView: View {
 
     private var proRow: some View {
         HStack(spacing: 12) {
-            Image(systemName: purchaseManager.isPro ? "checkmark.seal.fill" : "lock.fill")
+            Image(systemName: "lock.fill")
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundStyle(purchaseManager.isPro ? Theme.completed : Theme.iconTint)
+                .foregroundStyle(Theme.iconTint)
                 .frame(width: 28, height: 28)
                 .background(Theme.iconBackground, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(purchaseManager.isPro ? "pro.status.pro" : "pro.status.free")
+                Text("pro.status.free")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundStyle(Theme.textPrimary)
 
-                if !purchaseManager.isPro {
-                    Text(L10n.format("pro.usage_today_format", usageLimiter.status.consumedToday, usageLimiter.status.dailyLimit))
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.textSecondary)
-                }
+                Text(L10n.format("pro.usage_today_format", usageLimiter.status.remainingToday, usageLimiter.status.dailyLimit))
+                    .font(.subheadline)
+                    .foregroundStyle(Theme.textSecondary)
             }
 
             Spacer(minLength: 0)
 
-            if !purchaseManager.isPro {
-                Button("pro.button.upgrade") {
-                    isPresentingPaywall = true
-                }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.roundedRectangle(radius: 12))
-                .tint(Theme.primaryButton)
-                .bold()
+            Button("pro.button.upgrade") {
+                isPresentingPaywall = true
             }
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.roundedRectangle(radius: 12))
+            .tint(Theme.primaryButton)
+            .bold()
         }
         .frame(minHeight: Layout.minTapHeight)
+    }
+
+    private var proStatusIcon: some View {
+        HStack(spacing: 6) {
+            Text("pro.status.pro")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Theme.textPrimary)
+
+            Image(systemName: "checkmark.seal.fill")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(Theme.completed)
+                .frame(width: 24, height: 24)
+                .background(Theme.iconBackground, in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+        }
+        .accessibilityElement(children: .combine)
     }
 
     private var isUITesting: Bool {
