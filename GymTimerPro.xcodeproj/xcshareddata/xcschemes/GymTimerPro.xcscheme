@@ -72,6 +72,12 @@
             ReferencedContainer = "container:GymTimerPro.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "ui-testing-seed-routines"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <StoreKitConfigurationFileReference
          identifier = "../../GymTimerPro/GymTimerPro.storekit">
       </StoreKitConfigurationFileReference>

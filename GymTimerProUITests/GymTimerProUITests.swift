@@ -66,6 +66,7 @@ final class GymTimerProUITests: XCTestCase {
     ) -> XCUIApplication {
         let app = XCUIApplication()
         setupSnapshot(app)
+        app.launchArguments += ["ui-testing-seed-routines"]
         app.launchEnvironment["UITEST_TOTAL_SETS"] = "\(sets)"
         app.launchEnvironment["UITEST_REST_SECONDS"] = "\(rest)"
         if let currentSet {

@@ -57,6 +57,12 @@ final class RoutinesStore: ObservableObject {
         modelContext = context
         isConfigured = true
         refresh()
+
+        #if DEBUG
+        if shouldSeedRoutines, routines.isEmpty {
+            seedSampleRoutines()
+        }
+        #endif
     }
 
     func refresh() {
@@ -102,4 +108,40 @@ final class RoutinesStore: ObservableObject {
     func delete(at offsets: IndexSet) {
         offsets.map { routines[$0] }.forEach(delete)
     }
+
+    #if DEBUG
+    private var shouldSeedRoutines: Bool {
+        let args = ProcessInfo.processInfo.arguments.map { $0.lowercased() }
+        if args.contains("ui-testing-seed-routines") {
+            return true
+        }
+        if let env = ProcessInfo.processInfo.environment["UI_TESTING_SEED_ROUTINES"]?.lowercased() {
+            return env == "1" || env == "true" || env == "yes"
+        }
+        return false
+    }
+
+    private func seedSampleRoutines() {
+        guard let modelContext else { return }
+        let samples: [Routine] = [
+            Routine(name: "Fuerza - Basico", totalSets: 5, restSeconds: 120, weightKg: 60),
+            Routine(name: "Hipertrofia", totalSets: 4, restSeconds: 90, weightKg: 22.5),
+            Routine(name: "Calistenia", totalSets: 6, restSeconds: 60, weightKg: nil),
+            Routine(name: "Pierna - Fuerza", totalSets: 5, restSeconds: 150, weightKg: 80),
+            Routine(name: "Torso - Fuerza", totalSets: 5, restSeconds: 120, weightKg: 70),
+            Routine(name: "Full Body", totalSets: 4, restSeconds: 90, weightKg: 35),
+            Routine(name: "Empuje (Push)", totalSets: 4, restSeconds: 90, weightKg: 25),
+            Routine(name: "Tiron (Pull)", totalSets: 4, restSeconds: 90, weightKg: 25),
+            Routine(name: "Core", totalSets: 3, restSeconds: 60, weightKg: nil),
+            Routine(name: "HIIT", totalSets: 10, restSeconds: 30, weightKg: nil),
+            Routine(name: "Resistencia", totalSets: 8, restSeconds: 45, weightKg: nil),
+            Routine(name: "Deload", totalSets: 3, restSeconds: 120, weightKg: 20),
+            Routine(name: "Movilidad", totalSets: 4, restSeconds: 30, weightKg: nil),
+            Routine(name: "Brazos", totalSets: 4, restSeconds: 75, weightKg: 15)
+        ]
+        samples.forEach { modelContext.insert($0) }
+        try? modelContext.save()
+        refresh()
+    }
+    #endif
 }
