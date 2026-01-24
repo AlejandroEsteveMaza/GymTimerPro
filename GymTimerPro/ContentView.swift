@@ -424,7 +424,7 @@ struct ContentView: View {
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundStyle(Theme.textPrimary)
 
-                Text(L10n.format("pro.usage_today_format", usageLimiter.status.remainingToday, usageLimiter.status.dailyLimit))
+                Text(L10n.format("pro.usage_today_format", usageLimiter.status.consumedToday, usageLimiter.status.dailyLimit))
                     .font(.subheadline)
                     .foregroundStyle(Theme.textSecondary)
             }
