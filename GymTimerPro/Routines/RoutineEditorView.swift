@@ -130,6 +130,7 @@ struct RoutineEditorView: View {
                 }
             }
         }
+        .scrollDismissesKeyboard(.interactively)
         .navigationTitle(LocalizedStringKey(editorTitleKey))
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -174,6 +175,16 @@ struct RoutineEditorView: View {
             }
             Button("common.cancel", role: .cancel) {}
         }
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 30, coordinateSpace: .local)
+                .onEnded { value in
+                    let isHorizontal = abs(value.translation.height) < 50
+                    let isRightSwipe = value.translation.width > 120
+                    if isHorizontal && isRightSwipe {
+                        handleCancel()
+                    }
+                }
+        )
     }
 
     private var editorTitleKey: String {

@@ -64,6 +64,7 @@ struct RoutinesListView: View {
                     .onDelete(perform: store.delete)
                 }
                 .listStyle(.insetGrouped)
+                .scrollDismissesKeyboard(.interactively)
             }
         }
         .navigationTitle("routines.title")

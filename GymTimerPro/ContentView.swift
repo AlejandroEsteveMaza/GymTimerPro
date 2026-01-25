@@ -280,13 +280,11 @@ struct ContentView: View {
                 .transition(.opacity.combined(with: .scale))
         } else {
             VStack(alignment: .leading, spacing: Layout.metricSpacing) {
-                if purchaseManager.isPro, let reps = appliedRoutineReps {
-                    WeightedHStack(weights: [3, 1], spacing: Layout.metricSpacing) {
-                        MetricView(titleKey: "metric.set.title", value: "\(serieActual) / \(totalSeries)")
+                HStack(spacing: Layout.metricSpacing) {
+                    MetricView(titleKey: "metric.set.title", value: "\(serieActual) / \(totalSeries)")
+                    if purchaseManager.isPro, let reps = appliedRoutineReps {
                         MetricView(titleKey: "routines.field.reps", value: "\(reps)")
                     }
-                } else {
-                    MetricView(titleKey: "metric.set.title", value: "\(serieActual) / \(totalSeries)")
                 }
 
                 HStack(spacing: 12) {
@@ -1245,59 +1243,6 @@ private struct MetricView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Layout.metricPadding)
         .background(Theme.metricBackground, in: RoundedRectangle(cornerRadius: Layout.metricCornerRadius, style: .continuous))
-    }
-}
-
-private struct WeightedHStack: SwiftUI.Layout {
-    let weights: [CGFloat]
-    let spacing: CGFloat
-
-    init(weights: [CGFloat], spacing: CGFloat = 0) {
-        self.weights = weights
-        self.spacing = spacing
-    }
-
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let spacingTotal = spacing * CGFloat(max(0, subviews.count - 1))
-        guard let width = proposal.width, width.isFinite else {
-            var totalWidth: CGFloat = spacingTotal
-            var maxHeight: CGFloat = 0
-            for subview in subviews {
-                let size = subview.sizeThatFits(.unspecified)
-                totalWidth += size.width
-                maxHeight = max(maxHeight, size.height)
-            }
-            return CGSize(width: totalWidth, height: maxHeight)
-        }
-
-        let totalWeight = max(1, weights.prefix(subviews.count).reduce(0, +))
-        var maxHeight: CGFloat = 0
-        for (index, subview) in subviews.enumerated() {
-            let weight = weights.count > index ? weights[index] : 1
-            let subviewWidth = max(0, (width - spacingTotal) * (weight / totalWeight))
-            let size = subview.sizeThatFits(.init(width: subviewWidth, height: proposal.height))
-            maxHeight = max(maxHeight, size.height)
-        }
-        return CGSize(width: width, height: maxHeight)
-    }
-
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let spacingTotal = spacing * CGFloat(max(0, subviews.count - 1))
-        let totalWeight = max(1, weights.prefix(subviews.count).reduce(0, +))
-        let availableWidth = max(0, bounds.width - spacingTotal)
-        var x = bounds.minX
-
-        for (index, subview) in subviews.enumerated() {
-            let weight = weights.count > index ? weights[index] : 1
-            let subviewWidth = availableWidth * (weight / totalWeight)
-            let proposedSize = ProposedViewSize(width: subviewWidth, height: bounds.height)
-            subview.place(
-                at: CGPoint(x: x + subviewWidth / 2, y: bounds.midY),
-                anchor: .center,
-                proposal: proposedSize
-            )
-            x += subviewWidth + spacing
-        }
     }
 }
 
