@@ -11,21 +11,25 @@ import SwiftData
 
 struct RoutineDraft: Equatable {
     static let defaultTotalSets = 4
+    static let defaultReps = 10
     static let defaultRestSeconds = 90
 
     var name: String
     var totalSets: Int
+    var reps: Int
     var restSeconds: Int
     var weightKg: Double?
 
     init(
         name: String = "",
         totalSets: Int = RoutineDraft.defaultTotalSets,
+        reps: Int = RoutineDraft.defaultReps,
         restSeconds: Int = RoutineDraft.defaultRestSeconds,
         weightKg: Double? = nil
     ) {
         self.name = name
         self.totalSets = totalSets
+        self.reps = reps
         self.restSeconds = restSeconds
         self.weightKg = weightKg
     }
@@ -34,11 +38,13 @@ struct RoutineDraft: Equatable {
         if let routine {
             self.name = routine.name
             self.totalSets = routine.totalSets
+            self.reps = routine.reps
             self.restSeconds = routine.restSeconds
             self.weightKg = routine.weightKg
         } else {
             self.name = ""
             self.totalSets = RoutineDraft.defaultTotalSets
+            self.reps = RoutineDraft.defaultReps
             self.restSeconds = RoutineDraft.defaultRestSeconds
             self.weightKg = nil
         }
@@ -81,6 +87,7 @@ final class RoutinesStore: ObservableObject {
         let routine = Routine(
             name: draft.name,
             totalSets: draft.totalSets,
+            reps: draft.reps,
             restSeconds: draft.restSeconds,
             weightKg: draft.weightKg
         )
@@ -92,6 +99,7 @@ final class RoutinesStore: ObservableObject {
     func update(_ routine: Routine, with draft: RoutineDraft) {
         routine.name = draft.name
         routine.totalSets = draft.totalSets
+        routine.reps = draft.reps
         routine.restSeconds = draft.restSeconds
         routine.weightKg = draft.weightKg
         routine.updatedAt = Date()
@@ -124,20 +132,20 @@ final class RoutinesStore: ObservableObject {
     private func seedSampleRoutines() {
         guard let modelContext else { return }
         let samples: [Routine] = [
-            Routine(name: "Fuerza - Basico", totalSets: 5, restSeconds: 120, weightKg: 60),
-            Routine(name: "Hipertrofia", totalSets: 4, restSeconds: 90, weightKg: 22.5),
-            Routine(name: "Calistenia", totalSets: 6, restSeconds: 60, weightKg: nil),
-            Routine(name: "Pierna - Fuerza", totalSets: 5, restSeconds: 150, weightKg: 80),
-            Routine(name: "Torso - Fuerza", totalSets: 5, restSeconds: 120, weightKg: 70),
-            Routine(name: "Full Body", totalSets: 4, restSeconds: 90, weightKg: 35),
-            Routine(name: "Empuje (Push)", totalSets: 4, restSeconds: 90, weightKg: 25),
-            Routine(name: "Tiron (Pull)", totalSets: 4, restSeconds: 90, weightKg: 25),
-            Routine(name: "Core", totalSets: 3, restSeconds: 60, weightKg: nil),
-            Routine(name: "HIIT", totalSets: 10, restSeconds: 30, weightKg: nil),
-            Routine(name: "Resistencia", totalSets: 8, restSeconds: 45, weightKg: nil),
-            Routine(name: "Deload", totalSets: 3, restSeconds: 120, weightKg: 20),
-            Routine(name: "Movilidad", totalSets: 4, restSeconds: 30, weightKg: nil),
-            Routine(name: "Brazos", totalSets: 4, restSeconds: 75, weightKg: 15)
+            Routine(name: "Fuerza - Basico", totalSets: 5, reps: 5, restSeconds: 120, weightKg: 60),
+            Routine(name: "Hipertrofia", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 22.5),
+            Routine(name: "Calistenia", totalSets: 6, reps: 12, restSeconds: 60, weightKg: nil),
+            Routine(name: "Pierna - Fuerza", totalSets: 5, reps: 5, restSeconds: 150, weightKg: 80),
+            Routine(name: "Torso - Fuerza", totalSets: 5, reps: 6, restSeconds: 120, weightKg: 70),
+            Routine(name: "Full Body", totalSets: 4, reps: 8, restSeconds: 90, weightKg: 35),
+            Routine(name: "Empuje (Push)", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 25),
+            Routine(name: "Tiron (Pull)", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 25),
+            Routine(name: "Core", totalSets: 3, reps: 15, restSeconds: 60, weightKg: nil),
+            Routine(name: "HIIT", totalSets: 10, reps: 20, restSeconds: 30, weightKg: nil),
+            Routine(name: "Resistencia", totalSets: 8, reps: 15, restSeconds: 45, weightKg: nil),
+            Routine(name: "Deload", totalSets: 3, reps: 8, restSeconds: 120, weightKg: 20),
+            Routine(name: "Movilidad", totalSets: 4, reps: 12, restSeconds: 30, weightKg: nil),
+            Routine(name: "Brazos", totalSets: 4, reps: 12, restSeconds: 75, weightKg: 15)
         ]
         samples.forEach { modelContext.insert($0) }
         try? modelContext.save()

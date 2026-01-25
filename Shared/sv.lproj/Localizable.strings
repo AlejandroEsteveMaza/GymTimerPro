@@ -95,6 +95,13 @@
 "routines.save" = "Spara";
 "routines.section.details" = "Detaljer";
 "routines.section.parameters" = "Parametrar";
-"routines.summary_format" = "%ld set · %ld s · %@";
 "routines.title" = "Rutiner";
 "routines.weight.empty" = "Ingen vikt";
+
+"routines.select.title" = "Välj rutin";
+"training.routine.select" = "Välj";
+"training.routine.title" = "Rutin";
+
+"accessibility.reps_value_format" = "%ld repetitioner";
+"routines.field.reps" = "Repetitioner";
+"routines.summary_format" = "%ld set · %ld reps · %ld s · %@";

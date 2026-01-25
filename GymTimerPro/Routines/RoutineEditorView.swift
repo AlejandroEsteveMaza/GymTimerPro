@@ -58,6 +58,15 @@ struct RoutineEditorView: View {
                 )
 
                 NumericConfigRow(
+                    titleKey: "routines.field.reps",
+                    icon: "repeat",
+                    value: $draft.reps,
+                    range: 1...30,
+                    accessibilityValue: L10n.format("accessibility.reps_value_format", draft.reps),
+                    stepperControlSize: $stepperControlSize
+                )
+
+                NumericConfigRow(
                     titleKey: "config.rest_seconds.title",
                     icon: "timer",
                     value: $draft.restSeconds,
@@ -126,6 +135,7 @@ struct RoutineEditorView: View {
     private var canSave: Bool {
         !trimmedName.isEmpty &&
             draft.totalSets > 0 &&
+            draft.reps > 0 &&
             draft.restSeconds >= 0 &&
             isWeightValid
     }
@@ -147,6 +157,7 @@ struct RoutineEditorView: View {
         let payload = RoutineDraft(
             name: trimmedName,
             totalSets: draft.totalSets,
+            reps: draft.reps,
             restSeconds: draft.restSeconds,
             weightKg: parsedWeight
         )

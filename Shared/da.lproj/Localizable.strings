@@ -95,6 +95,13 @@
 "routines.save" = "Gem";
 "routines.section.details" = "Detaljer";
 "routines.section.parameters" = "Parametre";
-"routines.summary_format" = "%ld sæt · %ld s · %@";
 "routines.title" = "Rutiner";
 "routines.weight.empty" = "Ingen vægt";
+
+"routines.select.title" = "Vælg rutine";
+"training.routine.select" = "Vælg";
+"training.routine.title" = "Rutine";
+
+"accessibility.reps_value_format" = "%ld gentagelser";
+"routines.field.reps" = "Gentagelser";
+"routines.summary_format" = "%ld sæt · %ld reps · %ld s · %@";

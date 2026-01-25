@@ -95,6 +95,13 @@
 "routines.save" = "Opslaan";
 "routines.section.details" = "Details";
 "routines.section.parameters" = "Parameters";
-"routines.summary_format" = "%ld sets · %ld s · %@";
 "routines.title" = "Routines";
 "routines.weight.empty" = "Geen gewicht";
+
+"routines.select.title" = "Routine selecteren";
+"training.routine.select" = "Selecteren";
+"training.routine.title" = "Routine";
+
+"accessibility.reps_value_format" = "%ld herhalingen";
+"routines.field.reps" = "Herhalingen";
+"routines.summary_format" = "%ld sets · %ld reps · %ld s · %@";

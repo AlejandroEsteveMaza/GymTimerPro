@@ -13,6 +13,7 @@ final class Routine: Identifiable {
     @Attribute(.unique) var id: UUID
     var name: String
     var totalSets: Int
+    var reps: Int = 10
     var restSeconds: Int
     var weightKg: Double?
     var createdAt: Date
@@ -22,12 +23,14 @@ final class Routine: Identifiable {
         id: UUID = UUID(),
         name: String,
         totalSets: Int,
+        reps: Int,
         restSeconds: Int,
         weightKg: Double?
     ) {
         self.id = id
         self.name = name
         self.totalSets = totalSets
+        self.reps = reps
         self.restSeconds = restSeconds
         self.weightKg = weightKg
         let now = Date()

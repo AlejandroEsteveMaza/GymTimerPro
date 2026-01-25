@@ -23,6 +23,9 @@ struct RoutineDetailView: View {
                 LabeledContent(LocalizedStringKey("config.total_sets.title")) {
                     Text("\(routine.totalSets)")
                 }
+                LabeledContent(LocalizedStringKey("routines.field.reps")) {
+                    Text("\(routine.reps)")
+                }
                 LabeledContent(LocalizedStringKey("config.rest_seconds.title")) {
                     Text("\(routine.restSeconds)")
                 }
@@ -52,7 +55,7 @@ struct RoutineDetailView: View {
 #Preview {
     NavigationStack {
         RoutineDetailView(
-            routine: Routine(name: "Upper Body", totalSets: 4, restSeconds: 90, weightKg: 20)
+            routine: Routine(name: "Upper Body", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 20)
         )
         .environmentObject(RoutinesStore())
     }

@@ -22,6 +22,8 @@ struct ContentView: View {
     @State private var isPresentingPaywall = false
     @State private var showNotificationPreview = false
     @State private var uiTestOverridesApplied = false
+    @State private var isPresentingRoutinePicker = false
+    @State private var appliedRoutineName: String? = nil
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
@@ -104,6 +106,13 @@ struct ContentView: View {
             )
             .environmentObject(purchaseManager)
         }
+        .sheet(isPresented: $isPresentingRoutinePicker) {
+            NavigationStack {
+                RoutinePickerView { routine in
+                    applyRoutine(routine)
+                }
+            }
+        }
     }
 
     private var configurationSection: some View {
@@ -117,6 +126,9 @@ struct ContentView: View {
             }
         ) {
             VStack(spacing: Layout.rowSpacing) {
+                routineApplyRow
+                Divider()
+                    .foregroundStyle(Theme.divider)
                 configWheelRow(
                     titleKey: "config.total_sets.title",
                     icon: "square.stack.3d.up",
@@ -226,6 +238,27 @@ struct ContentView: View {
             )
         }
         .frame(minHeight: Layout.minTapHeight)
+    }
+
+    private var routineApplyRow: some View {
+        Button {
+            isPresentingRoutinePicker = true
+        } label: {
+            ConfigRow(icon: "list.bullet.rectangle", titleKey: "training.routine.title") {
+                HStack(spacing: 6) {
+                    Text(appliedRoutineName ?? L10n.tr("training.routine.select"))
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(appliedRoutineName == nil ? Theme.textSecondary : Theme.textPrimary)
+                        .lineLimit(1)
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Theme.textSecondary)
+                }
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text("training.routine.title"))
+        .accessibilityValue(Text(appliedRoutineName ?? L10n.tr("training.routine.select")))
     }
 
     @ViewBuilder
@@ -380,6 +413,13 @@ struct ContentView: View {
             serieActual = 1
             completado = false
         }
+    }
+
+    private func applyRoutine(_ routine: Routine) {
+        resetWorkout()
+        totalSeries = routine.totalSets
+        tiempoDescanso = routine.restSeconds
+        appliedRoutineName = routine.name
     }
 
     private func restoreLiveActivityIfNeeded() {

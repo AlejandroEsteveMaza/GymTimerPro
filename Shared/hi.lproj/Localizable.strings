@@ -95,6 +95,13 @@
 "routines.save" = "सहेजें";
 "routines.section.details" = "विवरण";
 "routines.section.parameters" = "पैरामीटर";
-"routines.summary_format" = "%ld सेट · %ld s · %@";
 "routines.title" = "रूटीन";
 "routines.weight.empty" = "वज़न नहीं";
+
+"routines.select.title" = "रूटीन चुनें";
+"training.routine.select" = "चुनें";
+"training.routine.title" = "रूटीन";
+
+"accessibility.reps_value_format" = "%ld रेप्स";
+"routines.field.reps" = "रेप्स";
+"routines.summary_format" = "%ld सेट · %ld रेप्स · %ld s · %@";

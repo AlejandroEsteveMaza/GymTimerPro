@@ -95,6 +95,13 @@
 "routines.save" = "Lagre";
 "routines.section.details" = "Detaljer";
 "routines.section.parameters" = "Parametere";
-"routines.summary_format" = "%ld sett · %ld s · %@";
 "routines.title" = "Rutiner";
 "routines.weight.empty" = "Ingen vekt";
+
+"routines.select.title" = "Velg rutine";
+"training.routine.select" = "Velg";
+"training.routine.title" = "Rutine";
+
+"accessibility.reps_value_format" = "%ld repetisjoner";
+"routines.field.reps" = "Repetisjoner";
+"routines.summary_format" = "%ld sett · %ld reps · %ld s · %@";

@@ -95,6 +95,13 @@
 "routines.save" = "保存";
 "routines.section.details" = "詳細";
 "routines.section.parameters" = "パラメータ";
-"routines.summary_format" = "%ldセット · %ld秒 · %@";
 "routines.title" = "ルーティン";
 "routines.weight.empty" = "重量なし";
+
+"routines.select.title" = "ルーティンを選択";
+"training.routine.select" = "選択";
+"training.routine.title" = "ルーティン";
+
+"accessibility.reps_value_format" = "%ld回";
+"routines.field.reps" = "回数";
+"routines.summary_format" = "%ldセット · %ld回 · %ld秒 · %@";

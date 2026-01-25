@@ -52,8 +52,8 @@ enum RoutineFormatting {
         return Double(normalized)
     }
 
-    static func summaryText(sets: Int, restSeconds: Int, weightKg: Double?) -> String {
+    static func summaryText(sets: Int, reps: Int, restSeconds: Int, weightKg: Double?) -> String {
         let weightText = weightSummaryText(weightKg)
-        return L10n.format("routines.summary_format", sets, restSeconds, weightText)
+        return L10n.format("routines.summary_format", sets, reps, restSeconds, weightText)
     }
 }

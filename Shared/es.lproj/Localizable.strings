@@ -95,6 +95,13 @@
 "routines.save" = "Guardar";
 "routines.section.details" = "Detalles";
 "routines.section.parameters" = "Parámetros";
-"routines.summary_format" = "%ld series · %ld s · %@";
 "routines.title" = "Rutinas";
 "routines.weight.empty" = "Sin peso";
+
+"routines.select.title" = "Seleccionar rutina";
+"training.routine.select" = "Seleccionar";
+"training.routine.title" = "Rutina";
+
+"accessibility.reps_value_format" = "%ld repeticiones";
+"routines.field.reps" = "Repeticiones";
+"routines.summary_format" = "%ld series · %ld reps · %ld s · %@";

@@ -95,6 +95,13 @@
 "routines.save" = "Speichern";
 "routines.section.details" = "Details";
 "routines.section.parameters" = "Parameter";
-"routines.summary_format" = "%ld Sätze · %ld s · %@";
 "routines.title" = "Routinen";
 "routines.weight.empty" = "Kein Gewicht";
+
+"routines.select.title" = "Routine auswählen";
+"training.routine.select" = "Auswählen";
+"training.routine.title" = "Routine";
+
+"accessibility.reps_value_format" = "%ld Wiederholungen";
+"routines.field.reps" = "Wiederholungen";
+"routines.summary_format" = "%ld Sätze · %ld Wdh. · %ld s · %@";

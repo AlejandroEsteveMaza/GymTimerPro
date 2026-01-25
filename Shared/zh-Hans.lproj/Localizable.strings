@@ -95,6 +95,13 @@
 "routines.save" = "保存";
 "routines.section.details" = "详细信息";
 "routines.section.parameters" = "参数";
-"routines.summary_format" = "%ld 组 · %ld 秒 · %@";
 "routines.title" = "例程";
 "routines.weight.empty" = "无重量";
+
+"routines.select.title" = "选择例程";
+"training.routine.select" = "选择";
+"training.routine.title" = "例程";
+
+"accessibility.reps_value_format" = "%ld 次";
+"routines.field.reps" = "次数";
+"routines.summary_format" = "%ld 组 · %ld 次 · %ld 秒 · %@";

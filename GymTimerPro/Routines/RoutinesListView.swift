@@ -26,6 +26,7 @@ struct RoutinesListView: View {
                     ForEach(store.routines) { routine in
                         NavigationLink {
                             RoutineDetailView(routine: routine)
+                                .environmentObject(store)
                         } label: {
                             RoutineRowView(routine: routine)
                         }
@@ -101,6 +102,7 @@ private struct RoutineRowView: View {
 
             Text(RoutineFormatting.summaryText(
                 sets: routine.totalSets,
+                reps: routine.reps,
                 restSeconds: routine.restSeconds,
                 weightKg: routine.weightKg
             ))

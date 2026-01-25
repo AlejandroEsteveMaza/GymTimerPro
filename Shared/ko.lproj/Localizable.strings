@@ -95,6 +95,13 @@
 "routines.save" = "저장";
 "routines.section.details" = "세부 정보";
 "routines.section.parameters" = "매개변수";
-"routines.summary_format" = "%ld세트 · %ld초 · %@";
 "routines.title" = "루틴";
 "routines.weight.empty" = "무게 없음";
+
+"routines.select.title" = "루틴 선택";
+"training.routine.select" = "선택";
+"training.routine.title" = "루틴";
+
+"accessibility.reps_value_format" = "%ld회";
+"routines.field.reps" = "반복";
+"routines.summary_format" = "%ld세트 · %ld회 · %ld초 · %@";
