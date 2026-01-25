@@ -105,3 +105,10 @@
 "accessibility.reps_value_format" = "%ld Wiederholungen";
 "routines.field.reps" = "Wiederholungen";
 "routines.summary_format" = "%ld Sätze · %ld Wdh. · %ld s · %@";
+
+"pro.locked.message" = "Verfügbar in Pro.";
+"pro.locked.progress.title" = "Fortschritt";
+"pro.locked.routines.title" = "Routinen";
+"pro.locked.settings.title" = "Einstellungen";
+
+"pro.locked.unlock" = "Pro freischalten";

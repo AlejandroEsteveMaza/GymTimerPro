@@ -105,3 +105,10 @@
 "accessibility.reps_value_format" = "%ld रेप्स";
 "routines.field.reps" = "रेप्स";
 "routines.summary_format" = "%ld सेट · %ld रेप्स · %ld s · %@";
+
+"pro.locked.message" = "Pro में उपलब्ध है.";
+"pro.locked.progress.title" = "प्रगति";
+"pro.locked.routines.title" = "रूटीन";
+"pro.locked.settings.title" = "सेटिंग्स";
+
+"pro.locked.unlock" = "Pro अनलॉक करें";

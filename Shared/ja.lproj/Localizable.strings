@@ -105,3 +105,10 @@
 "accessibility.reps_value_format" = "%ld回";
 "routines.field.reps" = "回数";
 "routines.summary_format" = "%ldセット · %ld回 · %ld秒 · %@";
+
+"pro.locked.message" = "Proで利用できます。";
+"pro.locked.progress.title" = "進捗";
+"pro.locked.routines.title" = "ルーティン";
+"pro.locked.settings.title" = "設定";
+
+"pro.locked.unlock" = "Proを解除";

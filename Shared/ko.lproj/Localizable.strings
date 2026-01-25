@@ -105,3 +105,10 @@
 "accessibility.reps_value_format" = "%ld회";
 "routines.field.reps" = "반복";
 "routines.summary_format" = "%ld세트 · %ld회 · %ld초 · %@";
+
+"pro.locked.message" = "Pro에서 사용할 수 있습니다.";
+"pro.locked.progress.title" = "진행";
+"pro.locked.routines.title" = "루틴";
+"pro.locked.settings.title" = "설정";
+
+"pro.locked.unlock" = "Pro 잠금 해제";

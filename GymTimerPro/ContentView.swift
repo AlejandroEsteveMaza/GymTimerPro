@@ -126,9 +126,11 @@ struct ContentView: View {
             }
         ) {
             VStack(spacing: Layout.rowSpacing) {
-                routineApplyRow
-                Divider()
-                    .foregroundStyle(Theme.divider)
+                if purchaseManager.isPro {
+                    routineApplyRow
+                    Divider()
+                        .foregroundStyle(Theme.divider)
+                }
                 configWheelRow(
                     titleKey: "config.total_sets.title",
                     icon: "square.stack.3d.up",
@@ -242,7 +244,11 @@ struct ContentView: View {
 
     private var routineApplyRow: some View {
         Button {
-            isPresentingRoutinePicker = true
+            if purchaseManager.isPro {
+                isPresentingRoutinePicker = true
+            } else {
+                isPresentingPaywall = true
+            }
         } label: {
             ConfigRow(icon: "list.bullet.rectangle", titleKey: "training.routine.title") {
                 HStack(spacing: 6) {

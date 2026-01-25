@@ -105,3 +105,10 @@
 "accessibility.reps_value_format" = "%ld repetisjoner";
 "routines.field.reps" = "Repetisjoner";
 "routines.summary_format" = "%ld sett · %ld reps · %ld s · %@";
+
+"pro.locked.message" = "Tilgjengelig i Pro.";
+"pro.locked.progress.title" = "Fremdrift";
+"pro.locked.routines.title" = "Rutiner";
+"pro.locked.settings.title" = "Innstillinger";
+
+"pro.locked.unlock" = "Lås opp Pro";

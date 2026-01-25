@@ -105,3 +105,10 @@
 "accessibility.reps_value_format" = "%ld 次";
 "routines.field.reps" = "次数";
 "routines.summary_format" = "%ld 组 · %ld 次 · %ld 秒 · %@";
+
+"pro.locked.message" = "仅限 Pro。";
+"pro.locked.progress.title" = "进度";
+"pro.locked.routines.title" = "例程";
+"pro.locked.settings.title" = "设置";
+
+"pro.locked.unlock" = "解锁 Pro";

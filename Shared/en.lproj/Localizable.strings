@@ -105,3 +105,10 @@
 "accessibility.reps_value_format" = "%ld reps";
 "routines.field.reps" = "Reps";
 "routines.summary_format" = "%ld sets · %ld reps · %ld s · %@";
+
+"pro.locked.message" = "Available in Pro.";
+"pro.locked.progress.title" = "Progress";
+"pro.locked.routines.title" = "Routines";
+"pro.locked.settings.title" = "Settings";
+
+"pro.locked.unlock" = "Unlock Pro";

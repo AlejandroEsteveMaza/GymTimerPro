@@ -105,3 +105,10 @@
 "accessibility.reps_value_format" = "%ld ripetizioni";
 "routines.field.reps" = "Ripetizioni";
 "routines.summary_format" = "%ld serie · %ld rep · %ld s · %@";
+
+"pro.locked.message" = "Disponibile in Pro.";
+"pro.locked.progress.title" = "Progresso";
+"pro.locked.routines.title" = "Routine";
+"pro.locked.settings.title" = "Impostazioni";
+
+"pro.locked.unlock" = "Sblocca Pro";
