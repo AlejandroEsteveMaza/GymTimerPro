@@ -91,7 +91,8 @@
 "routines.empty.message" = "Crea una rutina para guardar tus presets.";
 "routines.empty.title" = "Sin rutinas";
 "routines.field.name" = "Nombre";
-"routines.field.weight" = "Peso (kg)";
+"routines.field.weight" = "Peso";
+"routines.weight.placeholder" = "0";
 "routines.save" = "Guardar";
 "routines.section.details" = "Nombre";
 "routines.section.parameters" = "Parámetros";

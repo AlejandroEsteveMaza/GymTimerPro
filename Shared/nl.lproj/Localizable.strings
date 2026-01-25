@@ -91,7 +91,8 @@
 "routines.empty.message" = "Maak een routine om je presets op te slaan.";
 "routines.empty.title" = "Geen routines";
 "routines.field.name" = "Naam";
-"routines.field.weight" = "Gewicht (kg)";
+"routines.field.weight" = "Gewicht";
+"routines.weight.placeholder" = "0";
 "routines.save" = "Opslaan";
 "routines.section.details" = "Naam";
 "routines.section.parameters" = "Parameters";

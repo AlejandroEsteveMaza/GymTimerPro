@@ -915,17 +915,37 @@ struct ConfigValueEditorButton: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
+    let valueFormatter: ((Int) -> String)?
     let accessibilityIdentifier: String?
     let editorPickerIdentifier: String?
 
     @State private var isPresenting = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    init(
+        titleKey: String,
+        value: Binding<Int>,
+        range: ClosedRange<Int>,
+        step: Int,
+        valueFormatter: ((Int) -> String)? = nil,
+        accessibilityIdentifier: String? = nil,
+        editorPickerIdentifier: String? = nil
+    ) {
+        self.titleKey = titleKey
+        _value = value
+        self.range = range
+        self.step = step
+        self.valueFormatter = valueFormatter
+        self.accessibilityIdentifier = accessibilityIdentifier
+        self.editorPickerIdentifier = editorPickerIdentifier
+    }
+
     var body: some View {
+        let formattedValue = valueFormatter?(value) ?? "\(value)"
         let button = Button {
             isPresenting = true
         } label: {
-            Text("\(value)")
+            Text(formattedValue)
                 .font(.system(size: 18, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.textPrimary)
                 .monospacedDigit()
@@ -933,7 +953,7 @@ struct ConfigValueEditorButton: View {
         .buttonStyle(.plain)
         .accessibilityIdentifier(accessibilityIdentifier ?? "")
         .accessibilityLabel(L10n.format("accessibility.edit_value_label_format", L10n.tr(titleKey)))
-        .accessibilityValue("\(value)")
+        .accessibilityValue(formattedValue)
 
         Group {
             if horizontalSizeClass == .regular {
@@ -943,6 +963,7 @@ struct ConfigValueEditorButton: View {
                         value: $value,
                         range: range,
                         step: step,
+                        valueFormatter: valueFormatter,
                         pickerIdentifier: editorPickerIdentifier
                     )
                     .frame(minWidth: 260, minHeight: 320)
@@ -954,6 +975,7 @@ struct ConfigValueEditorButton: View {
                         value: $value,
                         range: range,
                         step: step,
+                        valueFormatter: valueFormatter,
                         pickerIdentifier: editorPickerIdentifier
                     )
                     .presentationDetents([.medium, .large])
@@ -968,16 +990,25 @@ struct DiscreteValueEditor: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
+    let valueFormatter: ((Int) -> String)?
     let pickerIdentifier: String?
 
     @Environment(\.dismiss) private var dismiss
     @State private var selection: Int
 
-    init(titleKey: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int, pickerIdentifier: String? = nil) {
+    init(
+        titleKey: String,
+        value: Binding<Int>,
+        range: ClosedRange<Int>,
+        step: Int,
+        valueFormatter: ((Int) -> String)? = nil,
+        pickerIdentifier: String? = nil
+    ) {
         self.titleKey = titleKey
         _value = value
         self.range = range
         self.step = step
+        self.valueFormatter = valueFormatter
         self.pickerIdentifier = pickerIdentifier
         let initial = DiscreteValueHelper.clampAndRound(value.wrappedValue, range: range, step: step)
         _selection = State(initialValue: initial)
@@ -988,7 +1019,7 @@ struct DiscreteValueEditor: View {
             VStack(spacing: 0) {
                 Picker(LocalizedStringKey(titleKey), selection: $selection) {
                     ForEach(DiscreteValueHelper.values(range: range, step: step), id: \.self) { option in
-                        Text("\(option)")
+                        Text(valueFormatter?(option) ?? "\(option)")
                             .tag(option)
                     }
                 }

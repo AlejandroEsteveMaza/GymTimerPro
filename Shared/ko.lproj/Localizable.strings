@@ -91,7 +91,8 @@
 "routines.empty.message" = "루틴을 만들어 프리셋을 저장하세요.";
 "routines.empty.title" = "루틴 없음";
 "routines.field.name" = "이름";
-"routines.field.weight" = "무게 (kg)";
+"routines.field.weight" = "무게";
+"routines.weight.placeholder" = "0";
 "routines.save" = "저장";
 "routines.section.details" = "이름";
 "routines.section.parameters" = "매개변수";

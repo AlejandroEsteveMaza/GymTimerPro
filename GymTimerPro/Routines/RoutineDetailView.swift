@@ -12,9 +12,7 @@ struct RoutineDetailView: View {
     let routine: Routine
     @EnvironmentObject private var store: RoutinesStore
     @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
-    @Environment(\.dismiss) private var dismiss
     @State private var isEditing = false
-    @State private var showDeleteAlert = false
 
     var body: some View {
         Form {
@@ -36,11 +34,8 @@ struct RoutineDetailView: View {
                     Text(RoutineFormatting.weightValueText(routine.weightKg))
                 }
             }
-        }
-        .navigationTitle(routine.name)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItemGroup(placement: .topBarTrailing) {
+
+            Section {
                 Button {
                     if isApplied {
                         routineSelectionStore.clear()
@@ -48,20 +43,20 @@ struct RoutineDetailView: View {
                         routineSelectionStore.apply(routine)
                     }
                 } label: {
-                    Image(systemName: isApplied ? "xmark.circle" : "checkmark.circle")
+                    Label(
+                        isApplied ? "routines.remove_from_training" : "routines.apply",
+                        systemImage: isApplied ? "xmark.circle" : "checkmark.circle"
+                    )
                 }
-                .accessibilityLabel(Text(isApplied ? "routines.remove_from_training" : "routines.apply"))
-
+            }
+        }
+        .navigationTitle(routine.name)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button("routines.edit") {
                     isEditing = true
                 }
-
-                Button(role: .destructive) {
-                    showDeleteAlert = true
-                } label: {
-                    Image(systemName: "trash")
-                }
-                .accessibilityLabel(Text("routines.delete"))
             }
         }
         .sheet(isPresented: $isEditing) {
@@ -69,16 +64,7 @@ struct RoutineDetailView: View {
                 RoutineEditorView(routine: routine)
             }
             .environmentObject(store)
-        }
-        .alert(Text("routines.delete"), isPresented: $showDeleteAlert) {
-            Button("common.cancel", role: .cancel) {}
-            Button("routines.delete", role: .destructive) {
-                if isApplied {
-                    routineSelectionStore.clear()
-                }
-                store.delete(routine)
-                dismiss()
-            }
+            .environmentObject(routineSelectionStore)
         }
     }
 

@@ -87,6 +87,7 @@ struct RoutinesListView: View {
                 RoutineEditorView(routine: route.routine)
             }
             .environmentObject(store)
+            .environmentObject(routineSelectionStore)
         }
     }
 }

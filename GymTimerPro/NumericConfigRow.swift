@@ -15,6 +15,7 @@ struct NumericConfigRow: View {
     let step: Int
     let accessibilityValue: String
     @Binding var stepperControlSize: CGSize
+    let valueFormatter: ((Int) -> String)?
     let valueEditorIdentifier: String?
     let editorPickerIdentifier: String?
 
@@ -26,6 +27,7 @@ struct NumericConfigRow: View {
         step: Int = 1,
         accessibilityValue: String,
         stepperControlSize: Binding<CGSize>,
+        valueFormatter: ((Int) -> String)? = nil,
         valueEditorIdentifier: String? = nil,
         editorPickerIdentifier: String? = nil
     ) {
@@ -36,6 +38,7 @@ struct NumericConfigRow: View {
         self.step = step
         self.accessibilityValue = accessibilityValue
         _stepperControlSize = stepperControlSize
+        self.valueFormatter = valueFormatter
         self.valueEditorIdentifier = valueEditorIdentifier
         self.editorPickerIdentifier = editorPickerIdentifier
     }
@@ -49,6 +52,7 @@ struct NumericConfigRow: View {
                     value: $value,
                     range: range,
                     step: step,
+                    valueFormatter: valueFormatter,
                     accessibilityIdentifier: valueEditorIdentifier,
                     editorPickerIdentifier: editorPickerIdentifier
                 )

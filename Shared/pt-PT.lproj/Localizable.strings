@@ -91,7 +91,8 @@
 "routines.empty.message" = "Cria uma rotina para guardar as tuas predefinições.";
 "routines.empty.title" = "Sem rotinas";
 "routines.field.name" = "Nome";
-"routines.field.weight" = "Peso (kg)";
+"routines.field.weight" = "Peso";
+"routines.weight.placeholder" = "0";
 "routines.save" = "Guardar";
 "routines.section.details" = "Nome";
 "routines.section.parameters" = "Parâmetros";

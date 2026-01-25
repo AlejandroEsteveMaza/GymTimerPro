@@ -91,7 +91,8 @@
 "routines.empty.message" = "Skapa en rutin för att spara dina förinställningar.";
 "routines.empty.title" = "Inga rutiner";
 "routines.field.name" = "Namn";
-"routines.field.weight" = "Vikt (kg)";
+"routines.field.weight" = "Vikt";
+"routines.weight.placeholder" = "0";
 "routines.save" = "Spara";
 "routines.section.details" = "Namn";
 "routines.section.parameters" = "Parametrar";

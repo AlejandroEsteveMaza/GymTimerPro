@@ -91,7 +91,8 @@
 "routines.empty.message" = "Créez une routine pour enregistrer vos préréglages.";
 "routines.empty.title" = "Aucune routine";
 "routines.field.name" = "Nom";
-"routines.field.weight" = "Poids (kg)";
+"routines.field.weight" = "Poids";
+"routines.weight.placeholder" = "0";
 "routines.save" = "Enregistrer";
 "routines.section.details" = "Nom";
 "routines.section.parameters" = "Paramètres";

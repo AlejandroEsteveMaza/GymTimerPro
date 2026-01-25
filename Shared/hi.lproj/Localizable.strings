@@ -91,7 +91,8 @@
 "routines.empty.message" = "अपने प्रीसेट सेव करने के लिए एक रूटीन बनाएं.";
 "routines.empty.title" = "कोई रूटीन नहीं";
 "routines.field.name" = "नाम";
-"routines.field.weight" = "वज़न (kg)";
+"routines.field.weight" = "वज़न";
+"routines.weight.placeholder" = "0";
 "routines.save" = "सहेजें";
 "routines.section.details" = "नाम";
 "routines.section.parameters" = "पैरामीटर";

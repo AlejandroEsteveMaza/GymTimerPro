@@ -19,12 +19,14 @@ struct RoutineEditorView: View {
     private let initialWeightText: String
 
     @EnvironmentObject private var store: RoutinesStore
+    @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
     @Environment(\.dismiss) private var dismiss
     @FocusState private var focusedField: Field?
 
     @State private var draft: RoutineDraft
     @State private var weightText: String
-    @State private var showDiscardAlert = false
+    @State private var showExitDialog = false
+    @State private var showDeleteDialog = false
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
 
     init(routine: Routine? = nil) {
@@ -82,15 +84,28 @@ struct RoutineEditorView: View {
                     stepperControlSize: $stepperControlSize
                 )
 
-                HStack {
-                    TextField("routines.field.weight", text: $weightText)
+                ConfigRow(icon: "scalemass", titleKey: "routines.field.weight") {
+                    TextField("routines.weight.placeholder", text: $weightText)
                         .keyboardType(.decimalPad)
+                        .multilineTextAlignment(.trailing)
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .foregroundStyle(Theme.textPrimary)
+                        .monospacedDigit()
                         .focused($focusedField, equals: .weight)
                         .accessibilityLabel(Text("routines.field.weight"))
                 }
+                .frame(minHeight: Layout.minTapHeight)
                 .contentShape(Rectangle())
                 .onTapGesture {
                     focusedField = .weight
+                }
+            }
+
+            if routine != nil {
+                Section {
+                    Button("routines.delete", role: .destructive) {
+                        showDeleteDialog = true
+                    }
                 }
             }
         }
@@ -114,13 +129,29 @@ struct RoutineEditorView: View {
             StepperSizeReader(size: $stepperControlSize)
         }
         .interactiveDismissDisabled(hasChanges)
-        .alert(Text("routines.discard.title"), isPresented: $showDiscardAlert) {
-            Button("routines.discard.keep_editing", role: .cancel) {}
+        .confirmationDialog(Text("routines.discard.title"), isPresented: $showExitDialog, titleVisibility: .visible) {
+            if canSave {
+                Button("routines.save") {
+                    saveRoutine()
+                }
+            }
             Button("routines.discard.confirm", role: .destructive) {
                 dismiss()
             }
+            Button("common.cancel", role: .cancel) {}
         } message: {
             Text("routines.discard.message")
+        }
+        .confirmationDialog(Text("routines.delete"), isPresented: $showDeleteDialog, titleVisibility: .visible) {
+            Button("routines.delete", role: .destructive) {
+                guard let routine else { return }
+                if routineSelectionStore.selection?.id == routine.id {
+                    routineSelectionStore.clear()
+                }
+                store.delete(routine)
+                dismiss()
+            }
+            Button("common.cancel", role: .cancel) {}
         }
     }
 
@@ -158,7 +189,7 @@ struct RoutineEditorView: View {
 
     private func handleCancel() {
         if hasChanges {
-            showDiscardAlert = true
+            showExitDialog = true
         } else {
             dismiss()
         }
@@ -187,6 +218,7 @@ struct RoutineEditorView: View {
     NavigationStack {
         RoutineEditorView()
             .environmentObject(RoutinesStore())
+            .environmentObject(RoutineSelectionStore())
     }
     .modelContainer(for: Routine.self, inMemory: true)
 }

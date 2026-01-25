@@ -91,7 +91,8 @@
 "routines.empty.message" = "ルーティンを作成してプリセットを保存しましょう。";
 "routines.empty.title" = "ルーティンがありません";
 "routines.field.name" = "名前";
-"routines.field.weight" = "重量 (kg)";
+"routines.field.weight" = "重量";
+"routines.weight.placeholder" = "0";
 "routines.save" = "保存";
 "routines.section.details" = "名前";
 "routines.section.parameters" = "パラメータ";

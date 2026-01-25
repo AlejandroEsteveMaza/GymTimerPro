@@ -91,7 +91,8 @@
 "routines.empty.message" = "Opret en rutine for at gemme dine presets.";
 "routines.empty.title" = "Ingen rutiner";
 "routines.field.name" = "Navn";
-"routines.field.weight" = "Vægt (kg)";
+"routines.field.weight" = "Vægt";
+"routines.weight.placeholder" = "0";
 "routines.save" = "Gem";
 "routines.section.details" = "Navn";
 "routines.section.parameters" = "Parametre";
