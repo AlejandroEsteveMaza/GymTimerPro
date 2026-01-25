@@ -27,7 +27,7 @@ struct RoutinesListView: View {
                     ForEach(store.routines) { routine in
                         let isApplied = routineSelectionStore.selection?.id == routine.id
                         NavigationLink {
-                            RoutineDetailView(routine: routine)
+                            RoutineEditorView(routine: routine)
                                 .environmentObject(store)
                                 .environmentObject(routineSelectionStore)
                         } label: {
@@ -51,12 +51,6 @@ struct RoutinesListView: View {
                             }
                         }
                         .swipeActions {
-                            Button {
-                                editorRoute = .edit(routine)
-                            } label: {
-                                Label("routines.edit", systemImage: "pencil")
-                            }
-
                             Button(role: .destructive) {
                                 if isApplied {
                                     routineSelectionStore.clear()

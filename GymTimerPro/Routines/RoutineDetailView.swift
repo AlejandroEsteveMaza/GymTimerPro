@@ -8,6 +8,7 @@
 import SwiftData
 import SwiftUI
 
+@available(*, deprecated, message: "Routines now open directly in RoutineEditorView.")
 struct RoutineDetailView: View {
     let routine: Routine
     @EnvironmentObject private var store: RoutinesStore

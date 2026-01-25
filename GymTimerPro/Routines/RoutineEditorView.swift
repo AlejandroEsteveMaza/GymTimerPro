@@ -103,6 +103,20 @@ struct RoutineEditorView: View {
 
             if routine != nil {
                 Section {
+                    Button {
+                        handleApplyAction()
+                    } label: {
+                        Label(
+                            isApplied ? "routines.remove_from_training" : "routines.apply",
+                            systemImage: isApplied ? "xmark.circle" : "checkmark.circle"
+                        )
+                    }
+                    .disabled(!isApplied && !canApply)
+                }
+            }
+
+            if routine != nil {
+                Section {
                     Button("routines.delete", role: .destructive) {
                         showDeleteDialog = true
                     }
@@ -183,6 +197,16 @@ struct RoutineEditorView: View {
             isWeightValid
     }
 
+    private var canApply: Bool {
+        guard routine != nil else { return false }
+        return !hasChanges || canSave
+    }
+
+    private var isApplied: Bool {
+        guard let routine else { return false }
+        return routineSelectionStore.selection?.id == routine.id
+    }
+
     private var hasChanges: Bool {
         draft != initialDraft || weightText != initialWeightText
     }
@@ -197,13 +221,7 @@ struct RoutineEditorView: View {
 
     private func saveRoutine() {
         guard canSave else { return }
-        let payload = RoutineDraft(
-            name: trimmedName,
-            totalSets: draft.totalSets,
-            reps: draft.reps,
-            restSeconds: draft.restSeconds,
-            weightKg: parsedWeight
-        )
+        let payload = currentPayload
 
         if let routine {
             store.update(routine, with: payload)
@@ -211,6 +229,34 @@ struct RoutineEditorView: View {
             store.create(from: payload)
         }
         dismiss()
+    }
+
+    private func applyRoutineToTraining() {
+        guard let routine else { return }
+        if hasChanges {
+            guard canSave else { return }
+            store.update(routine, with: currentPayload)
+        }
+        routineSelectionStore.apply(routine)
+        dismiss()
+    }
+
+    private func handleApplyAction() {
+        if isApplied {
+            routineSelectionStore.clear()
+            return
+        }
+        applyRoutineToTraining()
+    }
+
+    private var currentPayload: RoutineDraft {
+        RoutineDraft(
+            name: trimmedName,
+            totalSets: draft.totalSets,
+            reps: draft.reps,
+            restSeconds: draft.restSeconds,
+            weightKg: parsedWeight
+        )
     }
 }
 
