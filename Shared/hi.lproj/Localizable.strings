@@ -93,7 +93,7 @@
 "routines.field.name" = "नाम";
 "routines.field.weight" = "वज़न (kg)";
 "routines.save" = "सहेजें";
-"routines.section.details" = "विवरण";
+"routines.section.details" = "नाम";
 "routines.section.parameters" = "पैरामीटर";
 "routines.title" = "रूटीन";
 "routines.weight.empty" = "वज़न नहीं";
@@ -112,3 +112,6 @@
 "pro.locked.settings.title" = "सेटिंग्स";
 
 "pro.locked.unlock" = "Pro अनलॉक करें";
+
+"routines.apply" = "लागू करें";
+"routines.remove_from_training" = "ट्रेनिंग से हटाएं";

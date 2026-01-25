@@ -135,5 +135,6 @@ private struct LockedFeatureView: View {
 #Preview {
     MainTabView()
         .environmentObject(PurchaseManager(startTasks: false))
+        .environmentObject(RoutineSelectionStore())
         .modelContainer(for: Routine.self, inMemory: true)
 }

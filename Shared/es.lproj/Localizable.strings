@@ -93,7 +93,7 @@
 "routines.field.name" = "Nombre";
 "routines.field.weight" = "Peso (kg)";
 "routines.save" = "Guardar";
-"routines.section.details" = "Detalles";
+"routines.section.details" = "Nombre";
 "routines.section.parameters" = "Parámetros";
 "routines.title" = "Rutinas";
 "routines.weight.empty" = "Sin peso";
@@ -112,3 +112,6 @@
 "pro.locked.settings.title" = "Ajustes";
 
 "pro.locked.unlock" = "Desbloquear Pro";
+
+"routines.apply" = "Aplicar entrenamiento";
+"routines.remove_from_training" = "Quitar entrenamiento";

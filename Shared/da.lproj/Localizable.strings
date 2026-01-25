@@ -93,7 +93,7 @@
 "routines.field.name" = "Navn";
 "routines.field.weight" = "Vægt (kg)";
 "routines.save" = "Gem";
-"routines.section.details" = "Detaljer";
+"routines.section.details" = "Navn";
 "routines.section.parameters" = "Parametre";
 "routines.title" = "Rutiner";
 "routines.weight.empty" = "Ingen vægt";
@@ -112,3 +112,6 @@
 "pro.locked.settings.title" = "Indstillinger";
 
 "pro.locked.unlock" = "Lås op for Pro";
+
+"routines.apply" = "Anvend";
+"routines.remove_from_training" = "Fjern fra træning";

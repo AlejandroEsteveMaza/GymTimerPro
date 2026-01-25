@@ -11,7 +11,10 @@ import SwiftUI
 struct RoutineDetailView: View {
     let routine: Routine
     @EnvironmentObject private var store: RoutinesStore
+    @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
+    @Environment(\.dismiss) private var dismiss
     @State private var isEditing = false
+    @State private var showDeleteAlert = false
 
     var body: some View {
         Form {
@@ -37,10 +40,28 @@ struct RoutineDetailView: View {
         .navigationTitle(routine.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button {
+                    if isApplied {
+                        routineSelectionStore.clear()
+                    } else {
+                        routineSelectionStore.apply(routine)
+                    }
+                } label: {
+                    Image(systemName: isApplied ? "xmark.circle" : "checkmark.circle")
+                }
+                .accessibilityLabel(Text(isApplied ? "routines.remove_from_training" : "routines.apply"))
+
                 Button("routines.edit") {
                     isEditing = true
                 }
+
+                Button(role: .destructive) {
+                    showDeleteAlert = true
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .accessibilityLabel(Text("routines.delete"))
             }
         }
         .sheet(isPresented: $isEditing) {
@@ -49,6 +70,20 @@ struct RoutineDetailView: View {
             }
             .environmentObject(store)
         }
+        .alert(Text("routines.delete"), isPresented: $showDeleteAlert) {
+            Button("common.cancel", role: .cancel) {}
+            Button("routines.delete", role: .destructive) {
+                if isApplied {
+                    routineSelectionStore.clear()
+                }
+                store.delete(routine)
+                dismiss()
+            }
+        }
+    }
+
+    private var isApplied: Bool {
+        routineSelectionStore.selection?.id == routine.id
     }
 }
 
@@ -58,6 +93,7 @@ struct RoutineDetailView: View {
             routine: Routine(name: "Upper Body", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 20)
         )
         .environmentObject(RoutinesStore())
+        .environmentObject(RoutineSelectionStore())
     }
     .modelContainer(for: Routine.self, inMemory: true)
 }

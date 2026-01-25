@@ -40,11 +40,17 @@ struct RoutineEditorView: View {
     var body: some View {
         Form {
             Section(header: Text("routines.section.details")) {
-                TextField("routines.field.name", text: $draft.name)
-                    .textInputAutocapitalization(.words)
-                    .autocorrectionDisabled()
-                    .focused($focusedField, equals: .name)
-                    .accessibilityLabel(Text("routines.field.name"))
+                HStack {
+                    TextField("routines.field.name", text: $draft.name)
+                        .textInputAutocapitalization(.words)
+                        .autocorrectionDisabled()
+                        .focused($focusedField, equals: .name)
+                        .accessibilityLabel(Text("routines.field.name"))
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    focusedField = .name
+                }
             }
 
             Section(header: Text("routines.section.parameters")) {
@@ -76,10 +82,16 @@ struct RoutineEditorView: View {
                     stepperControlSize: $stepperControlSize
                 )
 
-                TextField("routines.field.weight", text: $weightText)
-                    .keyboardType(.decimalPad)
-                    .focused($focusedField, equals: .weight)
-                    .accessibilityLabel(Text("routines.field.weight"))
+                HStack {
+                    TextField("routines.field.weight", text: $weightText)
+                        .keyboardType(.decimalPad)
+                        .focused($focusedField, equals: .weight)
+                        .accessibilityLabel(Text("routines.field.weight"))
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    focusedField = .weight
+                }
             }
         }
         .navigationTitle(LocalizedStringKey(editorTitleKey))

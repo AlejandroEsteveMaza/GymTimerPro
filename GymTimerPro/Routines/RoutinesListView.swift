@@ -10,6 +10,7 @@ import SwiftUI
 
 struct RoutinesListView: View {
     @EnvironmentObject private var store: RoutinesStore
+    @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
     @State private var editorRoute: RoutineEditorRoute?
 
     var body: some View {
@@ -24,11 +25,30 @@ struct RoutinesListView: View {
             } else {
                 List {
                     ForEach(store.routines) { routine in
+                        let isApplied = routineSelectionStore.selection?.id == routine.id
                         NavigationLink {
                             RoutineDetailView(routine: routine)
                                 .environmentObject(store)
+                                .environmentObject(routineSelectionStore)
                         } label: {
                             RoutineRowView(routine: routine)
+                        }
+                        .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                            if isApplied {
+                                Button {
+                                    routineSelectionStore.clear()
+                                } label: {
+                                    Label("routines.remove_from_training", systemImage: "xmark.circle")
+                                }
+                                .tint(.gray)
+                            } else {
+                                Button {
+                                    routineSelectionStore.apply(routine)
+                                } label: {
+                                    Label("routines.apply", systemImage: "checkmark.circle")
+                                }
+                                .tint(.blue)
+                            }
                         }
                         .swipeActions {
                             Button {
@@ -38,6 +58,9 @@ struct RoutinesListView: View {
                             }
 
                             Button(role: .destructive) {
+                                if isApplied {
+                                    routineSelectionStore.clear()
+                                }
                                 store.delete(routine)
                             } label: {
                                 Label("routines.delete", systemImage: "trash")
@@ -117,6 +140,7 @@ private struct RoutineRowView: View {
     NavigationStack {
         RoutinesListView()
             .environmentObject(RoutinesStore())
+            .environmentObject(RoutineSelectionStore())
     }
     .modelContainer(for: Routine.self, inMemory: true)
 }

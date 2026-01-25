@@ -93,7 +93,7 @@
 "routines.field.name" = "이름";
 "routines.field.weight" = "무게 (kg)";
 "routines.save" = "저장";
-"routines.section.details" = "세부 정보";
+"routines.section.details" = "이름";
 "routines.section.parameters" = "매개변수";
 "routines.title" = "루틴";
 "routines.weight.empty" = "무게 없음";
@@ -112,3 +112,6 @@
 "pro.locked.settings.title" = "설정";
 
 "pro.locked.unlock" = "Pro 잠금 해제";
+
+"routines.apply" = "적용";
+"routines.remove_from_training" = "훈련에서 제거";

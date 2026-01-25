@@ -93,7 +93,7 @@
 "routines.field.name" = "Namn";
 "routines.field.weight" = "Vikt (kg)";
 "routines.save" = "Spara";
-"routines.section.details" = "Detaljer";
+"routines.section.details" = "Namn";
 "routines.section.parameters" = "Parametrar";
 "routines.title" = "Rutiner";
 "routines.weight.empty" = "Ingen vikt";
@@ -112,3 +112,6 @@
 "pro.locked.settings.title" = "Installningar";
 
 "pro.locked.unlock" = "Lås upp Pro";
+
+"routines.apply" = "Använd";
+"routines.remove_from_training" = "Ta bort från träning";

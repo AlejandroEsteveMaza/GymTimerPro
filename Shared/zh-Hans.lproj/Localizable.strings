@@ -93,7 +93,7 @@
 "routines.field.name" = "名称";
 "routines.field.weight" = "重量 (kg)";
 "routines.save" = "保存";
-"routines.section.details" = "详细信息";
+"routines.section.details" = "名称";
 "routines.section.parameters" = "参数";
 "routines.title" = "例程";
 "routines.weight.empty" = "无重量";
@@ -112,3 +112,6 @@
 "pro.locked.settings.title" = "设置";
 
 "pro.locked.unlock" = "解锁 Pro";
+
+"routines.apply" = "应用";
+"routines.remove_from_training" = "从训练中移除";

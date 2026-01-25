@@ -24,4 +24,5 @@ struct RoutinesRootView: View {
 #Preview {
     RoutinesRootView()
         .modelContainer(for: Routine.self, inMemory: true)
+        .environmentObject(RoutineSelectionStore())
 }

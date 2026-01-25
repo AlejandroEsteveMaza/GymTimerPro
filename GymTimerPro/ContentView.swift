@@ -11,10 +11,12 @@ import UIKit
 import AudioToolbox
 
 struct ContentView: View {
-    @State private var totalSeries: Int = 4
-    @State private var tiempoDescanso: Int = 90
-    @State private var serieActual: Int = 1
-    @State private var completado: Bool = false
+    @AppStorage("training.total_sets") private var totalSeries: Int = 4
+    @AppStorage("training.rest_seconds") private var tiempoDescanso: Int = 90
+    @AppStorage("training.current_set") private var serieActual: Int = 1
+    @AppStorage("training.completed") private var completado: Bool = false
+    @AppStorage("training.applied_routine_name") private var appliedRoutineNameStorage: String = ""
+    @AppStorage("training.applied_routine_reps") private var appliedRoutineRepsStorage: Int = 0
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
     @StateObject private var restTimer = RestTimerModel()
     @StateObject private var liveActivityManager = LiveActivityManager()
@@ -23,11 +25,11 @@ struct ContentView: View {
     @State private var showNotificationPreview = false
     @State private var uiTestOverridesApplied = false
     @State private var isPresentingRoutinePicker = false
-    @State private var appliedRoutineName: String? = nil
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject private var purchaseManager: PurchaseManager
+    @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
 
     var body: some View {
         ZStack {
@@ -54,6 +56,7 @@ struct ContentView: View {
         .onAppear {
             UIApplication.shared.isIdleTimerDisabled = true
             applyUITestOverridesIfNeeded()
+            applyRoutineSelection(routineSelectionStore.selection)
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
             usageLimiter.refresh(now: .now)
             restTimer.tick(now: .now)
@@ -74,6 +77,9 @@ struct ContentView: View {
             if self.serieActual < 1 {
                 self.serieActual = 1
             }
+        }
+        .onChange(of: routineSelectionStore.selection) { _, selection in
+            applyRoutineSelection(selection)
         }
         .onChange(of: scenePhase) { _, newPhase in
             restTimer.handleScenePhase(newPhase)
@@ -109,7 +115,7 @@ struct ContentView: View {
         .sheet(isPresented: $isPresentingRoutinePicker) {
             NavigationStack {
                 RoutinePickerView { routine in
-                    applyRoutine(routine)
+                    routineSelectionStore.apply(routine)
                 }
             }
         }
@@ -276,6 +282,9 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: Layout.metricSpacing) {
                 HStack(spacing: Layout.metricSpacing) {
                     MetricView(titleKey: "metric.set.title", value: "\(serieActual) / \(totalSeries)")
+                    if purchaseManager.isPro, let reps = appliedRoutineReps {
+                        MetricView(titleKey: "routines.field.reps", value: "\(reps)")
+                    }
                 }
 
                 HStack(spacing: 12) {
@@ -421,12 +430,34 @@ struct ContentView: View {
         }
     }
 
-    private func applyRoutine(_ routine: Routine) {
+    private func applyRoutineSelection(_ selection: RoutineSelectionStore.Selection?) {
+        guard let selection else {
+            appliedRoutineName = nil
+            appliedRoutineReps = nil
+            return
+        }
+        let isAlreadyApplied = appliedRoutineName == selection.name
+            && appliedRoutineReps == selection.reps
+            && totalSeries == selection.totalSets
+            && tiempoDescanso == selection.restSeconds
+        guard !isAlreadyApplied else { return }
         resetWorkout()
-        totalSeries = routine.totalSets
-        tiempoDescanso = routine.restSeconds
-        appliedRoutineName = routine.name
+        totalSeries = selection.totalSets
+        tiempoDescanso = selection.restSeconds
+        appliedRoutineName = selection.name
+        appliedRoutineReps = selection.reps
     }
+
+    private var appliedRoutineName: String? {
+        get { appliedRoutineNameStorage.isEmpty ? nil : appliedRoutineNameStorage }
+        nonmutating set { appliedRoutineNameStorage = newValue ?? "" }
+    }
+
+    private var appliedRoutineReps: Int? {
+        get { appliedRoutineRepsStorage == 0 ? nil : appliedRoutineRepsStorage }
+        nonmutating set { appliedRoutineRepsStorage = newValue ?? 0 }
+    }
+
 
     private func restoreLiveActivityIfNeeded() {
         guard restTimer.isRunning, let endDate = restTimer.endDate else { return }
@@ -618,6 +649,7 @@ private final class RestTimerModel: ObservableObject {
     @Published var didFinish: Bool = false
 
     private let storage: UserDefaults
+    private var timerCancellable: AnyCancellable?
 
     private enum Keys {
         static let endDate = "restTimer.endDate"
@@ -631,6 +663,9 @@ private final class RestTimerModel: ObservableObject {
         self.remaining = storage.double(forKey: Keys.remaining)
         self.endDate = storage.object(forKey: Keys.endDate) as? Date
         reconcile(now: .now)
+        if isRunning {
+            startTimerLoop()
+        }
     }
 
     var remainingSeconds: Int {
@@ -652,6 +687,7 @@ private final class RestTimerModel: ObservableObject {
         endDate = now.addingTimeInterval(remaining)
         isRunning = remaining > 0
         didFinish = false
+        startTimerLoop()
         persist()
     }
 
@@ -660,6 +696,7 @@ private final class RestTimerModel: ObservableObject {
         remaining = max(0, endDate.timeIntervalSince(now))
         self.endDate = nil
         isRunning = false
+        stopTimerLoop()
         persist()
     }
 
@@ -667,6 +704,7 @@ private final class RestTimerModel: ObservableObject {
         guard !isRunning, remaining > 0 else { return }
         endDate = now.addingTimeInterval(remaining)
         isRunning = true
+        startTimerLoop()
         persist()
     }
 
@@ -686,6 +724,7 @@ private final class RestTimerModel: ObservableObject {
         endDate = nil
         remaining = 0
         didFinish = false
+        stopTimerLoop()
         persist()
     }
 
@@ -743,13 +782,29 @@ private final class RestTimerModel: ObservableObject {
         if !didFinish {
             didFinish = true
         }
+        stopTimerLoop()
         persist()
+    }
+
+    private func startTimerLoop() {
+        timerCancellable?.cancel()
+        timerCancellable = Timer.publish(every: 1, tolerance: 0.2, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] now in
+                self?.tick(now: now)
+            }
+    }
+
+    private func stopTimerLoop() {
+        timerCancellable?.cancel()
+        timerCancellable = nil
     }
 }
 
 #Preview {
     ContentView()
         .environmentObject(PurchaseManager(startTasks: false))
+        .environmentObject(RoutineSelectionStore())
 }
 
 enum Layout {

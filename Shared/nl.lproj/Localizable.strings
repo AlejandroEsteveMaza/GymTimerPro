@@ -93,7 +93,7 @@
 "routines.field.name" = "Naam";
 "routines.field.weight" = "Gewicht (kg)";
 "routines.save" = "Opslaan";
-"routines.section.details" = "Details";
+"routines.section.details" = "Naam";
 "routines.section.parameters" = "Parameters";
 "routines.title" = "Routines";
 "routines.weight.empty" = "Geen gewicht";
@@ -112,3 +112,6 @@
 "pro.locked.settings.title" = "Instellingen";
 
 "pro.locked.unlock" = "Pro ontgrendelen";
+
+"routines.apply" = "Toepassen";
+"routines.remove_from_training" = "Uit training verwijderen";

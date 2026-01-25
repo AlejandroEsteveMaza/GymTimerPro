@@ -13,6 +13,7 @@ struct RoutinePickerView: View {
 
     @Environment(\.dismiss) private var dismiss
     @Query(sort: [SortDescriptor(\Routine.name, order: .forward)]) private var routines: [Routine]
+    @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
 
     var body: some View {
         Group {
@@ -24,14 +25,27 @@ struct RoutinePickerView: View {
                 }
                 .padding(.top, 32)
             } else {
-                List(routines) { routine in
-                    Button {
-                        onSelect(routine)
-                        dismiss()
-                    } label: {
-                        RoutinePickerRow(routine: routine)
+                List {
+                    if routineSelectionStore.selection != nil {
+                        Section {
+                            Button {
+                                routineSelectionStore.clear()
+                                dismiss()
+                            } label: {
+                                Label("routines.remove_from_training", systemImage: "xmark.circle")
+                            }
+                        }
                     }
-                    .buttonStyle(.plain)
+
+                    ForEach(routines) { routine in
+                        Button {
+                            onSelect(routine)
+                            dismiss()
+                        } label: {
+                            RoutinePickerRow(routine: routine)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
                 .listStyle(.insetGrouped)
             }
@@ -73,6 +87,7 @@ private struct RoutinePickerRow: View {
 #Preview {
     NavigationStack {
         RoutinePickerView { _ in }
+            .environmentObject(RoutineSelectionStore())
     }
     .modelContainer(for: Routine.self, inMemory: true)
 }

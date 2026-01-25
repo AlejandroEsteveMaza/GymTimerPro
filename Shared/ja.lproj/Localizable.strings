@@ -93,7 +93,7 @@
 "routines.field.name" = "名前";
 "routines.field.weight" = "重量 (kg)";
 "routines.save" = "保存";
-"routines.section.details" = "詳細";
+"routines.section.details" = "名前";
 "routines.section.parameters" = "パラメータ";
 "routines.title" = "ルーティン";
 "routines.weight.empty" = "重量なし";
@@ -112,3 +112,6 @@
 "pro.locked.settings.title" = "設定";
 
 "pro.locked.unlock" = "Proを解除";
+
+"routines.apply" = "適用";
+"routines.remove_from_training" = "トレーニングから外す";
