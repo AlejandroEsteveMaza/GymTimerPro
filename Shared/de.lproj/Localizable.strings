@@ -81,7 +81,7 @@
 
 "routines.add" = "Neue Routine";
 "routines.create.title" = "Neue Routine";
-"routines.delete" = "Löschen";
+"routines.delete" = "Routine löschen";
 "routines.discard.confirm" = "Verwerfen";
 "routines.discard.keep_editing" = "Weiter bearbeiten";
 "routines.discard.message" = "Du hast ungespeicherte Änderungen.";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "Erstelle eine Routine, um deine Presets zu speichern.";
 "routines.empty.title" = "Keine Routinen";
 "routines.field.name" = "Name";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Maximal %ld Zeichen";
 "routines.field.weight" = "Gewicht";
 "routines.weight.placeholder" = "0";
 "routines.save" = "Speichern";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Pro freischalten";
 
-"routines.apply" = "Anwenden";
-"routines.remove_from_training" = "Aus dem Training entfernen";
+"routines.apply" = "Zum Training anwenden";
+"routines.remove_from_training" = "Vom Training entfernen";

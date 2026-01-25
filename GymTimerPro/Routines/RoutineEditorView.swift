@@ -17,6 +17,7 @@ struct RoutineEditorView: View {
     let routine: Routine?
     private let initialDraft: RoutineDraft
     private let initialWeightText: String
+    private static let nameMaxLength = 50
 
     @EnvironmentObject private var store: RoutinesStore
     @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
@@ -43,11 +44,14 @@ struct RoutineEditorView: View {
         Form {
             Section(header: Text("routines.section.details")) {
                 HStack {
-                    TextField("routines.field.name", text: $draft.name)
+                    TextField("routines.field.name", text: nameBinding)
                         .textInputAutocapitalization(.words)
                         .autocorrectionDisabled()
                         .focused($focusedField, equals: .name)
                         .accessibilityLabel(Text("routines.field.name"))
+                    Text("\(nameCount)/\(Self.nameMaxLength)")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Theme.textSecondary)
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
@@ -117,9 +121,12 @@ struct RoutineEditorView: View {
 
             if routine != nil {
                 Section {
-                    Button("routines.delete", role: .destructive) {
+                    Button(role: .destructive) {
                         showDeleteDialog = true
+                    } label: {
+                        Label("routines.delete", systemImage: "trash")
                     }
+                    .foregroundStyle(.red)
                 }
             }
         }
@@ -177,6 +184,14 @@ struct RoutineEditorView: View {
         draft.name.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    private var nameCount: Int {
+        draft.name.count
+    }
+
+    private var isNameAtLimit: Bool {
+        nameCount >= Self.nameMaxLength
+    }
+
     private var parsedWeight: Double? {
         RoutineFormatting.parseWeight(weightText)
     }
@@ -191,6 +206,7 @@ struct RoutineEditorView: View {
 
     private var canSave: Bool {
         !trimmedName.isEmpty &&
+            nameCount <= Self.nameMaxLength &&
             draft.totalSets > 0 &&
             draft.reps > 0 &&
             draft.restSeconds >= 0 &&
@@ -257,6 +273,20 @@ struct RoutineEditorView: View {
             restSeconds: draft.restSeconds,
             weightKg: parsedWeight
         )
+    }
+
+    private var nameBinding: Binding<String> {
+        Binding(
+            get: { draft.name },
+            set: { draft.name = RoutineEditorView.clampName($0) }
+        )
+    }
+
+    private static func clampName(_ value: String) -> String {
+        if value.count <= nameMaxLength {
+            return value
+        }
+        return String(value.prefix(nameMaxLength))
     }
 }
 

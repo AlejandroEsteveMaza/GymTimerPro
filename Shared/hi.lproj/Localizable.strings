@@ -81,7 +81,7 @@
 
 "routines.add" = "नई रूटीन";
 "routines.create.title" = "नई रूटीन";
-"routines.delete" = "हटाएं";
+"routines.delete" = "रूटीन हटाएं";
 "routines.discard.confirm" = "छोड़ें";
 "routines.discard.keep_editing" = "एडिट जारी रखें";
 "routines.discard.message" = "आपके बदलाव सेव नहीं हुए हैं.";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "अपने प्रीसेट सेव करने के लिए एक रूटीन बनाएं.";
 "routines.empty.title" = "कोई रूटीन नहीं";
 "routines.field.name" = "नाम";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "अधिकतम %ld वर्ण";
 "routines.field.weight" = "वज़न";
 "routines.weight.placeholder" = "0";
 "routines.save" = "सहेजें";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Pro अनलॉक करें";
 
-"routines.apply" = "लागू करें";
+"routines.apply" = "ट्रेनिंग पर लागू करें";
 "routines.remove_from_training" = "ट्रेनिंग से हटाएं";

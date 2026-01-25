@@ -81,7 +81,7 @@
 
 "routines.add" = "Ny rutine";
 "routines.create.title" = "Ny rutine";
-"routines.delete" = "Slet";
+"routines.delete" = "Slet rutine";
 "routines.discard.confirm" = "Kassér";
 "routines.discard.keep_editing" = "Fortsæt redigering";
 "routines.discard.message" = "Du har ændringer, der ikke er gemt.";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "Opret en rutine for at gemme dine presets.";
 "routines.empty.title" = "Ingen rutiner";
 "routines.field.name" = "Navn";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Maks. %ld tegn";
 "routines.field.weight" = "Vægt";
 "routines.weight.placeholder" = "0";
 "routines.save" = "Gem";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Lås op for Pro";
 
-"routines.apply" = "Anvend";
+"routines.apply" = "Anvend i træning";
 "routines.remove_from_training" = "Fjern fra træning";

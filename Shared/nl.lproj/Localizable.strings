@@ -81,7 +81,7 @@
 
 "routines.add" = "Nieuwe routine";
 "routines.create.title" = "Nieuwe routine";
-"routines.delete" = "Verwijderen";
+"routines.delete" = "Routine verwijderen";
 "routines.discard.confirm" = "Negeren";
 "routines.discard.keep_editing" = "Doorgaan met bewerken";
 "routines.discard.message" = "Je hebt niet-opgeslagen wijzigingen.";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "Maak een routine om je presets op te slaan.";
 "routines.empty.title" = "Geen routines";
 "routines.field.name" = "Naam";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Maximaal %ld tekens";
 "routines.field.weight" = "Gewicht";
 "routines.weight.placeholder" = "0";
 "routines.save" = "Opslaan";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Pro ontgrendelen";
 
-"routines.apply" = "Toepassen";
-"routines.remove_from_training" = "Uit training verwijderen";
+"routines.apply" = "Toepassen op training";
+"routines.remove_from_training" = "Verwijderen uit training";

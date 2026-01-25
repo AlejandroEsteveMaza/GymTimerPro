@@ -81,7 +81,7 @@
 
 "routines.add" = "Ny rutin";
 "routines.create.title" = "Ny rutin";
-"routines.delete" = "Radera";
+"routines.delete" = "Radera rutin";
 "routines.discard.confirm" = "Kassera";
 "routines.discard.keep_editing" = "Fortsätt redigera";
 "routines.discard.message" = "Du har osparade ändringar.";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "Skapa en rutin för att spara dina förinställningar.";
 "routines.empty.title" = "Inga rutiner";
 "routines.field.name" = "Namn";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Max %ld tecken";
 "routines.field.weight" = "Vikt";
 "routines.weight.placeholder" = "0";
 "routines.save" = "Spara";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Lås upp Pro";
 
-"routines.apply" = "Använd";
+"routines.apply" = "Använd i träning";
 "routines.remove_from_training" = "Ta bort från träning";

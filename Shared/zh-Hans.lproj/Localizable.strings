@@ -81,7 +81,7 @@
 
 "routines.add" = "新建例程";
 "routines.create.title" = "新建例程";
-"routines.delete" = "删除";
+"routines.delete" = "删除例程";
 "routines.discard.confirm" = "放弃";
 "routines.discard.keep_editing" = "继续编辑";
 "routines.discard.message" = "你有未保存的更改。";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "创建例程以保存预设。";
 "routines.empty.title" = "暂无例程";
 "routines.field.name" = "名称";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "最多 %ld 个字符";
 "routines.field.weight" = "重量";
 "routines.weight.placeholder" = "0";
 "routines.save" = "保存";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "解锁 Pro";
 
-"routines.apply" = "应用";
+"routines.apply" = "应用到训练";
 "routines.remove_from_training" = "从训练中移除";

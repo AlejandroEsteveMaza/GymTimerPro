@@ -81,7 +81,7 @@
 
 "routines.add" = "Nouvelle routine";
 "routines.create.title" = "Nouvelle routine";
-"routines.delete" = "Supprimer";
+"routines.delete" = "Supprimer la routine";
 "routines.discard.confirm" = "Ignorer";
 "routines.discard.keep_editing" = "Continuer";
 "routines.discard.message" = "Vous avez des modifications non enregistrées.";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "Créez une routine pour enregistrer vos préréglages.";
 "routines.empty.title" = "Aucune routine";
 "routines.field.name" = "Nom";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Maximum %ld caractères";
 "routines.field.weight" = "Poids";
 "routines.weight.placeholder" = "0";
 "routines.save" = "Enregistrer";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Débloquer Pro";
 
-"routines.apply" = "Appliquer";
+"routines.apply" = "Appliquer à l’entraînement";
 "routines.remove_from_training" = "Retirer de l’entraînement";

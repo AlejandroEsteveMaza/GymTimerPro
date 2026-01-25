@@ -81,7 +81,7 @@
 
 "routines.add" = "새 루틴";
 "routines.create.title" = "새 루틴";
-"routines.delete" = "삭제";
+"routines.delete" = "루틴 삭제";
 "routines.discard.confirm" = "폐기";
 "routines.discard.keep_editing" = "계속 편집";
 "routines.discard.message" = "저장되지 않은 변경 사항이 있습니다.";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "루틴을 만들어 프리셋을 저장하세요.";
 "routines.empty.title" = "루틴 없음";
 "routines.field.name" = "이름";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "최대 %ld자";
 "routines.field.weight" = "무게";
 "routines.weight.placeholder" = "0";
 "routines.save" = "저장";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Pro 잠금 해제";
 
-"routines.apply" = "적용";
+"routines.apply" = "훈련에 적용";
 "routines.remove_from_training" = "훈련에서 제거";

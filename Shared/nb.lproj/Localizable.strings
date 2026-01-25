@@ -81,7 +81,7 @@
 
 "routines.add" = "Ny rutine";
 "routines.create.title" = "Ny rutine";
-"routines.delete" = "Slett";
+"routines.delete" = "Slett rutine";
 "routines.discard.confirm" = "Forkast";
 "routines.discard.keep_editing" = "Fortsett å redigere";
 "routines.discard.message" = "Du har ulagrede endringer.";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "Opprett en rutine for å lagre forhåndsinnstillinger.";
 "routines.empty.title" = "Ingen rutiner";
 "routines.field.name" = "Navn";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Maks %ld tegn";
 "routines.field.weight" = "Vekt";
 "routines.weight.placeholder" = "0";
 "routines.save" = "Lagre";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Lås opp Pro";
 
-"routines.apply" = "Bruk";
+"routines.apply" = "Bruk i trening";
 "routines.remove_from_training" = "Fjern fra trening";

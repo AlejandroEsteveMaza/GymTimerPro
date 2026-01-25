@@ -81,7 +81,7 @@
 
 "routines.add" = "Nova rotina";
 "routines.create.title" = "Nova rotina";
-"routines.delete" = "Excluir";
+"routines.delete" = "Excluir rotina";
 "routines.discard.confirm" = "Descartar";
 "routines.discard.keep_editing" = "Continuar editando";
 "routines.discard.message" = "Você tem alterações não salvas.";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "Crie uma rotina para salvar seus presets.";
 "routines.empty.title" = "Sem rotinas";
 "routines.field.name" = "Nome";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Máximo %ld caracteres";
 "routines.field.weight" = "Peso";
 "routines.weight.placeholder" = "0";
 "routines.save" = "Salvar";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Desbloquear Pro";
 
-"routines.apply" = "Aplicar";
+"routines.apply" = "Aplicar ao treino";
 "routines.remove_from_training" = "Remover do treino";

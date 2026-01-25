@@ -81,7 +81,7 @@
 
 "routines.add" = "新規ルーティン";
 "routines.create.title" = "新規ルーティン";
-"routines.delete" = "削除";
+"routines.delete" = "ルーティンを削除";
 "routines.discard.confirm" = "破棄";
 "routines.discard.keep_editing" = "編集を続ける";
 "routines.discard.message" = "未保存の変更があります。";
@@ -91,6 +91,8 @@
 "routines.empty.message" = "ルーティンを作成してプリセットを保存しましょう。";
 "routines.empty.title" = "ルーティンがありません";
 "routines.field.name" = "名前";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "最大%ld文字";
 "routines.field.weight" = "重量";
 "routines.weight.placeholder" = "0";
 "routines.save" = "保存";
@@ -114,5 +116,5 @@
 
 "pro.locked.unlock" = "Proを解除";
 
-"routines.apply" = "適用";
+"routines.apply" = "トレーニングに適用";
 "routines.remove_from_training" = "トレーニングから外す";
