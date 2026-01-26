@@ -118,3 +118,5 @@
 
 "routines.apply" = "トレーニングに適用";
 "routines.remove_from_training" = "トレーニングから外す";
+
+"routines.delete.message" = "この操作はルーティンを完全に削除します。";

@@ -118,3 +118,5 @@
 
 "routines.apply" = "훈련에 적용";
 "routines.remove_from_training" = "훈련에서 제거";
+
+"routines.delete.message" = "이 작업은 루틴을 영구적으로 삭제합니다.";

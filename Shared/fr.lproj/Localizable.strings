@@ -118,3 +118,5 @@
 
 "routines.apply" = "Appliquer à l’entraînement";
 "routines.remove_from_training" = "Retirer de l’entraînement";
+
+"routines.delete.message" = "Cette action supprimera définitivement cette routine.";

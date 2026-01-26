@@ -118,3 +118,5 @@
 
 "routines.apply" = "Bruk i trening";
 "routines.remove_from_training" = "Fjern fra trening";
+
+"routines.delete.message" = "Dette sletter rutinen permanent.";

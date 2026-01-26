@@ -18,6 +18,7 @@ struct RoutineEditorView: View {
     private let initialDraft: RoutineDraft
     private let initialWeightText: String
     private static let nameMaxLength = 50
+    private static let weightMaxValue: Double = 999
 
     @EnvironmentObject private var store: RoutinesStore
     @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
@@ -89,7 +90,7 @@ struct RoutineEditorView: View {
                 )
 
                 ConfigRow(icon: "scalemass", titleKey: "routines.field.weight") {
-                    TextField("routines.weight.placeholder", text: $weightText)
+                    TextField("routines.weight.placeholder", text: weightBinding)
                         .keyboardType(.decimalPad)
                         .multilineTextAlignment(.trailing)
                         .font(.system(size: 18, weight: .bold, design: .rounded))
@@ -174,6 +175,8 @@ struct RoutineEditorView: View {
                 dismiss()
             }
             Button("common.cancel", role: .cancel) {}
+        } message: {
+            Text("routines.delete.message")
         }
         .simultaneousGesture(
             DragGesture(minimumDistance: 30, coordinateSpace: .local)
@@ -212,7 +215,7 @@ struct RoutineEditorView: View {
             return true
         }
         guard let parsedWeight else { return false }
-        return parsedWeight >= 0
+        return parsedWeight >= 0 && parsedWeight <= Self.weightMaxValue
     }
 
     private var canSave: Bool {
@@ -293,11 +296,26 @@ struct RoutineEditorView: View {
         )
     }
 
+    private var weightBinding: Binding<String> {
+        Binding(
+            get: { weightText },
+            set: { weightText = RoutineEditorView.clampWeightText($0) }
+        )
+    }
+
     private static func clampName(_ value: String) -> String {
         if value.count <= nameMaxLength {
             return value
         }
         return String(value.prefix(nameMaxLength))
+    }
+
+    private static func clampWeightText(_ value: String) -> String {
+        guard !value.isEmpty else { return value }
+        if let parsed = RoutineFormatting.parseWeight(value), parsed > weightMaxValue {
+            return RoutineFormatting.numberFormatter.string(from: NSNumber(value: weightMaxValue)) ?? "\(weightMaxValue)"
+        }
+        return value
     }
 }
 

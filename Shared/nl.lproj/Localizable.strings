@@ -118,3 +118,5 @@
 
 "routines.apply" = "Toepassen op training";
 "routines.remove_from_training" = "Verwijderen uit training";
+
+"routines.delete.message" = "Deze actie verwijdert deze routine permanent.";

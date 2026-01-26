@@ -118,3 +118,5 @@
 
 "routines.apply" = "ट्रेनिंग पर लागू करें";
 "routines.remove_from_training" = "ट्रेनिंग से हटाएं";
+
+"routines.delete.message" = "यह क्रिया इस रूटीन को स्थायी रूप से हटा देगी।";

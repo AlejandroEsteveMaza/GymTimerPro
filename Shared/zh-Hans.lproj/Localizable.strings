@@ -118,3 +118,5 @@
 
 "routines.apply" = "应用到训练";
 "routines.remove_from_training" = "从训练中移除";
+
+"routines.delete.message" = "此操作将永久删除该例程。";

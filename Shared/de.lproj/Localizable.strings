@@ -118,3 +118,5 @@
 
 "routines.apply" = "Zum Training anwenden";
 "routines.remove_from_training" = "Vom Training entfernen";
+
+"routines.delete.message" = "Dadurch wird diese Routine dauerhaft gelöscht.";
