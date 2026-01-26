@@ -27,7 +27,6 @@ struct RoutineEditorView: View {
 
     @State private var draft: RoutineDraft
     @State private var weightText: String
-    @State private var showExitDialog = false
     @State private var showDeleteDialog = false
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
 
@@ -50,6 +49,12 @@ struct RoutineEditorView: View {
                         .autocorrectionDisabled()
                         .focused($focusedField, equals: .name)
                         .accessibilityLabel(Text("routines.field.name"))
+                        .onChange(of: draft.name) { _, newValue in
+                            let clamped = RoutineEditorView.clampName(newValue)
+                            if clamped != newValue {
+                                draft.name = clamped
+                            }
+                        }
                     Text("\(nameCount)/\(Self.nameMaxLength)")
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(Theme.textSecondary)
@@ -98,6 +103,12 @@ struct RoutineEditorView: View {
                         .monospacedDigit()
                         .focused($focusedField, equals: .weight)
                         .accessibilityLabel(Text("routines.field.weight"))
+                        .onChange(of: weightText) { _, newValue in
+                            let clamped = RoutineEditorView.clampWeightText(newValue)
+                            if clamped != newValue {
+                                weightText = clamped
+                            }
+                        }
                 }
                 .frame(minHeight: Layout.minTapHeight)
                 .contentShape(Rectangle())
@@ -151,20 +162,6 @@ struct RoutineEditorView: View {
         .overlay(alignment: .topTrailing) {
             StepperSizeReader(size: $stepperControlSize)
         }
-        .interactiveDismissDisabled(hasChanges)
-        .confirmationDialog(Text("routines.discard.title"), isPresented: $showExitDialog, titleVisibility: .visible) {
-            if canSave {
-                Button("routines.save") {
-                    saveRoutine()
-                }
-            }
-            Button("routines.discard.confirm", role: .destructive) {
-                dismiss()
-            }
-            Button("common.cancel", role: .cancel) {}
-        } message: {
-            Text("routines.discard.message")
-        }
         .confirmationDialog(Text("routines.delete"), isPresented: $showDeleteDialog, titleVisibility: .visible) {
             Button("routines.delete", role: .destructive) {
                 guard let routine else { return }
@@ -179,11 +176,13 @@ struct RoutineEditorView: View {
             Text("routines.delete.message")
         }
         .simultaneousGesture(
-            DragGesture(minimumDistance: 30, coordinateSpace: .local)
+            // Keep this gesture close to the iOS interactive back gesture: only from the leading edge.
+            DragGesture(minimumDistance: 20, coordinateSpace: .local)
                 .onEnded { value in
-                    let isHorizontal = abs(value.translation.height) < 50
-                    let isRightSwipe = value.translation.width > 120
-                    if isHorizontal && isRightSwipe {
+                    let isFromLeadingEdge = value.startLocation.x <= 24
+                    let isHorizontal = abs(value.translation.height) < 60
+                    let isRightSwipe = value.translation.width > 120 || value.predictedEndTranslation.width > 160
+                    if isFromLeadingEdge && isHorizontal && isRightSwipe {
                         handleCancel()
                     }
                 }
@@ -242,11 +241,7 @@ struct RoutineEditorView: View {
     }
 
     private func handleCancel() {
-        if hasChanges {
-            showExitDialog = true
-        } else {
-            dismiss()
-        }
+        dismiss()
     }
 
     private func saveRoutine() {
@@ -312,10 +307,53 @@ struct RoutineEditorView: View {
 
     private static func clampWeightText(_ value: String) -> String {
         guard !value.isEmpty else { return value }
-        if let parsed = RoutineFormatting.parseWeight(value), parsed > weightMaxValue {
-            return RoutineFormatting.numberFormatter.string(from: NSNumber(value: weightMaxValue)) ?? "\(weightMaxValue)"
+        let formatter = RoutineFormatting.numberFormatter
+        let decimalSeparator = formatter.decimalSeparator ?? "."
+        let maxFractionDigits = formatter.maximumFractionDigits
+
+        var filtered = ""
+        var hasSeparator = false
+        for character in value {
+            if character.isNumber {
+                filtered.append(character)
+                continue
+            }
+            if String(character) == decimalSeparator, !hasSeparator {
+                filtered.append(character)
+                hasSeparator = true
+            }
         }
-        return value
+
+        if filtered.isEmpty {
+            return ""
+        }
+
+        if filtered.hasPrefix(decimalSeparator) {
+            filtered = "0" + filtered
+        }
+
+        let parts = filtered.split(separator: Character(decimalSeparator), omittingEmptySubsequences: false)
+        var integerPart = String(parts.first ?? "")
+        var fractionPart = parts.count > 1 ? String(parts[1]) : ""
+
+        if integerPart.count > 3 {
+            integerPart = String(integerPart.prefix(3))
+            fractionPart = ""
+        }
+
+        if fractionPart.count > maxFractionDigits {
+            fractionPart = String(fractionPart.prefix(maxFractionDigits))
+        }
+
+        var sanitized = integerPart
+        if hasSeparator, maxFractionDigits > 0 {
+            sanitized += decimalSeparator + fractionPart
+        }
+
+        if let parsed = RoutineFormatting.parseWeight(sanitized), parsed > weightMaxValue {
+            return formatter.string(from: NSNumber(value: weightMaxValue)) ?? "\(weightMaxValue)"
+        }
+        return sanitized
     }
 }
 

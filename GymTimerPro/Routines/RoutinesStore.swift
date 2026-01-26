@@ -89,7 +89,7 @@ final class RoutinesStore: ObservableObject {
             totalSets: draft.totalSets,
             reps: draft.reps,
             restSeconds: draft.restSeconds,
-            weightKg: draft.weightKg
+            weightKg: clampedWeight(draft.weightKg)
         )
         modelContext.insert(routine)
         try? modelContext.save()
@@ -101,7 +101,7 @@ final class RoutinesStore: ObservableObject {
         routine.totalSets = draft.totalSets
         routine.reps = draft.reps
         routine.restSeconds = draft.restSeconds
-        routine.weightKg = draft.weightKg
+        routine.weightKg = clampedWeight(draft.weightKg)
         routine.updatedAt = Date()
         try? modelContext?.save()
         refresh()
@@ -115,6 +115,11 @@ final class RoutinesStore: ObservableObject {
 
     func delete(at offsets: IndexSet) {
         offsets.map { routines[$0] }.forEach(delete)
+    }
+
+    private func clampedWeight(_ weight: Double?) -> Double? {
+        guard let weight else { return nil }
+        return min(max(weight, 0), 999)
     }
 
     #if DEBUG
