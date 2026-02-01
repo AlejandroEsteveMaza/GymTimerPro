@@ -41,7 +41,7 @@ struct RoutineClassificationManagerView: View {
 
     var body: some View {
         List {
-            if mode == .manage, isCreating {
+            if isCreating {
                 createRow
             }
 
@@ -74,15 +74,13 @@ struct RoutineClassificationManagerView: View {
         .navigationTitle("classifications.manage.title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            if mode == .manage {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        beginCreate()
-                    } label: {
-                        Label("classifications.add.title", systemImage: "plus")
-                    }
-                    .disabled(isCreating)
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    beginCreate()
+                } label: {
+                    Label("classifications.add.title", systemImage: "plus")
                 }
+                .disabled(isCreating)
             }
         }
         .searchable(text: $searchText, prompt: Text("classifications.search.placeholder"))
