@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Observation
+import SwiftData
 import SwiftUI
 
 struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
@@ -21,8 +23,10 @@ struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
     let leadingContent: LeadingContent
     let rowContent: (Routine) -> RowContent
 
+    @Environment(\.modelContext) private var modelContext
     @State private var searchText = ""
     @State private var expandedClassificationIDs: Set<UUID> = []
+    @State private var viewModel = RoutineCatalogViewModel()
 
     init(
         routines: [Routine],
@@ -41,19 +45,20 @@ struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
     }
 
     var body: some View {
-        let data = RoutineCatalogData(routines: routines, classifications: classifications, searchText: searchText)
-
         List {
             leadingContent
 
-            if data.isSearching {
-                if !data.matchingClassifications.isEmpty {
+            if viewModel.data.isSearching {
+                if !viewModel.data.matchingClassifications.isEmpty {
                     Section(header: Text("classifications.section.list")) {
-                        ForEach(data.matchingClassifications) { classification in
+                        ForEach(viewModel.data.matchingClassifications) { classification in
+                            let isExpanded = expandedClassificationIDs.contains(classification.id)
                             DisclosureGroup(isExpanded: bindingForExpanded(classification.id)) {
-                                let routines = data.routinesForClassification(classification)
-                                ForEach(routines) { routine in
-                                    rowContent(routine)
+                                if isExpanded {
+                                    let routines = viewModel.data.routinesForClassification(classification)
+                                    ForEach(routines) { routine in
+                                        rowContent(routine)
+                                    }
                                 }
                             } label: {
                                 Text(classification.name)
@@ -62,31 +67,34 @@ struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
                     }
                 }
 
-                if !data.matchingRoutines.isEmpty {
+                if !viewModel.data.matchingRoutines.isEmpty {
                     Section(header: Text("classifications.routines.section")) {
-                        ForEach(data.matchingRoutines) { routine in
+                        ForEach(viewModel.data.matchingRoutines) { routine in
                             rowContent(routine)
                         }
                     }
                 }
             } else {
-                let showUnclassifiedFirst = unclassifiedPlacement == .top || data.sortedClassifications.isEmpty
+                let showUnclassifiedFirst = unclassifiedPlacement == .top || viewModel.data.sortedClassifications.isEmpty
 
-                if showUnclassifiedFirst, !data.unclassifiedRoutines.isEmpty {
+                if showUnclassifiedFirst, !viewModel.data.unclassifiedRoutines.isEmpty {
                     Section(header: Text("classifications.unclassified.section")) {
-                        ForEach(data.unclassifiedRoutines) { routine in
+                        ForEach(viewModel.data.unclassifiedRoutines) { routine in
                             rowContent(routine)
                         }
                     }
                 }
 
-                if !data.sortedClassifications.isEmpty {
+                if !viewModel.data.sortedClassifications.isEmpty {
                     Section(header: Text("classifications.section.list")) {
-                        ForEach(data.sortedClassifications) { classification in
+                        ForEach(viewModel.data.sortedClassifications) { classification in
+                            let isExpanded = expandedClassificationIDs.contains(classification.id)
                             DisclosureGroup(isExpanded: bindingForExpanded(classification.id)) {
-                                let routines = data.routinesForClassification(classification)
-                                ForEach(routines) { routine in
-                                    rowContent(routine)
+                                if isExpanded {
+                                    let routines = viewModel.data.routinesForClassification(classification)
+                                    ForEach(routines) { routine in
+                                        rowContent(routine)
+                                    }
                                 }
                             } label: {
                                 Text(classification.name)
@@ -95,9 +103,9 @@ struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
                     }
                 }
 
-                if !showUnclassifiedFirst, !data.unclassifiedRoutines.isEmpty {
+                if !showUnclassifiedFirst, !viewModel.data.unclassifiedRoutines.isEmpty {
                     Section(header: Text("classifications.unclassified.section")) {
-                        ForEach(data.unclassifiedRoutines) { routine in
+                        ForEach(viewModel.data.unclassifiedRoutines) { routine in
                             rowContent(routine)
                         }
                     }
@@ -107,15 +115,10 @@ struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
         .listStyle(.insetGrouped)
         .scrollDismissesKeyboard(.interactively)
         .searchable(text: $searchText, prompt: Text(LocalizedStringKey(searchPromptKey)))
-        .onChange(of: searchText) { _, newValue in
-            let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-            if trimmed.isEmpty {
-                expandedClassificationIDs.removeAll()
-            } else {
-                let matches = matchingClassificationIDs(for: trimmed)
-                expandedClassificationIDs = matches
-            }
-        }
+        .onChange(of: searchText) { _, _ in rebuildData() }
+        .onChange(of: routines) { _, _ in rebuildData() }
+        .onChange(of: classifications) { _, _ in rebuildData() }
+        .onAppear { rebuildData() }
     }
 
     private func bindingForExpanded(_ id: UUID) -> Binding<Bool> {
@@ -123,7 +126,11 @@ struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
             get: { expandedClassificationIDs.contains(id) },
             set: { isExpanded in
                 if isExpanded {
-                    expandedClassificationIDs.insert(id)
+                    if viewModel.data.isSearching {
+                        expandedClassificationIDs.insert(id)
+                    } else {
+                        expandedClassificationIDs = [id]
+                    }
                 } else {
                     expandedClassificationIDs.remove(id)
                 }
@@ -131,53 +138,103 @@ struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
         )
     }
 
-    private func matchingClassificationIDs(for search: String) -> Set<UUID> {
-        let trimmed = search.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return [] }
-        return Set(
-            classifications
-                .filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
-                .map(\.id)
+    private func rebuildData() {
+        viewModel.update(
+            routines: routines,
+            classifications: classifications,
+            searchText: searchText,
+            modelContext: modelContext
+        )
+        updateExpandedForSearch()
+    }
+
+    private func updateExpandedForSearch() {
+        if viewModel.data.isSearching {
+            expandedClassificationIDs = viewModel.data.matchingClassificationIDs
+        } else {
+            expandedClassificationIDs.removeAll()
+        }
+    }
+}
+
+@MainActor
+@Observable
+private final class RoutineCatalogViewModel {
+    private(set) var data = RoutineCatalogData.empty
+
+    func update(
+        routines: [Routine],
+        classifications: [RoutineClassification],
+        searchText: String,
+        modelContext: ModelContext?
+    ) {
+        let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        var matchingRoutines: [Routine] = []
+        var matchingClassifications: [RoutineClassification] = []
+
+        if let modelContext, !trimmed.isEmpty {
+            let routineDescriptor = FetchDescriptor<Routine>(
+                predicate: #Predicate { $0.name.localizedStandardContains(trimmed) },
+                sortBy: [SortDescriptor(\Routine.name, order: .forward)]
+            )
+            let classificationDescriptor = FetchDescriptor<RoutineClassification>(
+                predicate: #Predicate { $0.name.localizedStandardContains(trimmed) },
+                sortBy: [SortDescriptor(\RoutineClassification.name, order: .forward)]
+            )
+            matchingRoutines = (try? modelContext.fetch(routineDescriptor)) ?? []
+            matchingClassifications = (try? modelContext.fetch(classificationDescriptor)) ?? []
+        }
+
+        data = RoutineCatalogData(
+            routines: routines,
+            classifications: classifications,
+            matchingClassifications: matchingClassifications,
+            matchingRoutines: matchingRoutines,
+            searchText: trimmed
         )
     }
 }
 
 private struct RoutineCatalogData {
+    static let empty = RoutineCatalogData(
+        routines: [],
+        classifications: [],
+        matchingClassifications: [],
+        matchingRoutines: [],
+        searchText: ""
+    )
     let sortedRoutines: [Routine]
     let sortedClassifications: [RoutineClassification]
     let unclassifiedRoutines: [Routine]
     let matchingClassifications: [RoutineClassification]
     let matchingRoutines: [Routine]
     let isSearching: Bool
-    private let matchingClassificationIDs: Set<UUID>
+    let matchingClassificationIDs: Set<UUID>
 
     private let routinesByClassificationID: [UUID: [Routine]]
     private let searchText: String
 
-    init(routines: [Routine], classifications: [RoutineClassification], searchText: String) {
+    init(
+        routines: [Routine],
+        classifications: [RoutineClassification],
+        matchingClassifications: [RoutineClassification],
+        matchingRoutines: [Routine],
+        searchText: String
+    ) {
         let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         self.searchText = trimmed
         self.isSearching = !trimmed.isEmpty
 
-        self.sortedRoutines = routines.sorted {
-            $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
-        }
+        self.sortedRoutines = routines
         var map: [UUID: [Routine]] = [:]
         for routine in sortedRoutines {
             for classification in routine.classifications {
                 map[classification.id, default: []].append(routine)
             }
         }
-        for (id, list) in map {
-            map[id] = list.sorted {
-                $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
-            }
-        }
         self.routinesByClassificationID = map
 
-        self.sortedClassifications = classifications
-            .filter { map[$0.id] != nil }
-            .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        self.sortedClassifications = classifications.filter { map[$0.id] != nil }
 
         self.unclassifiedRoutines = sortedRoutines.filter { $0.classifications.isEmpty }
 
@@ -186,22 +243,16 @@ private struct RoutineCatalogData {
             self.matchingRoutines = []
             self.matchingClassificationIDs = []
         } else {
-            let matchedClassifications = sortedClassifications.filter {
-                $0.name.localizedCaseInsensitiveContains(trimmed)
-            }
+            let matchedClassifications = matchingClassifications.filter { map[$0.id] != nil }
             self.matchingClassifications = matchedClassifications
             self.matchingClassificationIDs = Set(matchedClassifications.map(\.id))
-
-            let routineMatches = sortedRoutines.filter {
-                $0.name.localizedCaseInsensitiveContains(trimmed)
-            }
 
             var shownIDs = Set<UUID>()
             for classification in matchedClassifications {
                 let routines = map[classification.id] ?? []
                 routines.forEach { shownIDs.insert($0.id) }
             }
-            self.matchingRoutines = routineMatches.filter { !shownIDs.contains($0.id) }
+            self.matchingRoutines = matchingRoutines.filter { !shownIDs.contains($0.id) }
         }
     }
 

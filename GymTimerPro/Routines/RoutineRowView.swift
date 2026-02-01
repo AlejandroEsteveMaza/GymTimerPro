@@ -10,6 +10,17 @@ import SwiftUI
 
 struct RoutineRowView: View {
     let routine: Routine
+    private let summaryText: String
+
+    init(routine: Routine) {
+        self.routine = routine
+        self.summaryText = RoutineFormatting.summaryText(
+            sets: routine.totalSets,
+            reps: routine.reps,
+            restSeconds: routine.restSeconds,
+            weightKg: routine.weightKg
+        )
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -17,12 +28,7 @@ struct RoutineRowView: View {
                 .font(.headline)
                 .foregroundStyle(.primary)
 
-            Text(RoutineFormatting.summaryText(
-                sets: routine.totalSets,
-                reps: routine.reps,
-                restSeconds: routine.restSeconds,
-                weightKg: routine.weightKg
-            ))
+            Text(summaryText)
             .font(.subheadline)
             .foregroundStyle(.secondary)
         }

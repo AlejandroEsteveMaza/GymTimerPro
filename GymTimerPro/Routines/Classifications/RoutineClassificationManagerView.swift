@@ -20,13 +20,15 @@ struct RoutineClassificationManagerView: View {
     @Query(sort: [SortDescriptor(\RoutineClassification.name, order: .forward)]) private var classifications: [RoutineClassification]
     @Query(sort: [SortDescriptor(\Routine.name, order: .forward)]) private var routines: [Routine]
 
-    @State private var editorRoute: ClassificationEditorRoute?
     @State private var classificationToDelete: RoutineClassification?
     @State private var showDeleteDialog = false
     @State private var searchText = ""
+    @State private var isCreating = false
+    @State private var createName: String = ""
     @State private var editingClassificationID: UUID?
     @State private var editName: String = ""
     @FocusState private var focusedClassificationID: UUID?
+    @FocusState private var isCreateFocused: Bool
     @State private var isSwitchingEdit = false
 
     init(
@@ -39,7 +41,11 @@ struct RoutineClassificationManagerView: View {
 
     var body: some View {
         List {
-            if filteredClassifications.isEmpty {
+            if mode == .manage, isCreating {
+                createRow
+            }
+
+            if filteredClassifications.isEmpty, !isCreating {
                 ContentUnavailableView {
                     Label("classifications.empty.title", systemImage: "tag")
                 } description: {
@@ -51,12 +57,16 @@ struct RoutineClassificationManagerView: View {
                         classification: classification,
                         mode: mode,
                         selectedClassifications: $selectedClassifications,
+                        hasInlineEditing: isCreating || editingClassificationID != nil,
+                        showRenameDuplicateError: showRenameDuplicateError(for: classification),
                         editingClassificationID: $editingClassificationID,
                         editName: $editName,
                         focusedClassificationID: $focusedClassificationID,
                         onRequestDelete: { classificationToDelete = $0; showDeleteDialog = true },
                         onBeginEditing: beginEditing,
-                        onCancelEditing: cancelInlineEditing
+                        canRename: { name in isNameAvailable(name, excluding: classification) },
+                        onRename: rename,
+                        onCancelEditing: cancelAnyEditing
                     )
                 }
             }
@@ -64,17 +74,15 @@ struct RoutineClassificationManagerView: View {
         .navigationTitle("classifications.manage.title")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    editorRoute = .create
-                } label: {
-                    Label("classifications.add.title", systemImage: "plus")
+            if mode == .manage {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        beginCreate()
+                    } label: {
+                        Label("classifications.add.title", systemImage: "plus")
+                    }
+                    .disabled(isCreating)
                 }
-            }
-        }
-        .sheet(item: $editorRoute) { route in
-            NavigationStack {
-                RoutineClassificationEditorView(route: route)
             }
         }
         .searchable(text: $searchText, prompt: Text("classifications.search.placeholder"))
@@ -87,6 +95,11 @@ struct RoutineClassificationManagerView: View {
                 cancelInlineEditing()
             } else if newValue != nil {
                 isSwitchingEdit = false
+            }
+        }
+        .onChange(of: isCreateFocused) { newValue in
+            if !newValue, isCreating {
+                cancelCreate()
             }
         }
         .confirmationDialog(Text("classifications.delete.title"), isPresented: $showDeleteDialog, titleVisibility: .visible) {
@@ -118,6 +131,52 @@ struct RoutineClassificationManagerView: View {
         return classifications.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
     }
 
+    private var createRow: some View {
+        VStack(spacing: 6) {
+            HStack(spacing: 12) {
+                TextField("classifications.name.placeholder", text: $createName)
+                    .textInputAutocapitalization(.words)
+                    .autocorrectionDisabled()
+                    .focused($isCreateFocused)
+                    .submitLabel(.done)
+                    .onSubmit { createClassification() }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Button("common.cancel") {
+                    cancelCreate()
+                }
+                .buttonStyle(.borderless)
+                Button("common.ok") {
+                    createClassification()
+                }
+                .buttonStyle(.borderless)
+                .disabled(!canCreate)
+            }
+            if showCreateDuplicateError {
+                Text("classifications.duplicate")
+                    .font(.caption)
+                    .foregroundStyle(Color(uiColor: .systemRed))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            if !isCreateFocused {
+                isCreateFocused = true
+            }
+        }
+    }
+
+    private var canCreate: Bool {
+        let trimmed = createName.trimmingCharacters(in: .whitespacesAndNewlines)
+        return !trimmed.isEmpty && isNameAvailable(trimmed, excluding: nil)
+    }
+
+    private var showCreateDuplicateError: Bool {
+        let trimmed = createName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return false }
+        return !isNameAvailable(trimmed, excluding: nil)
+    }
+
     private func cancelInlineEditing() {
         editingClassificationID = nil
         editName = ""
@@ -125,10 +184,31 @@ struct RoutineClassificationManagerView: View {
         isSwitchingEdit = false
     }
 
+    private func cancelCreate() {
+        isCreating = false
+        createName = ""
+        isCreateFocused = false
+    }
+
+    private func cancelAnyEditing() {
+        cancelInlineEditing()
+        cancelCreate()
+    }
+
+    private func beginCreate() {
+        cancelInlineEditing()
+        isCreating = true
+        createName = ""
+        DispatchQueue.main.async {
+            isCreateFocused = true
+        }
+    }
+
     private func beginEditing(_ classification: RoutineClassification) {
         if let editingClassificationID, editingClassificationID != classification.id {
             isSwitchingEdit = true
         }
+        cancelCreate()
         editingClassificationID = classification.id
         editName = classification.name
         DispatchQueue.main.async {
@@ -136,18 +216,60 @@ struct RoutineClassificationManagerView: View {
         }
     }
 
+    private func createClassification() {
+        let trimmed = createName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        guard isNameAvailable(trimmed, excluding: nil) else { return }
+        let classification = RoutineClassification(name: trimmed)
+        modelContext.insert(classification)
+        try? modelContext.save()
+        cancelCreate()
+    }
+
+    private func rename(_ classification: RoutineClassification, to newName: String) {
+        let trimmed = newName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        guard isNameAvailable(trimmed, excluding: classification) else { return }
+        let normalized = RoutineClassification.normalize(trimmed)
+        classification.name = trimmed
+        classification.normalizedName = normalized
+        cancelInlineEditing()
+        try? modelContext.save()
+    }
+
+    private func showRenameDuplicateError(for classification: RoutineClassification) -> Bool {
+        guard editingClassificationID == classification.id else { return false }
+        let trimmed = editName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return false }
+        return !isNameAvailable(trimmed, excluding: classification)
+    }
+
+    private func isNameAvailable(_ name: String, excluding: RoutineClassification?) -> Bool {
+        let normalized = RoutineClassification.normalize(name)
+        guard !normalized.isEmpty else { return false }
+        return !classifications.contains { candidate in
+            if let excluding, candidate.id == excluding.id {
+                return false
+            }
+            return candidate.normalizedName == normalized
+        }
+    }
+
 }
 
 private struct ClassificationRow: View {
-    @Environment(\.modelContext) private var modelContext
     let classification: RoutineClassification
     let mode: RoutineClassificationManagerView.Mode
     @Binding var selectedClassifications: [RoutineClassification]
+    let hasInlineEditing: Bool
+    let showRenameDuplicateError: Bool
     @Binding var editingClassificationID: UUID?
     @Binding var editName: String
     var focusedClassificationID: FocusState<UUID?>.Binding
     let onRequestDelete: (RoutineClassification) -> Void
     let onBeginEditing: (RoutineClassification) -> Void
+    let canRename: (String) -> Bool
+    let onRename: (RoutineClassification, String) -> Void
     let onCancelEditing: () -> Void
 
     private var isEditing: Bool {
@@ -166,7 +288,7 @@ private struct ClassificationRow: View {
                     .autocorrectionDisabled()
                     .focused(focusedClassificationID, equals: classification.id)
                     .submitLabel(.done)
-                    .onSubmit { rename(to: editName) }
+                    .onSubmit { onRename(classification, editName) }
                     .frame(maxWidth: .infinity, alignment: .leading)
             } else {
                 Text(classification.name)
@@ -191,10 +313,10 @@ private struct ClassificationRow: View {
                     }
                     .buttonStyle(.borderless)
                     Button("common.ok") {
-                        rename(to: editName)
+                        onRename(classification, editName)
                     }
                     .buttonStyle(.borderless)
-                    .disabled(editName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    .disabled(!canRename(editName))
                 } else {
                     Menu {
                         Button("classifications.rename.action") {
@@ -219,19 +341,17 @@ private struct ClassificationRow: View {
             case .select:
                 toggleSelection()
             case .manage:
-                if !isEditing, editingClassificationID != nil {
+                if !isEditing, hasInlineEditing {
                     onCancelEditing()
                 }
             }
         }
-    }
-
-    private func rename(to newName: String) {
-        let trimmed = newName.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
-        classification.name = trimmed
-        onCancelEditing()
-        try? modelContext.save()
+        if showRenameDuplicateError, isEditing {
+            Text("classifications.duplicate")
+                .font(.caption)
+                .foregroundStyle(Color(uiColor: .systemRed))
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
     }
 
     private func toggleSelection() {
