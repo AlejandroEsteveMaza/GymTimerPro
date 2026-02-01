@@ -23,6 +23,6 @@ struct RoutinesRootView: View {
 
 #Preview {
     RoutinesRootView()
-        .modelContainer(for: Routine.self, inMemory: true)
+        .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
         .environmentObject(RoutineSelectionStore())
 }

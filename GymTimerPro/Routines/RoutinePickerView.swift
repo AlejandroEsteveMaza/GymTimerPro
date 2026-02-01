@@ -13,11 +13,12 @@ struct RoutinePickerView: View {
 
     @Environment(\.dismiss) private var dismiss
     @Query(sort: [SortDescriptor(\Routine.name, order: .forward)]) private var routines: [Routine]
+    @Query(sort: [SortDescriptor(\RoutineClassification.name, order: .forward)]) private var classifications: [RoutineClassification]
     @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
 
     var body: some View {
         Group {
-            if routines.isEmpty {
+            if routines.isEmpty && classifications.isEmpty {
                 ContentUnavailableView {
                     Label("routines.empty.title", systemImage: "list.bullet.rectangle")
                 } description: {
@@ -25,29 +26,30 @@ struct RoutinePickerView: View {
                 }
                 .padding(.top, 32)
             } else {
-                List {
-                    if routineSelectionStore.selection != nil {
-                        Section {
-                            Button {
-                                routineSelectionStore.clear()
-                                dismiss()
-                            } label: {
-                                Label("routines.remove_from_training", systemImage: "xmark.circle")
+                RoutineCatalogListView(
+                    routines: routines,
+                    classifications: classifications,
+                    leadingContent: {
+                        if routineSelectionStore.selection != nil {
+                            Section {
+                                Button {
+                                    routineSelectionStore.clear()
+                                    dismiss()
+                                } label: {
+                                    Label("routines.remove_from_training", systemImage: "xmark.circle")
+                                }
                             }
                         }
                     }
-
-                    ForEach(routines) { routine in
-                        Button {
-                            onSelect(routine)
-                            dismiss()
-                        } label: {
-                            RoutinePickerRow(routine: routine)
-                        }
-                        .buttonStyle(.plain)
+                ) { routine in
+                    Button {
+                        onSelect(routine)
+                        dismiss()
+                    } label: {
+                        RoutineRowView(routine: routine)
                     }
+                    .buttonStyle(.plain)
                 }
-                .listStyle(.insetGrouped)
             }
         }
         .navigationTitle("routines.select.title")
@@ -62,32 +64,10 @@ struct RoutinePickerView: View {
     }
 }
 
-private struct RoutinePickerRow: View {
-    let routine: Routine
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(routine.name)
-                .font(.headline)
-                .foregroundStyle(.primary)
-
-            Text(RoutineFormatting.summaryText(
-                sets: routine.totalSets,
-                reps: routine.reps,
-                restSeconds: routine.restSeconds,
-                weightKg: routine.weightKg
-            ))
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
-        }
-        .accessibilityElement(children: .combine)
-    }
-}
-
 #Preview {
     NavigationStack {
         RoutinePickerView { _ in }
             .environmentObject(RoutineSelectionStore())
     }
-    .modelContainer(for: Routine.self, inMemory: true)
+    .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
 }

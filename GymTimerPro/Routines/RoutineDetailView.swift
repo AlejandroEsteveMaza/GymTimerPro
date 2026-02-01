@@ -82,5 +82,5 @@ struct RoutineDetailView: View {
         .environmentObject(RoutinesStore())
         .environmentObject(RoutineSelectionStore())
     }
-    .modelContainer(for: Routine.self, inMemory: true)
+    .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
 }

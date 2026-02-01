@@ -56,7 +56,7 @@ struct MainTabView: View {
 
             NavigationStack {
                 if purchaseManager.isPro {
-                    TabPlaceholderView(messageKey: "placeholder.coming_soon")
+                    SettingsRootView()
                 } else {
                     LockedFeatureView(
                         titleKey: "pro.locked.settings.title",
@@ -136,5 +136,5 @@ private struct LockedFeatureView: View {
     MainTabView()
         .environmentObject(PurchaseManager(startTasks: false))
         .environmentObject(RoutineSelectionStore())
-        .modelContainer(for: Routine.self, inMemory: true)
+        .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
 }

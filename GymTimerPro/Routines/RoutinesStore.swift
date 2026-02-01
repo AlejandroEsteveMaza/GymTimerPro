@@ -19,19 +19,22 @@ struct RoutineDraft: Equatable {
     var reps: Int
     var restSeconds: Int
     var weightKg: Double?
+    var classifications: [RoutineClassification]
 
     init(
         name: String = "",
         totalSets: Int = RoutineDraft.defaultTotalSets,
         reps: Int = RoutineDraft.defaultReps,
         restSeconds: Int = RoutineDraft.defaultRestSeconds,
-        weightKg: Double? = nil
+        weightKg: Double? = nil,
+        classifications: [RoutineClassification] = []
     ) {
         self.name = name
         self.totalSets = totalSets
         self.reps = reps
         self.restSeconds = restSeconds
         self.weightKg = weightKg
+        self.classifications = classifications
     }
 
     init(routine: Routine?) {
@@ -41,13 +44,26 @@ struct RoutineDraft: Equatable {
             self.reps = routine.reps
             self.restSeconds = routine.restSeconds
             self.weightKg = routine.weightKg
+            self.classifications = routine.classifications
         } else {
             self.name = ""
             self.totalSets = RoutineDraft.defaultTotalSets
             self.reps = RoutineDraft.defaultReps
             self.restSeconds = RoutineDraft.defaultRestSeconds
             self.weightKg = nil
+            self.classifications = []
         }
+    }
+
+    static func == (lhs: RoutineDraft, rhs: RoutineDraft) -> Bool {
+        let lhsIDs = lhs.classifications.map(\.id).sorted()
+        let rhsIDs = rhs.classifications.map(\.id).sorted()
+        return lhs.name == rhs.name &&
+            lhs.totalSets == rhs.totalSets &&
+            lhs.reps == rhs.reps &&
+            lhs.restSeconds == rhs.restSeconds &&
+            lhs.weightKg == rhs.weightKg &&
+            lhsIDs == rhsIDs
     }
 }
 
@@ -89,25 +105,32 @@ final class RoutinesStore: ObservableObject {
             totalSets: draft.totalSets,
             reps: draft.reps,
             restSeconds: draft.restSeconds,
-            weightKg: clampedWeight(draft.weightKg)
+            weightKg: clampedWeight(draft.weightKg),
+            classifications: draft.classifications
         )
+        syncClassifications(for: routine, previous: [], current: draft.classifications)
         modelContext.insert(routine)
         try? modelContext.save()
         refresh()
     }
 
     func update(_ routine: Routine, with draft: RoutineDraft) {
+        let previousClassifications = routine.classifications
         routine.name = draft.name
         routine.totalSets = draft.totalSets
         routine.reps = draft.reps
         routine.restSeconds = draft.restSeconds
         routine.weightKg = clampedWeight(draft.weightKg)
+        routine.classifications = draft.classifications
+        syncClassifications(for: routine, previous: previousClassifications, current: draft.classifications)
         routine.updatedAt = Date()
         try? modelContext?.save()
         refresh()
     }
 
     func delete(_ routine: Routine) {
+        syncClassifications(for: routine, previous: routine.classifications, current: [])
+        routine.classifications.removeAll()
         modelContext?.delete(routine)
         try? modelContext?.save()
         refresh()
@@ -120,6 +143,22 @@ final class RoutinesStore: ObservableObject {
     private func clampedWeight(_ weight: Double?) -> Double? {
         guard let weight else { return nil }
         return min(max(weight, 0), 999)
+    }
+
+    private func syncClassifications(
+        for routine: Routine,
+        previous: [RoutineClassification],
+        current: [RoutineClassification]
+    ) {
+        let currentIDs = Set(current.map(\.id))
+
+        for classification in current where !classification.routines.contains(where: { $0.id == routine.id }) {
+            classification.routines.append(routine)
+        }
+
+        for classification in previous where !currentIDs.contains(classification.id) {
+            classification.routines.removeAll { $0.id == routine.id }
+        }
     }
 
     #if DEBUG

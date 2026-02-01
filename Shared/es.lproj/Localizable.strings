@@ -120,3 +120,27 @@
 "routines.remove_from_training" = "Quitar del entrenamiento";
 
 "routines.delete.message" = "Esta acción eliminará la rutina de forma permanente.";
+
+"classifications.section.title" = "Clasificación";
+"classifications.section.list" = "Clasificaciones";
+"classifications.unclassified.section" = "Rutinas sin clasificación";
+"classifications.routines.section" = "Rutinas";
+"classifications.search.prompt" = "Buscar rutinas o clasificaciones";
+"classifications.search.create_placeholder" = "Buscar o crear clasificación";
+"classifications.create_format" = "Crear \"%@\"";
+"classifications.duplicate" = "Ya existe una clasificación con ese nombre.";
+"classifications.delete.title" = "Eliminar clasificación";
+"classifications.delete.message" = "Esta acción eliminará la clasificación de todas las rutinas.";
+"classifications.none" = "Ninguna";
+"classifications.empty.title" = "Sin clasificaciones";
+"classifications.empty.message" = "Crea una clasificación para empezar.";
+
+"classifications.manage.title" = "Gestionar clasificaciones";
+"classifications.add.title" = "Nueva clasificación";
+"classifications.rename.title" = "Renombrar";
+"classifications.name.title" = "Nombre";
+"classifications.name.placeholder" = "Nombre de la clasificación";
+"classifications.search.placeholder" = "Buscar clasificaciones";
+
+"classifications.rename.action" = "Cambiar nombre…";
+"classifications.more_options_format" = "Más opciones para %@";

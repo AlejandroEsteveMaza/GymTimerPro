@@ -11,11 +11,13 @@ import SwiftUI
 struct RoutinesListView: View {
     @EnvironmentObject private var store: RoutinesStore
     @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
+    @Query(sort: [SortDescriptor(\RoutineClassification.name, order: .forward)]) private var classifications: [RoutineClassification]
     @State private var editorRoute: RoutineEditorRoute?
+    @State private var isShowingClassificationManager = false
 
     var body: some View {
         Group {
-            if store.routines.isEmpty {
+            if store.routines.isEmpty && classifications.isEmpty {
                 ContentUnavailableView {
                     Label("routines.empty.title", systemImage: "list.bullet.rectangle")
                 } description: {
@@ -23,53 +25,60 @@ struct RoutinesListView: View {
                 }
                 .padding(.top, 32)
             } else {
-                List {
-                    ForEach(store.routines) { routine in
-                        let isApplied = routineSelectionStore.selection?.id == routine.id
-                        NavigationLink {
-                            RoutineEditorView(routine: routine)
-                                .environmentObject(store)
-                                .environmentObject(routineSelectionStore)
-                        } label: {
-                            RoutineRowView(routine: routine)
-                        }
-                        .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                            if isApplied {
-                                Button {
-                                    routineSelectionStore.clear()
-                                } label: {
-                                    Label("routines.remove_from_training", systemImage: "xmark.circle")
-                                }
-                                .tint(.gray)
-                            } else {
-                                Button {
-                                    routineSelectionStore.apply(routine)
-                                } label: {
-                                    Label("routines.apply", systemImage: "checkmark.circle")
-                                }
-                                .tint(.blue)
-                            }
-                        }
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                if isApplied {
-                                    routineSelectionStore.clear()
-                                }
-                                store.delete(routine)
+                RoutineCatalogListView(
+                    routines: store.routines,
+                    classifications: classifications,
+                    unclassifiedPlacement: .bottom
+                ) { routine in
+                    let isApplied = routineSelectionStore.selection?.id == routine.id
+                    NavigationLink {
+                        RoutineEditorView(routine: routine)
+                            .environmentObject(store)
+                            .environmentObject(routineSelectionStore)
+                    } label: {
+                        RoutineRowView(routine: routine)
+                    }
+                    .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                        if isApplied {
+                            Button {
+                                routineSelectionStore.clear()
                             } label: {
-                                Label("routines.delete", systemImage: "trash")
+                                Label("routines.remove_from_training", systemImage: "xmark.circle")
                             }
+                            .tint(.gray)
+                        } else {
+                            Button {
+                                routineSelectionStore.apply(routine)
+                            } label: {
+                                Label("routines.apply", systemImage: "checkmark.circle")
+                            }
+                            .tint(.blue)
                         }
                     }
-                    .onDelete(perform: store.delete)
+                    .swipeActions {
+                        Button(role: .destructive) {
+                            if isApplied {
+                                routineSelectionStore.clear()
+                            }
+                            store.delete(routine)
+                        } label: {
+                            Label("routines.delete", systemImage: "trash")
+                        }
+                    }
                 }
-                .listStyle(.insetGrouped)
-                .scrollDismissesKeyboard(.interactively)
             }
         }
         .navigationTitle("routines.title")
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Menu {
+                    Button("classifications.manage.title") {
+                        isShowingClassificationManager = true
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                }
+
                 Button {
                     editorRoute = .create
                 } label: {
@@ -83,6 +92,11 @@ struct RoutinesListView: View {
             }
             .environmentObject(store)
             .environmentObject(routineSelectionStore)
+        }
+        .sheet(isPresented: $isShowingClassificationManager) {
+            NavigationStack {
+                RoutineClassificationManagerView()
+            }
         }
     }
 }
@@ -110,33 +124,11 @@ private enum RoutineEditorRoute: Identifiable {
     }
 }
 
-private struct RoutineRowView: View {
-    let routine: Routine
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(routine.name)
-                .font(.headline)
-                .foregroundStyle(.primary)
-
-            Text(RoutineFormatting.summaryText(
-                sets: routine.totalSets,
-                reps: routine.reps,
-                restSeconds: routine.restSeconds,
-                weightKg: routine.weightKg
-            ))
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
-        }
-        .accessibilityElement(children: .combine)
-    }
-}
-
 #Preview {
     NavigationStack {
         RoutinesListView()
             .environmentObject(RoutinesStore())
             .environmentObject(RoutineSelectionStore())
     }
-    .modelContainer(for: Routine.self, inMemory: true)
+    .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
 }

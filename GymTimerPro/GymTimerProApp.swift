@@ -19,6 +19,6 @@ struct GymTimerProApp: App {
                 .environmentObject(purchaseManager)
                 .environmentObject(routineSelectionStore)
         }
-        .modelContainer(for: Routine.self)
+        .modelContainer(for: [Routine.self, RoutineClassification.self])
     }
 }

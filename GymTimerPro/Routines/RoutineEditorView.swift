@@ -65,6 +65,27 @@ struct RoutineEditorView: View {
                 }
             }
 
+            Section(header: Text("classifications.section.title")) {
+                NavigationLink {
+                    RoutineClassificationPickerView(selectedClassifications: $draft.classifications)
+                } label: {
+                    HStack {
+                        Text("classifications.section.list")
+                            .foregroundStyle(Theme.textPrimary)
+                        Spacer()
+                        if draft.classifications.isEmpty {
+                            Text("classifications.none")
+                                .font(.subheadline)
+                                .foregroundStyle(Theme.textSecondary)
+                        } else {
+                            Text("\(draft.classifications.count)")
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(Theme.textSecondary)
+                        }
+                    }
+                }
+            }
+
             Section(header: Text("routines.section.parameters")) {
                 NumericConfigRow(
                     titleKey: "config.total_sets.title",
@@ -280,7 +301,8 @@ struct RoutineEditorView: View {
             totalSets: draft.totalSets,
             reps: draft.reps,
             restSeconds: draft.restSeconds,
-            weightKg: parsedWeight
+            weightKg: parsedWeight,
+            classifications: draft.classifications
         )
     }
 
@@ -363,5 +385,5 @@ struct RoutineEditorView: View {
             .environmentObject(RoutinesStore())
             .environmentObject(RoutineSelectionStore())
     }
-    .modelContainer(for: Routine.self, inMemory: true)
+    .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
 }

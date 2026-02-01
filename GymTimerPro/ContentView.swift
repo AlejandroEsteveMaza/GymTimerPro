@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import SwiftData
 import UIKit
 import AudioToolbox
 
@@ -805,6 +806,7 @@ private final class RestTimerModel: ObservableObject {
     ContentView()
         .environmentObject(PurchaseManager(startTasks: false))
         .environmentObject(RoutineSelectionStore())
+        .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
 }
 
 enum Layout {

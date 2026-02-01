@@ -16,6 +16,7 @@ final class Routine: Identifiable {
     var reps: Int = 10
     var restSeconds: Int
     var weightKg: Double?
+    @Relationship(deleteRule: .nullify, inverse: \RoutineClassification.routines) var classifications: [RoutineClassification] = []
     var createdAt: Date
     var updatedAt: Date
 
@@ -25,7 +26,8 @@ final class Routine: Identifiable {
         totalSets: Int,
         reps: Int,
         restSeconds: Int,
-        weightKg: Double?
+        weightKg: Double?,
+        classifications: [RoutineClassification] = []
     ) {
         self.id = id
         self.name = name
@@ -33,6 +35,7 @@ final class Routine: Identifiable {
         self.reps = reps
         self.restSeconds = restSeconds
         self.weightKg = weightKg
+        self.classifications = classifications
         let now = Date()
         self.createdAt = now
         self.updatedAt = now

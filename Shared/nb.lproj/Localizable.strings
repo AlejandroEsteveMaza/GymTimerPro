@@ -120,3 +120,27 @@
 "routines.remove_from_training" = "Fjern fra trening";
 
 "routines.delete.message" = "Dette sletter rutinen permanent.";
+
+"classifications.section.title" = "Classification";
+"classifications.section.list" = "Classifications";
+"classifications.unclassified.section" = "Unclassified routines";
+"classifications.routines.section" = "Routines";
+"classifications.search.prompt" = "Search routines or classifications";
+"classifications.search.create_placeholder" = "Search or create classification";
+"classifications.create_format" = "Create \"%@\"";
+"classifications.duplicate" = "A classification with that name already exists.";
+"classifications.delete.title" = "Delete classification";
+"classifications.delete.message" = "This will remove the classification from all routines.";
+"classifications.none" = "None";
+"classifications.empty.title" = "No classifications";
+"classifications.empty.message" = "Create a classification to get started.";
+
+"classifications.manage.title" = "Manage classifications";
+"classifications.add.title" = "New classification";
+"classifications.rename.title" = "Rename";
+"classifications.name.title" = "Name";
+"classifications.name.placeholder" = "Classification name";
+"classifications.search.placeholder" = "Search classifications";
+
+"classifications.rename.action" = "Rename…";
+"classifications.more_options_format" = "More options for %@";
