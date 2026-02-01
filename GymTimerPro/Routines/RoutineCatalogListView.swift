@@ -149,6 +149,7 @@ private struct RoutineCatalogData {
     let matchingClassifications: [RoutineClassification]
     let matchingRoutines: [Routine]
     let isSearching: Bool
+    private let matchingClassificationIDs: Set<UUID>
 
     private let routinesByClassificationID: [UUID: [Routine]]
     private let searchText: String
@@ -161,10 +162,6 @@ private struct RoutineCatalogData {
         self.sortedRoutines = routines.sorted {
             $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
         }
-        self.sortedClassifications = classifications.sorted {
-            $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
-        }
-
         var map: [UUID: [Routine]] = [:]
         for routine in sortedRoutines {
             for classification in routine.classifications {
@@ -178,16 +175,22 @@ private struct RoutineCatalogData {
         }
         self.routinesByClassificationID = map
 
+        self.sortedClassifications = classifications
+            .filter { map[$0.id] != nil }
+            .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+
         self.unclassifiedRoutines = sortedRoutines.filter { $0.classifications.isEmpty }
 
         if trimmed.isEmpty {
             self.matchingClassifications = []
             self.matchingRoutines = []
+            self.matchingClassificationIDs = []
         } else {
             let matchedClassifications = sortedClassifications.filter {
                 $0.name.localizedCaseInsensitiveContains(trimmed)
             }
             self.matchingClassifications = matchedClassifications
+            self.matchingClassificationIDs = Set(matchedClassifications.map(\.id))
 
             let routineMatches = sortedRoutines.filter {
                 $0.name.localizedCaseInsensitiveContains(trimmed)
@@ -206,6 +209,9 @@ private struct RoutineCatalogData {
         let routines = routinesByClassificationID[classification.id] ?? []
         guard isSearching else { return routines }
         guard !searchText.isEmpty else { return routines }
+        if matchingClassificationIDs.contains(classification.id) {
+            return routines
+        }
         return routines.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
     }
 }

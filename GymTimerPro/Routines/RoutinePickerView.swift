@@ -29,6 +29,7 @@ struct RoutinePickerView: View {
                 RoutineCatalogListView(
                     routines: routines,
                     classifications: classifications,
+                    unclassifiedPlacement: .bottom,
                     leadingContent: {
                         if routineSelectionStore.selection != nil {
                             Section {

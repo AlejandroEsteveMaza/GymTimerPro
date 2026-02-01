@@ -28,6 +28,7 @@ struct RoutineEditorView: View {
     @State private var draft: RoutineDraft
     @State private var weightText: String
     @State private var showDeleteDialog = false
+    @State private var showClassificationPicker = false
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
 
     init(routine: Routine? = nil) {
@@ -66,8 +67,8 @@ struct RoutineEditorView: View {
             }
 
             Section(header: Text("classifications.section.title")) {
-                NavigationLink {
-                    RoutineClassificationPickerView(selectedClassifications: $draft.classifications)
+                Button {
+                    showClassificationPicker = true
                 } label: {
                     HStack {
                         Text("classifications.section.list")
@@ -83,7 +84,10 @@ struct RoutineEditorView: View {
                                 .foregroundStyle(Theme.textSecondary)
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
             }
 
             Section(header: Text("routines.section.parameters")) {
@@ -195,6 +199,25 @@ struct RoutineEditorView: View {
             Button("common.cancel", role: .cancel) {}
         } message: {
             Text("routines.delete.message")
+        }
+        .sheet(isPresented: $showClassificationPicker) {
+            NavigationStack {
+                RoutineClassificationManagerView(
+                    mode: .select,
+                    selectedClassifications: $draft.classifications
+                )
+                    .navigationTitle("classifications.section.title")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("common.ok") {
+                                showClassificationPicker = false
+                            }
+                        }
+                    }
+            }
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
         }
         .simultaneousGesture(
             // Keep this gesture close to the iOS interactive back gesture: only from the leading edge.

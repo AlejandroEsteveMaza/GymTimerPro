@@ -9,6 +9,13 @@ import SwiftData
 import SwiftUI
 
 struct RoutineClassificationManagerView: View {
+    enum Mode {
+        case manage
+        case select
+    }
+
+    private let mode: Mode
+    @Binding private var selectedClassifications: [RoutineClassification]
     @Environment(\.modelContext) private var modelContext
     @Query(sort: [SortDescriptor(\RoutineClassification.name, order: .forward)]) private var classifications: [RoutineClassification]
     @Query(sort: [SortDescriptor(\Routine.name, order: .forward)]) private var routines: [Routine]
@@ -17,6 +24,18 @@ struct RoutineClassificationManagerView: View {
     @State private var classificationToDelete: RoutineClassification?
     @State private var showDeleteDialog = false
     @State private var searchText = ""
+    @State private var editingClassificationID: UUID?
+    @State private var editName: String = ""
+    @FocusState private var focusedClassificationID: UUID?
+    @State private var isSwitchingEdit = false
+
+    init(
+        mode: Mode = .manage,
+        selectedClassifications: Binding<[RoutineClassification]> = .constant([])
+    ) {
+        self.mode = mode
+        _selectedClassifications = selectedClassifications
+    }
 
     var body: some View {
         List {
@@ -28,25 +47,17 @@ struct RoutineClassificationManagerView: View {
                 }
             } else {
                 ForEach(filteredClassifications) { classification in
-                    HStack(spacing: 12) {
-                        Text(classification.name)
-                            .foregroundStyle(Theme.textPrimary)
-                        Spacer()
-                        Menu {
-                            Button("classifications.rename.action") {
-                                editorRoute = .rename(classification)
-                            }
-                            Button("classifications.delete.title", role: .destructive) {
-                                classificationToDelete = classification
-                                showDeleteDialog = true
-                            }
-                        } label: {
-                            Image(systemName: "ellipsis.circle")
-                                .imageScale(.large)
-                                .padding(.vertical, 6)
-                        }
-                        .accessibilityLabel(Text(L10n.format("classifications.more_options_format", classification.name)))
-                    }
+                    ClassificationRow(
+                        classification: classification,
+                        mode: mode,
+                        selectedClassifications: $selectedClassifications,
+                        editingClassificationID: $editingClassificationID,
+                        editName: $editName,
+                        focusedClassificationID: $focusedClassificationID,
+                        onRequestDelete: { classificationToDelete = $0; showDeleteDialog = true },
+                        onBeginEditing: beginEditing,
+                        onCancelEditing: cancelInlineEditing
+                    )
                 }
             }
         }
@@ -67,6 +78,17 @@ struct RoutineClassificationManagerView: View {
             }
         }
         .searchable(text: $searchText, prompt: Text("classifications.search.placeholder"))
+        .onChange(of: focusedClassificationID) { newValue in
+            if newValue == nil, editingClassificationID != nil {
+                if isSwitchingEdit {
+                    isSwitchingEdit = false
+                    return
+                }
+                cancelInlineEditing()
+            } else if newValue != nil {
+                isSwitchingEdit = false
+            }
+        }
         .confirmationDialog(Text("classifications.delete.title"), isPresented: $showDeleteDialog, titleVisibility: .visible) {
             Button("classifications.delete.title", role: .destructive) {
                 if let classificationToDelete {
@@ -94,6 +116,130 @@ struct RoutineClassificationManagerView: View {
         let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return classifications }
         return classifications.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
+    }
+
+    private func cancelInlineEditing() {
+        editingClassificationID = nil
+        editName = ""
+        focusedClassificationID = nil
+        isSwitchingEdit = false
+    }
+
+    private func beginEditing(_ classification: RoutineClassification) {
+        if let editingClassificationID, editingClassificationID != classification.id {
+            isSwitchingEdit = true
+        }
+        editingClassificationID = classification.id
+        editName = classification.name
+        DispatchQueue.main.async {
+            focusedClassificationID = classification.id
+        }
+    }
+
+}
+
+private struct ClassificationRow: View {
+    @Environment(\.modelContext) private var modelContext
+    let classification: RoutineClassification
+    let mode: RoutineClassificationManagerView.Mode
+    @Binding var selectedClassifications: [RoutineClassification]
+    @Binding var editingClassificationID: UUID?
+    @Binding var editName: String
+    var focusedClassificationID: FocusState<UUID?>.Binding
+    let onRequestDelete: (RoutineClassification) -> Void
+    let onBeginEditing: (RoutineClassification) -> Void
+    let onCancelEditing: () -> Void
+
+    private var isEditing: Bool {
+        editingClassificationID == classification.id
+    }
+
+    private var isSelected: Bool {
+        selectedClassifications.contains { $0.id == classification.id }
+    }
+
+    var body: some View {
+        HStack(spacing: 12) {
+            if isEditing {
+                TextField("classifications.name.placeholder", text: $editName)
+                    .textInputAutocapitalization(.words)
+                    .autocorrectionDisabled()
+                    .focused(focusedClassificationID, equals: classification.id)
+                    .submitLabel(.done)
+                    .onSubmit { rename(to: editName) }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                Text(classification.name)
+                    .foregroundStyle(Theme.textPrimary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            switch mode {
+            case .select:
+                if isSelected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(Theme.iconTint)
+                        .accessibilityHidden(true)
+                } else {
+                    Image(systemName: "circle")
+                        .foregroundStyle(Theme.textSecondary)
+                        .accessibilityHidden(true)
+                }
+            case .manage:
+                if isEditing {
+                    Button("common.cancel") {
+                        onCancelEditing()
+                    }
+                    .buttonStyle(.borderless)
+                    Button("common.ok") {
+                        rename(to: editName)
+                    }
+                    .buttonStyle(.borderless)
+                    .disabled(editName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                } else {
+                    Menu {
+                        Button("classifications.rename.action") {
+                            onBeginEditing(classification)
+                        }
+                        Button("classifications.delete.title", role: .destructive) {
+                            onRequestDelete(classification)
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                            .imageScale(.large)
+                            .padding(.vertical, 6)
+                    }
+                    .accessibilityLabel(Text(L10n.format("classifications.more_options_format", classification.name)))
+                    .disabled(isEditing)
+                }
+            }
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            switch mode {
+            case .select:
+                toggleSelection()
+            case .manage:
+                if !isEditing, editingClassificationID != nil {
+                    onCancelEditing()
+                }
+            }
+        }
+    }
+
+    private func rename(to newName: String) {
+        let trimmed = newName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        classification.name = trimmed
+        onCancelEditing()
+        try? modelContext.save()
+    }
+
+    private func toggleSelection() {
+        if let index = selectedClassifications.firstIndex(where: { $0.id == classification.id }) {
+            selectedClassifications.remove(at: index)
+        } else {
+            selectedClassifications.append(classification)
+        }
     }
 }
 
