@@ -12,7 +12,7 @@ import SwiftData
 final class RoutineClassification: Identifiable {
     @Attribute(.unique) var id: UUID
     var name: String
-    @Attribute(.unique) var normalizedName: String
+    var normalizedName: String
     var routines: [Routine] = []
 
     init(id: UUID = UUID(), name: String) {
