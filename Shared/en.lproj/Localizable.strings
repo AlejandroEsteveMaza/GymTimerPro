@@ -144,3 +144,66 @@
 
 "classifications.rename.action" = "Rename…";
 "classifications.more_options_format" = "More options for %@";
+
+"progress.title" = "Progress";
+"progress.quick_workout_name" = "Quick workout";
+
+"progress.section.this_week" = "This week";
+"progress.summary.workouts" = "Workouts";
+"progress.summary.minutes" = "Minutes";
+"progress.summary.active_days" = "Active days";
+"progress.summary.total_workouts" = "Total workouts";
+"progress.summary.most_repeated" = "Most repeated routine";
+"progress.summary.top_classification" = "Top classification";
+
+"progress.goal.weekly" = "Weekly goal";
+"progress.goal.edit" = "Edit goals";
+"progress.goal.message.completed" = "Weekly goal completed.";
+"progress.goal.message.one_left" = "1 workout left to hit your goal.";
+"progress.goal.message.many_left_format" = "%ld workouts left to hit your goal.";
+"progress.goal.settings.title" = "Goal settings";
+"progress.goal.workouts_per_week" = "Workouts per week";
+"progress.goal.minutes_per_week" = "Minutes per week";
+"progress.goal.starts_on_monday" = "Week starts on Monday";
+"progress.accessibility.week_goal_format" = "Workouts this week: %ld of %ld";
+
+"progress.streak.title" = "Weekly streak";
+"progress.streak.weeks_format" = "%ld week streak";
+"progress.streak.subtitle" = "Consecutive weeks meeting your weekly goal.";
+
+"progress.period.title" = "Period";
+"progress.period.week" = "Week";
+"progress.period.fortnight" = "14 days";
+"progress.period.month" = "Month";
+"progress.period.quarter" = "Quarter";
+"progress.period.year" = "Year";
+
+"progress.chart.workouts.title" = "Workouts over time";
+"progress.chart.minutes.title" = "Minutes over time";
+"progress.chart.axis.workouts" = "Workouts";
+"progress.chart.axis.minutes" = "Minutes";
+"progress.chart.workouts.accessibility_value_format" = "%ld workouts";
+"progress.chart.minutes.accessibility_value_format" = "%ld minutes";
+
+"progress.calendar.title" = "This month";
+"progress.calendar.day.completed_format" = "%ld completed workout(s)";
+"progress.calendar.day.empty" = "No completed workout";
+
+"progress.section.activity" = "Recent activity";
+"progress.activity.empty" = "No completed workouts yet.";
+
+"progress.section.badges" = "Badges";
+"progress.badge.first_workout.title" = "First workout";
+"progress.badge.first_workout.subtitle" = "Complete your first workout.";
+"progress.badge.workouts_5.title" = "5 workouts";
+"progress.badge.workouts_5.subtitle" = "Complete 5 workouts.";
+"progress.badge.workouts_10.title" = "10 workouts";
+"progress.badge.workouts_10.subtitle" = "Complete 10 workouts.";
+"progress.badge.workouts_25.title" = "25 workouts";
+"progress.badge.workouts_25.subtitle" = "Complete 25 workouts.";
+"progress.badge.three_week.title" = "3 in a week";
+"progress.badge.three_week.subtitle" = "Complete 3 workouts in one week.";
+"progress.badge.streak_4.title" = "4-week streak";
+"progress.badge.streak_4.subtitle" = "Meet your weekly goal for 4 consecutive weeks.";
+"progress.badge.goal_week.title" = "Weekly goal done";
+"progress.badge.goal_week.subtitle" = "Hit your current weekly goal.";

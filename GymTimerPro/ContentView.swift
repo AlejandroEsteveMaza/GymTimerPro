@@ -29,6 +29,7 @@ struct ContentView: View {
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var purchaseManager: PurchaseManager
     @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
 
@@ -408,6 +409,7 @@ struct ContentView: View {
         restTimer.reset()
         liveActivityManager.end()
         liveActivityManager.cancelEndNotification()
+        recordWorkoutCompletion()
 
         withAnimation(.snappy) {
             completado = true
@@ -429,6 +431,20 @@ struct ContentView: View {
             serieActual = 1
             completado = false
         }
+    }
+
+    private func recordWorkoutCompletion() {
+        let completion = WorkoutCompletion(
+            completedAt: .now,
+            routineID: routineSelectionStore.selection?.id,
+            routineNameSnapshot: routineSelectionStore.selection?.name ?? L10n.tr("progress.quick_workout_name"),
+            classificationID: routineSelectionStore.selection?.classificationID,
+            classificationNameSnapshot: routineSelectionStore.selection?.classificationName,
+            durationSeconds: nil,
+            notes: nil
+        )
+        modelContext.insert(completion)
+        try? modelContext.save()
     }
 
     private func applyRoutineSelection(_ selection: RoutineSelectionStore.Selection?) {
@@ -806,7 +822,7 @@ private final class RestTimerModel: ObservableObject {
     ContentView()
         .environmentObject(PurchaseManager(startTasks: false))
         .environmentObject(RoutineSelectionStore())
-        .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
+        .modelContainer(for: [Routine.self, RoutineClassification.self, WorkoutCompletion.self, GoalSettings.self], inMemory: true)
 }
 
 enum Layout {

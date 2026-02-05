@@ -36,7 +36,12 @@ struct GymTimerProApp: App {
     }
 
     private static func makeModelContainer() -> ModelContainer {
-        let schema = Schema([Routine.self, RoutineClassification.self])
+        let schema = Schema([
+            Routine.self,
+            RoutineClassification.self,
+            WorkoutCompletion.self,
+            GoalSettings.self
+        ])
 
         // Use a stable on-disk URL so the fallback local-only config can open the same store file.
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]

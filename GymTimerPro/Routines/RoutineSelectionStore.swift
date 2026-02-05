@@ -16,17 +16,27 @@ final class RoutineSelectionStore: ObservableObject {
         let totalSets: Int
         let reps: Int
         let restSeconds: Int
+        let classificationID: UUID?
+        let classificationName: String?
     }
 
     @Published private(set) var selection: Selection?
 
     func apply(_ routine: Routine) {
+        let primaryClassification = routine.classifications
+            .sorted { lhs, rhs in
+                lhs.name.localizedCaseInsensitiveCompare(rhs.name) == .orderedAscending
+            }
+            .first
+
         selection = Selection(
             id: routine.id,
             name: routine.name,
             totalSets: routine.totalSets,
             reps: routine.reps,
-            restSeconds: routine.restSeconds
+            restSeconds: routine.restSeconds,
+            classificationID: primaryClassification?.id,
+            classificationName: primaryClassification?.name
         )
     }
 

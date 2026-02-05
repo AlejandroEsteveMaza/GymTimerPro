@@ -40,7 +40,7 @@ struct MainTabView: View {
 
             NavigationStack {
                 if purchaseManager.isPro {
-                    TabPlaceholderView(messageKey: "placeholder.coming_soon")
+                    ProgramProgressView()
                 } else {
                     LockedFeatureView(
                         titleKey: "pro.locked.progress.title",
@@ -136,5 +136,5 @@ private struct LockedFeatureView: View {
     MainTabView()
         .environmentObject(PurchaseManager(startTasks: false))
         .environmentObject(RoutineSelectionStore())
-        .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
+        .modelContainer(for: [Routine.self, RoutineClassification.self, WorkoutCompletion.self, GoalSettings.self], inMemory: true)
 }

@@ -144,3 +144,66 @@
 
 "classifications.rename.action" = "Cambiar nombre…";
 "classifications.more_options_format" = "Más opciones para %@";
+
+"progress.title" = "Progreso";
+"progress.quick_workout_name" = "Entrenamiento rápido";
+
+"progress.section.this_week" = "Esta semana";
+"progress.summary.workouts" = "Entrenos";
+"progress.summary.minutes" = "Minutos";
+"progress.summary.active_days" = "Días activos";
+"progress.summary.total_workouts" = "Entrenos totales";
+"progress.summary.most_repeated" = "Rutina más repetida";
+"progress.summary.top_classification" = "Clasificación principal";
+
+"progress.goal.weekly" = "Objetivo semanal";
+"progress.goal.edit" = "Editar objetivo";
+"progress.goal.message.completed" = "Objetivo semanal completado.";
+"progress.goal.message.one_left" = "Te falta 1 entreno para tu objetivo.";
+"progress.goal.message.many_left_format" = "Te faltan %ld entrenos para tu objetivo.";
+"progress.goal.settings.title" = "Configurar objetivos";
+"progress.goal.workouts_per_week" = "Entrenos por semana";
+"progress.goal.minutes_per_week" = "Minutos por semana";
+"progress.goal.starts_on_monday" = "La semana empieza en lunes";
+"progress.accessibility.week_goal_format" = "Entrenos esta semana: %ld de %ld";
+
+"progress.streak.title" = "Racha semanal";
+"progress.streak.weeks_format" = "Racha de %ld semanas";
+"progress.streak.subtitle" = "Semanas consecutivas cumpliendo tu objetivo semanal.";
+
+"progress.period.title" = "Periodo";
+"progress.period.week" = "Semana";
+"progress.period.fortnight" = "14 días";
+"progress.period.month" = "Mes";
+"progress.period.quarter" = "Trimestre";
+"progress.period.year" = "Año";
+
+"progress.chart.workouts.title" = "Entrenos en el tiempo";
+"progress.chart.minutes.title" = "Minutos en el tiempo";
+"progress.chart.axis.workouts" = "Entrenos";
+"progress.chart.axis.minutes" = "Minutos";
+"progress.chart.workouts.accessibility_value_format" = "%ld entrenos";
+"progress.chart.minutes.accessibility_value_format" = "%ld minutos";
+
+"progress.calendar.title" = "Este mes";
+"progress.calendar.day.completed_format" = "%ld entreno(s) completado(s)";
+"progress.calendar.day.empty" = "Sin entrenos completados";
+
+"progress.section.activity" = "Actividad reciente";
+"progress.activity.empty" = "Aún no hay entrenos completados.";
+
+"progress.section.badges" = "Medallas";
+"progress.badge.first_workout.title" = "Primer entreno";
+"progress.badge.first_workout.subtitle" = "Completa tu primer entreno.";
+"progress.badge.workouts_5.title" = "5 entrenos";
+"progress.badge.workouts_5.subtitle" = "Completa 5 entrenos.";
+"progress.badge.workouts_10.title" = "10 entrenos";
+"progress.badge.workouts_10.subtitle" = "Completa 10 entrenos.";
+"progress.badge.workouts_25.title" = "25 entrenos";
+"progress.badge.workouts_25.subtitle" = "Completa 25 entrenos.";
+"progress.badge.three_week.title" = "3 en una semana";
+"progress.badge.three_week.subtitle" = "Completa 3 entrenos en una semana.";
+"progress.badge.streak_4.title" = "Racha de 4 semanas";
+"progress.badge.streak_4.subtitle" = "Cumple tu objetivo semanal durante 4 semanas seguidas.";
+"progress.badge.goal_week.title" = "Objetivo semanal";
+"progress.badge.goal_week.subtitle" = "Cumple tu objetivo semanal actual.";
