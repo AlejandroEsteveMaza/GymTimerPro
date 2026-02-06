@@ -96,6 +96,7 @@ private struct ProgramProgressDerivedData: Sendable {
     let totalWorkouts: Int
     let weekSummary: ProgressWeekSummary
     let weeklyStreak: Int
+    let activeWeeklyStreak: Int
     let monthStart: Date
     let monthlyDayCounts: [Date: Int]
     let dayCompletions: [Date: [ProgressCompletionSnapshot]]
@@ -121,11 +122,17 @@ private enum ProgramProgressComputer {
             activeDays: Set(weekCompletions.map { calendar.startOfDay(for: $0.completedAt) }).count
         )
 
-        let streak = computeWeeklyStreak(
+        let weeklyGoalStreak = computeWeeklyStreak(
             completions: sortedDesc,
             calendar: calendar,
             now: now,
             goal: max(1, goal.weeklyWorkoutsGoal)
+        )
+        let activeWeeklyStreak = computeWeeklyStreak(
+            completions: sortedDesc,
+            calendar: calendar,
+            now: now,
+            goal: 1
         )
 
         let monthStart = calendar.dateInterval(of: .month, for: now)?.start ?? calendar.startOfDay(for: now)
@@ -151,7 +158,7 @@ private enum ProgramProgressComputer {
         let badges = buildBadges(
             completions: sortedDesc,
             weekSummary: weekSummary,
-            streak: streak,
+            streak: weeklyGoalStreak,
             goal: max(1, goal.weeklyWorkoutsGoal),
             calendar: calendar,
             now: now
@@ -160,7 +167,8 @@ private enum ProgramProgressComputer {
         return ProgramProgressDerivedData(
             totalWorkouts: sortedDesc.count,
             weekSummary: weekSummary,
-            weeklyStreak: streak,
+            weeklyStreak: weeklyGoalStreak,
+            activeWeeklyStreak: activeWeeklyStreak,
             monthStart: monthStart,
             monthlyDayCounts: monthlyDayCounts,
             dayCompletions: dayCompletions,
@@ -450,6 +458,7 @@ final class ProgramProgressStore {
     private(set) var totalWorkouts = 0
     private(set) var weekSummary = ProgressWeekSummary.empty
     private(set) var weeklyStreak = 0
+    private(set) var activeWeeklyStreak = 0
     private(set) var monthStart = Calendar.current.startOfDay(for: .now)
     private(set) var monthlyDayCounts: [Date: Int] = [:]
     private(set) var recentCompletions: [ProgressCompletionSnapshot] = []
@@ -522,6 +531,7 @@ final class ProgramProgressStore {
         totalWorkouts = derived.totalWorkouts
         weekSummary = derived.weekSummary
         weeklyStreak = derived.weeklyStreak
+        activeWeeklyStreak = derived.activeWeeklyStreak
         monthStart = derived.monthStart
         monthlyDayCounts = derived.monthlyDayCounts
         dayCompletions = derived.dayCompletions

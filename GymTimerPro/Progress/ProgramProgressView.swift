@@ -34,6 +34,7 @@ struct ProgramProgressView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
         }
+        .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
         .navigationTitle("progress.title")
         .task(id: reloadKey) {
             await store.reload(completions: completions, goalSettings: goalSettings.first)
@@ -192,7 +193,7 @@ struct ProgramProgressView: View {
     }
 
     private var periodSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        sectionCard {
             Text("progress.period.title")
                 .font(.headline)
             Picker("progress.period.title", selection: $selectedPeriod) {
@@ -205,17 +206,26 @@ struct ProgramProgressView: View {
     }
 
     private var chartsSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        sectionCard(alignment: .leading, spacing: 16) {
             Text("progress.chart.workouts.title")
                 .font(.headline)
 
             Chart(selectedSummary.workoutBuckets) { bucket in
-                BarMark(
+                LineMark(
                     x: .value("Bucket", bucket.startDate),
                     y: .value("Workouts", bucket.workouts)
                 )
-                .foregroundStyle(.blue.gradient)
-                .cornerRadius(4)
+                .interpolationMethod(.linear)
+                .foregroundStyle(.blue)
+                .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+
+                PointMark(
+                    x: .value("Bucket", bucket.startDate),
+                    y: .value("Workouts", bucket.workouts)
+                )
+                .symbol(.circle)
+                .symbolSize(42)
+                .foregroundStyle(.blue)
                 .accessibilityLabel(Text(bucket.startDate, format: .dateTime.day().month()))
                 .accessibilityValue(Text(L10n.format("progress.chart.workouts.accessibility_value_format", bucket.workouts)))
             }
@@ -257,13 +267,14 @@ struct ProgramProgressView: View {
     }
 
     private var calendarSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("progress.calendar.title")
+        sectionCard {
+            Text(store.monthStart, format: .dateTime.month(.wide).year())
                 .font(.headline)
             MonthlyCompletionCalendarView(
                 monthStart: store.monthStart,
                 dayCounts: store.monthlyDayCounts,
-                startsOnMonday: store.goal.startsOnMonday
+                startsOnMonday: store.goal.startsOnMonday,
+                activeWeeklyStreak: store.activeWeeklyStreak
             ) { day in
                 selectedDay = ProgressSelectedDay(date: day)
             }
@@ -271,37 +282,63 @@ struct ProgramProgressView: View {
     }
 
     private var activitySection: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        sectionCard {
             Text("progress.section.activity")
                 .font(.headline)
 
-            if store.recentCompletions.isEmpty {
+            if curatedRecentActivity.isEmpty {
                 Text("progress.activity.empty")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } else {
-                ForEach(Array(store.recentCompletions.prefix(12))) { completion in
-                    HStack(alignment: .firstTextBaseline, spacing: 12) {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                            .accessibilityHidden(true)
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(completion.routineName)
-                                .font(.subheadline.weight(.semibold))
-                            Text(completion.completedAt, format: .dateTime.day().month().hour().minute())
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                        Spacer()
+                HStack(spacing: 10) {
+                    ForEach(curatedRecentActivity) { item in
+                        activityCard(item)
                     }
-                    .padding(.vertical, 4)
+                    if curatedRecentActivity.count == 1 {
+                        Color.clear
+                            .frame(maxWidth: .infinity, minHeight: 78)
+                    }
                 }
             }
         }
     }
 
+    private var curatedRecentActivity: [ProgressRecentActivityItem] {
+        var rows: [ProgressRecentActivityItem] = []
+
+        if let latestClassification = store.recentCompletions.first(where: { completion in
+            guard let name = completion.classificationName else { return false }
+            return !name.isEmpty
+        }), let classificationName = latestClassification.classificationName {
+            rows.append(
+                ProgressRecentActivityItem(
+                    id: "classification-\(latestClassification.id.uuidString)",
+                    title: classificationName,
+                    date: latestClassification.completedAt,
+                    iconName: "tag.fill",
+                    iconColor: .orange
+                )
+            )
+        }
+
+        if let latestRoutine = store.recentCompletions.first {
+            rows.append(
+                ProgressRecentActivityItem(
+                    id: "routine-\(latestRoutine.id.uuidString)",
+                    title: latestRoutine.routineName,
+                    date: latestRoutine.completedAt,
+                    iconName: "figure.strengthtraining.traditional",
+                    iconColor: .green
+                )
+            )
+        }
+
+        return Array(rows.prefix(2))
+    }
+
     private var badgesSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        sectionCard {
             Text("progress.section.badges")
                 .font(.headline)
 
@@ -332,7 +369,45 @@ struct ProgramProgressView: View {
                 }
             }
         }
-        .padding(.bottom, 20)
+        .padding(.bottom, 6)
+    }
+
+    private func activityCard(_ item: ProgressRecentActivityItem) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Image(systemName: item.iconName)
+                    .foregroundStyle(item.iconColor)
+                    .accessibilityHidden(true)
+                Text(item.title)
+                    .font(.subheadline.weight(.semibold))
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
+            Text(item.date, format: .dateTime.day().month().hour().minute())
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, minHeight: 78, alignment: .leading)
+        .background(Color(uiColor: .secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+    }
+
+    private func sectionCard<Content: View>(
+        alignment: HorizontalAlignment = .leading,
+        spacing: CGFloat = 10,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(alignment: alignment, spacing: spacing) {
+            content()
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.background, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke(.quaternary, lineWidth: 1)
+        )
     }
 
     private func saveGoalSettings(
@@ -359,6 +434,14 @@ struct ProgramProgressView: View {
 private struct ProgressSelectedDay: Identifiable {
     let date: Date
     var id: Date { date }
+}
+
+private struct ProgressRecentActivityItem: Identifiable {
+    let id: String
+    let title: String
+    let date: Date
+    let iconName: String
+    let iconColor: Color
 }
 
 private struct GoalSettingsSheet: View {
@@ -428,6 +511,7 @@ private struct MonthlyCompletionCalendarView: View {
     let monthStart: Date
     let dayCounts: [Date: Int]
     let startsOnMonday: Bool
+    let activeWeeklyStreak: Int
     let onSelectDay: (Date) -> Void
 
     private var calendar: Calendar {
@@ -438,37 +522,29 @@ private struct MonthlyCompletionCalendarView: View {
     }
 
     var body: some View {
-        let days = calendarDays()
-        let columns = Array(repeating: GridItem(.flexible(), spacing: 6), count: 7)
+        let rows = weekRows()
 
-        LazyVGrid(columns: columns, spacing: 6) {
-            ForEach(weekdaySymbols(), id: \.self) { symbol in
-                Text(symbol)
+        VStack(spacing: 6) {
+            HStack(spacing: 6) {
+                ForEach(weekdaySymbols(), id: \.self) { symbol in
+                    Text(symbol)
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity)
+                }
+                Image(systemName: "flame")
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity)
+                    .accessibilityHidden(true)
             }
 
-            ForEach(days, id: \.id) { item in
-                if let date = item.date {
-                    let count = dayCounts[calendar.startOfDay(for: date), default: 0]
-                    Button {
-                        onSelectDay(date)
-                    } label: {
-                        Text("\(calendar.component(.day, from: date))")
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(count > 0 ? .white : .primary)
-                            .frame(maxWidth: .infinity, minHeight: 30)
-                            .background(
-                                Circle()
-                                    .fill(count > 0 ? Color.green : Color.clear)
-                            )
+            ForEach(rows.indices, id: \.self) { rowIndex in
+                HStack(spacing: 6) {
+                    ForEach(rows[rowIndex]) { item in
+                        dayCell(item)
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel(accessibilityLabel(for: date, count: count))
-                } else {
-                    Color.clear
-                        .frame(height: 30)
+                    weeklyIndicator(isCurrentWeek: isCurrentWeek(rows[rowIndex]))
                 }
             }
         }
@@ -481,6 +557,19 @@ private struct MonthlyCompletionCalendarView: View {
         return Array(symbols[start...] + symbols[..<start])
     }
 
+    private func weekRows() -> [[CalendarDayItem]] {
+        let items = calendarDays()
+        guard !items.isEmpty else { return [] }
+        var rows: [[CalendarDayItem]] = []
+        var index = 0
+        while index < items.count {
+            let end = min(index + 7, items.count)
+            rows.append(Array(items[index ..< end]))
+            index += 7
+        }
+        return rows
+    }
+
     private func calendarDays() -> [CalendarDayItem] {
         guard let monthInterval = calendar.dateInterval(of: .month, for: monthStart),
               let dayRange = calendar.range(of: .day, in: .month, for: monthStart)
@@ -490,17 +579,19 @@ private struct MonthlyCompletionCalendarView: View {
 
         let firstWeekday = calendar.component(.weekday, from: monthInterval.start)
         let leading = (firstWeekday - calendar.firstWeekday + 7) % 7
-        let total = leading + dayRange.count
-        let trailing = (7 - (total % 7)) % 7
-        let cellCount = total + trailing
+        let rawCells = leading + dayRange.count
+        let rowCount = max(5, Int(ceil(Double(rawCells) / 7.0)))
+        let cellCount = rowCount * 7
+        guard let firstVisibleDay = calendar.date(byAdding: .day, value: -leading, to: monthInterval.start) else {
+            return []
+        }
 
-        return (0 ..< cellCount).map { index in
-            let dayOffset = index - leading
-            guard dayOffset >= 0, dayOffset < dayRange.count else {
-                return CalendarDayItem(id: index, date: nil)
+        return (0 ..< cellCount).compactMap { index in
+            guard let date = calendar.date(byAdding: .day, value: index, to: firstVisibleDay) else {
+                return nil
             }
-            let date = calendar.date(byAdding: .day, value: dayOffset, to: monthInterval.start)
-            return CalendarDayItem(id: index, date: date)
+            let isCurrentMonth = calendar.isDate(date, equalTo: monthStart, toGranularity: .month)
+            return CalendarDayItem(id: index, date: date, isCurrentMonth: isCurrentMonth)
         }
     }
 
@@ -514,11 +605,129 @@ private struct MonthlyCompletionCalendarView: View {
             + Text(" ")
             + Text(date, format: .dateTime.day().month().year())
     }
+
+    @ViewBuilder
+    private func dayCell(_ item: CalendarDayItem) -> some View {
+        let count = dayCount(for: item.date)
+        let hasWorkout = count > 0
+        let today = calendar.startOfDay(for: .now)
+        let itemDay = calendar.startOfDay(for: item.date)
+        let isToday = calendar.isDate(itemDay, inSameDayAs: today)
+        let isPast = itemDay < today
+
+        Button {
+            if item.isCurrentMonth {
+                onSelectDay(item.date)
+            }
+        } label: {
+            Group {
+                if item.isCurrentMonth {
+                    ZStack {
+                        Circle()
+                            .fill(dayFillColor(isPast: isPast, isToday: isToday, hasWorkout: hasWorkout))
+                        Circle()
+                            .stroke(dayBorderColor(isPast: isPast, isToday: isToday, hasWorkout: hasWorkout), lineWidth: 1.5)
+                        if count > 0 {
+                            Image(systemName: "dumbbell.fill")
+                                .font(.caption2.weight(.semibold))
+                                .foregroundStyle(.primary)
+                        } else {
+                            Text("\(calendar.component(.day, from: item.date))")
+                                .font(.caption2.weight(.semibold))
+                                .foregroundStyle(.primary)
+                        }
+                    }
+                    .frame(width: 20, height: 20)
+                } else {
+                    Text("\(calendar.component(.day, from: item.date))")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .frame(maxWidth: .infinity, minHeight: 22)
+        }
+        .buttonStyle(.plain)
+        .disabled(!item.isCurrentMonth)
+        .accessibilityLabel(accessibilityLabel(for: item.date, count: count))
+    }
+
+    @ViewBuilder
+    private func weeklyIndicator(isCurrentWeek: Bool) -> some View {
+        let showsActiveStreak = isCurrentWeek && activeWeeklyStreak > 0
+
+        ZStack {
+            Circle()
+                .fill(.white)
+            Circle()
+                .stroke(showsActiveStreak ? .orange : .gray.opacity(0.5), lineWidth: 1.25)
+            if showsActiveStreak {
+                Text("\(activeWeeklyStreak)")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(.orange)
+            }
+        }
+        .overlay(alignment: .topTrailing) {
+            if showsActiveStreak {
+                Image(systemName: "flame.fill")
+                    .font(.system(size: 7, weight: .bold))
+                    .foregroundStyle(.orange)
+                    .offset(x: 3, y: -3)
+            }
+        }
+        .frame(width: 20, height: 20)
+        .frame(maxWidth: .infinity, minHeight: 22)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(
+            Text(
+                showsActiveStreak
+                    ? L10n.format("progress.streak.weeks_format", activeWeeklyStreak)
+                    : L10n.tr("progress.calendar.day.empty")
+            )
+        )
+    }
+
+    private func isCurrentWeek(_ week: [CalendarDayItem]) -> Bool {
+        let today = calendar.startOfDay(for: .now)
+        return week.contains { day in
+            calendar.isDate(calendar.startOfDay(for: day.date), inSameDayAs: today)
+        }
+    }
+
+    private func dayCount(for date: Date) -> Int {
+        dayCounts[calendar.startOfDay(for: date), default: 0]
+    }
+
+    private func dayBorderColor(isPast: Bool, isToday: Bool, hasWorkout: Bool) -> Color {
+        if isToday {
+            return .orange
+        }
+        if isPast, hasWorkout {
+            return .orange
+        }
+        if isPast {
+            return .gray.opacity(0.65)
+        }
+        return .gray.opacity(0.45)
+    }
+
+    private func dayFillColor(isPast: Bool, isToday: Bool, hasWorkout: Bool) -> Color {
+        if isToday {
+            return .clear
+        }
+        if isPast, hasWorkout {
+            return .white
+        }
+        if isPast {
+            return .gray.opacity(0.22)
+        }
+        return .clear
+    }
 }
 
 private struct CalendarDayItem: Identifiable {
     let id: Int
-    let date: Date?
+    let date: Date
+    let isCurrentMonth: Bool
 }
 
 #Preview {
