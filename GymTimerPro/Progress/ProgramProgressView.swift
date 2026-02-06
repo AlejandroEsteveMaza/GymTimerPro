@@ -10,22 +10,16 @@ import SwiftData
 import SwiftUI
 
 struct ProgramProgressView: View {
-    @Environment(\.modelContext) private var modelContext
     @Query(sort: [SortDescriptor(\WorkoutCompletion.completedAt, order: .reverse)]) private var completions: [WorkoutCompletion]
-    @Query(sort: [SortDescriptor(\GoalSettings.id, order: .forward)]) private var goalSettings: [GoalSettings]
 
     @State private var store = ProgramProgressStore()
     @State private var selectedPeriod: ProgressPeriod = .month
-    @State private var isPresentingGoalSettings = false
     @State private var selectedDay: ProgressSelectedDay?
+    private let chartCalendar = Calendar.current
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                summarySection
-                goalSection
-                streakSection
-                periodSection
                 chartsSection
                 calendarSection
                 activitySection
@@ -37,18 +31,12 @@ struct ProgramProgressView: View {
         .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
         .navigationTitle("progress.title")
         .task(id: reloadKey) {
-            await store.reload(completions: completions, goalSettings: goalSettings.first)
-        }
-        .sheet(isPresented: $isPresentingGoalSettings) {
-            GoalSettingsSheet(
-                goalSettings: goalSettings.first,
-                onSave: saveGoalSettings
-            )
+            await store.reload(completions: completions)
         }
         .sheet(item: $selectedDay) { day in
             NavigationStack {
                 List {
-                    ForEach(store.completions(on: day.date, startsOnMonday: store.goal.startsOnMonday)) { completion in
+                    ForEach(store.completions(on: day.date)) { completion in
                         VStack(alignment: .leading, spacing: 4) {
                             Text(completion.routineName)
                                 .font(.headline)
@@ -66,14 +54,10 @@ struct ProgramProgressView: View {
 
     private var reloadKey: String {
         let firstCompletion = completions.first
-        let goal = goalSettings.first
         return [
             "\(completions.count)",
             firstCompletion?.id.uuidString ?? "none",
-            "\(firstCompletion?.completedAt.timeIntervalSince1970 ?? 0)",
-            "\(goal?.weeklyWorkoutsGoal ?? 0)",
-            "\(goal?.weeklyMinutesGoal ?? 0)",
-            "\(goal?.startsOnMonday ?? false)"
+            "\(firstCompletion?.completedAt.timeIntervalSince1970 ?? 0)"
         ].joined(separator: "|")
     }
 
@@ -81,134 +65,22 @@ struct ProgramProgressView: View {
         store.summary(for: selectedPeriod)
     }
 
-    private var summarySection: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("progress.section.this_week")
-                .font(.headline)
-
-            Grid(horizontalSpacing: 10, verticalSpacing: 10) {
-                GridRow {
-                    summaryCard(
-                        titleKey: "progress.summary.workouts",
-                        valueText: "\(store.weekSummary.workouts)"
-                    )
-                    summaryCard(
-                        titleKey: "progress.summary.active_days",
-                        valueText: "\(store.weekSummary.activeDays)"
-                    )
-                }
-                GridRow {
-                    summaryCard(
-                        titleKey: "progress.summary.minutes",
-                        valueText: "\(store.weekSummary.minutes)"
-                    )
-                    summaryCard(
-                        titleKey: "progress.summary.total_workouts",
-                        valueText: "\(store.totalWorkouts)"
-                    )
-                }
-            }
-        }
-    }
-
-    private func summaryCard(titleKey: String, valueText: String) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(LocalizedStringKey(titleKey))
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            Text(valueText)
-                .font(.system(size: 24, weight: .bold, design: .rounded))
-                .foregroundStyle(.primary)
-                .minimumScaleFactor(0.8)
-        }
-        .frame(maxWidth: .infinity, minHeight: 84, alignment: .leading)
-        .padding(12)
-        .background(.background, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .stroke(.quaternary, lineWidth: 1)
-        )
-    }
-
-    private var goalSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Text("progress.goal.weekly")
-                    .font(.headline)
-                Spacer(minLength: 8)
-                Button("progress.goal.edit") {
-                    isPresentingGoalSettings = true
-                }
-                .font(.subheadline.weight(.semibold))
-            }
-
-            ProgressView(
-                value: min(Double(store.weekSummary.workouts), Double(store.goal.weeklyWorkoutsGoal)),
-                total: Double(store.goal.weeklyWorkoutsGoal)
-            )
-            .tint(.green)
-
-            Text("\(store.weekSummary.workouts)/\(store.goal.weeklyWorkoutsGoal)")
-                .font(.subheadline.weight(.semibold))
-            Text(store.goalMessage())
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-        }
-        .padding(14)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.background, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .stroke(.quaternary, lineWidth: 1)
-        )
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(
-            Text(
-                L10n.format(
-                    "progress.accessibility.week_goal_format",
-                    store.weekSummary.workouts,
-                    store.goal.weeklyWorkoutsGoal
-                )
-            )
-        )
-    }
-
-    private var streakSection: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("progress.streak.title")
-                .font(.headline)
-            Text(L10n.format("progress.streak.weeks_format", store.weeklyStreak))
-                .font(.title3.weight(.semibold))
-            Text("progress.streak.subtitle")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-        }
-        .padding(14)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.background, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                .stroke(.quaternary, lineWidth: 1)
-        )
-    }
-
-    private var periodSection: some View {
-        sectionCard {
-            Text("progress.period.title")
-                .font(.headline)
-            Picker("progress.period.title", selection: $selectedPeriod) {
-                ForEach(ProgressPeriod.allCases) { period in
-                    Text(LocalizedStringKey(period.titleKey)).tag(period)
-                }
-            }
-            .pickerStyle(.menu)
-        }
-    }
-
     private var chartsSection: some View {
         sectionCard(alignment: .leading, spacing: 16) {
-            Text("progress.chart.workouts.title")
-                .font(.headline)
+            HStack(alignment: .firstTextBaseline) {
+                Text("progress.chart.workouts.title")
+                    .font(.headline)
+                Spacer(minLength: 8)
+                Picker("progress.period.title", selection: $selectedPeriod) {
+                    ForEach(ProgressPeriod.allCases) { period in
+                        Text(LocalizedStringKey(period.titleKey)).tag(period)
+                    }
+                }
+                .pickerStyle(.menu)
+                .labelsHidden()
+                .font(.subheadline.weight(.semibold))
+                .accessibilityLabel(Text("progress.period.title"))
+            }
 
             Chart(selectedSummary.workoutBuckets) { bucket in
                 LineMark(
@@ -232,7 +104,27 @@ struct ProgramProgressView: View {
             .frame(height: 180)
             .chartYAxisLabel(L10n.tr("progress.chart.axis.workouts"), position: .leading)
             .chartXAxis {
-                AxisMarks(values: .automatic(desiredCount: 6))
+                if selectedPeriod == .quarter {
+                    AxisMarks(values: quarterXAxisValues) { value in
+                        AxisGridLine()
+                        AxisTick()
+                        AxisValueLabel {
+                            if let date = value.as(Date.self) {
+                                Text(xAxisLabel(for: date))
+                            }
+                        }
+                    }
+                } else {
+                    AxisMarks(values: xAxisValues) { value in
+                        AxisGridLine()
+                        AxisTick()
+                        AxisValueLabel {
+                            if let date = value.as(Date.self) {
+                                Text(xAxisLabel(for: date))
+                            }
+                        }
+                    }
+                }
             }
 
             if selectedSummary.hasDurationData {
@@ -251,7 +143,27 @@ struct ProgramProgressView: View {
                 .frame(height: 160)
                 .chartYAxisLabel(L10n.tr("progress.chart.axis.minutes"), position: .leading)
                 .chartXAxis {
-                    AxisMarks(values: .automatic(desiredCount: 6))
+                    if selectedPeriod == .quarter {
+                        AxisMarks(values: quarterXAxisValues) { value in
+                            AxisGridLine()
+                            AxisTick()
+                            AxisValueLabel {
+                                if let date = value.as(Date.self) {
+                                    Text(xAxisLabel(for: date))
+                                }
+                            }
+                        }
+                    } else {
+                        AxisMarks(values: xAxisValues) { value in
+                            AxisGridLine()
+                            AxisTick()
+                            AxisValueLabel {
+                                if let date = value.as(Date.self) {
+                                    Text(xAxisLabel(for: date))
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -273,7 +185,7 @@ struct ProgramProgressView: View {
             MonthlyCompletionCalendarView(
                 monthStart: store.monthStart,
                 dayCounts: store.monthlyDayCounts,
-                startsOnMonday: store.goal.startsOnMonday,
+                startsOnMonday: store.startsOnMonday,
                 activeWeeklyStreak: store.activeWeeklyStreak
             ) { day in
                 selectedDay = ProgressSelectedDay(date: day)
@@ -372,6 +284,59 @@ struct ProgramProgressView: View {
         .padding(.bottom, 6)
     }
 
+    private var xAxisValues: AxisMarkValues {
+        switch selectedPeriod {
+        case .week, .fortnight:
+            return .stride(by: .day, count: 2)
+        case .month:
+            return .stride(by: .weekOfYear)
+        case .quarter:
+            return .stride(by: .month)
+        case .year:
+            return .stride(by: .month)
+        }
+    }
+
+    private var quarterXAxisValues: [Date] {
+        let bucketDates = selectedSummary.workoutBuckets.map(\.startDate)
+        guard let first = bucketDates.first, let last = bucketDates.last,
+              let currentMonthStart = chartCalendar.dateInterval(of: .month, for: .now)?.start
+        else {
+            return []
+        }
+
+        let start = chartCalendar.startOfDay(for: first)
+        let end = chartCalendar.date(byAdding: .weekOfYear, value: 1, to: last) ?? last
+        let candidateMonths = [
+            chartCalendar.date(byAdding: .month, value: -2, to: currentMonthStart),
+            chartCalendar.date(byAdding: .month, value: -1, to: currentMonthStart),
+            currentMonthStart
+        ].compactMap { $0 }
+
+        let inRange = candidateMonths.filter { $0 >= start && $0 < end }
+        if !inRange.isEmpty {
+            return inRange
+        }
+
+        let monthStarts = Set(
+            bucketDates.compactMap { chartCalendar.dateInterval(of: .month, for: $0)?.start }
+        )
+        return monthStarts.sorted()
+    }
+
+    private func xAxisLabel(for date: Date) -> String {
+        switch selectedPeriod {
+        case .week, .fortnight:
+            return date.formatted(.dateTime.day())
+        case .month:
+            return "W\(chartCalendar.component(.weekOfYear, from: date))"
+        case .quarter:
+            return date.formatted(.dateTime.month(.abbreviated))
+        case .year:
+            return date.formatted(.dateTime.month(.abbreviated))
+        }
+    }
+
     private func activityCard(_ item: ProgressRecentActivityItem) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
@@ -410,25 +375,6 @@ struct ProgramProgressView: View {
         )
     }
 
-    private func saveGoalSettings(
-        weeklyWorkoutsGoal: Int,
-        weeklyMinutesGoal: Int,
-        startsOnMonday: Bool
-    ) {
-        if let current = goalSettings.first {
-            current.weeklyWorkoutsGoal = max(1, weeklyWorkoutsGoal)
-            current.weeklyMinutesGoal = max(0, weeklyMinutesGoal)
-            current.startsOnMonday = startsOnMonday
-        } else {
-            let newSettings = GoalSettings(
-                weeklyWorkoutsGoal: weeklyWorkoutsGoal,
-                weeklyMinutesGoal: weeklyMinutesGoal,
-                startsOnMonday: startsOnMonday
-            )
-            modelContext.insert(newSettings)
-        }
-        try? modelContext.save()
-    }
 }
 
 private struct ProgressSelectedDay: Identifiable {
@@ -442,69 +388,6 @@ private struct ProgressRecentActivityItem: Identifiable {
     let date: Date
     let iconName: String
     let iconColor: Color
-}
-
-private struct GoalSettingsSheet: View {
-    let goalSettings: GoalSettings?
-    let onSave: (Int, Int, Bool) -> Void
-
-    @Environment(\.dismiss) private var dismiss
-
-    @State private var weeklyWorkoutsGoal: Int
-    @State private var weeklyMinutesGoal: Int
-    @State private var startsOnMonday: Bool
-
-    init(
-        goalSettings: GoalSettings?,
-        onSave: @escaping (Int, Int, Bool) -> Void
-    ) {
-        self.goalSettings = goalSettings
-        self.onSave = onSave
-        _weeklyWorkoutsGoal = State(initialValue: goalSettings?.weeklyWorkoutsGoal ?? 3)
-        _weeklyMinutesGoal = State(initialValue: goalSettings?.weeklyMinutesGoal ?? 120)
-        _startsOnMonday = State(initialValue: goalSettings?.startsOnMonday ?? true)
-    }
-
-    var body: some View {
-        NavigationStack {
-            Form {
-                Stepper(
-                    value: $weeklyWorkoutsGoal,
-                    in: 1 ... 14
-                ) {
-                    LabeledContent("progress.goal.workouts_per_week") {
-                        Text("\(weeklyWorkoutsGoal)")
-                    }
-                }
-
-                Stepper(
-                    value: $weeklyMinutesGoal,
-                    in: 0 ... 1200,
-                    step: 10
-                ) {
-                    LabeledContent("progress.goal.minutes_per_week") {
-                        Text("\(weeklyMinutesGoal)")
-                    }
-                }
-
-                Toggle("progress.goal.starts_on_monday", isOn: $startsOnMonday)
-            }
-            .navigationTitle("progress.goal.settings.title")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("common.cancel") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("routines.save") {
-                        onSave(weeklyWorkoutsGoal, weeklyMinutesGoal, startsOnMonday)
-                        dismiss()
-                    }
-                }
-            }
-        }
-        .presentationDetents([.medium])
-    }
 }
 
 private struct MonthlyCompletionCalendarView: View {
@@ -614,9 +497,10 @@ private struct MonthlyCompletionCalendarView: View {
         let itemDay = calendar.startOfDay(for: item.date)
         let isToday = calendar.isDate(itemDay, inSameDayAs: today)
         let isPast = itemDay < today
+        let canOpenDetails = item.isCurrentMonth && hasWorkout
 
         Button {
-            if item.isCurrentMonth {
+            if canOpenDetails {
                 onSelectDay(item.date)
             }
         } label: {
@@ -630,7 +514,7 @@ private struct MonthlyCompletionCalendarView: View {
                         if count > 0 {
                             Image(systemName: "dumbbell.fill")
                                 .font(.caption2.weight(.semibold))
-                                .foregroundStyle(.primary)
+                                .foregroundStyle(.white)
                         } else {
                             Text("\(calendar.component(.day, from: item.date))")
                                 .font(.caption2.weight(.semibold))
@@ -647,7 +531,7 @@ private struct MonthlyCompletionCalendarView: View {
             .frame(maxWidth: .infinity, minHeight: 22)
         }
         .buttonStyle(.plain)
-        .disabled(!item.isCurrentMonth)
+        .disabled(!canOpenDetails)
         .accessibilityLabel(accessibilityLabel(for: item.date, count: count))
     }
 
@@ -655,26 +539,25 @@ private struct MonthlyCompletionCalendarView: View {
     private func weeklyIndicator(isCurrentWeek: Bool) -> some View {
         let showsActiveStreak = isCurrentWeek && activeWeeklyStreak > 0
 
-        ZStack {
-            Circle()
-                .fill(.white)
-            Circle()
-                .stroke(showsActiveStreak ? .orange : .gray.opacity(0.5), lineWidth: 1.25)
+        Group {
             if showsActiveStreak {
-                Text("\(activeWeeklyStreak)")
-                    .font(.caption2.weight(.semibold))
-                    .foregroundStyle(.orange)
+                HStack(spacing: 2) {
+                    Image(systemName: "flame.fill")
+                        .font(.system(size: 10, weight: .semibold))
+                    Text("\(activeWeeklyStreak)")
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                }
+                .foregroundStyle(.orange)
+            } else {
+                ZStack {
+                    Circle()
+                        .fill(.white)
+                    Circle()
+                        .stroke(.gray.opacity(0.5), lineWidth: 1.25)
+                }
+                .frame(width: 20, height: 20)
             }
         }
-        .overlay(alignment: .topTrailing) {
-            if showsActiveStreak {
-                Image(systemName: "flame.fill")
-                    .font(.system(size: 7, weight: .bold))
-                    .foregroundStyle(.orange)
-                    .offset(x: 3, y: -3)
-            }
-        }
-        .frame(width: 20, height: 20)
         .frame(maxWidth: .infinity, minHeight: 22)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(
@@ -711,11 +594,11 @@ private struct MonthlyCompletionCalendarView: View {
     }
 
     private func dayFillColor(isPast: Bool, isToday: Bool, hasWorkout: Bool) -> Color {
+        if hasWorkout {
+            return .blue
+        }
         if isToday {
             return .clear
-        }
-        if isPast, hasWorkout {
-            return .white
         }
         if isPast {
             return .gray.opacity(0.22)
@@ -734,5 +617,5 @@ private struct CalendarDayItem: Identifiable {
     NavigationStack {
         ProgramProgressView()
     }
-    .modelContainer(for: [Routine.self, RoutineClassification.self, WorkoutCompletion.self, GoalSettings.self], inMemory: true)
+    .modelContainer(for: [Routine.self, RoutineClassification.self, WorkoutCompletion.self], inMemory: true)
 }

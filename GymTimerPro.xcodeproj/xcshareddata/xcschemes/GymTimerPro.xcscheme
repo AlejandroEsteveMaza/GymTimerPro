@@ -77,6 +77,14 @@
             argument = "ui-testing-seed-routines"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "seed-progress-year-heavy"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "seed-progress-reset"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
       <StoreKitConfigurationFileReference
          identifier = "../../GymTimerPro/GymTimerPro.storekit">

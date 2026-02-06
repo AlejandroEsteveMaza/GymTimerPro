@@ -38,26 +38,6 @@ struct ProgressCompletionSnapshot: Identifiable, Hashable, Sendable {
     let durationSeconds: Int?
 }
 
-struct ProgressGoalSnapshot: Hashable, Sendable {
-    let weeklyWorkoutsGoal: Int
-    let weeklyMinutesGoal: Int
-    let startsOnMonday: Bool
-
-    static let `default` = ProgressGoalSnapshot(
-        weeklyWorkoutsGoal: 3,
-        weeklyMinutesGoal: 120,
-        startsOnMonday: true
-    )
-}
-
-struct ProgressWeekSummary: Hashable, Sendable {
-    let workouts: Int
-    let minutes: Int
-    let activeDays: Int
-
-    static let empty = ProgressWeekSummary(workouts: 0, minutes: 0, activeDays: 0)
-}
-
 struct ProgressChartBucket: Identifiable, Hashable, Sendable {
     let id: Date
     let startDate: Date
@@ -93,9 +73,6 @@ struct ProgressBadgeState: Identifiable, Hashable, Sendable {
 }
 
 private struct ProgramProgressDerivedData: Sendable {
-    let totalWorkouts: Int
-    let weekSummary: ProgressWeekSummary
-    let weeklyStreak: Int
     let activeWeeklyStreak: Int
     let monthStart: Date
     let monthlyDayCounts: [Date: Int]
@@ -108,26 +85,11 @@ private struct ProgramProgressDerivedData: Sendable {
 private enum ProgramProgressComputer {
     static func compute(
         completions: [ProgressCompletionSnapshot],
-        goal: ProgressGoalSnapshot,
         now: Date
     ) -> ProgramProgressDerivedData {
-        let calendar = makeCalendar(startsOnMonday: goal.startsOnMonday)
+        let calendar = makeCalendar(startsOnMonday: true)
         let sortedDesc = completions.sorted { $0.completedAt > $1.completedAt }
 
-        let weekInterval = calendar.dateInterval(of: .weekOfYear, for: now) ?? DateInterval(start: now, end: now)
-        let weekCompletions = sortedDesc.filter { weekInterval.contains($0.completedAt) }
-        let weekSummary = ProgressWeekSummary(
-            workouts: weekCompletions.count,
-            minutes: weekCompletions.compactMap(\.durationSeconds).reduce(0, +) / 60,
-            activeDays: Set(weekCompletions.map { calendar.startOfDay(for: $0.completedAt) }).count
-        )
-
-        let weeklyGoalStreak = computeWeeklyStreak(
-            completions: sortedDesc,
-            calendar: calendar,
-            now: now,
-            goal: max(1, goal.weeklyWorkoutsGoal)
-        )
         let activeWeeklyStreak = computeWeeklyStreak(
             completions: sortedDesc,
             calendar: calendar,
@@ -157,17 +119,11 @@ private enum ProgramProgressComputer {
         )
         let badges = buildBadges(
             completions: sortedDesc,
-            weekSummary: weekSummary,
-            streak: weeklyGoalStreak,
-            goal: max(1, goal.weeklyWorkoutsGoal),
-            calendar: calendar,
-            now: now
+            streak: activeWeeklyStreak,
+            calendar: calendar
         )
 
         return ProgramProgressDerivedData(
-            totalWorkouts: sortedDesc.count,
-            weekSummary: weekSummary,
-            weeklyStreak: weeklyGoalStreak,
             activeWeeklyStreak: activeWeeklyStreak,
             monthStart: monthStart,
             monthlyDayCounts: monthlyDayCounts,
@@ -307,11 +263,8 @@ private enum ProgramProgressComputer {
 
     private static func buildBadges(
         completions: [ProgressCompletionSnapshot],
-        weekSummary: ProgressWeekSummary,
         streak: Int,
-        goal: Int,
-        calendar: Calendar,
-        now: Date
+        calendar: Calendar
     ) -> [ProgressBadgeState] {
         let total = completions.count
         let has3InAnyWeek = hasAtLeastThreeWorkoutsInAWeek(completions: completions, calendar: calendar)
@@ -345,19 +298,13 @@ private enum ProgramProgressComputer {
                 id: "three_week",
                 titleKey: "progress.badge.three_week.title",
                 subtitleKey: "progress.badge.three_week.subtitle",
-                isUnlocked: has3InAnyWeek || weekSummary.workouts >= 3
+                isUnlocked: has3InAnyWeek
             ),
             ProgressBadgeState(
                 id: "streak_4",
                 titleKey: "progress.badge.streak_4.title",
                 subtitleKey: "progress.badge.streak_4.subtitle",
                 isUnlocked: streak >= 4
-            ),
-            ProgressBadgeState(
-                id: "goal_week",
-                titleKey: "progress.badge.goal_week.title",
-                subtitleKey: "progress.badge.goal_week.subtitle",
-                isUnlocked: weekSummary.workouts >= goal
             )
         ]
     }
@@ -379,23 +326,25 @@ private enum ProgramProgressComputer {
     }
 
     private static func dateInterval(for period: ProgressPeriod, now: Date, calendar: Calendar) -> DateInterval {
+        let todayStart = calendar.startOfDay(for: now)
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: todayStart) ?? now
         switch period {
         case .week:
-            return calendar.dateInterval(of: .weekOfYear, for: now) ?? DateInterval(start: now, end: now)
+            let start = calendar.date(byAdding: .day, value: -7, to: todayStart) ?? todayStart
+            return DateInterval(start: start, end: tomorrow)
         case .fortnight:
-            let end = (calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: now)) ?? now)
-            let start = calendar.date(byAdding: .day, value: -13, to: calendar.startOfDay(for: now)) ?? now
-            return DateInterval(start: start, end: end)
+            let start = calendar.date(byAdding: .day, value: -14, to: todayStart) ?? todayStart
+            return DateInterval(start: start, end: tomorrow)
         case .month:
             return calendar.dateInterval(of: .month, for: now) ?? DateInterval(start: now, end: now)
         case .quarter:
-            let end = (calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: now)) ?? now)
-            let start = calendar.date(byAdding: .month, value: -3, to: end) ?? now
+            let currentWeekStart = calendar.dateInterval(of: .weekOfYear, for: todayStart)?.start ?? todayStart
+            let start = calendar.date(byAdding: .weekOfYear, value: -11, to: currentWeekStart) ?? currentWeekStart
+            let end = calendar.date(byAdding: .weekOfYear, value: 1, to: currentWeekStart) ?? tomorrow
             return DateInterval(start: start, end: end)
         case .year:
-            let end = (calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: now)) ?? now)
-            let start = calendar.date(byAdding: .year, value: -1, to: end) ?? now
-            return DateInterval(start: start, end: end)
+            let start = calendar.date(byAdding: .year, value: -1, to: tomorrow) ?? now
+            return DateInterval(start: start, end: tomorrow)
         }
     }
 
@@ -414,10 +363,19 @@ private enum ProgramProgressComputer {
                 pointer = next
             }
             return values
-        case .month, .quarter:
+        case .month:
             var values: [Date] = []
             var pointer = calendar.dateInterval(of: .weekOfYear, for: interval.start)?.start ?? interval.start
             while pointer < interval.end {
+                values.append(pointer)
+                guard let next = calendar.date(byAdding: .weekOfYear, value: 1, to: pointer) else { break }
+                pointer = next
+            }
+            return values
+        case .quarter:
+            var values: [Date] = []
+            var pointer = calendar.dateInterval(of: .weekOfYear, for: interval.start)?.start ?? interval.start
+            for _ in 0 ..< 12 {
                 values.append(pointer)
                 guard let next = calendar.date(byAdding: .weekOfYear, value: 1, to: pointer) else { break }
                 pointer = next
@@ -454,10 +412,7 @@ private enum ProgramProgressComputer {
 @MainActor
 @Observable
 final class ProgramProgressStore {
-    private(set) var goal = ProgressGoalSnapshot.default
-    private(set) var totalWorkouts = 0
-    private(set) var weekSummary = ProgressWeekSummary.empty
-    private(set) var weeklyStreak = 0
+    let startsOnMonday = true
     private(set) var activeWeeklyStreak = 0
     private(set) var monthStart = Calendar.current.startOfDay(for: .now)
     private(set) var monthlyDayCounts: [Date: Int] = [:]
@@ -473,31 +428,15 @@ final class ProgramProgressStore {
         periodSummaries[period] ?? .empty
     }
 
-    func completions(on day: Date, startsOnMonday: Bool) -> [ProgressCompletionSnapshot] {
+    func completions(on day: Date) -> [ProgressCompletionSnapshot] {
         var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = Locale.current
         calendar.firstWeekday = startsOnMonday ? 2 : 1
         let dayStart = calendar.startOfDay(for: day)
         return dayCompletions[dayStart] ?? []
     }
 
-    func goalMessage() -> String {
-        let remaining = max(goal.weeklyWorkoutsGoal - weekSummary.workouts, 0)
-        if remaining == 0 {
-            return L10n.tr("progress.goal.message.completed")
-        }
-        if remaining == 1 {
-            return L10n.tr("progress.goal.message.one_left")
-        }
-        return L10n.format("progress.goal.message.many_left_format", remaining)
-    }
-
-    func reload(completions: [WorkoutCompletion], goalSettings: GoalSettings?, now: Date = .now) async {
-        let goalSnapshot = ProgressGoalSnapshot(
-            weeklyWorkoutsGoal: max(1, goalSettings?.weeklyWorkoutsGoal ?? 3),
-            weeklyMinutesGoal: max(0, goalSettings?.weeklyMinutesGoal ?? 120),
-            startsOnMonday: goalSettings?.startsOnMonday ?? true
-        )
-
+    func reload(completions: [WorkoutCompletion], now: Date = .now) async {
         let snapshots = completions.map { completion in
             ProgressCompletionSnapshot(
                 id: completion.id,
@@ -513,7 +452,7 @@ final class ProgramProgressStore {
         }
         .sorted { $0.completedAt > $1.completedAt }
 
-        let newSignature = signatureFor(snapshots: snapshots, goal: goalSnapshot)
+        let newSignature = signatureFor(snapshots: snapshots)
         guard newSignature != signature else { return }
 
         signature = newSignature
@@ -522,15 +461,10 @@ final class ProgramProgressStore {
         let derived = await Task.detached(priority: .userInitiated) {
             ProgramProgressComputer.compute(
                 completions: snapshots,
-                goal: goalSnapshot,
                 now: now
             )
         }.value
 
-        goal = goalSnapshot
-        totalWorkouts = derived.totalWorkouts
-        weekSummary = derived.weekSummary
-        weeklyStreak = derived.weeklyStreak
         activeWeeklyStreak = derived.activeWeeklyStreak
         monthStart = derived.monthStart
         monthlyDayCounts = derived.monthlyDayCounts
@@ -541,10 +475,7 @@ final class ProgramProgressStore {
         isLoading = false
     }
 
-    private func signatureFor(
-        snapshots: [ProgressCompletionSnapshot],
-        goal: ProgressGoalSnapshot
-    ) -> String {
+    private func signatureFor(snapshots: [ProgressCompletionSnapshot]) -> String {
         let first = snapshots.first
         let last = snapshots.last
         return [
@@ -552,10 +483,7 @@ final class ProgramProgressStore {
             first?.id.uuidString ?? "none",
             "\(first?.completedAt.timeIntervalSince1970 ?? 0)",
             last?.id.uuidString ?? "none",
-            "\(last?.completedAt.timeIntervalSince1970 ?? 0)",
-            "\(goal.weeklyWorkoutsGoal)",
-            "\(goal.weeklyMinutesGoal)",
-            "\(goal.startsOnMonday)"
+            "\(last?.completedAt.timeIntervalSince1970 ?? 0)"
         ].joined(separator: "|")
     }
 }

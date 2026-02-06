@@ -148,11 +148,6 @@
 "progress.title" = "Progreso";
 "progress.quick_workout_name" = "Entrenamiento rápido";
 
-"progress.section.this_week" = "Esta semana";
-"progress.summary.workouts" = "Entrenos";
-"progress.summary.minutes" = "Minutos";
-"progress.summary.active_days" = "Días activos";
-"progress.summary.total_workouts" = "Entrenos totales";
 "progress.summary.most_repeated" = "Rutina más repetida";
 "progress.summary.top_classification" = "Clasificación principal";
 

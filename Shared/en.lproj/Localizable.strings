@@ -148,11 +148,6 @@
 "progress.title" = "Progress";
 "progress.quick_workout_name" = "Quick workout";
 
-"progress.section.this_week" = "This week";
-"progress.summary.workouts" = "Workouts";
-"progress.summary.minutes" = "Minutes";
-"progress.summary.active_days" = "Active days";
-"progress.summary.total_workouts" = "Total workouts";
 "progress.summary.most_repeated" = "Most repeated routine";
 "progress.summary.top_classification" = "Top classification";
 

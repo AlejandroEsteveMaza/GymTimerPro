@@ -23,7 +23,13 @@ struct GymTimerProApp: App {
     @StateObject private var routineSelectionStore = RoutineSelectionStore()
 
     init() {
-        self.modelContainer = Self.makeModelContainer()
+        let container = Self.makeModelContainer()
+        self.modelContainer = container
+#if DEBUG
+        Task { @MainActor in
+            ProgressDebugSeeder.runIfNeeded(modelContainer: container)
+        }
+#endif
     }
 
     var body: some Scene {
