@@ -98,6 +98,11 @@ final class RoutinesStore: ObservableObject {
         routines = (try? modelContext.fetch(descriptor)) ?? []
     }
 
+    private func fetchClassifications() -> [RoutineClassification] {
+        guard let modelContext else { return [] }
+        return (try? modelContext.fetch(FetchDescriptor<RoutineClassification>())) ?? []
+    }
+
     func create(from draft: RoutineDraft) {
         guard let modelContext else { return }
         let routine = Routine(
@@ -175,22 +180,41 @@ final class RoutinesStore: ObservableObject {
 
     private func seedSampleRoutines() {
         guard let modelContext else { return }
+
+        // Clasificaciones para el seed UI.
+        let classificationNames = ["Fuerza", "Hipertrofia", "Resistencia", "Movilidad"]
+        var classifications: [String: RoutineClassification] = [:]
+
+        // Cargar todas las clasificaciones una vez y reusar si ya existen.
+        let existingClassifications = fetchClassifications()
+        for name in classificationNames {
+            let normalized = RoutineClassification.normalize(name)
+            if let existing = existingClassifications.first(where: { $0.normalizedName == normalized }) {
+                classifications[name] = existing
+                continue
+            }
+            let created = RoutineClassification(name: name)
+            modelContext.insert(created)
+            classifications[name] = created
+        }
+
         let samples: [Routine] = [
-            Routine(name: "Fuerza - Basico", totalSets: 5, reps: 5, restSeconds: 120, weightKg: 60),
-            Routine(name: "Hipertrofia", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 22.5),
-            Routine(name: "Calistenia", totalSets: 6, reps: 12, restSeconds: 60, weightKg: nil),
-            Routine(name: "Pierna - Fuerza", totalSets: 5, reps: 5, restSeconds: 150, weightKg: 80),
-            Routine(name: "Torso - Fuerza", totalSets: 5, reps: 6, restSeconds: 120, weightKg: 70),
-            Routine(name: "Full Body", totalSets: 4, reps: 8, restSeconds: 90, weightKg: 35),
-            Routine(name: "Empuje (Push)", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 25),
-            Routine(name: "Tiron (Pull)", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 25),
-            Routine(name: "Core", totalSets: 3, reps: 15, restSeconds: 60, weightKg: nil),
-            Routine(name: "HIIT", totalSets: 10, reps: 20, restSeconds: 30, weightKg: nil),
-            Routine(name: "Resistencia", totalSets: 8, reps: 15, restSeconds: 45, weightKg: nil),
-            Routine(name: "Deload", totalSets: 3, reps: 8, restSeconds: 120, weightKg: 20),
-            Routine(name: "Movilidad", totalSets: 4, reps: 12, restSeconds: 30, weightKg: nil),
-            Routine(name: "Brazos", totalSets: 4, reps: 12, restSeconds: 75, weightKg: 15)
+            Routine(name: "Fuerza - Basico", totalSets: 5, reps: 5, restSeconds: 120, weightKg: 60, classifications: [classifications["Fuerza"]!]),
+            Routine(name: "Hipertrofia", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 22.5, classifications: [classifications["Hipertrofia"]!]),
+            Routine(name: "Calistenia", totalSets: 6, reps: 12, restSeconds: 60, weightKg: nil), // sin clasificación
+            Routine(name: "Pierna - Fuerza", totalSets: 5, reps: 5, restSeconds: 150, weightKg: 80, classifications: [classifications["Fuerza"]!]),
+            Routine(name: "Torso - Fuerza", totalSets: 5, reps: 6, restSeconds: 120, weightKg: 70, classifications: [classifications["Fuerza"]!]),
+            Routine(name: "Full Body", totalSets: 4, reps: 8, restSeconds: 90, weightKg: 35), // sin clasificación
+            Routine(name: "Empuje (Push)", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 25, classifications: [classifications["Hipertrofia"]!]),
+            Routine(name: "Tiron (Pull)", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 25, classifications: [classifications["Hipertrofia"]!]),
+            Routine(name: "Core", totalSets: 3, reps: 15, restSeconds: 60, weightKg: nil, classifications: [classifications["Movilidad"]!]),
+            Routine(name: "HIIT", totalSets: 10, reps: 20, restSeconds: 30, weightKg: nil, classifications: [classifications["Resistencia"]!]),
+            Routine(name: "Resistencia", totalSets: 8, reps: 15, restSeconds: 45, weightKg: nil, classifications: [classifications["Resistencia"]!]),
+            Routine(name: "Deload", totalSets: 3, reps: 8, restSeconds: 120, weightKg: 20, classifications: [classifications["Fuerza"]!]),
+            Routine(name: "Movilidad", totalSets: 4, reps: 12, restSeconds: 30, weightKg: nil, classifications: [classifications["Movilidad"]!]),
+            Routine(name: "Brazos", totalSets: 4, reps: 12, restSeconds: 75, weightKg: 15, classifications: [classifications["Hipertrofia"]!])
         ]
+
         samples.forEach { modelContext.insert($0) }
         try? modelContext.save()
         refresh()
