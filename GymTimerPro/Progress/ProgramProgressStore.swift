@@ -83,7 +83,7 @@ private struct ProgramProgressDerivedData: Sendable {
 }
 
 private enum ProgramProgressComputer {
-    static func compute(
+    nonisolated static func compute(
         completions: [ProgressCompletionSnapshot],
         now: Date
     ) -> ProgramProgressDerivedData {
@@ -134,14 +134,14 @@ private enum ProgramProgressComputer {
         )
     }
 
-    private static func makeCalendar(startsOnMonday: Bool) -> Calendar {
+    nonisolated private static func makeCalendar(startsOnMonday: Bool) -> Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.locale = Locale.current
         calendar.firstWeekday = startsOnMonday ? 2 : 1
         return calendar
     }
 
-    private static func computeWeeklyStreak(
+    nonisolated private static func computeWeeklyStreak(
         completions: [ProgressCompletionSnapshot],
         calendar: Calendar,
         now: Date,
@@ -167,7 +167,7 @@ private enum ProgramProgressComputer {
         return streak
     }
 
-    private static func buildPeriodSummary(
+    nonisolated private static func buildPeriodSummary(
         for period: ProgressPeriod,
         completions: [ProgressCompletionSnapshot],
         now: Date,
@@ -261,7 +261,7 @@ private enum ProgramProgressComputer {
         )
     }
 
-    private static func buildBadges(
+    nonisolated private static func buildBadges(
         completions: [ProgressCompletionSnapshot],
         streak: Int,
         calendar: Calendar
@@ -309,7 +309,7 @@ private enum ProgramProgressComputer {
         ]
     }
 
-    private static func hasAtLeastThreeWorkoutsInAWeek(
+    nonisolated private static func hasAtLeastThreeWorkoutsInAWeek(
         completions: [ProgressCompletionSnapshot],
         calendar: Calendar
     ) -> Bool {
@@ -325,7 +325,7 @@ private enum ProgramProgressComputer {
         return counts.values.contains(where: { $0 >= 3 })
     }
 
-    private static func dateInterval(for period: ProgressPeriod, now: Date, calendar: Calendar) -> DateInterval {
+    nonisolated private static func dateInterval(for period: ProgressPeriod, now: Date, calendar: Calendar) -> DateInterval {
         let todayStart = calendar.startOfDay(for: now)
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: todayStart) ?? now
         switch period {
@@ -348,7 +348,7 @@ private enum ProgramProgressComputer {
         }
     }
 
-    private static func makeBucketStarts(
+    nonisolated private static func makeBucketStarts(
         for period: ProgressPeriod,
         in interval: DateInterval,
         calendar: Calendar
@@ -393,7 +393,7 @@ private enum ProgramProgressComputer {
         }
     }
 
-    private static func bucketStart(
+    nonisolated private static func bucketStart(
         for date: Date,
         period: ProgressPeriod,
         calendar: Calendar

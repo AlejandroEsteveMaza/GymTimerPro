@@ -77,8 +77,19 @@ struct GymTimerProApp: App {
                 logger.info("SwiftData ModelContainer initialized local-only.")
                 return container
             } catch {
-                // This should be extremely rare (e.g. disk full / corrupted store) and is not recoverable.
-                fatalError("Unable to create SwiftData ModelContainer: \(error)")
+                logger.error("SwiftData local store failed. Falling back to in-memory. Error: \(String(describing: error))")
+                do {
+                    let memoryConfig = ModelConfiguration(
+                        schema: schema,
+                        isStoredInMemoryOnly: true
+                    )
+                    let container = try ModelContainer(for: schema, configurations: [memoryConfig])
+                    logger.info("SwiftData ModelContainer initialized in-memory.")
+                    return container
+                } catch {
+                    // This should be extremely rare (e.g. disk full / corrupted store) and is not recoverable.
+                    fatalError("Unable to create SwiftData ModelContainer: \(error)")
+                }
             }
         }
     }

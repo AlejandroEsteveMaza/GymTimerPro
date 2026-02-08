@@ -247,22 +247,24 @@ struct PaywallView: View {
             selectedProductID = product.id
         } label: {
             VStack(alignment: .leading, spacing: 8) {
-                HStack(alignment: .firstTextBaseline, spacing: 10) {
+                HStack(alignment: .top, spacing: 10) {
                     Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                         .font(.title3.weight(.semibold))
                         .foregroundStyle(isSelected ? accentColor : .secondary)
 
-                    Text(planLabel)
-                        .font(.headline)
-                        .foregroundStyle(.primary)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(planLabel)
+                            .font(.headline)
+                            .foregroundStyle(.primary)
 
-                    if let badge {
-                        Text(badge)
-                            .font(.caption2.weight(.semibold))
-                            .foregroundStyle(accentColor)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 3)
-                            .background(accentColor.opacity(0.14), in: Capsule())
+                        if let badge {
+                            Text(badge)
+                                .font(.caption2.weight(.semibold))
+                                .foregroundStyle(accentColor)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(accentColor.opacity(0.14), in: Capsule())
+                        }
                     }
 
                     Spacer(minLength: 0)
@@ -328,14 +330,14 @@ struct PaywallView: View {
 
     private var linksSection: some View {
         VStack(spacing: 10) {
-            Button("Restaurar compras") {
+            Button(L10n.tr("paywall.button.restore")) {
                 Task { await restore() }
             }
             .buttonStyle(.plain)
             .disabled(isProcessing)
 
             if let manageURL {
-                Button("Gestionar suscripción") {
+                Button(L10n.tr("paywall.button.manage")) {
                     openURL(manageURL)
                 }
                 .buttonStyle(.plain)
@@ -344,7 +346,7 @@ struct PaywallView: View {
 
             HStack(spacing: 16) {
                 if let termsURL {
-                    Button("Términos") {
+                    Button(L10n.tr("paywall.button.terms")) {
                         openURL(termsURL)
                     }
                     .buttonStyle(.plain)
@@ -352,7 +354,7 @@ struct PaywallView: View {
                 }
 
                 if let privacyURL {
-                    Button("Privacidad") {
+                    Button(L10n.tr("paywall.button.privacy")) {
                         openURL(privacyURL)
                     }
                     .buttonStyle(.plain)
@@ -386,11 +388,11 @@ struct PaywallView: View {
         let monthlyPeriod = trialPeriodIfFree(monthlyProduct?.subscription?.introductoryOffer)
 
         if let annualPeriod, let monthlyPeriod, isSamePeriod(annualPeriod, monthlyPeriod) {
-            return "Incluye \(periodText(for: annualPeriod)) gratis."
+            return L10n.format("paywall.trial_incentive_format", periodText(for: annualPeriod))
         }
 
         if let period = annualPeriod ?? monthlyPeriod {
-            return "Incluye \(periodText(for: period)) gratis."
+            return L10n.format("paywall.trial_incentive_format", periodText(for: period))
         }
 
         return nil
@@ -451,7 +453,7 @@ struct PaywallView: View {
         do {
             try await purchaseManager.restorePurchases()
             if !purchaseManager.isPro {
-                infoMessage = "No hay compras para restaurar."
+                infoMessage = L10n.tr("paywall.restore.no_purchases")
             }
         } catch {
             self.error = .unknown
@@ -485,10 +487,6 @@ struct PaywallView: View {
         "\(product.displayPrice)/\(periodShortText(for: product))"
     }
 
-    private func renewalLine(for product: Product) -> String {
-        "Luego \(product.displayPrice)/\(periodShortText(for: product))."
-    }
-
     private enum PlanKind {
         case yearly
         case monthly
@@ -511,34 +509,62 @@ struct PaywallView: View {
 
     private func periodShortText(for product: Product) -> String {
         guard let period = product.subscription?.subscriptionPeriod else {
-            return "período"
+            return L10n.tr("paywall.period.generic")
         }
-        switch period.unit {
-        case .day:
-            return period.value == 1 ? "día" : "\(period.value) días"
-        case .week:
-            return period.value == 1 ? "semana" : "\(period.value) semanas"
-        case .month:
-            return period.value == 1 ? "mes" : "\(period.value) meses"
-        case .year:
-            return period.value == 1 ? "año" : "\(period.value) años"
-        @unknown default:
-            return "período"
+        if period.value == 1 {
+            return periodUnitText(for: period.unit)
         }
+        return formattedPeriod(value: period.value, unit: period.unit)
+            ?? L10n.tr("paywall.period.generic")
     }
 
     private func periodText(for period: Product.SubscriptionPeriod) -> String {
-        switch period.unit {
-        case .day:
-            return period.value == 1 ? "1 día" : "\(period.value) días"
-        case .week:
-            return period.value == 1 ? "1 semana" : "\(period.value) semanas"
-        case .month:
-            return period.value == 1 ? "1 mes" : "\(period.value) meses"
-        case .year:
-            return period.value == 1 ? "1 año" : "\(period.value) años"
-        @unknown default:
-            return "Período limitado"
+        formattedPeriod(value: period.value, unit: period.unit)
+            ?? L10n.tr("paywall.period.generic")
+    }
+
+    private func periodUnitText(for unit: Product.SubscriptionPeriod.Unit) -> String {
+        let formatted = formattedPeriod(value: 1, unit: unit) ?? L10n.tr("paywall.period.generic")
+        let localizedOne = NumberFormatter.localizedString(from: 1 as NSNumber, number: .none)
+        let trimmed = formatted.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.hasPrefix(localizedOne) {
+            let withoutNumber = trimmed.dropFirst(localizedOne.count).trimmingCharacters(in: .whitespacesAndNewlines)
+            if !withoutNumber.isEmpty {
+                return String(withoutNumber)
+            }
         }
+        let withoutDigits = trimmed.unicodeScalars.filter { !CharacterSet.decimalDigits.contains($0) }
+        let collapsed = String(String.UnicodeScalarView(withoutDigits)).trimmingCharacters(in: .whitespacesAndNewlines)
+        return collapsed.isEmpty ? formatted : collapsed
+    }
+
+    private func formattedPeriod(
+        value: Int,
+        unit: Product.SubscriptionPeriod.Unit
+    ) -> String? {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .full
+        formatter.maximumUnitCount = 1
+        formatter.zeroFormattingBehavior = .dropAll
+        formatter.calendar = Calendar.current
+
+        var components = DateComponents()
+        switch unit {
+        case .day:
+            components.day = value
+            formatter.allowedUnits = [.day]
+        case .week:
+            components.weekOfYear = value
+            formatter.allowedUnits = [.weekOfYear]
+        case .month:
+            components.month = value
+            formatter.allowedUnits = [.month]
+        case .year:
+            components.year = value
+            formatter.allowedUnits = [.year]
+        @unknown default:
+            return nil
+        }
+        return formatter.string(from: components)
     }
 }

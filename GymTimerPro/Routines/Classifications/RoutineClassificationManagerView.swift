@@ -84,7 +84,7 @@ struct RoutineClassificationManagerView: View {
             }
         }
         .searchable(text: $searchText, prompt: Text("classifications.search.placeholder"))
-        .onChange(of: focusedClassificationID) { newValue in
+        .onChange(of: focusedClassificationID) { _, newValue in
             if newValue == nil, editingClassificationID != nil {
                 if isSwitchingEdit {
                     isSwitchingEdit = false
@@ -95,7 +95,7 @@ struct RoutineClassificationManagerView: View {
                 isSwitchingEdit = false
             }
         }
-        .onChange(of: isCreateFocused) { newValue in
+        .onChange(of: isCreateFocused) { _, newValue in
             if !newValue, isCreating {
                 cancelCreate()
             }

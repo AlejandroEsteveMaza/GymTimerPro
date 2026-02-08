@@ -62,49 +62,49 @@ struct PaywallCopy: Equatable, Sendable {
         switch entryPoint {
         case .proModule:
             return PaywallCopy(
-                title: "Desbloquea tu modo Pro",
-                subtitle: "Rutinas, progreso y ajustes sin límites.",
-                benefitsTitle: "Beneficios clave",
+                title: L10n.tr("paywall.copy.light.pro.title"),
+                subtitle: L10n.tr("paywall.copy.light.pro.subtitle"),
+                benefitsTitle: L10n.tr("paywall.copy.light.pro.benefits_title"),
                 bullets: [
-                    "Entrena sin cortes por límite diario.",
-                    "Guarda rutinas y repítelas en segundos.",
-                    "Mide progreso para mantener constancia."
+                    L10n.tr("paywall.copy.light.pro.bullet_1"),
+                    L10n.tr("paywall.copy.light.pro.bullet_2"),
+                    L10n.tr("paywall.copy.light.pro.bullet_3")
                 ],
-                plansTitle: "Elige plan",
-                annualLabel: "Anual",
-                annualBadge: "Mejor valor",
-                monthlyLabel: "Mensual",
+                plansTitle: L10n.tr("paywall.copy.light.pro.plans_title"),
+                annualLabel: L10n.tr("paywall.copy.light.pro.annual_label"),
+                annualBadge: L10n.tr("paywall.copy.light.pro.annual_badge"),
+                monthlyLabel: L10n.tr("paywall.copy.light.pro.monthly_label"),
                 monthlyBadge: nil,
-                ctaPrimary: "Empezar gratis",
-                ctaSecondary: "Ahora no",
+                ctaPrimary: L10n.tr("paywall.copy.light.pro.cta_primary"),
+                ctaSecondary: L10n.tr("paywall.copy.light.pro.cta_secondary"),
                 ctaSecondaryAction: .dismiss,
-                trustLine: "Cancela cuando quieras desde tu Apple ID.",
-                legalLine1: "Suscripción auto-renovable con prueba de 2 semanas.",
-                legalLine2: "Luego se cobra el plan elegido hasta que canceles.",
+                trustLine: L10n.tr("paywall.copy.light.pro.trust"),
+                legalLine1: L10n.tr("paywall.copy.light.pro.legal1"),
+                legalLine2: L10n.tr("paywall.copy.light.pro.legal2"),
                 includeSectionTitle: nil,
                 includeItems: []
             )
         case .dailyLimitDuringWorkout:
             return PaywallCopy(
-                title: "Sigue el entreno sin cortes",
-                subtitle: "Hoy llegaste al límite free.",
-                benefitsTitle: "Beneficios clave",
+                title: L10n.tr("paywall.copy.light.limit.title"),
+                subtitle: L10n.tr("paywall.copy.light.limit.subtitle"),
+                benefitsTitle: L10n.tr("paywall.copy.light.limit.benefits_title"),
                 bullets: [
-                    "Continúa ahora mismo tu sesión.",
-                    "Sin límite diario mientras progresas.",
-                    "Todo tu flujo en una sola app."
+                    L10n.tr("paywall.copy.light.limit.bullet_1"),
+                    L10n.tr("paywall.copy.light.limit.bullet_2"),
+                    L10n.tr("paywall.copy.light.limit.bullet_3")
                 ],
-                plansTitle: "Elige plan",
-                annualLabel: "Anual",
-                annualBadge: "Mejor valor",
-                monthlyLabel: "Mensual",
+                plansTitle: L10n.tr("paywall.copy.light.limit.plans_title"),
+                annualLabel: L10n.tr("paywall.copy.light.limit.annual_label"),
+                annualBadge: L10n.tr("paywall.copy.light.limit.annual_badge"),
+                monthlyLabel: L10n.tr("paywall.copy.light.limit.monthly_label"),
                 monthlyBadge: nil,
-                ctaPrimary: "Empezar gratis",
-                ctaSecondary: "Ahora no",
+                ctaPrimary: L10n.tr("paywall.copy.light.limit.cta_primary"),
+                ctaSecondary: L10n.tr("paywall.copy.light.limit.cta_secondary"),
                 ctaSecondaryAction: .dismiss,
-                trustLine: "Empiezas gratis y puedes cancelar cuando quieras.",
-                legalLine1: "Suscripción auto-renovable con prueba de 2 semanas.",
-                legalLine2: "Luego se cobra el plan elegido hasta que canceles.",
+                trustLine: L10n.tr("paywall.copy.light.limit.trust"),
+                legalLine1: L10n.tr("paywall.copy.light.limit.legal1"),
+                legalLine2: L10n.tr("paywall.copy.light.limit.legal2"),
                 includeSectionTitle: nil,
                 includeItems: []
             )
@@ -115,49 +115,49 @@ struct PaywallCopy: Equatable, Sendable {
         switch entryPoint {
         case .proModule:
             return PaywallCopy(
-                title: "Entrena con todo el potencial",
-                subtitle: "Desbloquea rutinas, progreso y control total.",
-                benefitsTitle: "Lo que ganas",
+                title: L10n.tr("paywall.copy.standard.pro.title"),
+                subtitle: L10n.tr("paywall.copy.standard.pro.subtitle"),
+                benefitsTitle: L10n.tr("paywall.copy.standard.pro.benefits_title"),
                 bullets: [
-                    "Flujo completo de entrenamiento sin fricción.",
-                    "Rutinas listas para repetir cuando quieras.",
-                    "Progreso claro para sostener el hábito."
+                    L10n.tr("paywall.copy.standard.pro.bullet_1"),
+                    L10n.tr("paywall.copy.standard.pro.bullet_2"),
+                    L10n.tr("paywall.copy.standard.pro.bullet_3")
                 ],
-                plansTitle: "Selecciona tu plan",
-                annualLabel: "Plan anual",
-                annualBadge: "Mejor valor",
-                monthlyLabel: "Plan mensual",
+                plansTitle: L10n.tr("paywall.copy.standard.pro.plans_title"),
+                annualLabel: L10n.tr("paywall.copy.standard.pro.annual_label"),
+                annualBadge: L10n.tr("paywall.copy.standard.pro.annual_badge"),
+                monthlyLabel: L10n.tr("paywall.copy.standard.pro.monthly_label"),
                 monthlyBadge: nil,
-                ctaPrimary: "Empezar gratis",
+                ctaPrimary: L10n.tr("paywall.copy.standard.pro.cta_primary"),
                 ctaSecondary: nil,
                 ctaSecondaryAction: .dismiss,
-                trustLine: "Sin permanencia. Gestiona o cancela en Apple.",
-                legalLine1: "Prueba gratis 2 semanas. Luego se cobra según el plan.",
-                legalLine2: "Renovación automática salvo cancelación previa.",
+                trustLine: L10n.tr("paywall.copy.standard.pro.trust"),
+                legalLine1: L10n.tr("paywall.copy.standard.pro.legal1"),
+                legalLine2: L10n.tr("paywall.copy.standard.pro.legal2"),
                 includeSectionTitle: nil,
                 includeItems: []
             )
         case .dailyLimitDuringWorkout:
             return PaywallCopy(
-                title: "No pares tu progreso hoy",
-                subtitle: "Pasa a Pro y termina tu sesión sin límite.",
-                benefitsTitle: "Lo que ganas",
+                title: L10n.tr("paywall.copy.standard.limit.title"),
+                subtitle: L10n.tr("paywall.copy.standard.limit.subtitle"),
+                benefitsTitle: L10n.tr("paywall.copy.standard.limit.benefits_title"),
                 bullets: [
-                    "Sigue entrenando ahora, sin interrupciones.",
-                    "Guarda y reaplica tus rutinas rápido.",
-                    "Ve progreso y rachas en un solo lugar."
+                    L10n.tr("paywall.copy.standard.limit.bullet_1"),
+                    L10n.tr("paywall.copy.standard.limit.bullet_2"),
+                    L10n.tr("paywall.copy.standard.limit.bullet_3")
                 ],
-                plansTitle: "Selecciona tu plan",
-                annualLabel: "Plan anual",
-                annualBadge: "Mejor valor",
-                monthlyLabel: "Plan mensual",
+                plansTitle: L10n.tr("paywall.copy.standard.limit.plans_title"),
+                annualLabel: L10n.tr("paywall.copy.standard.limit.annual_label"),
+                annualBadge: L10n.tr("paywall.copy.standard.limit.annual_badge"),
+                monthlyLabel: L10n.tr("paywall.copy.standard.limit.monthly_label"),
                 monthlyBadge: nil,
-                ctaPrimary: "Empezar gratis",
-                ctaSecondary: "Ahora no",
+                ctaPrimary: L10n.tr("paywall.copy.standard.limit.cta_primary"),
+                ctaSecondary: L10n.tr("paywall.copy.standard.limit.cta_secondary"),
                 ctaSecondaryAction: .dismiss,
-                trustLine: "Sin riesgo: 2 semanas gratis y cancelación libre.",
-                legalLine1: "Suscripción auto-renovable. Se cobra al final del trial.",
-                legalLine2: "Renovación automática salvo cancelación previa.",
+                trustLine: L10n.tr("paywall.copy.standard.limit.trust"),
+                legalLine1: L10n.tr("paywall.copy.standard.limit.legal1"),
+                legalLine2: L10n.tr("paywall.copy.standard.limit.legal2"),
                 includeSectionTitle: nil,
                 includeItems: []
             )
@@ -168,64 +168,64 @@ struct PaywallCopy: Equatable, Sendable {
         switch entryPoint {
         case .proModule:
             return PaywallCopy(
-                title: "Sube de nivel con Pro",
-                subtitle: "Todo para entrenar mejor, sin pasos extra.",
-                benefitsTitle: "Resultados para tu rutina",
+                title: L10n.tr("paywall.copy.detailed.pro.title"),
+                subtitle: L10n.tr("paywall.copy.detailed.pro.subtitle"),
+                benefitsTitle: L10n.tr("paywall.copy.detailed.pro.benefits_title"),
                 bullets: [
-                    "Completa entrenos sin límite diario.",
-                    "Reduce tiempo de preparación con rutinas guardadas.",
-                    "Convierte sesiones en progreso medible."
+                    L10n.tr("paywall.copy.detailed.pro.bullet_1"),
+                    L10n.tr("paywall.copy.detailed.pro.bullet_2"),
+                    L10n.tr("paywall.copy.detailed.pro.bullet_3")
                 ],
-                plansTitle: "Selecciona tu plan",
-                annualLabel: "Plan anual",
-                annualBadge: "Mejor valor",
-                monthlyLabel: "Plan mensual",
+                plansTitle: L10n.tr("paywall.copy.detailed.pro.plans_title"),
+                annualLabel: L10n.tr("paywall.copy.detailed.pro.annual_label"),
+                annualBadge: L10n.tr("paywall.copy.detailed.pro.annual_badge"),
+                monthlyLabel: L10n.tr("paywall.copy.detailed.pro.monthly_label"),
                 monthlyBadge: nil,
-                ctaPrimary: "Empezar gratis",
+                ctaPrimary: L10n.tr("paywall.copy.detailed.pro.cta_primary"),
                 ctaSecondary: nil,
                 ctaSecondaryAction: .dismiss,
-                trustLine: "Cancela cuando quieras. Sin compromisos largos.",
-                legalLine1: "Suscripción auto-renovable con período de prueba gratis.",
-                legalLine2: "Incluye restaurar compras, términos y privacidad.",
-                includeSectionTitle: "Qué incluye Pro",
+                trustLine: L10n.tr("paywall.copy.detailed.pro.trust"),
+                legalLine1: L10n.tr("paywall.copy.detailed.pro.legal1"),
+                legalLine2: L10n.tr("paywall.copy.detailed.pro.legal2"),
+                includeSectionTitle: L10n.tr("paywall.copy.detailed.pro.include_title"),
                 includeItems: [
-                    "Rutinas sin límite",
-                    "Clasificaciones para ordenar",
-                    "Gráficas de progreso",
-                    "Calendario de actividad",
-                    "Rachas y badges",
-                    "Sin límite diario en entreno"
+                    L10n.tr("paywall.copy.detailed.pro.include_1"),
+                    L10n.tr("paywall.copy.detailed.pro.include_2"),
+                    L10n.tr("paywall.copy.detailed.pro.include_3"),
+                    L10n.tr("paywall.copy.detailed.pro.include_4"),
+                    L10n.tr("paywall.copy.detailed.pro.include_5"),
+                    L10n.tr("paywall.copy.detailed.pro.include_6")
                 ]
             )
         case .dailyLimitDuringWorkout:
             return PaywallCopy(
-                title: "Termina fuerte, sin límites",
-                subtitle: "Activa Pro y continúa este entreno al instante.",
-                benefitsTitle: "Resultados para hoy y mañana",
+                title: L10n.tr("paywall.copy.detailed.limit.title"),
+                subtitle: L10n.tr("paywall.copy.detailed.limit.subtitle"),
+                benefitsTitle: L10n.tr("paywall.copy.detailed.limit.benefits_title"),
                 bullets: [
-                    "Sigue esta sesión justo ahora.",
-                    "Ahorra tiempo con rutinas reutilizables.",
-                    "Mantén constancia con progreso visible."
+                    L10n.tr("paywall.copy.detailed.limit.bullet_1"),
+                    L10n.tr("paywall.copy.detailed.limit.bullet_2"),
+                    L10n.tr("paywall.copy.detailed.limit.bullet_3")
                 ],
-                plansTitle: "Selecciona tu plan",
-                annualLabel: "Plan anual",
-                annualBadge: "Mejor valor",
-                monthlyLabel: "Plan mensual",
+                plansTitle: L10n.tr("paywall.copy.detailed.limit.plans_title"),
+                annualLabel: L10n.tr("paywall.copy.detailed.limit.annual_label"),
+                annualBadge: L10n.tr("paywall.copy.detailed.limit.annual_badge"),
+                monthlyLabel: L10n.tr("paywall.copy.detailed.limit.monthly_label"),
                 monthlyBadge: nil,
-                ctaPrimary: "Empezar gratis",
-                ctaSecondary: "Ahora no",
+                ctaPrimary: L10n.tr("paywall.copy.detailed.limit.cta_primary"),
+                ctaSecondary: L10n.tr("paywall.copy.detailed.limit.cta_secondary"),
                 ctaSecondaryAction: .dismiss,
-                trustLine: "Comienzas gratis. Cobro solo al terminar la prueba.",
-                legalLine1: "Suscripción auto-renovable con renovación automática.",
-                legalLine2: "Gestiona o cancela en Apple. Compras restaurables.",
-                includeSectionTitle: "Qué incluye Pro",
+                trustLine: L10n.tr("paywall.copy.detailed.limit.trust"),
+                legalLine1: L10n.tr("paywall.copy.detailed.limit.legal1"),
+                legalLine2: L10n.tr("paywall.copy.detailed.limit.legal2"),
+                includeSectionTitle: L10n.tr("paywall.copy.detailed.limit.include_title"),
                 includeItems: [
-                    "Sin límite diario",
-                    "Rutinas y clasificaciones",
-                    "Histórico de entrenos",
-                    "Gráficas y calendario",
-                    "Actividad reciente",
-                    "Streaks y badges"
+                    L10n.tr("paywall.copy.detailed.limit.include_1"),
+                    L10n.tr("paywall.copy.detailed.limit.include_2"),
+                    L10n.tr("paywall.copy.detailed.limit.include_3"),
+                    L10n.tr("paywall.copy.detailed.limit.include_4"),
+                    L10n.tr("paywall.copy.detailed.limit.include_5"),
+                    L10n.tr("paywall.copy.detailed.limit.include_6")
                 ]
             )
         }

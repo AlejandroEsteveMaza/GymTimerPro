@@ -14,15 +14,15 @@ final class PurchaseManager: ObservableObject {
         var errorDescription: String? {
             switch self {
             case .productUnavailable:
-                return L10n.tr("paywall.error.product_unavailable")
+                return NSLocalizedString("paywall.error.product_unavailable", comment: "")
             case .failedVerification:
-                return L10n.tr("paywall.error.failed_verification")
+                return NSLocalizedString("paywall.error.failed_verification", comment: "")
             case .userCancelled:
-                return L10n.tr("paywall.error.user_cancelled")
+                return NSLocalizedString("paywall.error.user_cancelled", comment: "")
             case .pending:
-                return L10n.tr("paywall.error.pending")
+                return NSLocalizedString("paywall.error.pending", comment: "")
             case .unknown:
-                return L10n.tr("paywall.error.unknown")
+                return NSLocalizedString("paywall.error.unknown", comment: "")
             }
         }
     }

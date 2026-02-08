@@ -8,7 +8,6 @@
 import SwiftData
 import SwiftUI
 
-@available(*, deprecated, message: "Routines now open directly in RoutineEditorView.")
 struct RoutineDetailView: View {
     let routine: Routine
     @EnvironmentObject private var store: RoutinesStore
@@ -72,15 +71,4 @@ struct RoutineDetailView: View {
     private var isApplied: Bool {
         routineSelectionStore.selection?.id == routine.id
     }
-}
-
-#Preview {
-    NavigationStack {
-        RoutineDetailView(
-            routine: Routine(name: "Upper Body", totalSets: 4, reps: 10, restSeconds: 90, weightKg: 20)
-        )
-        .environmentObject(RoutinesStore())
-        .environmentObject(RoutineSelectionStore())
-    }
-    .modelContainer(for: [Routine.self, RoutineClassification.self], inMemory: true)
 }
