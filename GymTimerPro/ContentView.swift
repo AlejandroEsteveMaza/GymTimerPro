@@ -22,7 +22,7 @@ struct ContentView: View {
     @StateObject private var restTimer = RestTimerModel()
     @StateObject private var liveActivityManager = LiveActivityManager()
     @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 19)
-    @State private var isPresentingPaywall = false
+    @State private var paywallContext: PaywallPresentationContext?
     @State private var showNotificationPreview = false
     @State private var uiTestOverridesApplied = false
     @State private var isPresentingRoutinePicker = false
@@ -106,11 +106,13 @@ struct ContentView: View {
                 liveActivityManager.end()
             }
         }
-        .sheet(isPresented: $isPresentingPaywall) {
+        .sheet(item: $paywallContext) { context in
             PaywallView(
                 dailyLimit: usageLimiter.status.dailyLimit,
                 consumedToday: usageLimiter.status.consumedToday,
-                accentColor: Theme.primaryButton
+                accentColor: Theme.primaryButton,
+                entryPoint: context.entryPoint,
+                infoLevel: context.infoLevel
             )
             .environmentObject(purchaseManager)
         }
@@ -255,7 +257,10 @@ struct ContentView: View {
             if purchaseManager.isPro {
                 isPresentingRoutinePicker = true
             } else {
-                isPresentingPaywall = true
+                paywallContext = PaywallPresentationContext(
+                    entryPoint: .proModule,
+                    infoLevel: .standard
+                )
             }
         } label: {
             ConfigRow(icon: "list.bullet.rectangle", titleKey: "training.routine.title") {
@@ -381,7 +386,10 @@ struct ContentView: View {
 
         let now = Date.now
         guard usageLimiter.canConsume(now: now, isPro: purchaseManager.isPro) else {
-            isPresentingPaywall = true
+            paywallContext = PaywallPresentationContext(
+                entryPoint: .dailyLimitDuringWorkout,
+                infoLevel: .light
+            )
             return
         }
         usageLimiter.consume(now: now, isPro: purchaseManager.isPro)
@@ -526,7 +534,10 @@ struct ContentView: View {
             Spacer(minLength: 0)
 
             Button("pro.button.upgrade") {
-                isPresentingPaywall = true
+                paywallContext = PaywallPresentationContext(
+                    entryPoint: .proModule,
+                    infoLevel: .standard
+                )
             }
             .buttonStyle(.borderedProminent)
             .buttonBorderShape(.roundedRectangle(radius: 12))

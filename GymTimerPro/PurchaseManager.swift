@@ -28,7 +28,7 @@ final class PurchaseManager: ObservableObject {
     }
 
     @Published private(set) var isPro: Bool
-    @Published private(set) var proProduct: Product?
+    @Published private(set) var proProductsByID: [String: Product] = [:]
     @Published private(set) var isLoading: Bool = false
 
     private let storage: UserDefaults
@@ -38,8 +38,13 @@ final class PurchaseManager: ObservableObject {
         static let cachedIsPro = "purchase.cachedIsPro"
     }
 
-    // App Store Connect product id (Non-Consumable).
-    static let proProductID = "gymtimerpro.pro"
+    static let monthlyProductID = "premium_monthly"
+    static let annualProductID = "premium_yearly"
+    static let proProductIDs = [annualProductID, monthlyProductID]
+
+    var proProducts: [Product] {
+        Self.proProductIDs.compactMap { proProductsByID[$0] }
+    }
 
     init(storage: UserDefaults = .standard, startTasks: Bool = true) {
         self.storage = storage
@@ -68,7 +73,17 @@ final class PurchaseManager: ObservableObject {
     }
 
     func purchasePro() async throws {
-        guard let proProduct else { throw PurchaseError.productUnavailable }
+        let defaultProductID = proProductsByID[Self.annualProductID]?.id ?? proProducts.first?.id
+        guard let defaultProductID else {
+            throw PurchaseError.productUnavailable
+        }
+        try await purchase(productID: defaultProductID)
+    }
+
+    func purchase(productID: String) async throws {
+        guard let proProduct = proProductsByID[productID] else {
+            throw PurchaseError.productUnavailable
+        }
         let result = try await proProduct.purchase()
         switch result {
         case .success(let verification):
@@ -90,15 +105,15 @@ final class PurchaseManager: ObservableObject {
     }
 
     private func loadProducts() async {
-        guard proProduct == nil else { return }
+        guard proProductsByID.isEmpty else { return }
         isLoading = true
         defer { isLoading = false }
 
         do {
-            let products = try await Product.products(for: [Self.proProductID])
-            proProduct = products.first
+            let products = try await Product.products(for: Self.proProductIDs)
+            proProductsByID = Dictionary(uniqueKeysWithValues: products.map { ($0.id, $0) })
         } catch {
-            proProduct = nil
+            proProductsByID = [:]
         }
     }
 
@@ -106,7 +121,7 @@ final class PurchaseManager: ObservableObject {
         var hasPro = false
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else { continue }
-            guard transaction.productID == Self.proProductID else { continue }
+            guard Self.proProductIDs.contains(transaction.productID) else { continue }
             if transaction.revocationDate == nil {
                 hasPro = true
                 break

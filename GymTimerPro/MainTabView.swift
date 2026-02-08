@@ -11,7 +11,7 @@ import SwiftUI
 struct MainTabView: View {
     @EnvironmentObject private var purchaseManager: PurchaseManager
     @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 19)
-    @State private var isPresentingPaywall = false
+    @State private var paywallContext: PaywallPresentationContext?
 
     var body: some View {
         TabView {
@@ -30,7 +30,12 @@ struct MainTabView: View {
                 titleKey: "pro.locked.routines.title",
                 messageKey: "pro.locked.message",
                 actionTitleKey: "pro.locked.unlock",
-                action: { isPresentingPaywall = true }
+                action: {
+                    paywallContext = PaywallPresentationContext(
+                        entryPoint: .proModule,
+                        infoLevel: .standard
+                    )
+                }
             )
             .tabItem {
                 Label("tab.routines", systemImage: "list.bullet.rectangle")
@@ -44,7 +49,12 @@ struct MainTabView: View {
                 titleKey: "pro.locked.progress.title",
                 messageKey: "pro.locked.message",
                 actionTitleKey: "pro.locked.unlock",
-                action: { isPresentingPaywall = true }
+                action: {
+                    paywallContext = PaywallPresentationContext(
+                        entryPoint: .proModule,
+                        infoLevel: .standard
+                    )
+                }
             )
             .tabItem {
                 Label("tab.progress", systemImage: "chart.line.uptrend.xyaxis")
@@ -58,17 +68,24 @@ struct MainTabView: View {
                 titleKey: "pro.locked.settings.title",
                 messageKey: "pro.locked.message",
                 actionTitleKey: "pro.locked.unlock",
-                action: { isPresentingPaywall = true }
+                action: {
+                    paywallContext = PaywallPresentationContext(
+                        entryPoint: .proModule,
+                        infoLevel: .standard
+                    )
+                }
             )
             .tabItem {
                 Label("tab.settings", systemImage: "gear")
             }
         }
-        .sheet(isPresented: $isPresentingPaywall) {
+        .sheet(item: $paywallContext) { context in
             PaywallView(
                 dailyLimit: usageLimiter.status.dailyLimit,
                 consumedToday: usageLimiter.status.consumedToday,
-                accentColor: Theme.primaryButton
+                accentColor: Theme.primaryButton,
+                entryPoint: context.entryPoint,
+                infoLevel: context.infoLevel
             )
             .environmentObject(purchaseManager)
         }

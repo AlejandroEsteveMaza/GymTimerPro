@@ -5,6 +5,8 @@ struct PaywallView: View {
     let dailyLimit: Int
     let consumedToday: Int
     let accentColor: Color
+    let entryPoint: PaywallEntryPoint
+    let infoLevel: PaywallInfoLevel
 
     @EnvironmentObject private var purchaseManager: PurchaseManager
     @Environment(\.dismiss) private var dismiss
@@ -12,21 +14,36 @@ struct PaywallView: View {
 
     @State private var isProcessing = false
     @State private var error: PurchaseManager.PurchaseError?
+    @State private var selectedProductID: String?
+    @State private var infoMessage: String?
+
+    init(
+        dailyLimit: Int,
+        consumedToday: Int,
+        accentColor: Color,
+        entryPoint: PaywallEntryPoint = .proModule,
+        infoLevel: PaywallInfoLevel = .standard
+    ) {
+        self.dailyLimit = dailyLimit
+        self.consumedToday = consumedToday
+        self.accentColor = accentColor
+        self.entryPoint = entryPoint
+        self.infoLevel = infoLevel
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 24) {
-                    valueSection
-
-                    SectionHeader(titleKey: "paywall.section.benefits")
+                VStack(alignment: .leading, spacing: 20) {
+                    headerSection
                     benefitsSection
-
-                    SectionHeader(titleKey: "paywall.section.purchase")
-                    purchaseSection
-
+                    if let includeTitle = copy.includeSectionTitle, !copy.includeItems.isEmpty {
+                        includeSection(title: includeTitle, items: copy.includeItems)
+                    }
+                    plansSection
                     ctaSection
-                    secondaryActions
+                    legalSection
+                    linksSection
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 12)
@@ -48,9 +65,13 @@ struct PaywallView: View {
         .interactiveDismissDisabled(isProcessing)
         .task {
             await purchaseManager.refresh()
+            selectDefaultProductIfNeeded()
             if purchaseManager.isPro {
                 dismiss()
             }
+        }
+        .onChange(of: productIDsKey) { _, _ in
+            selectDefaultProductIfNeeded()
         }
         .onChange(of: purchaseManager.isPro) { _, isPro in
             if isPro {
@@ -68,126 +89,353 @@ struct PaywallView: View {
         } message: {
             Text(error?.localizedDescription ?? L10n.tr("paywall.error.unknown"))
         }
+        .alert(
+            "Info",
+            isPresented: Binding(
+                get: { infoMessage != nil },
+                set: { if !$0 { infoMessage = nil } }
+            )
+        ) {
+            Button("common.ok") { infoMessage = nil }
+        } message: {
+            Text(infoMessage ?? "")
+        }
     }
 
-    private var priceText: String {
-        if let product = purchaseManager.proProduct {
-            return product.displayPrice
-        }
-        return L10n.tr("paywall.price.loading")
+    private var copy: PaywallCopy {
+        PaywallCopy.make(entryPoint: entryPoint, infoLevel: infoLevel)
     }
 
-    private var valueSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("paywall.badge.pro")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(accentColor)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 4)
-                .background(accentColor.opacity(0.15), in: Capsule())
-
-            Text("paywall.value.title")
-                .font(.title.bold())
-                .foregroundStyle(.primary)
-
-            Text("paywall.value.subtitle")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-
-            if hasReachedDailyLimit {
-                Label(L10n.format("paywall.subtitle_limit_format", consumedToday, dailyLimit), systemImage: "exclamationmark.circle")
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(Color(uiColor: .secondarySystemBackground), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+    private var productIDsKey: String {
+        orderedProducts.map(\.id).joined(separator: "|")
     }
 
-    private var benefitsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            BenefitRow(icon: "infinity", titleKey: "paywall.benefit.unlimited")
-            Divider().foregroundStyle(Color(uiColor: .separator))
-            BenefitRow(icon: "calendar.badge.checkmark", titleKey: "paywall.benefit.no_limits")
-            Divider().foregroundStyle(Color(uiColor: .separator))
-            BenefitRow(icon: "creditcard", titleKey: "paywall.benefit.one_time")
+    private var orderedProducts: [Product] {
+        purchaseManager.proProducts.sorted {
+            planPriority(for: $0) < planPriority(for: $1)
         }
-        .padding(16)
-        .background(Color(uiColor: .secondarySystemBackground), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 
-    private var purchaseSection: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image(systemName: "checkmark.seal.fill")
-                .font(.title3.weight(.semibold))
-                .foregroundStyle(accentColor)
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text("paywall.purchase.option_title")
-                    .font(.headline)
-                Text("paywall.purchase.option_subtitle")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-
-            Spacer(minLength: 0)
-
-            VStack(alignment: .trailing, spacing: 4) {
-                Text(priceText)
-                    .font(.title3.bold())
-                Text("paywall.purchase.one_time")
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .padding(16)
-        .background(Color(uiColor: .secondarySystemBackground), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+    private var annualProduct: Product? {
+        orderedProducts.first(where: { planKind(for: $0) == .yearly })
     }
 
-    private var ctaSection: some View {
-        Button {
-            Task { await buy() }
-        } label: {
-            Text("paywall.button.buy")
-                .font(.headline)
-                .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(.borderedProminent)
-        .buttonBorderShape(.roundedRectangle(radius: 14))
-        .tint(accentColor)
-        .disabled(isProcessing || purchaseManager.isLoading)
+    private var monthlyProduct: Product? {
+        orderedProducts.first(where: { planKind(for: $0) == .monthly })
     }
 
     private var hasReachedDailyLimit: Bool {
         consumedToday >= dailyLimit
     }
 
-    private var secondaryActions: some View {
+    private var headerSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("PRO")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(accentColor)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 4)
+                .background(accentColor.opacity(0.15), in: Capsule())
+
+            Text(copy.title)
+                .font(.title2.bold())
+                .foregroundStyle(.primary)
+                .lineLimit(2)
+
+            Text(copy.subtitle)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .lineLimit(2)
+
+            if hasReachedDailyLimit {
+                Text(L10n.format("paywall.subtitle_limit_format", consumedToday, dailyLimit))
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(16)
+        .background(
+            Color(uiColor: .secondarySystemBackground),
+            in: RoundedRectangle(cornerRadius: 20, style: .continuous)
+        )
+    }
+
+    private var benefitsSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            sectionTitle(copy.benefitsTitle)
+            ForEach(copy.bullets.prefix(3), id: \.self) { bullet in
+                HStack(alignment: .top, spacing: 10) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(accentColor)
+                    Text(bullet)
+                        .font(.subheadline)
+                        .foregroundStyle(.primary)
+                }
+            }
+        }
+        .padding(16)
+        .background(
+            Color(uiColor: .secondarySystemBackground),
+            in: RoundedRectangle(cornerRadius: 20, style: .continuous)
+        )
+    }
+
+    private func includeSection(title: String, items: [String]) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            sectionTitle(title)
+            ForEach(items, id: \.self) { item in
+                HStack(alignment: .top, spacing: 10) {
+                    Image(systemName: "circle.fill")
+                        .font(.system(size: 6, weight: .semibold))
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 7)
+                    Text(item)
+                        .font(.footnote)
+                        .foregroundStyle(.primary)
+                }
+            }
+        }
+        .padding(16)
+        .background(
+            Color(uiColor: .secondarySystemBackground),
+            in: RoundedRectangle(cornerRadius: 20, style: .continuous)
+        )
+    }
+
+    private var plansSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            sectionTitle(copy.plansTitle)
+            if let trialText = trialIncentiveText {
+                HStack(spacing: 8) {
+                    Image(systemName: "sparkles")
+                        .foregroundStyle(accentColor)
+                    Text(trialText)
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(.primary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(accentColor.opacity(0.12), in: Capsule())
+            }
+            if orderedProducts.isEmpty {
+                Text("paywall.price.loading")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .padding(12)
+            } else {
+                ForEach(orderedProducts, id: \.id) { product in
+                    planCard(product)
+                }
+            }
+        }
+        .padding(16)
+        .background(
+            Color(uiColor: .secondarySystemBackground),
+            in: RoundedRectangle(cornerRadius: 20, style: .continuous)
+        )
+    }
+
+    private func planCard(_ product: Product) -> some View {
+        let isSelected = selectedProductID == product.id
+        let isAnnual = planKind(for: product) == .yearly
+        let planLabel = isAnnual ? copy.annualLabel : copy.monthlyLabel
+        let badge = isAnnual ? copy.annualBadge : copy.monthlyBadge
+
+        return Button {
+            selectedProductID = product.id
+        } label: {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(alignment: .firstTextBaseline, spacing: 10) {
+                    Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(isSelected ? accentColor : .secondary)
+
+                    Text(planLabel)
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+
+                    if let badge {
+                        Text(badge)
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(accentColor)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(accentColor.opacity(0.14), in: Capsule())
+                    }
+
+                    Spacer(minLength: 0)
+
+                    Text(priceLine(for: product))
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                }
+
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(Color(uiColor: .tertiarySystemBackground))
+            )
+            .overlay {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .stroke(isSelected ? accentColor : Color.clear, lineWidth: 1.5)
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var ctaSection: some View {
         VStack(spacing: 10) {
-            Button("paywall.button.restore") {
+            Button {
+                Task { await buy() }
+            } label: {
+                Text(copy.ctaPrimary)
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.roundedRectangle(radius: 14))
+            .tint(accentColor)
+            .disabled(isProcessing || purchaseManager.isLoading || selectedProductID == nil)
+
+            if let secondary = copy.ctaSecondary {
+                Button(secondary) {
+                    handleSecondaryAction()
+                }
+                .buttonStyle(.plain)
+                .disabled(isProcessing)
+            }
+
+            Text(copy.trustLine)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+        }
+    }
+
+    private var legalSection: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(copy.legalLine1)
+            Text(copy.legalLine2)
+        }
+        .font(.caption)
+        .foregroundStyle(.secondary)
+    }
+
+    private var linksSection: some View {
+        VStack(spacing: 10) {
+            Button("Restaurar compras") {
                 Task { await restore() }
             }
             .buttonStyle(.plain)
             .disabled(isProcessing)
 
-            Button("paywall.button.terms") {
-                if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
-                    openURL(url)
+            if let manageURL {
+                Button("Gestionar suscripción") {
+                    openURL(manageURL)
+                }
+                .buttonStyle(.plain)
+                .disabled(isProcessing)
+            }
+
+            HStack(spacing: 16) {
+                if let termsURL {
+                    Button("Términos") {
+                        openURL(termsURL)
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(isProcessing)
+                }
+
+                if let privacyURL {
+                    Button("Privacidad") {
+                        openURL(privacyURL)
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(isProcessing)
                 }
             }
-            .buttonStyle(.plain)
         }
         .font(.footnote.weight(.semibold))
         .foregroundStyle(.secondary)
         .frame(maxWidth: .infinity)
     }
 
+    private var termsURL: URL? {
+        let fallback = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+        let value = Bundle.main.object(forInfoDictionaryKey: "PAYWALL_TERMS_URL") as? String
+        return URL(string: value ?? fallback)
+    }
+
+    private var privacyURL: URL? {
+        let fallback = "https://www.apple.com/legal/privacy/"
+        let value = Bundle.main.object(forInfoDictionaryKey: "PAYWALL_PRIVACY_URL") as? String
+        return URL(string: value ?? fallback)
+    }
+
+    private var manageURL: URL? {
+        URL(string: "https://apps.apple.com/account/subscriptions")
+    }
+
+    private var trialIncentiveText: String? {
+        let annualPeriod = trialPeriodIfFree(annualProduct?.subscription?.introductoryOffer)
+        let monthlyPeriod = trialPeriodIfFree(monthlyProduct?.subscription?.introductoryOffer)
+
+        if let annualPeriod, let monthlyPeriod, isSamePeriod(annualPeriod, monthlyPeriod) {
+            return "Incluye \(periodText(for: annualPeriod)) gratis."
+        }
+
+        if let period = annualPeriod ?? monthlyPeriod {
+            return "Incluye \(periodText(for: period)) gratis."
+        }
+
+        return nil
+    }
+
+    private func trialPeriodIfFree(
+        _ offer: Product.SubscriptionOffer?
+    ) -> Product.SubscriptionPeriod? {
+        guard let offer, offer.paymentMode == .freeTrial else { return nil }
+        return offer.period
+    }
+
+    private func isSamePeriod(
+        _ lhs: Product.SubscriptionPeriod,
+        _ rhs: Product.SubscriptionPeriod
+    ) -> Bool {
+        lhs.unit == rhs.unit && lhs.value == rhs.value
+    }
+
+    private func sectionTitle(_ title: String) -> some View {
+        Text(title)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func handleSecondaryAction() {
+        switch copy.ctaSecondaryAction {
+        case .dismiss:
+            dismiss()
+        case .selectMonthly:
+            if let monthly = monthlyProduct {
+                selectedProductID = monthly.id
+            }
+        }
+    }
+
     private func buy() async {
         isProcessing = true
         defer { isProcessing = false }
         do {
-            try await purchaseManager.purchasePro()
+            guard let selectedProductID else {
+                throw PurchaseManager.PurchaseError.productUnavailable
+            }
+            try await purchaseManager.purchase(productID: selectedProductID)
         } catch let purchaseError as PurchaseManager.PurchaseError {
             if purchaseError != .userCancelled {
                 error = purchaseError
@@ -202,40 +450,95 @@ struct PaywallView: View {
         defer { isProcessing = false }
         do {
             try await purchaseManager.restorePurchases()
+            if !purchaseManager.isPro {
+                infoMessage = "No hay compras para restaurar."
+            }
         } catch {
             self.error = .unknown
         }
     }
-}
 
-private struct SectionHeader: View {
-    let titleKey: String
+    private func selectDefaultProductIfNeeded() {
+        guard !orderedProducts.isEmpty else {
+            selectedProductID = nil
+            return
+        }
 
-    var body: some View {
-        Text(LocalizedStringKey(titleKey))
-            .font(.subheadline.weight(.semibold))
-            .foregroundStyle(.secondary)
-            .frame(maxWidth: .infinity, alignment: .leading)
+        if selectedProductID == nil || purchaseManager.proProductsByID[selectedProductID ?? ""] == nil {
+            let availableIDs = orderedProducts.map(\.id)
+            selectedProductID = PaywallPlanDefaults.defaultProductID(availableIDs: availableIDs)
+        }
     }
-}
 
-private struct BenefitRow: View {
-    let icon: String
-    let titleKey: String
+    private func planPriority(for product: Product) -> Int {
+        switch planKind(for: product) {
+        case .yearly:
+            return 0
+        case .monthly:
+            return 1
+        case .other:
+            return 2
+        }
+    }
 
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(.primary)
-                .frame(width: 32, height: 32)
-                .background(Color(uiColor: .tertiarySystemFill), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+    private func priceLine(for product: Product) -> String {
+        "\(product.displayPrice)/\(periodShortText(for: product))"
+    }
 
-            Text(LocalizedStringKey(titleKey))
-                .font(.body.weight(.semibold))
-                .foregroundStyle(.primary)
+    private func renewalLine(for product: Product) -> String {
+        "Luego \(product.displayPrice)/\(periodShortText(for: product))."
+    }
 
-            Spacer(minLength: 0)
+    private enum PlanKind {
+        case yearly
+        case monthly
+        case other
+    }
+
+    private func planKind(for product: Product) -> PlanKind {
+        guard let period = product.subscription?.subscriptionPeriod else {
+            return .other
+        }
+        switch period.unit {
+        case .month where period.value == 1:
+            return .monthly
+        case .year where period.value == 1:
+            return .yearly
+        default:
+            return .other
+        }
+    }
+
+    private func periodShortText(for product: Product) -> String {
+        guard let period = product.subscription?.subscriptionPeriod else {
+            return "período"
+        }
+        switch period.unit {
+        case .day:
+            return period.value == 1 ? "día" : "\(period.value) días"
+        case .week:
+            return period.value == 1 ? "semana" : "\(period.value) semanas"
+        case .month:
+            return period.value == 1 ? "mes" : "\(period.value) meses"
+        case .year:
+            return period.value == 1 ? "año" : "\(period.value) años"
+        @unknown default:
+            return "período"
+        }
+    }
+
+    private func periodText(for period: Product.SubscriptionPeriod) -> String {
+        switch period.unit {
+        case .day:
+            return period.value == 1 ? "1 día" : "\(period.value) días"
+        case .week:
+            return period.value == 1 ? "1 semana" : "\(period.value) semanas"
+        case .month:
+            return period.value == 1 ? "1 mes" : "\(period.value) meses"
+        case .year:
+            return period.value == 1 ? "1 año" : "\(period.value) años"
+        @unknown default:
+            return "Período limitado"
         }
     }
 }
