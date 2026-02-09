@@ -174,11 +174,8 @@
 "progress.period.year" = "Año";
 
 "progress.chart.workouts.title" = "Entrenos en el tiempo";
-"progress.chart.minutes.title" = "Minutos en el tiempo";
 "progress.chart.axis.workouts" = "Entrenos";
-"progress.chart.axis.minutes" = "Minutos";
 "progress.chart.workouts.accessibility_value_format" = "%ld entrenos";
-"progress.chart.minutes.accessibility_value_format" = "%ld minutos";
 
 "progress.calendar.title" = "Este mes";
 "progress.calendar.day.completed_format" = "%ld entreno(s) completado(s)";

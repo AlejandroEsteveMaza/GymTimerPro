@@ -42,26 +42,21 @@ struct ProgressChartBucket: Identifiable, Hashable, Sendable {
     let id: Date
     let startDate: Date
     let workouts: Int
-    let minutes: Int
 }
 
 struct ProgressPeriodSummary: Hashable, Sendable {
     let workouts: Int
-    let minutes: Int
     let activeDays: Int
     let mostRepeatedRoutineName: String?
     let topClassificationName: String?
     let workoutBuckets: [ProgressChartBucket]
-    let hasDurationData: Bool
 
     static let empty = ProgressPeriodSummary(
         workouts: 0,
-        minutes: 0,
         activeDays: 0,
         mostRepeatedRoutineName: nil,
         topClassificationName: nil,
-        workoutBuckets: [],
-        hasDurationData: false
+        workoutBuckets: []
     )
 }
 
@@ -178,23 +173,19 @@ private enum ProgramProgressComputer {
 
         guard !filtered.isEmpty else {
             let emptyBuckets = makeBucketStarts(for: period, in: interval, calendar: calendar).map {
-                ProgressChartBucket(id: $0, startDate: $0, workouts: 0, minutes: 0)
+                ProgressChartBucket(id: $0, startDate: $0, workouts: 0)
             }
             return ProgressPeriodSummary(
                 workouts: 0,
-                minutes: 0,
                 activeDays: 0,
                 mostRepeatedRoutineName: nil,
                 topClassificationName: nil,
-                workoutBuckets: emptyBuckets,
-                hasDurationData: false
+                workoutBuckets: emptyBuckets
             )
         }
 
         let workouts = filtered.count
-        let minutes = filtered.compactMap(\.durationSeconds).reduce(0, +) / 60
         let activeDays = Set(filtered.map { calendar.startOfDay(for: $0.completedAt) }).count
-        let hasDurationData = filtered.contains { ($0.durationSeconds ?? 0) > 0 }
 
         let routineCounts = Dictionary(
             filtered.map { ($0.routineName, 1) },
@@ -229,35 +220,30 @@ private enum ProgramProgressComputer {
 
         let bucketStarts = makeBucketStarts(for: period, in: interval, calendar: calendar)
         let grouped = Dictionary(
-            filtered.compactMap { completion -> (Date, (Int, Int))? in
+            filtered.compactMap { completion -> (Date, Int)? in
                 guard let bucketStart = bucketStart(for: completion.completedAt, period: period, calendar: calendar) else {
                     return nil
                 }
-                return (bucketStart, (1, completion.durationSeconds ?? 0))
+                return (bucketStart, 1)
             },
-            uniquingKeysWith: { lhs, rhs in
-                (lhs.0 + rhs.0, lhs.1 + rhs.1)
-            }
+            uniquingKeysWith: +
         )
 
         let buckets = bucketStarts.map { startDate in
-            let values = grouped[startDate] ?? (0, 0)
+            let values = grouped[startDate] ?? 0
             return ProgressChartBucket(
                 id: startDate,
                 startDate: startDate,
-                workouts: values.0,
-                minutes: values.1 / 60
+                workouts: values
             )
         }
 
         return ProgressPeriodSummary(
             workouts: workouts,
-            minutes: minutes,
             activeDays: activeDays,
             mostRepeatedRoutineName: topRoutine,
             topClassificationName: topClassification,
-            workoutBuckets: buckets,
-            hasDurationData: hasDurationData
+            workoutBuckets: buckets
         )
     }
 

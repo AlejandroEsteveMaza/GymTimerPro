@@ -127,46 +127,6 @@ struct ProgramProgressView: View {
                 }
             }
 
-            if selectedSummary.hasDurationData {
-                Text("progress.chart.minutes.title")
-                    .font(.headline)
-                Chart(selectedSummary.workoutBuckets) { bucket in
-                    BarMark(
-                        x: .value("Bucket", bucket.startDate),
-                        y: .value("Minutes", bucket.minutes)
-                    )
-                    .foregroundStyle(.green.gradient)
-                    .cornerRadius(4)
-                    .accessibilityLabel(Text(bucket.startDate, format: .dateTime.day().month()))
-                    .accessibilityValue(Text(L10n.format("progress.chart.minutes.accessibility_value_format", bucket.minutes)))
-                }
-                .frame(height: 160)
-                .chartYAxisLabel(L10n.tr("progress.chart.axis.minutes"), position: .leading)
-                .chartXAxis {
-                    if selectedPeriod == .quarter {
-                        AxisMarks(values: quarterXAxisValues) { value in
-                            AxisGridLine()
-                            AxisTick()
-                            AxisValueLabel {
-                                if let date = value.as(Date.self) {
-                                    Text(xAxisLabel(for: date))
-                                }
-                            }
-                        }
-                    } else {
-                        AxisMarks(values: xAxisValues) { value in
-                            AxisGridLine()
-                            AxisTick()
-                            AxisValueLabel {
-                                if let date = value.as(Date.self) {
-                                    Text(xAxisLabel(for: date))
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
             if let routine = selectedSummary.mostRepeatedRoutineName {
                 LabeledContent("progress.summary.most_repeated", value: routine)
                     .font(.subheadline)

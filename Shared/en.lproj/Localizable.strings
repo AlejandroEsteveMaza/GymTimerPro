@@ -174,11 +174,8 @@
 "progress.period.year" = "Year";
 
 "progress.chart.workouts.title" = "Workouts over time";
-"progress.chart.minutes.title" = "Minutes over time";
 "progress.chart.axis.workouts" = "Workouts";
-"progress.chart.axis.minutes" = "Minutes";
 "progress.chart.workouts.accessibility_value_format" = "%ld workouts";
-"progress.chart.minutes.accessibility_value_format" = "%ld minutes";
 
 "progress.calendar.title" = "This month";
 "progress.calendar.day.completed_format" = "%ld completed workout(s)";
