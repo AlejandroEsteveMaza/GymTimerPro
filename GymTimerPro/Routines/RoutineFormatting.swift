@@ -54,6 +54,10 @@ enum RoutineFormatting {
 
     static func summaryText(sets: Int, reps: Int, restSeconds: Int, weightKg: Double?) -> String {
         let weightText = weightSummaryText(weightKg)
-        return L10n.format("routines.summary_format", sets, reps, restSeconds, weightText)
+        let displayFormatRawValue = UserDefaults.standard.object(forKey: TimerDisplayFormat.appStorageKey) as? Int
+            ?? TimerDisplayFormat.seconds.rawValue
+        let displayFormat = TimerDisplayFormat(rawValue: displayFormatRawValue) ?? .seconds
+        let formattedRest = TimerDisplayFormatter.string(from: restSeconds, format: displayFormat)
+        return L10n.format("routines.summary_format", sets, reps, formattedRest, weightText)
     }
 }

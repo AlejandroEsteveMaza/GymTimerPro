@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld repetições";
 "routines.field.reps" = "Repetições";
-"routines.summary_format" = "%ld séries · %ld reps · %ld s · %@";
+"routines.summary_format" = "%ld séries · %ld reps · %@ · %@";
 
 "pro.locked.message" = "Disponivel no Pro.";
 "pro.locked.progress.title" = "Progresso";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "Gerenciar assinatura";
 "paywall.button.privacy" = "Privacidade";
 "paywall.restore.no_purchases" = "Nenhuma compra para restaurar.";
+
+"config.rest_time.title" = "Tempo de descanso";
+"settings.timer_display.section" = "Exibição do temporizador";
+"settings.timer_display.title" = "Formato de tempo";
+"settings.timer_display.option.seconds" = "Segundos";
+"settings.timer_display.option.minutes_seconds" = "Min:Seg";
+"accessibility.rest_time_value_seconds_format" = "%ld segundos";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld minutos e %ld segundos";
+"notification.rest_finished.body_with_duration_format" = "Série %ld/%ld · Descanso %@";
+
+"settings.energy.section" = "Economia de energia";
+"settings.energy.mode.title" = "Modo";
+"settings.energy.mode.off" = "Desativado";
+"settings.energy.mode.automatic" = "Automatico";
+"settings.energy.mode.on" = "Ativado";
+"settings.energy.description" = "Desativado mantém o comportamento atual. Automatico segue o modo de baixo consumo do iOS. Ativado permite bloquear a tela, reduz despertares do timer e desativa a haptica no fim do descanso.";

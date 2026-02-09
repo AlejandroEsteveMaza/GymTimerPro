@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld repetitioner";
 "routines.field.reps" = "Repetitioner";
-"routines.summary_format" = "%ld set · %ld reps · %ld s · %@";
+"routines.summary_format" = "%ld set · %ld reps · %@ · %@";
 
 "pro.locked.message" = "Tillgangligt i Pro.";
 "pro.locked.progress.title" = "Framsteg";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "Hantera prenumeration";
 "paywall.button.privacy" = "Integritet";
 "paywall.restore.no_purchases" = "Inga köp att återställa.";
+
+"config.rest_time.title" = "Vilotid";
+"settings.timer_display.section" = "Timervisning";
+"settings.timer_display.title" = "Tidsformat";
+"settings.timer_display.option.seconds" = "Sekunder";
+"settings.timer_display.option.minutes_seconds" = "Min:Sek";
+"accessibility.rest_time_value_seconds_format" = "%ld sekunder";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld minuter och %ld sekunder";
+"notification.rest_finished.body_with_duration_format" = "Set %ld/%ld · Vila %@";
+
+"settings.energy.section" = "Energisparlage";
+"settings.energy.mode.title" = "Lage";
+"settings.energy.mode.off" = "Av";
+"settings.energy.mode.automatic" = "Automatiskt";
+"settings.energy.mode.on" = "Pa";
+"settings.energy.description" = "Av behaller nuvarande beteende. Automatiskt foljer iOS-lagstromslage. Pa tillater skarmlas, minskar timer-uppvakningar och stanger av haptik efter vila.";

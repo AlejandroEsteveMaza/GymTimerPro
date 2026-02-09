@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld gentagelser";
 "routines.field.reps" = "Gentagelser";
-"routines.summary_format" = "%ld sæt · %ld reps · %ld s · %@";
+"routines.summary_format" = "%ld sæt · %ld reps · %@ · %@";
 
 "pro.locked.message" = "Tilgaengelig i Pro.";
 "pro.locked.progress.title" = "Fremskridt";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "Administrer abonnement";
 "paywall.button.privacy" = "Privatliv";
 "paywall.restore.no_purchases" = "Ingen køb at gendanne.";
+
+"config.rest_time.title" = "Hviletid";
+"settings.timer_display.section" = "Timervisning";
+"settings.timer_display.title" = "Tidsformat";
+"settings.timer_display.option.seconds" = "Sekunder";
+"settings.timer_display.option.minutes_seconds" = "Min:Sek";
+"accessibility.rest_time_value_seconds_format" = "%ld sekunder";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld minutter og %ld sekunder";
+"notification.rest_finished.body_with_duration_format" = "Sæt %ld/%ld · Pause %@";
+
+"settings.energy.section" = "Strombesparelse";
+"settings.energy.mode.title" = "Tilstand";
+"settings.energy.mode.off" = "Fra";
+"settings.energy.mode.automatic" = "Automatisk";
+"settings.energy.mode.on" = "Til";
+"settings.energy.description" = "Fra bevarer nuvaerende adfaerd. Automatisk folger iOS lavstromtilstand. Til tillader skærmlaas, reducerer timer-opvaagninger og deaktiverer haptik ved hvileslut.";

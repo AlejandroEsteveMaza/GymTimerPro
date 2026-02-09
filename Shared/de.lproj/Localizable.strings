@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld Wiederholungen";
 "routines.field.reps" = "Wiederholungen";
-"routines.summary_format" = "%ld Sätze · %ld Wdh. · %ld s · %@";
+"routines.summary_format" = "%ld Sätze · %ld Wdh. · %@ · %@";
 
 "pro.locked.message" = "Verfügbar in Pro.";
 "pro.locked.progress.title" = "Fortschritt";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "Abo verwalten";
 "paywall.button.privacy" = "Datenschutz";
 "paywall.restore.no_purchases" = "Keine Käufe zum Wiederherstellen.";
+
+"config.rest_time.title" = "Pausenzeit";
+"settings.timer_display.section" = "Timer-Anzeige";
+"settings.timer_display.title" = "Zeitformat";
+"settings.timer_display.option.seconds" = "Sekunden";
+"settings.timer_display.option.minutes_seconds" = "Min:Sek";
+"accessibility.rest_time_value_seconds_format" = "%ld Sekunden";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld Minuten und %ld Sekunden";
+"notification.rest_finished.body_with_duration_format" = "Satz %ld/%ld · Pause %@";
+
+"settings.energy.section" = "Energiesparen";
+"settings.energy.mode.title" = "Modus";
+"settings.energy.mode.off" = "Aus";
+"settings.energy.mode.automatic" = "Automatisch";
+"settings.energy.mode.on" = "Ein";
+"settings.energy.description" = "Aus behaelt das aktuelle Verhalten. Automatisch folgt dem iOS-Stromsparmodus. Ein erlaubt das Sperren des Bildschirms, reduziert Timer-Weckvorgaenge und deaktiviert Haptik nach der Pause.";

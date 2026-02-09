@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld रेप्स";
 "routines.field.reps" = "रेप्स";
-"routines.summary_format" = "%ld सेट · %ld रेप्स · %ld s · %@";
+"routines.summary_format" = "%ld सेट · %ld रेप्स · %@ · %@";
 
 "pro.locked.message" = "Pro में उपलब्ध है.";
 "pro.locked.progress.title" = "प्रगति";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "सब्सक्रिप्शन प्रबंधित करें";
 "paywall.button.privacy" = "गोपनीयता";
 "paywall.restore.no_purchases" = "पुनर्स्थापित करने के लिए कोई खरीद नहीं है।";
+
+"config.rest_time.title" = "आराम का समय";
+"settings.timer_display.section" = "टाइमर डिस्प्ले";
+"settings.timer_display.title" = "समय प्रारूप";
+"settings.timer_display.option.seconds" = "सेकंड";
+"settings.timer_display.option.minutes_seconds" = "मिन:सेक";
+"accessibility.rest_time_value_seconds_format" = "%ld सेकंड";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld मिनट और %ld सेकंड";
+"notification.rest_finished.body_with_duration_format" = "सेट %ld/%ld · आराम %@";
+
+"settings.energy.section" = "ऊर्जा बचत";
+"settings.energy.mode.title" = "मोड";
+"settings.energy.mode.off" = "बंद";
+"settings.energy.mode.automatic" = "स्वचालित";
+"settings.energy.mode.on" = "चालू";
+"settings.energy.description" = "बंद वर्तमान व्यवहार रखता है। स्वचालित iOS लो पावर मोड का पालन करता है। चालू पर स्क्रीन लॉक की अनुमति, टाइमर वेकअप कम, और आराम खत्म होने पर हैप्टिक बंद।";

@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld회";
 "routines.field.reps" = "반복";
-"routines.summary_format" = "%ld세트 · %ld회 · %ld초 · %@";
+"routines.summary_format" = "%ld세트 · %ld회 · %@ · %@";
 
 "pro.locked.message" = "Pro에서 사용할 수 있습니다.";
 "pro.locked.progress.title" = "진행";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "구독 관리";
 "paywall.button.privacy" = "개인정보";
 "paywall.restore.no_purchases" = "복원할 구매가 없습니다.";
+
+"config.rest_time.title" = "휴식 시간";
+"settings.timer_display.section" = "타이머 표시";
+"settings.timer_display.title" = "시간 형식";
+"settings.timer_display.option.seconds" = "초";
+"settings.timer_display.option.minutes_seconds" = "분:초";
+"accessibility.rest_time_value_seconds_format" = "%ld초";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld분 %ld초";
+"notification.rest_finished.body_with_duration_format" = "세트 %ld/%ld · 휴식 %@";
+
+"settings.energy.section" = "절전";
+"settings.energy.mode.title" = "모드";
+"settings.energy.mode.off" = "끔";
+"settings.energy.mode.automatic" = "자동";
+"settings.energy.mode.on" = "켬";
+"settings.energy.description" = "끔은 현재 동작을 유지합니다. 자동은 iOS 저전력 모드를 따릅니다. 켬은 화면 잠금을 허용하고 타이머 깨움 빈도를 줄이며 휴식 종료 시 햅틱을 끕니다.";

@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld 次";
 "routines.field.reps" = "次数";
-"routines.summary_format" = "%ld 组 · %ld 次 · %ld 秒 · %@";
+"routines.summary_format" = "%ld 组 · %ld 次 · %@ · %@";
 
 "pro.locked.message" = "仅限 Pro。";
 "pro.locked.progress.title" = "进度";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "管理订阅";
 "paywall.button.privacy" = "隐私";
 "paywall.restore.no_purchases" = "没有可恢复的购买。";
+
+"config.rest_time.title" = "休息时间";
+"settings.timer_display.section" = "计时器显示";
+"settings.timer_display.title" = "时间格式";
+"settings.timer_display.option.seconds" = "秒";
+"settings.timer_display.option.minutes_seconds" = "分:秒";
+"accessibility.rest_time_value_seconds_format" = "%ld秒";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld分%ld秒";
+"notification.rest_finished.body_with_duration_format" = "第%ld/%ld组 · 休息 %@";
+
+"settings.energy.section" = "省电";
+"settings.energy.mode.title" = "模式";
+"settings.energy.mode.off" = "关闭";
+"settings.energy.mode.automatic" = "自动";
+"settings.energy.mode.on" = "开启";
+"settings.energy.description" = "关闭保持当前行为。自动跟随 iOS 低电量模式。开启后允许锁屏、降低计时器唤醒频率，并在休息结束时关闭触感。";

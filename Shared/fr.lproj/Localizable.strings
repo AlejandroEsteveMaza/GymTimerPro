@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld répétitions";
 "routines.field.reps" = "Répétitions";
-"routines.summary_format" = "%ld séries · %ld reps · %ld s · %@";
+"routines.summary_format" = "%ld séries · %ld reps · %@ · %@";
 
 "pro.locked.message" = "Disponible dans Pro.";
 "pro.locked.progress.title" = "Progrès";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "Gérer l’abonnement";
 "paywall.button.privacy" = "Confidentialité";
 "paywall.restore.no_purchases" = "Aucun achat à restaurer.";
+
+"config.rest_time.title" = "Temps de repos";
+"settings.timer_display.section" = "Affichage du minuteur";
+"settings.timer_display.title" = "Format de temps";
+"settings.timer_display.option.seconds" = "Secondes";
+"settings.timer_display.option.minutes_seconds" = "Min:Sec";
+"accessibility.rest_time_value_seconds_format" = "%ld secondes";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld minutes et %ld secondes";
+"notification.rest_finished.body_with_duration_format" = "Série %ld/%ld · Repos %@";
+
+"settings.energy.section" = "Economie d\u2019energie";
+"settings.energy.mode.title" = "Mode";
+"settings.energy.mode.off" = "Desactive";
+"settings.energy.mode.automatic" = "Automatique";
+"settings.energy.mode.on" = "Active";
+"settings.energy.description" = "Desactive conserve le comportement actuel. Automatique suit le mode economie d\u2019energie iOS. Active autorise le verrouillage de l\u2019ecran, reduit les reveils du minuteur et desactive l\u2019haptique a la fin du repos.";

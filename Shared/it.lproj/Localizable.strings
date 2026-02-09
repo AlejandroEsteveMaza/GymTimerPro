@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld ripetizioni";
 "routines.field.reps" = "Ripetizioni";
-"routines.summary_format" = "%ld serie · %ld rep · %ld s · %@";
+"routines.summary_format" = "%ld serie · %ld rep · %@ · %@";
 
 "pro.locked.message" = "Disponibile in Pro.";
 "pro.locked.progress.title" = "Progresso";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "Gestisci abbonamento";
 "paywall.button.privacy" = "Privacy";
 "paywall.restore.no_purchases" = "Nessun acquisto da ripristinare.";
+
+"config.rest_time.title" = "Tempo di recupero";
+"settings.timer_display.section" = "Visualizzazione timer";
+"settings.timer_display.title" = "Formato tempo";
+"settings.timer_display.option.seconds" = "Secondi";
+"settings.timer_display.option.minutes_seconds" = "Min:Sec";
+"accessibility.rest_time_value_seconds_format" = "%ld secondi";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld minuti e %ld secondi";
+"notification.rest_finished.body_with_duration_format" = "Serie %ld/%ld · Recupero %@";
+
+"settings.energy.section" = "Risparmio energetico";
+"settings.energy.mode.title" = "Modalita";
+"settings.energy.mode.off" = "Disattivato";
+"settings.energy.mode.automatic" = "Automatico";
+"settings.energy.mode.on" = "Attivato";
+"settings.energy.description" = "Disattivato mantiene il comportamento attuale. Automatico segue la modalita risparmio energetico di iOS. Attivato consente il blocco schermo, riduce i risvegli del timer e disattiva l\u2019aptica a fine recupero.";

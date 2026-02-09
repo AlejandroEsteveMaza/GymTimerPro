@@ -14,6 +14,8 @@ import AudioToolbox
 struct ContentView: View {
     @AppStorage("training.total_sets") private var totalSeries: Int = 4
     @AppStorage("training.rest_seconds") private var tiempoDescanso: Int = 90
+    @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
+    @AppStorage(PowerSavingMode.appStorageKey) private var powerSavingModeRawValue: Int = PowerSavingMode.off.rawValue
     @AppStorage("training.current_set") private var serieActual: Int = 1
     @AppStorage("training.completed") private var completado: Bool = false
     @AppStorage("training.applied_routine_name") private var appliedRoutineNameStorage: String = ""
@@ -26,6 +28,7 @@ struct ContentView: View {
     @State private var showNotificationPreview = false
     @State private var uiTestOverridesApplied = false
     @State private var isPresentingRoutinePicker = false
+    @State private var lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
@@ -56,7 +59,7 @@ struct ContentView: View {
             controlsSection
         }
         .onAppear {
-            UIApplication.shared.isIdleTimerDisabled = true
+            applyPowerSavingPolicy()
             applyUITestOverridesIfNeeded()
             applyRoutineSelection(routineSelectionStore.selection)
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
@@ -87,10 +90,19 @@ struct ContentView: View {
             restTimer.handleScenePhase(newPhase)
             if newPhase == .active {
                 usageLimiter.refresh(now: .now)
+                lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
+                applyPowerSavingPolicy()
             }
             if newPhase == .active, restTimer.didFinish {
                 handleRestFinished()
             }
+        }
+        .onChange(of: powerSavingModeRawValue) { _, _ in
+            applyPowerSavingPolicy()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSProcessInfoPowerStateDidChange)) { _ in
+            lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
+            applyPowerSavingPolicy()
         }
         .onChange(of: restTimer.endDate) { _, newDate in
             guard let newDate, isResting else { return }
@@ -153,12 +165,13 @@ struct ContentView: View {
                 Divider()
                     .foregroundStyle(Theme.divider)
                 configWheelRow(
-                    titleKey: "config.rest_seconds.title",
+                    titleKey: "config.rest_time.title",
                     icon: "timer",
                     value: $tiempoDescanso,
                     range: 15...300,
                     step: 15,
-                    accessibilityValue: L10n.format("accessibility.rest_seconds_value_format", tiempoDescanso)
+                    valueFormatter: { formattedTime($0) },
+                    accessibilityValue: restTimeAccessibilityValue(for: tiempoDescanso)
                 )
                 if !purchaseManager.isPro {
                     Divider()
@@ -223,6 +236,7 @@ struct ContentView: View {
         value: Binding<Int>,
         range: ClosedRange<Int>,
         step: Int = 1,
+        valueFormatter: ((Int) -> String)? = nil,
         valueEditorIdentifier: String? = nil,
         editorPickerIdentifier: String? = nil,
         accessibilityValue: String
@@ -235,6 +249,7 @@ struct ContentView: View {
                     value: value,
                     range: range,
                     step: step,
+                    valueFormatter: valueFormatter,
                     accessibilityIdentifier: valueEditorIdentifier,
                     editorPickerIdentifier: editorPickerIdentifier
                 )
@@ -335,13 +350,13 @@ struct ContentView: View {
                 .textCase(.uppercase)
                 .symbolRenderingMode(.hierarchical)
 
-            Text("\(remainingSeconds)")
+            Text(formattedTime(remainingSeconds))
                 .font(.system(size: Layout.timerFontSize, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.resting)
                 .monospacedDigit()
                 .minimumScaleFactor(0.6)
                 .contentTransition(.numericText())
-                .animation(.linear(duration: 0.9), value: remainingSeconds)
+                .animation(isEnergySavingActive ? nil : .linear(duration: 0.9), value: remainingSeconds)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Layout.timerPadding)
@@ -409,8 +424,11 @@ struct ContentView: View {
         restTimer.acknowledgeFinish()
         liveActivityManager.end()
         liveActivityManager.cancelEndNotification()
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        // Sound is always enabled (power saving only affects extra feedback like haptics/animations).
         AudioServicesPlaySystemSound(restFinishedSoundID)
+        if !isEnergySavingActive {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
     }
 
     private func completeWorkout() {
@@ -659,13 +677,43 @@ struct ContentView: View {
     }
 
     private var previewTimeString: String {
-        formatTime(max(1, tiempoDescanso))
+        formattedTime(max(1, tiempoDescanso))
     }
 
-    private func formatTime(_ seconds: Int) -> String {
-        let minutes = max(0, seconds) / 60
-        let remaining = max(0, seconds) % 60
-        return String(format: "%d:%02d", minutes, remaining)
+    private var timerDisplayFormat: TimerDisplayFormat {
+        TimerDisplayFormat(rawValue: timerDisplayFormatRawValue) ?? .seconds
+    }
+
+    private var powerSavingMode: PowerSavingMode {
+        PowerSavingMode(rawValue: powerSavingModeRawValue) ?? .off
+    }
+
+    private var isEnergySavingActive: Bool {
+        powerSavingMode.isEnabled(systemLowPowerMode: lowPowerModeEnabled)
+    }
+
+    private func formattedTime(_ seconds: Int) -> String {
+        TimerDisplayFormatter.string(from: seconds, format: timerDisplayFormat)
+    }
+
+    private func restTimeAccessibilityValue(for seconds: Int) -> String {
+        switch timerDisplayFormat {
+        case .seconds:
+            return L10n.format("accessibility.rest_time_value_seconds_format", max(0, seconds))
+        case .minutesAndSeconds:
+            let parts = TimerDisplayFormatter.minutesAndSeconds(from: seconds)
+            return L10n.format(
+                "accessibility.rest_time_value_minutes_seconds_format",
+                parts.minutes,
+                parts.seconds
+            )
+        }
+    }
+
+    private func applyPowerSavingPolicy() {
+        let shouldSaveEnergy = isEnergySavingActive
+        UIApplication.shared.isIdleTimerDisabled = !shouldSaveEnergy
+        restTimer.setEnergySavingEnabled(shouldSaveEnergy)
     }
 }
 
@@ -678,6 +726,7 @@ private final class RestTimerModel: ObservableObject {
 
     private let storage: UserDefaults
     private var timerCancellable: AnyCancellable?
+    private var energySavingEnabled = false
 
     private enum Keys {
         static let endDate = "restTimer.endDate"
@@ -782,6 +831,14 @@ private final class RestTimerModel: ObservableObject {
         didFinish = false
     }
 
+    func setEnergySavingEnabled(_ enabled: Bool) {
+        guard energySavingEnabled != enabled else { return }
+        energySavingEnabled = enabled
+        if isRunning {
+            startTimerLoop()
+        }
+    }
+
     private func reconcile(now: Date) {
         guard isRunning else {
             if endDate != nil {
@@ -816,7 +873,8 @@ private final class RestTimerModel: ObservableObject {
 
     private func startTimerLoop() {
         timerCancellable?.cancel()
-        timerCancellable = Timer.publish(every: 1, tolerance: 0.2, on: .main, in: .common)
+        let tolerance: TimeInterval = energySavingEnabled ? 0.8 : 0.2
+        timerCancellable = Timer.publish(every: 1, tolerance: tolerance, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] now in
                 self?.tick(now: now)

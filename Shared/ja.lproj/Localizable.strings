@@ -107,7 +107,7 @@
 
 "accessibility.reps_value_format" = "%ld回";
 "routines.field.reps" = "回数";
-"routines.summary_format" = "%ldセット · %ld回 · %ld秒 · %@";
+"routines.summary_format" = "%ldセット · %ld回 · %@ · %@";
 
 "pro.locked.message" = "Proで利用できます。";
 "pro.locked.progress.title" = "進捗";
@@ -261,3 +261,19 @@
 "paywall.button.manage" = "サブスクリプション管理";
 "paywall.button.privacy" = "プライバシー";
 "paywall.restore.no_purchases" = "復元する購入はありません。";
+
+"config.rest_time.title" = "休憩時間";
+"settings.timer_display.section" = "タイマー表示";
+"settings.timer_display.title" = "時間表示形式";
+"settings.timer_display.option.seconds" = "秒";
+"settings.timer_display.option.minutes_seconds" = "分:秒";
+"accessibility.rest_time_value_seconds_format" = "%ld秒";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld分%ld秒";
+"notification.rest_finished.body_with_duration_format" = "セット%ld/%ld ・ 休憩 %@";
+
+"settings.energy.section" = "省電力";
+"settings.energy.mode.title" = "モード";
+"settings.energy.mode.off" = "オフ";
+"settings.energy.mode.automatic" = "自動";
+"settings.energy.mode.on" = "オン";
+"settings.energy.description" = "オフは現在の動作を維持します。自動はiOSの低電力モードに従います。オンは画面ロックを許可し、タイマーの起動頻度を下げ、休憩終了時の触覚を無効化します。";

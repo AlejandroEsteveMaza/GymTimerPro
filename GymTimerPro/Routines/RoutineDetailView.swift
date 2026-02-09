@@ -13,6 +13,7 @@ struct RoutineDetailView: View {
     @EnvironmentObject private var store: RoutinesStore
     @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
     @State private var isEditing = false
+    @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
 
     var body: some View {
         Form {
@@ -27,8 +28,8 @@ struct RoutineDetailView: View {
                 LabeledContent(LocalizedStringKey("routines.field.reps")) {
                     Text("\(routine.reps)")
                 }
-                LabeledContent(LocalizedStringKey("config.rest_seconds.title")) {
-                    Text("\(routine.restSeconds)")
+                LabeledContent(LocalizedStringKey("config.rest_time.title")) {
+                    Text(TimerDisplayFormatter.string(from: routine.restSeconds, format: timerDisplayFormat))
                 }
                 LabeledContent(LocalizedStringKey("routines.field.weight")) {
                     Text(RoutineFormatting.weightValueText(routine.weightKg))
@@ -70,5 +71,9 @@ struct RoutineDetailView: View {
 
     private var isApplied: Bool {
         routineSelectionStore.selection?.id == routine.id
+    }
+
+    private var timerDisplayFormat: TimerDisplayFormat {
+        TimerDisplayFormat(rawValue: timerDisplayFormatRawValue) ?? .seconds
     }
 }

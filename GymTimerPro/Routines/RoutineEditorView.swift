@@ -30,6 +30,7 @@ struct RoutineEditorView: View {
     @State private var showDeleteDialog = false
     @State private var showClassificationPicker = false
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
+    @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
 
     init(routine: Routine? = nil) {
         self.routine = routine
@@ -110,13 +111,14 @@ struct RoutineEditorView: View {
                 )
 
                 NumericConfigRow(
-                    titleKey: "config.rest_seconds.title",
+                    titleKey: "config.rest_time.title",
                     icon: "timer",
                     value: $draft.restSeconds,
                     range: 15...300,
                     step: 15,
-                    accessibilityValue: L10n.format("accessibility.rest_seconds_value_format", draft.restSeconds),
-                    stepperControlSize: $stepperControlSize
+                    accessibilityValue: restTimeAccessibilityValue(for: draft.restSeconds),
+                    stepperControlSize: $stepperControlSize,
+                    valueFormatter: { formattedTime($0) }
                 )
 
                 ConfigRow(icon: "scalemass", titleKey: "routines.field.weight") {
@@ -235,6 +237,28 @@ struct RoutineEditorView: View {
 
     private var editorTitleKey: String {
         routine == nil ? "routines.create.title" : "routines.edit.title"
+    }
+
+    private var timerDisplayFormat: TimerDisplayFormat {
+        TimerDisplayFormat(rawValue: timerDisplayFormatRawValue) ?? .seconds
+    }
+
+    private func formattedTime(_ seconds: Int) -> String {
+        TimerDisplayFormatter.string(from: seconds, format: timerDisplayFormat)
+    }
+
+    private func restTimeAccessibilityValue(for seconds: Int) -> String {
+        switch timerDisplayFormat {
+        case .seconds:
+            return L10n.format("accessibility.rest_time_value_seconds_format", max(0, seconds))
+        case .minutesAndSeconds:
+            let parts = TimerDisplayFormatter.minutesAndSeconds(from: seconds)
+            return L10n.format(
+                "accessibility.rest_time_value_minutes_seconds_format",
+                parts.minutes,
+                parts.seconds
+            )
+        }
     }
 
     private var trimmedName: String {
