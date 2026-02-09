@@ -14,6 +14,7 @@ import AudioToolbox
 struct ContentView: View {
     @AppStorage("training.total_sets") private var totalSeries: Int = 4
     @AppStorage("training.rest_seconds") private var tiempoDescanso: Int = 90
+    @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
     @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
     @AppStorage(PowerSavingMode.appStorageKey) private var powerSavingModeRawValue: Int = PowerSavingMode.off.rawValue
     @AppStorage("training.current_set") private var serieActual: Int = 1
@@ -169,7 +170,7 @@ struct ContentView: View {
                     icon: "timer",
                     value: $tiempoDescanso,
                     range: 15...300,
-                    step: 15,
+                    step: restIncrementPreference.step,
                     valueFormatter: { formattedTime($0) },
                     accessibilityValue: restTimeAccessibilityValue(for: tiempoDescanso)
                 )
@@ -682,6 +683,10 @@ struct ContentView: View {
 
     private var timerDisplayFormat: TimerDisplayFormat {
         TimerDisplayFormat(rawValue: timerDisplayFormatRawValue) ?? .seconds
+    }
+
+    private var restIncrementPreference: RestIncrementPreference {
+        RestIncrementPreference(rawValue: restIncrementPreferenceRawValue) ?? .fifteenSeconds
     }
 
     private var powerSavingMode: PowerSavingMode {

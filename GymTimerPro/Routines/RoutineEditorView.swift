@@ -30,6 +30,7 @@ struct RoutineEditorView: View {
     @State private var showDeleteDialog = false
     @State private var showClassificationPicker = false
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
+    @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
     @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
 
     init(routine: Routine? = nil) {
@@ -115,7 +116,7 @@ struct RoutineEditorView: View {
                     icon: "timer",
                     value: $draft.restSeconds,
                     range: 15...300,
-                    step: 15,
+                    step: restIncrementPreference.step,
                     accessibilityValue: restTimeAccessibilityValue(for: draft.restSeconds),
                     stepperControlSize: $stepperControlSize,
                     valueFormatter: { formattedTime($0) }
@@ -241,6 +242,10 @@ struct RoutineEditorView: View {
 
     private var timerDisplayFormat: TimerDisplayFormat {
         TimerDisplayFormat(rawValue: timerDisplayFormatRawValue) ?? .seconds
+    }
+
+    private var restIncrementPreference: RestIncrementPreference {
+        RestIncrementPreference(rawValue: restIncrementPreferenceRawValue) ?? .fifteenSeconds
     }
 
     private func formattedTime(_ seconds: Int) -> String {

@@ -283,3 +283,9 @@
 "settings.weight_unit.option.automatic" = "Automatisch";
 "settings.weight_unit.option.kilograms" = "Kilogramm (kg)";
 "settings.weight_unit.option.pounds" = "Pfund (lb)";
+
+"settings.rest_increment.section" = "Pausenschritt";
+"settings.rest_increment.title" = "Schrittweite";
+"settings.rest_increment.option.5" = "5 Sek";
+"settings.rest_increment.option.10" = "10 Sek";
+"settings.rest_increment.option.15" = "15 Sek";

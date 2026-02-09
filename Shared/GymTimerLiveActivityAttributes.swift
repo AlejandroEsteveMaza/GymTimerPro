@@ -49,6 +49,18 @@ enum WeightUnitPreference: Int, Codable, Hashable, CaseIterable, Sendable {
     }
 }
 
+enum RestIncrementPreference: Int, Codable, Hashable, CaseIterable, Sendable {
+    case fiveSeconds = 5
+    case tenSeconds = 10
+    case fifteenSeconds = 15
+
+    static let appStorageKey = "training.rest_increment"
+
+    var step: Int {
+        rawValue
+    }
+}
+
 enum TimerDisplayFormatter {
     static func string(from totalSeconds: Int, format: TimerDisplayFormat) -> String {
         let clampedSeconds = max(0, totalSeconds)

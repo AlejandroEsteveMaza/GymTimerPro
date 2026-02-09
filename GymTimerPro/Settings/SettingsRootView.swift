@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsRootView: View {
     @AppStorage(WeightUnitPreference.appStorageKey) private var weightUnitPreferenceRawValue: Int = WeightUnitPreference.automatic.rawValue
+    @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
     @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
     @AppStorage(PowerSavingMode.appStorageKey) private var powerSavingModeRawValue: Int = PowerSavingMode.off.rawValue
 
@@ -32,6 +33,18 @@ struct SettingsRootView: View {
                         .tag(TimerDisplayFormat.seconds)
                     Text("settings.timer_display.option.minutes_seconds")
                         .tag(TimerDisplayFormat.minutesAndSeconds)
+                }
+                .pickerStyle(.segmented)
+            }
+
+            Section("settings.rest_increment.section") {
+                Picker("settings.rest_increment.title", selection: restIncrementPreferenceBinding) {
+                    Text("settings.rest_increment.option.5")
+                        .tag(RestIncrementPreference.fiveSeconds)
+                    Text("settings.rest_increment.option.10")
+                        .tag(RestIncrementPreference.tenSeconds)
+                    Text("settings.rest_increment.option.15")
+                        .tag(RestIncrementPreference.fifteenSeconds)
                 }
                 .pickerStyle(.segmented)
             }
@@ -74,6 +87,13 @@ struct SettingsRootView: View {
         Binding(
             get: { TimerDisplayFormat(rawValue: timerDisplayFormatRawValue) ?? .seconds },
             set: { timerDisplayFormatRawValue = $0.rawValue }
+        )
+    }
+
+    private var restIncrementPreferenceBinding: Binding<RestIncrementPreference> {
+        Binding(
+            get: { RestIncrementPreference(rawValue: restIncrementPreferenceRawValue) ?? .fifteenSeconds },
+            set: { restIncrementPreferenceRawValue = $0.rawValue }
         )
     }
 

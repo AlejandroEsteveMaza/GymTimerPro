@@ -338,3 +338,9 @@
 "settings.weight_unit.option.automatic" = "Automatic";
 "settings.weight_unit.option.kilograms" = "Kilograms (kg)";
 "settings.weight_unit.option.pounds" = "Pounds (lb)";
+
+"settings.rest_increment.section" = "Rest increment";
+"settings.rest_increment.title" = "Step";
+"settings.rest_increment.option.5" = "5 sec";
+"settings.rest_increment.option.10" = "10 sec";
+"settings.rest_increment.option.15" = "15 sec";

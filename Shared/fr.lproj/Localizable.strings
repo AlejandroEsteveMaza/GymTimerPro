@@ -283,3 +283,9 @@
 "settings.weight_unit.option.automatic" = "Automatique";
 "settings.weight_unit.option.kilograms" = "Kilogrammes (kg)";
 "settings.weight_unit.option.pounds" = "Livres (lb)";
+
+"settings.rest_increment.section" = "Incrément de repos";
+"settings.rest_increment.title" = "Incrément";
+"settings.rest_increment.option.5" = "5 s";
+"settings.rest_increment.option.10" = "10 s";
+"settings.rest_increment.option.15" = "15 s";

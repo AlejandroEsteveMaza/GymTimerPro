@@ -283,3 +283,9 @@
 "settings.weight_unit.option.automatic" = "Automatisch";
 "settings.weight_unit.option.kilograms" = "Kilogram (kg)";
 "settings.weight_unit.option.pounds" = "Pond (lb)";
+
+"settings.rest_increment.section" = "Rust-interval";
+"settings.rest_increment.title" = "Interval";
+"settings.rest_increment.option.5" = "5 s";
+"settings.rest_increment.option.10" = "10 s";
+"settings.rest_increment.option.15" = "15 s";

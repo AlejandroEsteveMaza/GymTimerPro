@@ -283,3 +283,9 @@
 "settings.weight_unit.option.automatic" = "自動";
 "settings.weight_unit.option.kilograms" = "キログラム (kg)";
 "settings.weight_unit.option.pounds" = "ポンド (lb)";
+
+"settings.rest_increment.section" = "休憩の増分";
+"settings.rest_increment.title" = "増分";
+"settings.rest_increment.option.5" = "5秒";
+"settings.rest_increment.option.10" = "10秒";
+"settings.rest_increment.option.15" = "15秒";

@@ -283,3 +283,9 @@
 "settings.weight_unit.option.automatic" = "自动";
 "settings.weight_unit.option.kilograms" = "千克 (kg)";
 "settings.weight_unit.option.pounds" = "磅 (lb)";
+
+"settings.rest_increment.section" = "休息增量";
+"settings.rest_increment.title" = "步进";
+"settings.rest_increment.option.5" = "5秒";
+"settings.rest_increment.option.10" = "10秒";
+"settings.rest_increment.option.15" = "15秒";

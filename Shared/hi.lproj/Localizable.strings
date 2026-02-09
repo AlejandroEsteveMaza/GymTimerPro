@@ -283,3 +283,9 @@
 "settings.weight_unit.option.automatic" = "स्वचालित";
 "settings.weight_unit.option.kilograms" = "किलोग्राम (kg)";
 "settings.weight_unit.option.pounds" = "पाउंड (lb)";
+
+"settings.rest_increment.section" = "आराम वृद्धि";
+"settings.rest_increment.title" = "वृद्धि";
+"settings.rest_increment.option.5" = "5 सेकंड";
+"settings.rest_increment.option.10" = "10 सेकंड";
+"settings.rest_increment.option.15" = "15 सेकंड";

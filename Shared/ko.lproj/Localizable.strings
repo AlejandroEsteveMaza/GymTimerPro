@@ -283,3 +283,9 @@
 "settings.weight_unit.option.automatic" = "자동";
 "settings.weight_unit.option.kilograms" = "킬로그램 (kg)";
 "settings.weight_unit.option.pounds" = "파운드 (lb)";
+
+"settings.rest_increment.section" = "휴식 증가 단위";
+"settings.rest_increment.title" = "증가 단위";
+"settings.rest_increment.option.5" = "5초";
+"settings.rest_increment.option.10" = "10초";
+"settings.rest_increment.option.15" = "15초";
