@@ -21,7 +21,7 @@ struct ContentView: View {
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
     @StateObject private var restTimer = RestTimerModel()
     @StateObject private var liveActivityManager = LiveActivityManager()
-    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 19)
+    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 16)
     @State private var paywallContext: PaywallPresentationContext?
     @State private var showNotificationPreview = false
     @State private var uiTestOverridesApplied = false

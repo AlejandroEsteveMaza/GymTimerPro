@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @EnvironmentObject private var purchaseManager: PurchaseManager
-    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 19)
+    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 16)
     @State private var paywallContext: PaywallPresentationContext?
 
     var body: some View {
