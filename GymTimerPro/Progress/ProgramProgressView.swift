@@ -15,7 +15,7 @@ struct ProgramProgressView: View {
     @State private var store = ProgramProgressStore()
     @State private var selectedPeriod: ProgressPeriod = .month
     @State private var selectedDay: ProgressSelectedDay?
-    private let chartCalendar = Calendar.current
+    private let chartCalendar = Calendar.autoupdatingCurrent
 
     var body: some View {
         ScrollView {
@@ -145,7 +145,6 @@ struct ProgramProgressView: View {
             MonthlyCompletionCalendarView(
                 monthStart: store.monthStart,
                 dayCounts: store.monthlyDayCounts,
-                startsOnMonday: store.startsOnMonday,
                 activeWeeklyStreak: store.activeWeeklyStreak
             ) { day in
                 selectedDay = ProgressSelectedDay(date: day)
@@ -353,15 +352,11 @@ private struct ProgressRecentActivityItem: Identifiable {
 private struct MonthlyCompletionCalendarView: View {
     let monthStart: Date
     let dayCounts: [Date: Int]
-    let startsOnMonday: Bool
     let activeWeeklyStreak: Int
     let onSelectDay: (Date) -> Void
 
     private var calendar: Calendar {
-        var value = Calendar(identifier: .gregorian)
-        value.locale = Locale.current
-        value.firstWeekday = startsOnMonday ? 2 : 1
-        return value
+        Calendar.autoupdatingCurrent
     }
 
     var body: some View {

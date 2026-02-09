@@ -82,7 +82,7 @@ private enum ProgramProgressComputer {
         completions: [ProgressCompletionSnapshot],
         now: Date
     ) -> ProgramProgressDerivedData {
-        let calendar = makeCalendar(startsOnMonday: true)
+        let calendar = makeCalendar()
         let sortedDesc = completions.sorted { $0.completedAt > $1.completedAt }
 
         let activeWeeklyStreak = computeWeeklyStreak(
@@ -129,11 +129,8 @@ private enum ProgramProgressComputer {
         )
     }
 
-    nonisolated private static func makeCalendar(startsOnMonday: Bool) -> Calendar {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.locale = Locale.current
-        calendar.firstWeekday = startsOnMonday ? 2 : 1
-        return calendar
+    nonisolated private static func makeCalendar() -> Calendar {
+        Calendar.autoupdatingCurrent
     }
 
     nonisolated private static func computeWeeklyStreak(
@@ -398,9 +395,8 @@ private enum ProgramProgressComputer {
 @MainActor
 @Observable
 final class ProgramProgressStore {
-    let startsOnMonday = true
     private(set) var activeWeeklyStreak = 0
-    private(set) var monthStart = Calendar.current.startOfDay(for: .now)
+    private(set) var monthStart = Calendar.autoupdatingCurrent.startOfDay(for: .now)
     private(set) var monthlyDayCounts: [Date: Int] = [:]
     private(set) var recentCompletions: [ProgressCompletionSnapshot] = []
     private(set) var badges: [ProgressBadgeState] = []
@@ -415,9 +411,7 @@ final class ProgramProgressStore {
     }
 
     func completions(on day: Date) -> [ProgressCompletionSnapshot] {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.locale = Locale.current
-        calendar.firstWeekday = startsOnMonday ? 2 : 1
+        let calendar = Calendar.autoupdatingCurrent
         let dayStart = calendar.startOfDay(for: day)
         return dayCompletions[dayStart] ?? []
     }
