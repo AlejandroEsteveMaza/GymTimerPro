@@ -332,3 +332,9 @@
 "settings.energy.mode.automatic" = "Automatic";
 "settings.energy.mode.on" = "On";
 "settings.energy.description" = "Off keeps current behavior. Automatic follows iOS Low Power Mode. On allows screen lock, reduces timer wakeups, and disables haptics at rest end.";
+
+"settings.weight_unit.section" = "Weight unit";
+"settings.weight_unit.title" = "Weight unit";
+"settings.weight_unit.option.automatic" = "Automatic";
+"settings.weight_unit.option.kilograms" = "Kilograms (kg)";
+"settings.weight_unit.option.pounds" = "Pounds (lb)";

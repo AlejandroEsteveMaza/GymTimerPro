@@ -277,3 +277,9 @@
 "settings.energy.mode.automatic" = "自动";
 "settings.energy.mode.on" = "开启";
 "settings.energy.description" = "关闭保持当前行为。自动跟随 iOS 低电量模式。开启后允许锁屏、降低计时器唤醒频率，并在休息结束时关闭触感。";
+
+"settings.weight_unit.section" = "重量单位";
+"settings.weight_unit.title" = "重量单位";
+"settings.weight_unit.option.automatic" = "自动";
+"settings.weight_unit.option.kilograms" = "千克 (kg)";
+"settings.weight_unit.option.pounds" = "磅 (lb)";

@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct SettingsRootView: View {
+    @AppStorage(WeightUnitPreference.appStorageKey) private var weightUnitPreferenceRawValue: Int = WeightUnitPreference.automatic.rawValue
     @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
     @AppStorage(PowerSavingMode.appStorageKey) private var powerSavingModeRawValue: Int = PowerSavingMode.off.rawValue
 
     var body: some View {
         List {
+            Section("settings.weight_unit.section") {
+                Picker("settings.weight_unit.title", selection: weightUnitPreferenceBinding) {
+                    Text("settings.weight_unit.option.automatic")
+                        .tag(WeightUnitPreference.automatic)
+                    Text("settings.weight_unit.option.kilograms")
+                        .tag(WeightUnitPreference.kilograms)
+                    Text("settings.weight_unit.option.pounds")
+                        .tag(WeightUnitPreference.pounds)
+                }
+                .pickerStyle(.menu)
+            }
+
             Section("settings.timer_display.section") {
                 Picker("settings.timer_display.title", selection: timerDisplayFormatBinding) {
                     Text("settings.timer_display.option.seconds")
@@ -48,6 +61,13 @@ struct SettingsRootView: View {
             }
         }
         .navigationTitle("tab.settings")
+    }
+
+    private var weightUnitPreferenceBinding: Binding<WeightUnitPreference> {
+        Binding(
+            get: { WeightUnitPreference(rawValue: weightUnitPreferenceRawValue) ?? .automatic },
+            set: { weightUnitPreferenceRawValue = $0.rawValue }
+        )
     }
 
     private var timerDisplayFormatBinding: Binding<TimerDisplayFormat> {

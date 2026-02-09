@@ -277,3 +277,9 @@
 "settings.energy.mode.automatic" = "Automatique";
 "settings.energy.mode.on" = "Active";
 "settings.energy.description" = "Desactive conserve le comportement actuel. Automatique suit le mode economie d\u2019energie iOS. Active autorise le verrouillage de l\u2019ecran, reduit les reveils du minuteur et desactive l\u2019haptique a la fin du repos.";
+
+"settings.weight_unit.section" = "Unité de poids";
+"settings.weight_unit.title" = "Unité de poids";
+"settings.weight_unit.option.automatic" = "Automatique";
+"settings.weight_unit.option.kilograms" = "Kilogrammes (kg)";
+"settings.weight_unit.option.pounds" = "Livres (lb)";

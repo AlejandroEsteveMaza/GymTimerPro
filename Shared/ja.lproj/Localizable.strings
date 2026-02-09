@@ -277,3 +277,9 @@
 "settings.energy.mode.automatic" = "自動";
 "settings.energy.mode.on" = "オン";
 "settings.energy.description" = "オフは現在の動作を維持します。自動はiOSの低電力モードに従います。オンは画面ロックを許可し、タイマーの起動頻度を下げ、休憩終了時の触覚を無効化します。";
+
+"settings.weight_unit.section" = "重量単位";
+"settings.weight_unit.title" = "重量単位";
+"settings.weight_unit.option.automatic" = "自動";
+"settings.weight_unit.option.kilograms" = "キログラム (kg)";
+"settings.weight_unit.option.pounds" = "ポンド (lb)";

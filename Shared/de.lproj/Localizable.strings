@@ -277,3 +277,9 @@
 "settings.energy.mode.automatic" = "Automatisch";
 "settings.energy.mode.on" = "Ein";
 "settings.energy.description" = "Aus behaelt das aktuelle Verhalten. Automatisch folgt dem iOS-Stromsparmodus. Ein erlaubt das Sperren des Bildschirms, reduziert Timer-Weckvorgaenge und deaktiviert Haptik nach der Pause.";
+
+"settings.weight_unit.section" = "Gewichtseinheit";
+"settings.weight_unit.title" = "Gewichtseinheit";
+"settings.weight_unit.option.automatic" = "Automatisch";
+"settings.weight_unit.option.kilograms" = "Kilogramm (kg)";
+"settings.weight_unit.option.pounds" = "Pfund (lb)";

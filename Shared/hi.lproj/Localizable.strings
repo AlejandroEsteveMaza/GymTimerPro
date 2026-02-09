@@ -277,3 +277,9 @@
 "settings.energy.mode.automatic" = "स्वचालित";
 "settings.energy.mode.on" = "चालू";
 "settings.energy.description" = "बंद वर्तमान व्यवहार रखता है। स्वचालित iOS लो पावर मोड का पालन करता है। चालू पर स्क्रीन लॉक की अनुमति, टाइमर वेकअप कम, और आराम खत्म होने पर हैप्टिक बंद।";
+
+"settings.weight_unit.section" = "वजन इकाई";
+"settings.weight_unit.title" = "वजन इकाई";
+"settings.weight_unit.option.automatic" = "स्वचालित";
+"settings.weight_unit.option.kilograms" = "किलोग्राम (kg)";
+"settings.weight_unit.option.pounds" = "पाउंड (lb)";

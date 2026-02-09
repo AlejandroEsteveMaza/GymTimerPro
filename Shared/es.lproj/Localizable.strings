@@ -332,3 +332,9 @@
 "settings.energy.mode.automatic" = "Automatico";
 "settings.energy.mode.on" = "Activado";
 "settings.energy.description" = "Desactivado mantiene el comportamiento actual. Automatico sigue el modo de bajo consumo de iOS. Activado permite bloquear pantalla, reduce activaciones del timer y desactiva la haptica al terminar el descanso.";
+
+"settings.weight_unit.section" = "Unidad de peso";
+"settings.weight_unit.title" = "Unidad de peso";
+"settings.weight_unit.option.automatic" = "Automático";
+"settings.weight_unit.option.kilograms" = "Kilogramos (kg)";
+"settings.weight_unit.option.pounds" = "Libras (lb)";

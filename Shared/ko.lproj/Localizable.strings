@@ -277,3 +277,9 @@
 "settings.energy.mode.automatic" = "자동";
 "settings.energy.mode.on" = "켬";
 "settings.energy.description" = "끔은 현재 동작을 유지합니다. 자동은 iOS 저전력 모드를 따릅니다. 켬은 화면 잠금을 허용하고 타이머 깨움 빈도를 줄이며 휴식 종료 시 햅틱을 끕니다.";
+
+"settings.weight_unit.section" = "무게 단위";
+"settings.weight_unit.title" = "무게 단위";
+"settings.weight_unit.option.automatic" = "자동";
+"settings.weight_unit.option.kilograms" = "킬로그램 (kg)";
+"settings.weight_unit.option.pounds" = "파운드 (lb)";

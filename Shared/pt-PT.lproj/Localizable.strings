@@ -277,3 +277,9 @@
 "settings.energy.mode.automatic" = "Automatico";
 "settings.energy.mode.on" = "Ativado";
 "settings.energy.description" = "Desativado mantem o comportamento atual. Automatico segue o modo de baixo consumo do iOS. Ativado permite bloquear o ecra, reduz despertares do temporizador e desativa a haptica no fim do descanso.";
+
+"settings.weight_unit.section" = "Unidade de peso";
+"settings.weight_unit.title" = "Unidade de peso";
+"settings.weight_unit.option.automatic" = "Automático";
+"settings.weight_unit.option.kilograms" = "Quilogramas (kg)";
+"settings.weight_unit.option.pounds" = "Libras (lb)";

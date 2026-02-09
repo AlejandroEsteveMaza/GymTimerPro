@@ -29,17 +29,19 @@ enum RoutineFormatting {
 
     static func weightInputText(_ weightKg: Double?) -> String {
         guard let weightKg else { return "" }
-        return numberFormatter.string(from: NSNumber(value: weightKg)) ?? "\(weightKg)"
+        let displayValue = displayWeightValue(fromKilograms: weightKg)
+        return numberFormatter.string(from: NSNumber(value: displayValue)) ?? "\(displayValue)"
     }
 
     static func weightValueText(_ weightKg: Double?) -> String {
         guard let weightKg else { return L10n.tr("routines.weight.empty") }
-        return numberFormatter.string(from: NSNumber(value: weightKg)) ?? "\(weightKg)"
+        let measurement = displayMeasurement(fromKilograms: weightKg)
+        return measurementFormatter.string(from: measurement)
     }
 
     static func weightSummaryText(_ weightKg: Double?) -> String {
         guard let weightKg else { return L10n.tr("routines.weight.empty") }
-        let measurement = Measurement(value: weightKg, unit: UnitMass.kilograms)
+        let measurement = displayMeasurement(fromKilograms: weightKg)
         return measurementFormatter.string(from: measurement)
     }
 
@@ -52,6 +54,12 @@ enum RoutineFormatting {
         return Double(normalized)
     }
 
+    static func weightKilograms(fromInputText text: String) -> Double? {
+        guard let rawValue = parseWeight(text) else { return nil }
+        let measurement = Measurement(value: rawValue, unit: resolvedWeightUnit())
+        return measurement.converted(to: .kilograms).value
+    }
+
     static func summaryText(sets: Int, reps: Int, restSeconds: Int, weightKg: Double?) -> String {
         let weightText = weightSummaryText(weightKg)
         let displayFormatRawValue = UserDefaults.standard.object(forKey: TimerDisplayFormat.appStorageKey) as? Int
@@ -59,5 +67,25 @@ enum RoutineFormatting {
         let displayFormat = TimerDisplayFormat(rawValue: displayFormatRawValue) ?? .seconds
         let formattedRest = TimerDisplayFormatter.string(from: restSeconds, format: displayFormat)
         return L10n.format("routines.summary_format", sets, reps, formattedRest, weightText)
+    }
+
+    private static func weightUnitPreference() -> WeightUnitPreference {
+        let rawValue = UserDefaults.standard.object(forKey: WeightUnitPreference.appStorageKey) as? Int
+            ?? WeightUnitPreference.automatic.rawValue
+        return WeightUnitPreference(rawValue: rawValue) ?? .automatic
+    }
+
+    private static func resolvedWeightUnit() -> UnitMass {
+        weightUnitPreference().resolvedUnit()
+    }
+
+    private static func displayWeightValue(fromKilograms valueInKg: Double) -> Double {
+        let measurement = Measurement(value: valueInKg, unit: UnitMass.kilograms)
+        return measurement.converted(to: resolvedWeightUnit()).value
+    }
+
+    private static func displayMeasurement(fromKilograms valueInKg: Double) -> Measurement<UnitMass> {
+        let measurement = Measurement(value: valueInKg, unit: UnitMass.kilograms)
+        return measurement.converted(to: resolvedWeightUnit())
     }
 }

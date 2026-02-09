@@ -27,6 +27,28 @@ enum PowerSavingMode: Int, Codable, Hashable, CaseIterable, Sendable {
     }
 }
 
+enum WeightUnitPreference: Int, Codable, Hashable, CaseIterable, Sendable {
+    case automatic = 0
+    case kilograms = 1
+    case pounds = 2
+
+    static let appStorageKey = "weight.unit_preference"
+
+    func resolvedUnit(locale: Locale = .autoupdatingCurrent) -> UnitMass {
+        switch self {
+        case .automatic:
+            if locale.measurementSystem == .us || locale.measurementSystem == .uk {
+                return .pounds
+            }
+            return .kilograms
+        case .kilograms:
+            return .kilograms
+        case .pounds:
+            return .pounds
+        }
+    }
+}
+
 enum TimerDisplayFormatter {
     static func string(from totalSeconds: Int, format: TimerDisplayFormat) -> String {
         let clampedSeconds = max(0, totalSeconds)

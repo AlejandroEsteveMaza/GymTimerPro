@@ -277,3 +277,9 @@
 "settings.energy.mode.automatic" = "Automatico";
 "settings.energy.mode.on" = "Attivato";
 "settings.energy.description" = "Disattivato mantiene il comportamento attuale. Automatico segue la modalita risparmio energetico di iOS. Attivato consente il blocco schermo, riduce i risvegli del timer e disattiva l\u2019aptica a fine recupero.";
+
+"settings.weight_unit.section" = "Unità di peso";
+"settings.weight_unit.title" = "Unità di peso";
+"settings.weight_unit.option.automatic" = "Automatico";
+"settings.weight_unit.option.kilograms" = "Chilogrammi (kg)";
+"settings.weight_unit.option.pounds" = "Libbre (lb)";

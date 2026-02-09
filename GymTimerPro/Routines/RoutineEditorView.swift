@@ -273,16 +273,20 @@ struct RoutineEditorView: View {
         nameCount >= Self.nameMaxLength
     }
 
-    private var parsedWeight: Double? {
+    private var parsedWeightInput: Double? {
         RoutineFormatting.parseWeight(weightText)
+    }
+
+    private var parsedWeightKg: Double? {
+        RoutineFormatting.weightKilograms(fromInputText: weightText)
     }
 
     private var isWeightValid: Bool {
         if weightText.isEmpty {
             return true
         }
-        guard let parsedWeight else { return false }
-        return parsedWeight >= 0 && parsedWeight <= Self.weightMaxValue
+        guard let parsedWeightInput else { return false }
+        return parsedWeightInput >= 0 && parsedWeightInput <= Self.weightMaxValue
     }
 
     private var canSave: Bool {
@@ -348,7 +352,7 @@ struct RoutineEditorView: View {
             totalSets: draft.totalSets,
             reps: draft.reps,
             restSeconds: draft.restSeconds,
-            weightKg: parsedWeight,
+            weightKg: parsedWeightKg,
             classifications: draft.classifications
         )
     }

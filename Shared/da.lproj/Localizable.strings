@@ -277,3 +277,9 @@
 "settings.energy.mode.automatic" = "Automatisk";
 "settings.energy.mode.on" = "Til";
 "settings.energy.description" = "Fra bevarer nuvaerende adfaerd. Automatisk folger iOS lavstromtilstand. Til tillader skærmlaas, reducerer timer-opvaagninger og deaktiverer haptik ved hvileslut.";
+
+"settings.weight_unit.section" = "Vægtenhed";
+"settings.weight_unit.title" = "Vægtenhed";
+"settings.weight_unit.option.automatic" = "Automatisk";
+"settings.weight_unit.option.kilograms" = "Kilogram (kg)";
+"settings.weight_unit.option.pounds" = "Pund (lb)";
