@@ -377,12 +377,12 @@ private struct MonthlyCompletionCalendarView: View {
                     .accessibilityHidden(true)
             }
 
-            ForEach(rows.indices, id: \.self) { rowIndex in
+            ForEach(rows, id: \.first?.date) { row in
                 HStack(spacing: 6) {
-                    ForEach(rows[rowIndex]) { item in
+                    ForEach(row) { item in
                         dayCell(item)
                     }
-                    weeklyIndicator(isCurrentWeek: isCurrentWeek(rows[rowIndex]))
+                    weeklyIndicator(isCurrentWeek: isCurrentWeek(row))
                 }
             }
         }

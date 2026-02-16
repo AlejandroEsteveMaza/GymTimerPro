@@ -103,14 +103,11 @@ struct RoutinesListView: View {
 
 private enum RoutineEditorRoute: Identifiable {
     case create
-    case edit(Routine)
 
     var id: String {
         switch self {
         case .create:
             return "create"
-        case .edit(let routine):
-            return routine.id.uuidString
         }
     }
 
@@ -118,8 +115,6 @@ private enum RoutineEditorRoute: Identifiable {
         switch self {
         case .create:
             return nil
-        case .edit(let routine):
-            return routine
         }
     }
 }

@@ -126,7 +126,7 @@ struct RoutineClassificationManagerView: View {
     private var filteredClassifications: [RoutineClassification] {
         let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return classifications }
-        return classifications.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
+        return classifications.filter { $0.name.localizedStandardContains(trimmed) }
     }
 
     private var createRow: some View {
@@ -357,38 +357,6 @@ private struct ClassificationRow: View {
             selectedClassifications.remove(at: index)
         } else {
             selectedClassifications.append(classification)
-        }
-    }
-}
-
-enum ClassificationEditorRoute: Identifiable {
-    case create
-    case rename(RoutineClassification)
-
-    var id: String {
-        switch self {
-        case .create:
-            return "create"
-        case .rename(let classification):
-            return classification.id.uuidString
-        }
-    }
-
-    var classification: RoutineClassification? {
-        switch self {
-        case .create:
-            return nil
-        case .rename(let classification):
-            return classification
-        }
-    }
-
-    var titleKey: String {
-        switch self {
-        case .create:
-            return "classifications.add.title"
-        case .rename:
-            return "classifications.rename.title"
         }
     }
 }

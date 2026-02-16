@@ -62,7 +62,8 @@ final class LiveActivityManager: ObservableObject {
         }
         guard let activity else { return }
         Task {
-            await activity.end(nil, dismissalPolicy: dismissalPolicy)
+            let finalContent: ActivityContent<GymTimerAttributes.ContentState>? = nil
+            await activity.end(finalContent, dismissalPolicy: dismissalPolicy)
         }
         self.activity = nil
     }

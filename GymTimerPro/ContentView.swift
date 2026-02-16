@@ -925,7 +925,7 @@ private final class RestTimerModel: ObservableObject {
     ContentView()
         .environmentObject(PurchaseManager(startTasks: false))
         .environmentObject(RoutineSelectionStore())
-        .modelContainer(for: [Routine.self, RoutineClassification.self, WorkoutCompletion.self, GoalSettings.self], inMemory: true)
+        .modelContainer(for: [Routine.self, RoutineClassification.self, WorkoutCompletion.self], inMemory: true)
 }
 
 enum Layout {

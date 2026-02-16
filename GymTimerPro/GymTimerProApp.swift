@@ -45,8 +45,7 @@ struct GymTimerProApp: App {
         let schema = Schema([
             Routine.self,
             RoutineClassification.self,
-            WorkoutCompletion.self,
-            GoalSettings.self
+            WorkoutCompletion.self
         ])
 
         // Use a stable on-disk URL so the fallback local-only config can open the same store file.

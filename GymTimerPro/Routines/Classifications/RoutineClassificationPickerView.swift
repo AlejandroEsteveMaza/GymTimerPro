@@ -61,7 +61,7 @@ struct RoutineClassificationPickerView: View {
     private var filteredClassifications: [RoutineClassification] {
         let trimmed = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return classifications }
-        return classifications.filter { $0.name.localizedCaseInsensitiveContains(trimmed) }
+        return classifications.filter { $0.name.localizedStandardContains(trimmed) }
     }
 
     private var classificationInputBar: some View {

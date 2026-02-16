@@ -13,7 +13,6 @@ enum PaywallInfoLevel: String, Sendable, Hashable {
 
 enum PaywallSecondaryAction: Sendable, Equatable {
     case dismiss
-    case selectMonthly
 }
 
 struct PaywallPresentationContext: Identifiable, Hashable, Sendable {

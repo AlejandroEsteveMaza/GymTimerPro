@@ -351,3 +351,5 @@
 "settings.max_sets.option.15" = "15 sets";
 "settings.max_sets.option.20" = "20 sets";
 "settings.max_sets.option.30" = "30 sets";
+
+"paywall.info.title" = "Info";

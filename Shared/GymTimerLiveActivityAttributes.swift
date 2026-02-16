@@ -99,24 +99,17 @@ struct GymTimerAttributes: ActivityAttributes {
         var totalSets: Int
         var endDate: Date
         var mode: Mode
-        var timerDisplayFormatRawValue: Int?
-
-        var timerDisplayFormat: TimerDisplayFormat {
-            TimerDisplayFormat(rawValue: timerDisplayFormatRawValue ?? TimerDisplayFormat.seconds.rawValue) ?? .seconds
-        }
 
         init(
             currentSet: Int,
             totalSets: Int,
             endDate: Date,
-            mode: Mode,
-            timerDisplayFormatRawValue: Int? = nil
+            mode: Mode
         ) {
             self.currentSet = currentSet
             self.totalSets = totalSets
             self.endDate = endDate
             self.mode = mode
-            self.timerDisplayFormatRawValue = timerDisplayFormatRawValue
         }
     }
 

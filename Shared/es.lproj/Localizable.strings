@@ -351,3 +351,5 @@
 "settings.max_sets.option.15" = "15 series";
 "settings.max_sets.option.20" = "20 series";
 "settings.max_sets.option.30" = "30 series";
+
+"paywall.info.title" = "Información";

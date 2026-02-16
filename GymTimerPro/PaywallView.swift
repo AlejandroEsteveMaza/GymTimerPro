@@ -90,7 +90,7 @@ struct PaywallView: View {
             Text(error?.localizedDescription ?? L10n.tr("paywall.error.unknown"))
         }
         .alert(
-            "Info",
+            "paywall.info.title",
             isPresented: Binding(
                 get: { infoMessage != nil },
                 set: { if !$0 { infoMessage = nil } }
@@ -130,7 +130,7 @@ struct PaywallView: View {
 
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("PRO")
+            Text("paywall.badge.pro")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(accentColor)
                 .padding(.horizontal, 10)
@@ -423,10 +423,6 @@ struct PaywallView: View {
         switch copy.ctaSecondaryAction {
         case .dismiss:
             dismiss()
-        case .selectMonthly:
-            if let monthly = monthlyProduct {
-                selectedProductID = monthly.id
-            }
         }
     }
 

@@ -263,6 +263,6 @@ private struct RoutineCatalogData {
         if matchingClassificationIDs.contains(classification.id) {
             return routines
         }
-        return routines.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        return routines.filter { $0.name.localizedStandardContains(searchText) }
     }
 }

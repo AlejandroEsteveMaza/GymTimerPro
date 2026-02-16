@@ -188,60 +188,9 @@ private struct ProLockedPreviewOverlay: View {
     }
 }
 
-private struct TabPlaceholderView: View {
-    let messageKey: String
-
-    var body: some View {
-        ZStack {
-            Color(uiColor: .systemBackground)
-            Text(LocalizedStringKey(messageKey))
-                .font(.callout)
-                .foregroundStyle(Color(uiColor: .secondaryLabel))
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-private struct LockedFeatureView: View {
-    let titleKey: String
-    let messageKey: String
-    let actionTitleKey: String
-    let action: () -> Void
-
-    var body: some View {
-        ZStack {
-            Color(uiColor: .systemBackground)
-            VStack(spacing: 8) {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 28, weight: .semibold))
-                    .foregroundStyle(Color(uiColor: .secondaryLabel))
-                Text(LocalizedStringKey(titleKey))
-                    .font(.headline)
-                    .foregroundStyle(Color(uiColor: .label))
-                Text(LocalizedStringKey(messageKey))
-                    .font(.subheadline)
-                    .foregroundStyle(Color(uiColor: .secondaryLabel))
-                    .multilineTextAlignment(.center)
-                Button(action: action) {
-                    Text(LocalizedStringKey(actionTitleKey))
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.roundedRectangle(radius: 12))
-                .tint(Color(uiColor: .systemBlue))
-                .padding(.top, 8)
-            }
-            .padding(.horizontal, 24)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
 #Preview {
     MainTabView()
         .environmentObject(PurchaseManager(startTasks: false))
         .environmentObject(RoutineSelectionStore())
-        .modelContainer(for: [Routine.self, RoutineClassification.self, WorkoutCompletion.self, GoalSettings.self], inMemory: true)
+        .modelContainer(for: [Routine.self, RoutineClassification.self, WorkoutCompletion.self], inMemory: true)
 }
