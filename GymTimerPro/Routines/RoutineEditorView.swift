@@ -30,6 +30,7 @@ struct RoutineEditorView: View {
     @State private var showDeleteDialog = false
     @State private var showClassificationPicker = false
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
+    @AppStorage(MaxSetsPreference.appStorageKey) private var maxSetsPreferenceRawValue: Int = MaxSetsPreference.ten.rawValue
     @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
     @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
 
@@ -97,7 +98,7 @@ struct RoutineEditorView: View {
                     titleKey: "config.total_sets.title",
                     icon: "square.stack.3d.up",
                     value: $draft.totalSets,
-                    range: 1...10,
+                    range: 1...maxSetsPreference.maxSets,
                     accessibilityValue: L10n.format("accessibility.total_sets_value_format", draft.totalSets),
                     stepperControlSize: $stepperControlSize
                 )
@@ -234,6 +235,12 @@ struct RoutineEditorView: View {
                     }
                 }
         )
+        .onAppear {
+            clampTotalSetsToAllowedMaximum()
+        }
+        .onChange(of: maxSetsPreferenceRawValue) { _, _ in
+            clampTotalSetsToAllowedMaximum()
+        }
     }
 
     private var editorTitleKey: String {
@@ -242,6 +249,10 @@ struct RoutineEditorView: View {
 
     private var timerDisplayFormat: TimerDisplayFormat {
         TimerDisplayFormat(rawValue: timerDisplayFormatRawValue) ?? .seconds
+    }
+
+    private var maxSetsPreference: MaxSetsPreference {
+        MaxSetsPreference(rawValue: maxSetsPreferenceRawValue) ?? .ten
     }
 
     private var restIncrementPreference: RestIncrementPreference {
@@ -298,6 +309,7 @@ struct RoutineEditorView: View {
         !trimmedName.isEmpty &&
             nameCount <= Self.nameMaxLength &&
             draft.totalSets > 0 &&
+            draft.totalSets <= maxSetsPreference.maxSets &&
             draft.reps > 0 &&
             draft.restSeconds >= 0 &&
             isWeightValid
@@ -432,6 +444,15 @@ struct RoutineEditorView: View {
             return formatter.string(from: NSNumber(value: weightMaxValue)) ?? "\(weightMaxValue)"
         }
         return sanitized
+    }
+
+    private func clampTotalSetsToAllowedMaximum() {
+        if draft.totalSets > maxSetsPreference.maxSets {
+            draft.totalSets = maxSetsPreference.maxSets
+        }
+        if draft.totalSets < 1 {
+            draft.totalSets = 1
+        }
     }
 }
 

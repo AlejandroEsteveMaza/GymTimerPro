@@ -61,6 +61,19 @@ enum RestIncrementPreference: Int, Codable, Hashable, CaseIterable, Sendable {
     }
 }
 
+enum MaxSetsPreference: Int, Codable, Hashable, CaseIterable, Sendable {
+    case ten = 10
+    case fifteen = 15
+    case twenty = 20
+    case thirty = 30
+
+    static let appStorageKey = "training.max_sets"
+
+    var maxSets: Int {
+        rawValue
+    }
+}
+
 enum TimerDisplayFormatter {
     static func string(from totalSeconds: Int, format: TimerDisplayFormat) -> String {
         let clampedSeconds = max(0, totalSeconds)

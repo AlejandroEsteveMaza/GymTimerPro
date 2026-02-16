@@ -289,3 +289,10 @@
 "settings.rest_increment.option.5" = "5 Sek";
 "settings.rest_increment.option.10" = "10 Sek";
 "settings.rest_increment.option.15" = "15 Sek";
+
+"settings.max_sets.section" = "Maximale Satze";
+"settings.max_sets.title" = "Maximum";
+"settings.max_sets.option.10" = "10 Satze";
+"settings.max_sets.option.15" = "15 Satze";
+"settings.max_sets.option.20" = "20 Satze";
+"settings.max_sets.option.30" = "30 Satze";

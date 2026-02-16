@@ -289,3 +289,10 @@
 "settings.rest_increment.option.5" = "5 सेकंड";
 "settings.rest_increment.option.10" = "10 सेकंड";
 "settings.rest_increment.option.15" = "15 सेकंड";
+
+"settings.max_sets.section" = "अधिकतम सेट";
+"settings.max_sets.title" = "अधिकतम";
+"settings.max_sets.option.10" = "10 सेट";
+"settings.max_sets.option.15" = "15 सेट";
+"settings.max_sets.option.20" = "20 सेट";
+"settings.max_sets.option.30" = "30 सेट";

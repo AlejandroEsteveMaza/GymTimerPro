@@ -289,3 +289,10 @@
 "settings.rest_increment.option.5" = "5 s";
 "settings.rest_increment.option.10" = "10 s";
 "settings.rest_increment.option.15" = "15 s";
+
+"settings.max_sets.section" = "Maks antall sett";
+"settings.max_sets.title" = "Maksimum";
+"settings.max_sets.option.10" = "10 sett";
+"settings.max_sets.option.15" = "15 sett";
+"settings.max_sets.option.20" = "20 sett";
+"settings.max_sets.option.30" = "30 sett";

@@ -13,6 +13,7 @@ import AudioToolbox
 
 struct ContentView: View {
     @AppStorage("training.total_sets") private var totalSeries: Int = 4
+    @AppStorage(MaxSetsPreference.appStorageKey) private var maxSetsPreferenceRawValue: Int = MaxSetsPreference.ten.rawValue
     @AppStorage("training.rest_seconds") private var tiempoDescanso: Int = 90
     @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
     @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
@@ -63,6 +64,7 @@ struct ContentView: View {
             applyPowerSavingPolicy()
             applyUITestOverridesIfNeeded()
             applyRoutineSelection(routineSelectionStore.selection)
+            clampTotalSetsToAllowedMaximum()
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
             usageLimiter.refresh(now: .now)
             restTimer.tick(now: .now)
@@ -77,12 +79,19 @@ struct ContentView: View {
             restTimer.persist()
         }
         .onChange(of: totalSeries) { _, newValue in
+            if newValue > maxSetsPreference.maxSets {
+                totalSeries = maxSetsPreference.maxSets
+                return
+            }
             if self.serieActual > newValue {
                 self.serieActual = newValue
             }
             if self.serieActual < 1 {
                 self.serieActual = 1
             }
+        }
+        .onChange(of: maxSetsPreferenceRawValue) { _, _ in
+            clampTotalSetsToAllowedMaximum()
         }
         .onChange(of: routineSelectionStore.selection) { _, selection in
             applyRoutineSelection(selection)
@@ -158,7 +167,7 @@ struct ContentView: View {
                     titleKey: "config.total_sets.title",
                     icon: "square.stack.3d.up",
                     value: $totalSeries,
-                    range: 1...10,
+                    range: 1...maxSetsPreference.maxSets,
                     valueEditorIdentifier: "totalSetsValueButton",
                     editorPickerIdentifier: "totalSetsPicker",
                     accessibilityValue: L10n.format("accessibility.total_sets_value_format", totalSeries)
@@ -480,13 +489,14 @@ struct ContentView: View {
             appliedRoutineReps = nil
             return
         }
+        let cappedTotalSets = min(selection.totalSets, maxSetsPreference.maxSets)
         let isAlreadyApplied = appliedRoutineName == selection.name
             && appliedRoutineReps == selection.reps
-            && totalSeries == selection.totalSets
+            && totalSeries == cappedTotalSets
             && tiempoDescanso == selection.restSeconds
         guard !isAlreadyApplied else { return }
         resetWorkout()
-        totalSeries = selection.totalSets
+        totalSeries = cappedTotalSets
         tiempoDescanso = selection.restSeconds
         appliedRoutineName = selection.name
         appliedRoutineReps = selection.reps
@@ -689,6 +699,10 @@ struct ContentView: View {
         RestIncrementPreference(rawValue: restIncrementPreferenceRawValue) ?? .fifteenSeconds
     }
 
+    private var maxSetsPreference: MaxSetsPreference {
+        MaxSetsPreference(rawValue: maxSetsPreferenceRawValue) ?? .ten
+    }
+
     private var powerSavingMode: PowerSavingMode {
         PowerSavingMode(rawValue: powerSavingModeRawValue) ?? .off
     }
@@ -719,6 +733,21 @@ struct ContentView: View {
         let shouldSaveEnergy = isEnergySavingActive
         UIApplication.shared.isIdleTimerDisabled = !shouldSaveEnergy
         restTimer.setEnergySavingEnabled(shouldSaveEnergy)
+    }
+
+    private func clampTotalSetsToAllowedMaximum() {
+        if totalSeries > maxSetsPreference.maxSets {
+            totalSeries = maxSetsPreference.maxSets
+        }
+        if totalSeries < 1 {
+            totalSeries = 1
+        }
+        if serieActual > totalSeries {
+            serieActual = totalSeries
+        }
+        if serieActual < 1 {
+            serieActual = 1
+        }
     }
 }
 

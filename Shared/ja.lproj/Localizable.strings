@@ -289,3 +289,10 @@
 "settings.rest_increment.option.5" = "5秒";
 "settings.rest_increment.option.10" = "10秒";
 "settings.rest_increment.option.15" = "15秒";
+
+"settings.max_sets.section" = "最大セット";
+"settings.max_sets.title" = "最大";
+"settings.max_sets.option.10" = "10セット";
+"settings.max_sets.option.15" = "15セット";
+"settings.max_sets.option.20" = "20セット";
+"settings.max_sets.option.30" = "30セット";

@@ -289,3 +289,10 @@
 "settings.rest_increment.option.5" = "5 s";
 "settings.rest_increment.option.10" = "10 s";
 "settings.rest_increment.option.15" = "15 s";
+
+"settings.max_sets.section" = "Maximum de series";
+"settings.max_sets.title" = "Maximum";
+"settings.max_sets.option.10" = "10 series";
+"settings.max_sets.option.15" = "15 series";
+"settings.max_sets.option.20" = "20 series";
+"settings.max_sets.option.30" = "30 series";

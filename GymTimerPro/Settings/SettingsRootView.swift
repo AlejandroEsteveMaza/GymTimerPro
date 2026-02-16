@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsRootView: View {
     @AppStorage(WeightUnitPreference.appStorageKey) private var weightUnitPreferenceRawValue: Int = WeightUnitPreference.automatic.rawValue
+    @AppStorage(MaxSetsPreference.appStorageKey) private var maxSetsPreferenceRawValue: Int = MaxSetsPreference.ten.rawValue
     @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
     @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
     @AppStorage(PowerSavingMode.appStorageKey) private var powerSavingModeRawValue: Int = PowerSavingMode.off.rawValue
@@ -35,6 +36,20 @@ struct SettingsRootView: View {
                         .tag(TimerDisplayFormat.minutesAndSeconds)
                 }
                 .pickerStyle(.segmented)
+            }
+
+            Section("settings.max_sets.section") {
+                Picker("settings.max_sets.title", selection: maxSetsPreferenceBinding) {
+                    Text("settings.max_sets.option.10")
+                        .tag(MaxSetsPreference.ten)
+                    Text("settings.max_sets.option.15")
+                        .tag(MaxSetsPreference.fifteen)
+                    Text("settings.max_sets.option.20")
+                        .tag(MaxSetsPreference.twenty)
+                    Text("settings.max_sets.option.30")
+                        .tag(MaxSetsPreference.thirty)
+                }
+                .pickerStyle(.menu)
             }
 
             Section("settings.rest_increment.section") {
@@ -87,6 +102,13 @@ struct SettingsRootView: View {
         Binding(
             get: { TimerDisplayFormat(rawValue: timerDisplayFormatRawValue) ?? .seconds },
             set: { timerDisplayFormatRawValue = $0.rawValue }
+        )
+    }
+
+    private var maxSetsPreferenceBinding: Binding<MaxSetsPreference> {
+        Binding(
+            get: { MaxSetsPreference(rawValue: maxSetsPreferenceRawValue) ?? .ten },
+            set: { maxSetsPreferenceRawValue = $0.rawValue }
         )
     }
 

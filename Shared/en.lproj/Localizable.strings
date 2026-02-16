@@ -344,3 +344,10 @@
 "settings.rest_increment.option.5" = "5 sec";
 "settings.rest_increment.option.10" = "10 sec";
 "settings.rest_increment.option.15" = "15 sec";
+
+"settings.max_sets.section" = "Max sets";
+"settings.max_sets.title" = "Maximum";
+"settings.max_sets.option.10" = "10 sets";
+"settings.max_sets.option.15" = "15 sets";
+"settings.max_sets.option.20" = "20 sets";
+"settings.max_sets.option.30" = "30 sets";
