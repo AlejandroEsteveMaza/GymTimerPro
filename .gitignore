@@ -63,5 +63,8 @@ GymTimerPro.xcodeproj/project.xcworkspace/xcuserdata/
 # Env / tooling
 .env
 .env.*
+.venv/
+.venv_asc/
+venv/
 *.orig
 *.log
