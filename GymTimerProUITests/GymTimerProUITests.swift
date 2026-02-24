@@ -47,6 +47,21 @@ final class GymTimerProUITests: XCTestCase {
         }
     }
 
+    @MainActor
+    func testRoutineListOpensEditor() throws {
+        let app = launchApp(sets: 4, rest: 90, isPro: true)
+        let routinesTab = app.tabBars.buttons.element(boundBy: 1)
+        waitForElement(routinesTab, timeout: 10)
+        routinesTab.tap()
+
+        let routineCell = app.staticTexts["Resistencia"]
+        waitForElement(routineCell, timeout: 15)
+        routineCell.tap()
+
+        let editorNavBar = app.navigationBars["Resistencia"]
+        waitForElement(editorNavBar, timeout: 10)
+    }
+
     private var isDarkModeSnapshot: Bool {
         if let value = ProcessInfo.processInfo.environment["SNAPSHOT_DARK_MODE"]?.lowercased() {
             return value == "true" || value == "1" || value == "yes"
@@ -62,10 +77,15 @@ final class GymTimerProUITests: XCTestCase {
         sets: Int,
         rest: Int,
         currentSet: Int? = nil,
-        showNotificationPreview: Bool = false
+        showNotificationPreview: Bool = false,
+        isPro: Bool = false
     ) -> XCUIApplication {
         let app = XCUIApplication()
         setupSnapshot(app)
+        app.launchArguments += ["ui-testing-seed-routines"]
+        if isPro {
+            app.launchArguments += ["-purchase.cachedIsPro", "1"]
+        }
         app.launchEnvironment["UITEST_TOTAL_SETS"] = "\(sets)"
         app.launchEnvironment["UITEST_REST_SECONDS"] = "\(rest)"
         if let currentSet {

@@ -66,3 +66,281 @@
 "accessibility.set_progress_label" = "组进度";
 "accessibility.time_remaining" = "剩余时间";
 "accessibility.reset_label" = "重置";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "训练";
+"tab.routines" = "例程";
+"tab.progress" = "进度";
+"tab.settings" = "设置";
+
+"routines.add" = "新建例程";
+"routines.create.title" = "新建例程";
+"routines.delete" = "删除例程";
+"routines.discard.confirm" = "放弃";
+"routines.discard.keep_editing" = "继续编辑";
+"routines.discard.message" = "你有未保存的更改。";
+"routines.discard.title" = "放弃更改？";
+"routines.edit" = "编辑";
+"routines.edit.title" = "编辑例程";
+"routines.empty.message" = "创建例程以保存预设。";
+"routines.empty.title" = "暂无例程";
+"routines.field.name" = "名称";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "最多 %ld 个字符";
+"routines.field.weight" = "重量";
+"routines.weight.placeholder" = "0";
+"routines.save" = "保存";
+"routines.section.details" = "名称";
+"routines.section.parameters" = "参数";
+"routines.title" = "例程";
+"routines.weight.empty" = "无重量";
+
+"routines.select.title" = "选择例程";
+"training.routine.select" = "选择";
+"training.routine.title" = "例程";
+
+"accessibility.reps_value_format" = "%ld 次";
+"routines.field.reps" = "次数";
+"routines.summary_format" = "%ld 组 · %ld 次 · %@ · %@";
+
+"pro.locked.message" = "仅限 Pro。";
+"pro.locked.progress.title" = "进度";
+"pro.locked.routines.title" = "例程";
+"pro.locked.settings.title" = "设置";
+
+"pro.locked.unlock" = "解锁 Pro";
+
+"routines.apply" = "应用到训练";
+"routines.remove_from_training" = "从训练中移除";
+
+"routines.delete.message" = "此操作将永久删除该例程。";
+
+"classifications.section.title" = "Classification";
+"classifications.section.list" = "Classifications";
+"classifications.unclassified.section" = "Unclassified routines";
+"classifications.routines.section" = "Routines";
+"classifications.search.prompt" = "Search routines or classifications";
+"classifications.search.create_placeholder" = "Search or create classification";
+"classifications.create_format" = "Create \"%@\"";
+"classifications.duplicate" = "A classification with that name already exists.";
+"classifications.delete.title" = "Delete classification";
+"classifications.delete.message" = "This will remove the classification from all routines.";
+"classifications.none" = "None";
+"classifications.empty.title" = "No classifications";
+"classifications.empty.message" = "Create a classification to get started.";
+
+"classifications.manage.title" = "Manage classifications";
+"classifications.add.title" = "New classification";
+"classifications.rename.title" = "Rename";
+"classifications.name.title" = "Name";
+"classifications.name.placeholder" = "Classification name";
+"classifications.search.placeholder" = "Search classifications";
+
+"classifications.rename.action" = "Rename…";
+"classifications.more_options_format" = "More options for %@";
+
+/* Paywall v2 copy */
+"paywall.copy.light.pro.title" = "解锁 Pro 模式";
+"paywall.copy.light.pro.subtitle" = "例程、进度和设置不限。";
+"paywall.copy.light.pro.benefits_title" = "主要权益";
+"paywall.copy.light.pro.bullet_1" = "无日限制训练。";
+"paywall.copy.light.pro.bullet_2" = "保存例程，几秒重复。";
+"paywall.copy.light.pro.bullet_3" = "查看进度，保持规律。";
+"paywall.copy.light.pro.plans_title" = "选择方案";
+"paywall.copy.light.pro.annual_label" = "年付";
+"paywall.copy.light.pro.annual_badge" = "最划算";
+"paywall.copy.light.pro.monthly_label" = "月付";
+"paywall.copy.light.pro.cta_primary" = "免费开始";
+"paywall.copy.light.pro.cta_secondary" = "暂不";
+"paywall.copy.light.pro.trust" = "可在 Apple ID 中随时取消。";
+"paywall.copy.light.pro.legal1" = "自动续订订阅，含 2 周免费试用。";
+"paywall.copy.light.pro.legal2" = "之后按所选方案收费，直至取消。";
+
+"paywall.copy.light.limit.title" = "不中断继续训练";
+"paywall.copy.light.limit.subtitle" = "已达到今日免费上限。";
+"paywall.copy.light.limit.benefits_title" = "主要权益";
+"paywall.copy.light.limit.bullet_1" = "立即继续当前训练。";
+"paywall.copy.light.limit.bullet_2" = "进步过程中无日限制。";
+"paywall.copy.light.limit.bullet_3" = "全部流程一款应用完成。";
+"paywall.copy.light.limit.plans_title" = "选择方案";
+"paywall.copy.light.limit.annual_label" = "年付";
+"paywall.copy.light.limit.annual_badge" = "最划算";
+"paywall.copy.light.limit.monthly_label" = "月付";
+"paywall.copy.light.limit.cta_primary" = "免费开始";
+"paywall.copy.light.limit.cta_secondary" = "暂不";
+"paywall.copy.light.limit.trust" = "免费开始，随时取消。";
+"paywall.copy.light.limit.legal1" = "自动续订订阅，含 2 周免费试用。";
+"paywall.copy.light.limit.legal2" = "之后按所选方案收费，直至取消。";
+
+"paywall.copy.standard.pro.title" = "释放全部训练潜力";
+"paywall.copy.standard.pro.subtitle" = "解锁例程、进度与完整控制。";
+"paywall.copy.standard.pro.benefits_title" = "你将获得";
+"paywall.copy.standard.pro.bullet_1" = "顺畅完整的训练流程。";
+"paywall.copy.standard.pro.bullet_2" = "随时可重复的例程。";
+"paywall.copy.standard.pro.bullet_3" = "清晰进度，养成习惯。";
+"paywall.copy.standard.pro.plans_title" = "选择你的方案";
+"paywall.copy.standard.pro.annual_label" = "年度方案";
+"paywall.copy.standard.pro.annual_badge" = "最划算";
+"paywall.copy.standard.pro.monthly_label" = "月度方案";
+"paywall.copy.standard.pro.cta_primary" = "免费开始";
+"paywall.copy.standard.pro.cta_secondary" = "暂不";
+"paywall.copy.standard.pro.trust" = "无承诺。可在 Apple 管理或取消。";
+"paywall.copy.standard.pro.legal1" = "2 周免费试用，之后按方案计费。";
+"paywall.copy.standard.pro.legal2" = "未取消则自动续订。";
+
+"paywall.copy.standard.limit.title" = "今天别停下你的进度";
+"paywall.copy.standard.limit.subtitle" = "开通 Pro，无限制完成训练。";
+"paywall.copy.standard.limit.benefits_title" = "你将获得";
+"paywall.copy.standard.limit.bullet_1" = "立即继续训练，不中断。";
+"paywall.copy.standard.limit.bullet_2" = "保存例程，下次更快。";
+"paywall.copy.standard.limit.bullet_3" = "无需额外应用即可查看进度。";
+"paywall.copy.standard.limit.plans_title" = "选择你的方案";
+"paywall.copy.standard.limit.annual_label" = "年度方案";
+"paywall.copy.standard.limit.annual_badge" = "最划算";
+"paywall.copy.standard.limit.monthly_label" = "月度方案";
+"paywall.copy.standard.limit.cta_primary" = "免费开始";
+"paywall.copy.standard.limit.cta_secondary" = "暂不";
+"paywall.copy.standard.limit.trust" = "免费试用，随时取消。";
+"paywall.copy.standard.limit.legal1" = "2 周免费试用，之后按方案计费。";
+"paywall.copy.standard.limit.legal2" = "未取消则自动续订。";
+
+"paywall.copy.detailed.pro.title" = "解锁 Pro 全部内容";
+"paywall.copy.detailed.pro.subtitle" = "所有例程、进度与控制一站式。";
+"paywall.copy.detailed.pro.benefits_title" = "训练全面升级";
+"paywall.copy.detailed.pro.bullet_1" = "套组专用计时器更专注。";
+"paywall.copy.detailed.pro.bullet_2" = "随时复用例程和分类。";
+"paywall.copy.detailed.pro.bullet_3" = "清晰可视化进度。";
+"paywall.copy.detailed.pro.plans_title" = "选择你的方案";
+"paywall.copy.detailed.pro.annual_label" = "年度方案";
+"paywall.copy.detailed.pro.annual_badge" = "最划算";
+"paywall.copy.detailed.pro.monthly_label" = "月度方案";
+"paywall.copy.detailed.pro.cta_primary" = "免费开始";
+"paywall.copy.detailed.pro.cta_secondary" = "暂不";
+"paywall.copy.detailed.pro.trust" = "随时取消，无长期绑定。";
+"paywall.copy.detailed.pro.legal1" = "自动续订订阅，含免费试用期。";
+"paywall.copy.detailed.pro.legal2" = "包含恢复购买、条款与隐私。";
+"paywall.copy.detailed.pro.include_title" = "Pro 包含";
+"paywall.copy.detailed.pro.include_1" = "无限例程";
+"paywall.copy.detailed.pro.include_2" = "用于整理的分类";
+"paywall.copy.detailed.pro.include_3" = "进度图表";
+"paywall.copy.detailed.pro.include_4" = "活动日历";
+"paywall.copy.detailed.pro.include_5" = "连续记录与徽章";
+"paywall.copy.detailed.pro.include_6" = "训练期间无日限制";
+
+"paywall.copy.detailed.limit.title" = "强势完成，无限制";
+"paywall.copy.detailed.limit.subtitle" = "激活 Pro，立即继续本次训练。";
+"paywall.copy.detailed.limit.benefits_title" = "今日与未来的成果";
+"paywall.copy.detailed.limit.bullet_1" = "立即继续本次训练。";
+"paywall.copy.detailed.limit.bullet_2" = "复用例程节省时间。";
+"paywall.copy.detailed.limit.bullet_3" = "可视化进度，保持稳定。";
+"paywall.copy.detailed.limit.plans_title" = "选择你的方案";
+"paywall.copy.detailed.limit.annual_label" = "年度方案";
+"paywall.copy.detailed.limit.annual_badge" = "最划算";
+"paywall.copy.detailed.limit.monthly_label" = "月度方案";
+"paywall.copy.detailed.limit.cta_primary" = "免费开始";
+"paywall.copy.detailed.limit.cta_secondary" = "暂不";
+"paywall.copy.detailed.limit.trust" = "免费开始，试用结束后才收费。";
+"paywall.copy.detailed.limit.legal1" = "自动续订订阅。";
+"paywall.copy.detailed.limit.legal2" = "可在 Apple 管理或取消，支持恢复购买。";
+"paywall.copy.detailed.limit.include_title" = "Pro 包含";
+"paywall.copy.detailed.limit.include_1" = "无日限制";
+"paywall.copy.detailed.limit.include_2" = "例程与分类";
+"paywall.copy.detailed.limit.include_3" = "训练历史";
+"paywall.copy.detailed.limit.include_4" = "图表与日历";
+"paywall.copy.detailed.limit.include_5" = "最近活动";
+"paywall.copy.detailed.limit.include_6" = "连续记录与徽章";
+
+"paywall.trial_incentive_format" = "包含%@免费试用。";
+"paywall.period.generic" = "周期";
+"paywall.button.manage" = "管理订阅";
+"paywall.button.privacy" = "隐私";
+"paywall.restore.no_purchases" = "没有可恢复的购买。";
+
+"config.rest_time.title" = "休息时间";
+"settings.timer_display.section" = "计时器显示";
+"settings.timer_display.title" = "时间格式";
+"settings.timer_display.option.seconds" = "秒";
+"settings.timer_display.option.minutes_seconds" = "分:秒";
+"accessibility.rest_time_value_seconds_format" = "%ld秒";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld分%ld秒";
+"notification.rest_finished.body_with_duration_format" = "第%ld/%ld组 · 休息 %@";
+
+"settings.energy.section" = "省电";
+"settings.energy.mode.title" = "模式";
+"settings.energy.mode.off" = "关闭";
+"settings.energy.mode.automatic" = "自动";
+"settings.energy.mode.on" = "开启";
+"settings.energy.description" = "关闭保持当前行为。自动跟随 iOS 低电量模式。开启后允许锁屏、降低计时器唤醒频率，并在休息结束时关闭触感。";
+
+"settings.weight_unit.section" = "重量单位";
+"settings.weight_unit.title" = "重量单位";
+"settings.weight_unit.option.automatic" = "自动";
+"settings.weight_unit.option.kilograms" = "千克 (kg)";
+"settings.weight_unit.option.pounds" = "磅 (lb)";
+
+"settings.rest_increment.section" = "休息增量";
+"settings.rest_increment.title" = "步进";
+"settings.rest_increment.option.5" = "5秒";
+"settings.rest_increment.option.10" = "10秒";
+"settings.rest_increment.option.15" = "15秒";
+
+"settings.max_sets.section" = "最大组数";
+"settings.max_sets.title" = "最大值";
+"settings.max_sets.option.10" = "10组";
+"settings.max_sets.option.15" = "15组";
+"settings.max_sets.option.20" = "20组";
+"settings.max_sets.option.30" = "30组";
+
+"paywall.info.title" = "信息";
+"progress.accessibility.week_goal_format" = "本周训练：%ld / %ld";
+"progress.activity.empty" = "还没有完成的训练。";
+"progress.badge.first_workout.subtitle" = "完成你的第一次训练。";
+"progress.badge.first_workout.title" = "首次训练";
+"progress.badge.goal_week.subtitle" = "达成本周目标。";
+"progress.badge.goal_week.title" = "周目标已完成";
+"progress.badge.streak_4.subtitle" = "连续4周达成周目标。";
+"progress.badge.streak_4.title" = "4周连胜";
+"progress.badge.three_week.subtitle" = "一周内完成3次训练。";
+"progress.badge.three_week.title" = "一周3次";
+"progress.badge.workouts_10.subtitle" = "完成10次训练。";
+"progress.badge.workouts_10.title" = "10次训练";
+"progress.badge.workouts_25.subtitle" = "完成25次训练。";
+"progress.badge.workouts_25.title" = "25次训练";
+"progress.badge.workouts_5.subtitle" = "完成5次训练。";
+"progress.badge.workouts_5.title" = "5次训练";
+"progress.calendar.day.completed_format" = "已完成训练 %ld 次";
+"progress.calendar.day.empty" = "无已完成训练";
+"progress.calendar.title" = "本月";
+"progress.chart.axis.workouts" = "训练";
+"progress.chart.workouts.accessibility_value_format" = "%ld 次训练";
+"progress.chart.workouts.title" = "训练趋势";
+"progress.goal.edit" = "编辑目标";
+"progress.goal.message.completed" = "周目标已完成。";
+"progress.goal.message.many_left_format" = "距离目标还差 %ld 次训练。";
+"progress.goal.message.one_left" = "距离目标还差 1 次训练。";
+"progress.goal.minutes_per_week" = "每周分钟数";
+"progress.goal.settings.title" = "目标设置";
+"progress.goal.starts_on_monday" = "每周从周一开始";
+"progress.goal.weekly" = "周目标";
+"progress.goal.workouts_per_week" = "每周训练次数";
+"progress.period.fortnight" = "14天";
+"progress.period.month" = "月";
+"progress.period.quarter" = "季度";
+"progress.period.title" = "周期";
+"progress.period.week" = "周";
+"progress.period.year" = "年";
+"progress.quick_workout_name" = "快速训练";
+"progress.section.activity" = "最近活动";
+"progress.section.badges" = "徽章";
+"progress.streak.subtitle" = "连续达成周目标的周数。";
+"progress.streak.title" = "每周连胜";
+"progress.streak.weeks_format" = "连续 %ld 周";
+"progress.summary.most_repeated" = "最常重复的训练";
+"progress.summary.top_classification" = "主要分类";
+"progress.title" = "进度";

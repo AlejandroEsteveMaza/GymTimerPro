@@ -7,25 +7,36 @@
 
 import SwiftUI
 import Combine
+import SwiftData
 import UIKit
 import AudioToolbox
 
 struct ContentView: View {
-    @State private var totalSeries: Int = 4
-    @State private var tiempoDescanso: Int = 90
-    @State private var serieActual: Int = 1
-    @State private var completado: Bool = false
+    @AppStorage("training.total_sets") private var totalSeries: Int = 4
+    @AppStorage(MaxSetsPreference.appStorageKey) private var maxSetsPreferenceRawValue: Int = MaxSetsPreference.ten.rawValue
+    @AppStorage("training.rest_seconds") private var tiempoDescanso: Int = 90
+    @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
+    @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
+    @AppStorage(PowerSavingMode.appStorageKey) private var powerSavingModeRawValue: Int = PowerSavingMode.off.rawValue
+    @AppStorage("training.current_set") private var serieActual: Int = 1
+    @AppStorage("training.completed") private var completado: Bool = false
+    @AppStorage("training.applied_routine_name") private var appliedRoutineNameStorage: String = ""
+    @AppStorage("training.applied_routine_reps") private var appliedRoutineRepsStorage: Int = 0
     @State private var stepperControlSize: CGSize = Layout.defaultStepperControlSize
     @StateObject private var restTimer = RestTimerModel()
     @StateObject private var liveActivityManager = LiveActivityManager()
-    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 19)
-    @State private var isPresentingPaywall = false
+    @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 16)
+    @State private var paywallContext: PaywallPresentationContext?
     @State private var showNotificationPreview = false
     @State private var uiTestOverridesApplied = false
+    @State private var isPresentingRoutinePicker = false
+    @State private var lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var purchaseManager: PurchaseManager
+    @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
 
     var body: some View {
         ZStack {
@@ -50,8 +61,10 @@ struct ContentView: View {
             controlsSection
         }
         .onAppear {
-            UIApplication.shared.isIdleTimerDisabled = true
+            applyPowerSavingPolicy()
             applyUITestOverridesIfNeeded()
+            applyRoutineSelection(routineSelectionStore.selection)
+            clampTotalSetsToAllowedMaximum()
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
             usageLimiter.refresh(now: .now)
             restTimer.tick(now: .now)
@@ -66,6 +79,10 @@ struct ContentView: View {
             restTimer.persist()
         }
         .onChange(of: totalSeries) { _, newValue in
+            if newValue > maxSetsPreference.maxSets {
+                totalSeries = maxSetsPreference.maxSets
+                return
+            }
             if self.serieActual > newValue {
                 self.serieActual = newValue
             }
@@ -73,14 +90,29 @@ struct ContentView: View {
                 self.serieActual = 1
             }
         }
+        .onChange(of: maxSetsPreferenceRawValue) { _, _ in
+            clampTotalSetsToAllowedMaximum()
+        }
+        .onChange(of: routineSelectionStore.selection) { _, selection in
+            applyRoutineSelection(selection)
+        }
         .onChange(of: scenePhase) { _, newPhase in
             restTimer.handleScenePhase(newPhase)
             if newPhase == .active {
                 usageLimiter.refresh(now: .now)
+                lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
+                applyPowerSavingPolicy()
             }
             if newPhase == .active, restTimer.didFinish {
                 handleRestFinished()
             }
+        }
+        .onChange(of: powerSavingModeRawValue) { _, _ in
+            applyPowerSavingPolicy()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSProcessInfoPowerStateDidChange)) { _ in
+            lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
+            applyPowerSavingPolicy()
         }
         .onChange(of: restTimer.endDate) { _, newDate in
             guard let newDate, isResting else { return }
@@ -96,13 +128,22 @@ struct ContentView: View {
                 liveActivityManager.end()
             }
         }
-        .sheet(isPresented: $isPresentingPaywall) {
+        .sheet(item: $paywallContext) { context in
             PaywallView(
                 dailyLimit: usageLimiter.status.dailyLimit,
                 consumedToday: usageLimiter.status.consumedToday,
-                accentColor: Theme.primaryButton
+                accentColor: Theme.primaryButton,
+                entryPoint: context.entryPoint,
+                infoLevel: context.infoLevel
             )
             .environmentObject(purchaseManager)
+        }
+        .sheet(isPresented: $isPresentingRoutinePicker) {
+            NavigationStack {
+                RoutinePickerView { routine in
+                    routineSelectionStore.apply(routine)
+                }
+            }
         }
     }
 
@@ -117,11 +158,16 @@ struct ContentView: View {
             }
         ) {
             VStack(spacing: Layout.rowSpacing) {
+                if purchaseManager.isPro {
+                    routineApplyRow
+                    Divider()
+                        .foregroundStyle(Theme.divider)
+                }
                 configWheelRow(
                     titleKey: "config.total_sets.title",
                     icon: "square.stack.3d.up",
                     value: $totalSeries,
-                    range: 1...10,
+                    range: 1...maxSetsPreference.maxSets,
                     valueEditorIdentifier: "totalSetsValueButton",
                     editorPickerIdentifier: "totalSetsPicker",
                     accessibilityValue: L10n.format("accessibility.total_sets_value_format", totalSeries)
@@ -129,12 +175,13 @@ struct ContentView: View {
                 Divider()
                     .foregroundStyle(Theme.divider)
                 configWheelRow(
-                    titleKey: "config.rest_seconds.title",
+                    titleKey: "config.rest_time.title",
                     icon: "timer",
                     value: $tiempoDescanso,
                     range: 15...300,
-                    step: 15,
-                    accessibilityValue: L10n.format("accessibility.rest_seconds_value_format", tiempoDescanso)
+                    step: restIncrementPreference.step,
+                    valueFormatter: { formattedTime($0) },
+                    accessibilityValue: restTimeAccessibilityValue(for: tiempoDescanso)
                 )
                 if !purchaseManager.isPro {
                     Divider()
@@ -199,6 +246,7 @@ struct ContentView: View {
         value: Binding<Int>,
         range: ClosedRange<Int>,
         step: Int = 1,
+        valueFormatter: ((Int) -> String)? = nil,
         valueEditorIdentifier: String? = nil,
         editorPickerIdentifier: String? = nil,
         accessibilityValue: String
@@ -211,6 +259,7 @@ struct ContentView: View {
                     value: value,
                     range: range,
                     step: step,
+                    valueFormatter: valueFormatter,
                     accessibilityIdentifier: valueEditorIdentifier,
                     editorPickerIdentifier: editorPickerIdentifier
                 )
@@ -228,6 +277,34 @@ struct ContentView: View {
         .frame(minHeight: Layout.minTapHeight)
     }
 
+    private var routineApplyRow: some View {
+        Button {
+            if purchaseManager.isPro {
+                isPresentingRoutinePicker = true
+            } else {
+                paywallContext = PaywallPresentationContext(
+                    entryPoint: .proModule,
+                    infoLevel: .standard
+                )
+            }
+        } label: {
+            ConfigRow(icon: "list.bullet.rectangle", titleKey: "training.routine.title") {
+                HStack(spacing: 6) {
+                    Text(appliedRoutineName ?? L10n.tr("training.routine.select"))
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(appliedRoutineName == nil ? Theme.textSecondary : Theme.textPrimary)
+                        .lineLimit(1)
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Theme.textSecondary)
+                }
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text("training.routine.title"))
+        .accessibilityValue(Text(appliedRoutineName ?? L10n.tr("training.routine.select")))
+    }
+
     @ViewBuilder
     private func progressContent(now: Date) -> some View {
         if completado {
@@ -237,6 +314,9 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: Layout.metricSpacing) {
                 HStack(spacing: Layout.metricSpacing) {
                     MetricView(titleKey: "metric.set.title", value: "\(serieActual) / \(totalSeries)")
+                    if purchaseManager.isPro, let reps = appliedRoutineReps {
+                        MetricView(titleKey: "routines.field.reps", value: "\(reps)")
+                    }
                 }
 
                 HStack(spacing: 12) {
@@ -280,13 +360,13 @@ struct ContentView: View {
                 .textCase(.uppercase)
                 .symbolRenderingMode(.hierarchical)
 
-            Text("\(remainingSeconds)")
+            Text(formattedTime(remainingSeconds))
                 .font(.system(size: Layout.timerFontSize, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.resting)
                 .monospacedDigit()
                 .minimumScaleFactor(0.6)
                 .contentTransition(.numericText())
-                .animation(.linear(duration: 0.9), value: remainingSeconds)
+                .animation(isEnergySavingActive ? nil : .linear(duration: 0.9), value: remainingSeconds)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Layout.timerPadding)
@@ -331,7 +411,10 @@ struct ContentView: View {
 
         let now = Date.now
         guard usageLimiter.canConsume(now: now, isPro: purchaseManager.isPro) else {
-            isPresentingPaywall = true
+            paywallContext = PaywallPresentationContext(
+                entryPoint: .dailyLimitDuringWorkout,
+                infoLevel: .light
+            )
             return
         }
         usageLimiter.consume(now: now, isPro: purchaseManager.isPro)
@@ -351,14 +434,18 @@ struct ContentView: View {
         restTimer.acknowledgeFinish()
         liveActivityManager.end()
         liveActivityManager.cancelEndNotification()
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        // Sound is always enabled (power saving only affects extra feedback like haptics/animations).
         AudioServicesPlaySystemSound(restFinishedSoundID)
+        if !isEnergySavingActive {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
     }
 
     private func completeWorkout() {
         restTimer.reset()
         liveActivityManager.end()
         liveActivityManager.cancelEndNotification()
+        recordWorkoutCompletion()
 
         withAnimation(.snappy) {
             completado = true
@@ -381,6 +468,50 @@ struct ContentView: View {
             completado = false
         }
     }
+
+    private func recordWorkoutCompletion() {
+        let completion = WorkoutCompletion(
+            completedAt: .now,
+            routineID: routineSelectionStore.selection?.id,
+            routineNameSnapshot: routineSelectionStore.selection?.name ?? L10n.tr("progress.quick_workout_name"),
+            classificationID: routineSelectionStore.selection?.classificationID,
+            classificationNameSnapshot: routineSelectionStore.selection?.classificationName,
+            durationSeconds: nil,
+            notes: nil
+        )
+        modelContext.insert(completion)
+        try? modelContext.save()
+    }
+
+    private func applyRoutineSelection(_ selection: RoutineSelectionStore.Selection?) {
+        guard let selection else {
+            appliedRoutineName = nil
+            appliedRoutineReps = nil
+            return
+        }
+        let cappedTotalSets = min(selection.totalSets, maxSetsPreference.maxSets)
+        let isAlreadyApplied = appliedRoutineName == selection.name
+            && appliedRoutineReps == selection.reps
+            && totalSeries == cappedTotalSets
+            && tiempoDescanso == selection.restSeconds
+        guard !isAlreadyApplied else { return }
+        resetWorkout()
+        totalSeries = cappedTotalSets
+        tiempoDescanso = selection.restSeconds
+        appliedRoutineName = selection.name
+        appliedRoutineReps = selection.reps
+    }
+
+    private var appliedRoutineName: String? {
+        get { appliedRoutineNameStorage.isEmpty ? nil : appliedRoutineNameStorage }
+        nonmutating set { appliedRoutineNameStorage = newValue ?? "" }
+    }
+
+    private var appliedRoutineReps: Int? {
+        get { appliedRoutineRepsStorage == 0 ? nil : appliedRoutineRepsStorage }
+        nonmutating set { appliedRoutineRepsStorage = newValue ?? 0 }
+    }
+
 
     private func restoreLiveActivityIfNeeded() {
         guard restTimer.isRunning, let endDate = restTimer.endDate else { return }
@@ -432,7 +563,10 @@ struct ContentView: View {
             Spacer(minLength: 0)
 
             Button("pro.button.upgrade") {
-                isPresentingPaywall = true
+                paywallContext = PaywallPresentationContext(
+                    entryPoint: .proModule,
+                    infoLevel: .standard
+                )
             }
             .buttonStyle(.borderedProminent)
             .buttonBorderShape(.roundedRectangle(radius: 12))
@@ -514,7 +648,7 @@ struct ContentView: View {
 
             Spacer(minLength: 0)
 
-            Text("now")
+            Text("common.now")
                 .font(.caption2.weight(.semibold))
                 .foregroundStyle(Theme.textSecondary)
         }
@@ -554,13 +688,66 @@ struct ContentView: View {
     }
 
     private var previewTimeString: String {
-        formatTime(max(1, tiempoDescanso))
+        formattedTime(max(1, tiempoDescanso))
     }
 
-    private func formatTime(_ seconds: Int) -> String {
-        let minutes = max(0, seconds) / 60
-        let remaining = max(0, seconds) % 60
-        return String(format: "%d:%02d", minutes, remaining)
+    private var timerDisplayFormat: TimerDisplayFormat {
+        TimerDisplayFormat(rawValue: timerDisplayFormatRawValue) ?? .seconds
+    }
+
+    private var restIncrementPreference: RestIncrementPreference {
+        RestIncrementPreference(rawValue: restIncrementPreferenceRawValue) ?? .fifteenSeconds
+    }
+
+    private var maxSetsPreference: MaxSetsPreference {
+        MaxSetsPreference(rawValue: maxSetsPreferenceRawValue) ?? .ten
+    }
+
+    private var powerSavingMode: PowerSavingMode {
+        PowerSavingMode(rawValue: powerSavingModeRawValue) ?? .off
+    }
+
+    private var isEnergySavingActive: Bool {
+        powerSavingMode.isEnabled(systemLowPowerMode: lowPowerModeEnabled)
+    }
+
+    private func formattedTime(_ seconds: Int) -> String {
+        TimerDisplayFormatter.string(from: seconds, format: timerDisplayFormat)
+    }
+
+    private func restTimeAccessibilityValue(for seconds: Int) -> String {
+        switch timerDisplayFormat {
+        case .seconds:
+            return L10n.format("accessibility.rest_time_value_seconds_format", max(0, seconds))
+        case .minutesAndSeconds:
+            let parts = TimerDisplayFormatter.minutesAndSeconds(from: seconds)
+            return L10n.format(
+                "accessibility.rest_time_value_minutes_seconds_format",
+                parts.minutes,
+                parts.seconds
+            )
+        }
+    }
+
+    private func applyPowerSavingPolicy() {
+        let shouldSaveEnergy = isEnergySavingActive
+        UIApplication.shared.isIdleTimerDisabled = !shouldSaveEnergy
+        restTimer.setEnergySavingEnabled(shouldSaveEnergy)
+    }
+
+    private func clampTotalSetsToAllowedMaximum() {
+        if totalSeries > maxSetsPreference.maxSets {
+            totalSeries = maxSetsPreference.maxSets
+        }
+        if totalSeries < 1 {
+            totalSeries = 1
+        }
+        if serieActual > totalSeries {
+            serieActual = totalSeries
+        }
+        if serieActual < 1 {
+            serieActual = 1
+        }
     }
 }
 
@@ -572,6 +759,8 @@ private final class RestTimerModel: ObservableObject {
     @Published var didFinish: Bool = false
 
     private let storage: UserDefaults
+    private var timerCancellable: AnyCancellable?
+    private var energySavingEnabled = false
 
     private enum Keys {
         static let endDate = "restTimer.endDate"
@@ -585,6 +774,9 @@ private final class RestTimerModel: ObservableObject {
         self.remaining = storage.double(forKey: Keys.remaining)
         self.endDate = storage.object(forKey: Keys.endDate) as? Date
         reconcile(now: .now)
+        if isRunning {
+            startTimerLoop()
+        }
     }
 
     var remainingSeconds: Int {
@@ -606,6 +798,7 @@ private final class RestTimerModel: ObservableObject {
         endDate = now.addingTimeInterval(remaining)
         isRunning = remaining > 0
         didFinish = false
+        startTimerLoop()
         persist()
     }
 
@@ -614,6 +807,7 @@ private final class RestTimerModel: ObservableObject {
         remaining = max(0, endDate.timeIntervalSince(now))
         self.endDate = nil
         isRunning = false
+        stopTimerLoop()
         persist()
     }
 
@@ -621,6 +815,7 @@ private final class RestTimerModel: ObservableObject {
         guard !isRunning, remaining > 0 else { return }
         endDate = now.addingTimeInterval(remaining)
         isRunning = true
+        startTimerLoop()
         persist()
     }
 
@@ -640,6 +835,7 @@ private final class RestTimerModel: ObservableObject {
         endDate = nil
         remaining = 0
         didFinish = false
+        stopTimerLoop()
         persist()
     }
 
@@ -667,6 +863,14 @@ private final class RestTimerModel: ObservableObject {
 
     func acknowledgeFinish() {
         didFinish = false
+    }
+
+    func setEnergySavingEnabled(_ enabled: Bool) {
+        guard energySavingEnabled != enabled else { return }
+        energySavingEnabled = enabled
+        if isRunning {
+            startTimerLoop()
+        }
     }
 
     private func reconcile(now: Date) {
@@ -697,16 +901,34 @@ private final class RestTimerModel: ObservableObject {
         if !didFinish {
             didFinish = true
         }
+        stopTimerLoop()
         persist()
+    }
+
+    private func startTimerLoop() {
+        timerCancellable?.cancel()
+        let tolerance: TimeInterval = energySavingEnabled ? 0.8 : 0.2
+        timerCancellable = Timer.publish(every: 1, tolerance: tolerance, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] now in
+                self?.tick(now: now)
+            }
+    }
+
+    private func stopTimerLoop() {
+        timerCancellable?.cancel()
+        timerCancellable = nil
     }
 }
 
 #Preview {
     ContentView()
         .environmentObject(PurchaseManager(startTasks: false))
+        .environmentObject(RoutineSelectionStore())
+        .modelContainer(for: [Routine.self, RoutineClassification.self, WorkoutCompletion.self], inMemory: true)
 }
 
-private enum Layout {
+enum Layout {
     static let sectionSpacing: CGFloat = 20
     static let horizontalPadding: CGFloat = 20
     static let topPadding: CGFloat = 12
@@ -747,7 +969,7 @@ private enum Layout {
     static let resetTapWidth: CGFloat = 44
 }
 
-private enum Theme {
+enum Theme {
     static let background = Color(uiColor: .systemGroupedBackground)
     static let cardBackground = Color(uiColor: .secondarySystemGroupedBackground)
     static let controlsBackground = Color(uiColor: .systemBackground)
@@ -780,7 +1002,7 @@ private enum Theme {
     static let wheelThumbStroke = Color.white.opacity(0.75)
 }
 
-private struct ConfigRow<ValueContent: View>: View {
+struct ConfigRow<ValueContent: View>: View {
     let icon: String
     let titleKey: String
     let valueContent: ValueContent
@@ -809,22 +1031,42 @@ private struct ConfigRow<ValueContent: View>: View {
     }
 }
 
-private struct ConfigValueEditorButton: View {
+struct ConfigValueEditorButton: View {
     let titleKey: String
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
+    let valueFormatter: ((Int) -> String)?
     let accessibilityIdentifier: String?
     let editorPickerIdentifier: String?
 
     @State private var isPresenting = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    init(
+        titleKey: String,
+        value: Binding<Int>,
+        range: ClosedRange<Int>,
+        step: Int,
+        valueFormatter: ((Int) -> String)? = nil,
+        accessibilityIdentifier: String? = nil,
+        editorPickerIdentifier: String? = nil
+    ) {
+        self.titleKey = titleKey
+        _value = value
+        self.range = range
+        self.step = step
+        self.valueFormatter = valueFormatter
+        self.accessibilityIdentifier = accessibilityIdentifier
+        self.editorPickerIdentifier = editorPickerIdentifier
+    }
+
     var body: some View {
+        let formattedValue = valueFormatter?(value) ?? "\(value)"
         let button = Button {
             isPresenting = true
         } label: {
-            Text("\(value)")
+            Text(formattedValue)
                 .font(.system(size: 18, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.textPrimary)
                 .monospacedDigit()
@@ -832,7 +1074,7 @@ private struct ConfigValueEditorButton: View {
         .buttonStyle(.plain)
         .accessibilityIdentifier(accessibilityIdentifier ?? "")
         .accessibilityLabel(L10n.format("accessibility.edit_value_label_format", L10n.tr(titleKey)))
-        .accessibilityValue("\(value)")
+        .accessibilityValue(formattedValue)
 
         Group {
             if horizontalSizeClass == .regular {
@@ -842,6 +1084,7 @@ private struct ConfigValueEditorButton: View {
                         value: $value,
                         range: range,
                         step: step,
+                        valueFormatter: valueFormatter,
                         pickerIdentifier: editorPickerIdentifier
                     )
                     .frame(minWidth: 260, minHeight: 320)
@@ -853,6 +1096,7 @@ private struct ConfigValueEditorButton: View {
                         value: $value,
                         range: range,
                         step: step,
+                        valueFormatter: valueFormatter,
                         pickerIdentifier: editorPickerIdentifier
                     )
                     .presentationDetents([.medium, .large])
@@ -862,21 +1106,30 @@ private struct ConfigValueEditorButton: View {
     }
 }
 
-private struct DiscreteValueEditor: View {
+struct DiscreteValueEditor: View {
     let titleKey: String
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
+    let valueFormatter: ((Int) -> String)?
     let pickerIdentifier: String?
 
     @Environment(\.dismiss) private var dismiss
     @State private var selection: Int
 
-    init(titleKey: String, value: Binding<Int>, range: ClosedRange<Int>, step: Int, pickerIdentifier: String? = nil) {
+    init(
+        titleKey: String,
+        value: Binding<Int>,
+        range: ClosedRange<Int>,
+        step: Int,
+        valueFormatter: ((Int) -> String)? = nil,
+        pickerIdentifier: String? = nil
+    ) {
         self.titleKey = titleKey
         _value = value
         self.range = range
         self.step = step
+        self.valueFormatter = valueFormatter
         self.pickerIdentifier = pickerIdentifier
         let initial = DiscreteValueHelper.clampAndRound(value.wrappedValue, range: range, step: step)
         _selection = State(initialValue: initial)
@@ -887,7 +1140,7 @@ private struct DiscreteValueEditor: View {
             VStack(spacing: 0) {
                 Picker(LocalizedStringKey(titleKey), selection: $selection) {
                     ForEach(DiscreteValueHelper.values(range: range, step: step), id: \.self) { option in
-                        Text("\(option)")
+                        Text(valueFormatter?(option) ?? "\(option)")
                             .tag(option)
                     }
                 }
@@ -916,7 +1169,7 @@ private struct DiscreteValueEditor: View {
     }
 }
 
-private enum DiscreteValueHelper {
+enum DiscreteValueHelper {
     static func clampAndRound(_ candidate: Int, range: ClosedRange<Int>, step: Int) -> Int {
         let minValue = range.lowerBound
         let maxValue = range.upperBound
@@ -936,7 +1189,7 @@ private enum DiscreteValueHelper {
     }
 }
 
-private struct HorizontalWheelStepper: View {
+struct HorizontalWheelStepper: View {
     @Binding var value: Int
     let range: ClosedRange<Int>
     let step: Int
@@ -1218,7 +1471,7 @@ private struct PrimaryButtonStyle: ButtonStyle {
     }
 }
 
-private struct StepperSizeReader: View {
+struct StepperSizeReader: View {
     @Binding var size: CGSize
 
     var body: some View {
@@ -1241,7 +1494,7 @@ private struct StepperSizeReader: View {
     }
 }
 
-private struct StepperSizeKey: PreferenceKey {
+struct StepperSizeKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
 
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {

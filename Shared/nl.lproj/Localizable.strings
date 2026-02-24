@@ -66,3 +66,281 @@
 "accessibility.set_progress_label" = "Setvoortgang";
 "accessibility.time_remaining" = "Resterende tijd";
 "accessibility.reset_label" = "Resetten";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "Training";
+"tab.routines" = "Routines";
+"tab.progress" = "Voortgang";
+"tab.settings" = "Instellingen";
+
+"routines.add" = "Nieuwe routine";
+"routines.create.title" = "Nieuwe routine";
+"routines.delete" = "Routine verwijderen";
+"routines.discard.confirm" = "Negeren";
+"routines.discard.keep_editing" = "Doorgaan met bewerken";
+"routines.discard.message" = "Je hebt niet-opgeslagen wijzigingen.";
+"routines.discard.title" = "Wijzigingen negeren?";
+"routines.edit" = "Bewerken";
+"routines.edit.title" = "Routine bewerken";
+"routines.empty.message" = "Maak een routine om je presets op te slaan.";
+"routines.empty.title" = "Geen routines";
+"routines.field.name" = "Naam";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Maximaal %ld tekens";
+"routines.field.weight" = "Gewicht";
+"routines.weight.placeholder" = "0";
+"routines.save" = "Opslaan";
+"routines.section.details" = "Naam";
+"routines.section.parameters" = "Parameters";
+"routines.title" = "Routines";
+"routines.weight.empty" = "Geen gewicht";
+
+"routines.select.title" = "Routine selecteren";
+"training.routine.select" = "Selecteren";
+"training.routine.title" = "Routine";
+
+"accessibility.reps_value_format" = "%ld herhalingen";
+"routines.field.reps" = "Herhalingen";
+"routines.summary_format" = "%ld sets · %ld reps · %@ · %@";
+
+"pro.locked.message" = "Beschikbaar in Pro.";
+"pro.locked.progress.title" = "Voortgang";
+"pro.locked.routines.title" = "Routines";
+"pro.locked.settings.title" = "Instellingen";
+
+"pro.locked.unlock" = "Pro ontgrendelen";
+
+"routines.apply" = "Toepassen op training";
+"routines.remove_from_training" = "Verwijderen uit training";
+
+"routines.delete.message" = "Deze actie verwijdert deze routine permanent.";
+
+"classifications.section.title" = "Classification";
+"classifications.section.list" = "Classifications";
+"classifications.unclassified.section" = "Unclassified routines";
+"classifications.routines.section" = "Routines";
+"classifications.search.prompt" = "Search routines or classifications";
+"classifications.search.create_placeholder" = "Search or create classification";
+"classifications.create_format" = "Create \"%@\"";
+"classifications.duplicate" = "A classification with that name already exists.";
+"classifications.delete.title" = "Delete classification";
+"classifications.delete.message" = "This will remove the classification from all routines.";
+"classifications.none" = "None";
+"classifications.empty.title" = "No classifications";
+"classifications.empty.message" = "Create a classification to get started.";
+
+"classifications.manage.title" = "Manage classifications";
+"classifications.add.title" = "New classification";
+"classifications.rename.title" = "Rename";
+"classifications.name.title" = "Name";
+"classifications.name.placeholder" = "Classification name";
+"classifications.search.placeholder" = "Search classifications";
+
+"classifications.rename.action" = "Rename…";
+"classifications.more_options_format" = "More options for %@";
+
+/* Paywall v2 copy */
+"paywall.copy.light.pro.title" = "Ontgrendel Pro-modus";
+"paywall.copy.light.pro.subtitle" = "Routines, voortgang en instellingen zonder limiet.";
+"paywall.copy.light.pro.benefits_title" = "Belangrijkste voordelen";
+"paywall.copy.light.pro.bullet_1" = "Train zonder dagelijkse limieten.";
+"paywall.copy.light.pro.bullet_2" = "Sla routines op en herhaal in seconden.";
+"paywall.copy.light.pro.bullet_3" = "Volg je voortgang en blijf consistent.";
+"paywall.copy.light.pro.plans_title" = "Kies een plan";
+"paywall.copy.light.pro.annual_label" = "Jaarlijks";
+"paywall.copy.light.pro.annual_badge" = "Beste waarde";
+"paywall.copy.light.pro.monthly_label" = "Maandelijks";
+"paywall.copy.light.pro.cta_primary" = "Gratis starten";
+"paywall.copy.light.pro.cta_secondary" = "Niet nu";
+"paywall.copy.light.pro.trust" = "Altijd opzegbaar via je Apple ID.";
+"paywall.copy.light.pro.legal1" = "Automatisch verlengend abonnement met 2 weken gratis.";
+"paywall.copy.light.pro.legal2" = "Daarna wordt het gekozen plan in rekening gebracht tot je opzegt.";
+
+"paywall.copy.light.limit.title" = "Blijf trainen zonder onderbreking";
+"paywall.copy.light.limit.subtitle" = "Je hebt de gratis limiet van vandaag bereikt.";
+"paywall.copy.light.limit.benefits_title" = "Belangrijkste voordelen";
+"paywall.copy.light.limit.bullet_1" = "Ga nu direct verder met je sessie.";
+"paywall.copy.light.limit.bullet_2" = "Geen dagelijkse limiet terwijl je vooruitgaat.";
+"paywall.copy.light.limit.bullet_3" = "Je hele flow in één app.";
+"paywall.copy.light.limit.plans_title" = "Kies een plan";
+"paywall.copy.light.limit.annual_label" = "Jaarlijks";
+"paywall.copy.light.limit.annual_badge" = "Beste waarde";
+"paywall.copy.light.limit.monthly_label" = "Maandelijks";
+"paywall.copy.light.limit.cta_primary" = "Gratis starten";
+"paywall.copy.light.limit.cta_secondary" = "Niet nu";
+"paywall.copy.light.limit.trust" = "Start gratis en zeg altijd op.";
+"paywall.copy.light.limit.legal1" = "Automatisch verlengend abonnement met 2 weken gratis.";
+"paywall.copy.light.limit.legal2" = "Daarna wordt het gekozen plan in rekening gebracht tot je opzegt.";
+
+"paywall.copy.standard.pro.title" = "Train op volle kracht";
+"paywall.copy.standard.pro.subtitle" = "Ontgrendel routines, voortgang en volledige controle.";
+"paywall.copy.standard.pro.benefits_title" = "Wat je krijgt";
+"paywall.copy.standard.pro.bullet_1" = "Complete trainingsflow zonder frictie.";
+"paywall.copy.standard.pro.bullet_2" = "Routines klaar om altijd te herhalen.";
+"paywall.copy.standard.pro.bullet_3" = "Duidelijke voortgang om de gewoonte vast te houden.";
+"paywall.copy.standard.pro.plans_title" = "Kies je plan";
+"paywall.copy.standard.pro.annual_label" = "Jaarplan";
+"paywall.copy.standard.pro.annual_badge" = "Beste waarde";
+"paywall.copy.standard.pro.monthly_label" = "Maandplan";
+"paywall.copy.standard.pro.cta_primary" = "Gratis starten";
+"paywall.copy.standard.pro.cta_secondary" = "Niet nu";
+"paywall.copy.standard.pro.trust" = "Geen verplichting. Beheer of annuleer in Apple.";
+"paywall.copy.standard.pro.legal1" = "2 weken gratis. Daarna per plan gefactureerd.";
+"paywall.copy.standard.pro.legal2" = "Wordt automatisch verlengd tot je opzegt.";
+
+"paywall.copy.standard.limit.title" = "Stop je progressie vandaag niet";
+"paywall.copy.standard.limit.subtitle" = "Word Pro en rond je training af zonder limieten.";
+"paywall.copy.standard.limit.benefits_title" = "Wat je krijgt";
+"paywall.copy.standard.limit.bullet_1" = "Blijf nu trainen, zonder onderbrekingen.";
+"paywall.copy.standard.limit.bullet_2" = "Sla routines op om de volgende keer sneller te gaan.";
+"paywall.copy.standard.limit.bullet_3" = "Zie je voortgang zonder extra apps.";
+"paywall.copy.standard.limit.plans_title" = "Kies je plan";
+"paywall.copy.standard.limit.annual_label" = "Jaarplan";
+"paywall.copy.standard.limit.annual_badge" = "Beste waarde";
+"paywall.copy.standard.limit.monthly_label" = "Maandplan";
+"paywall.copy.standard.limit.cta_primary" = "Gratis starten";
+"paywall.copy.standard.limit.cta_secondary" = "Niet nu";
+"paywall.copy.standard.limit.trust" = "Probeer gratis. Altijd opzegbaar.";
+"paywall.copy.standard.limit.legal1" = "2 weken gratis. Daarna per plan gefactureerd.";
+"paywall.copy.standard.limit.legal2" = "Wordt automatisch verlengd tot je opzegt.";
+
+"paywall.copy.detailed.pro.title" = "Ontgrendel alles van Pro";
+"paywall.copy.detailed.pro.subtitle" = "Alle routines, voortgang en controle op één plek.";
+"paywall.copy.detailed.pro.benefits_title" = "Je training, verbeterd";
+"paywall.copy.detailed.pro.bullet_1" = "Blijf gefocust met timers voor sets.";
+"paywall.copy.detailed.pro.bullet_2" = "Gebruik routines en classificaties opnieuw.";
+"paywall.copy.detailed.pro.bullet_3" = "Volg voortgang met duidelijke visuals.";
+"paywall.copy.detailed.pro.plans_title" = "Kies je plan";
+"paywall.copy.detailed.pro.annual_label" = "Jaarplan";
+"paywall.copy.detailed.pro.annual_badge" = "Beste waarde";
+"paywall.copy.detailed.pro.monthly_label" = "Maandplan";
+"paywall.copy.detailed.pro.cta_primary" = "Gratis starten";
+"paywall.copy.detailed.pro.cta_secondary" = "Niet nu";
+"paywall.copy.detailed.pro.trust" = "Altijd opzegbaar. Geen lange verplichtingen.";
+"paywall.copy.detailed.pro.legal1" = "Automatisch verlengend abonnement met gratis proefperiode.";
+"paywall.copy.detailed.pro.legal2" = "Inclusief aankopen herstellen, voorwaarden en privacy.";
+"paywall.copy.detailed.pro.include_title" = "Wat Pro bevat";
+"paywall.copy.detailed.pro.include_1" = "Onbeperkte routines";
+"paywall.copy.detailed.pro.include_2" = "Classificaties om te ordenen";
+"paywall.copy.detailed.pro.include_3" = "Voortgangsgrafieken";
+"paywall.copy.detailed.pro.include_4" = "Activiteitskalender";
+"paywall.copy.detailed.pro.include_5" = "Streaks en badges";
+"paywall.copy.detailed.pro.include_6" = "Geen dagelijkse limiet tijdens training";
+
+"paywall.copy.detailed.limit.title" = "Sterk afronden, zonder limieten";
+"paywall.copy.detailed.limit.subtitle" = "Activeer Pro en ga nu verder met deze training.";
+"paywall.copy.detailed.limit.benefits_title" = "Resultaat voor vandaag en daarna";
+"paywall.copy.detailed.limit.bullet_1" = "Ga nu direct verder met deze sessie.";
+"paywall.copy.detailed.limit.bullet_2" = "Bespaar tijd met herbruikbare routines.";
+"paywall.copy.detailed.limit.bullet_3" = "Blijf consistent met zichtbare voortgang.";
+"paywall.copy.detailed.limit.plans_title" = "Kies je plan";
+"paywall.copy.detailed.limit.annual_label" = "Jaarplan";
+"paywall.copy.detailed.limit.annual_badge" = "Beste waarde";
+"paywall.copy.detailed.limit.monthly_label" = "Maandplan";
+"paywall.copy.detailed.limit.cta_primary" = "Gratis starten";
+"paywall.copy.detailed.limit.cta_secondary" = "Niet nu";
+"paywall.copy.detailed.limit.trust" = "Start gratis. Pas na de proefperiode gefactureerd.";
+"paywall.copy.detailed.limit.legal1" = "Automatisch verlengend abonnement.";
+"paywall.copy.detailed.limit.legal2" = "Beheer of annuleer in Apple. Aankopen te herstellen.";
+"paywall.copy.detailed.limit.include_title" = "Wat Pro bevat";
+"paywall.copy.detailed.limit.include_1" = "Geen dagelijkse limiet";
+"paywall.copy.detailed.limit.include_2" = "Routines en classificaties";
+"paywall.copy.detailed.limit.include_3" = "Trainingshistorie";
+"paywall.copy.detailed.limit.include_4" = "Grafieken en kalender";
+"paywall.copy.detailed.limit.include_5" = "Recente activiteit";
+"paywall.copy.detailed.limit.include_6" = "Streaks en badges";
+
+"paywall.trial_incentive_format" = "Inclusief %@ gratis.";
+"paywall.period.generic" = "periode";
+"paywall.button.manage" = "Abonnement beheren";
+"paywall.button.privacy" = "Privacy";
+"paywall.restore.no_purchases" = "Geen aankopen om te herstellen.";
+
+"config.rest_time.title" = "Rusttijd";
+"settings.timer_display.section" = "Timerweergave";
+"settings.timer_display.title" = "Tijdnotatie";
+"settings.timer_display.option.seconds" = "Seconden";
+"settings.timer_display.option.minutes_seconds" = "Min:Sec";
+"accessibility.rest_time_value_seconds_format" = "%ld seconden";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld minuten en %ld seconden";
+"notification.rest_finished.body_with_duration_format" = "Set %ld/%ld · Rust %@";
+
+"settings.energy.section" = "Energiebesparing";
+"settings.energy.mode.title" = "Modus";
+"settings.energy.mode.off" = "Uit";
+"settings.energy.mode.automatic" = "Automatisch";
+"settings.energy.mode.on" = "Aan";
+"settings.energy.description" = "Uit behoudt huidig gedrag. Automatisch volgt iOS Energiebesparingsmodus. Aan laat schermvergrendeling toe, verlaagt timer-wakeups en schakelt haptiek uit na rust.";
+
+"settings.weight_unit.section" = "Gewichtseenheid";
+"settings.weight_unit.title" = "Gewichtseenheid";
+"settings.weight_unit.option.automatic" = "Automatisch";
+"settings.weight_unit.option.kilograms" = "Kilogram (kg)";
+"settings.weight_unit.option.pounds" = "Pond (lb)";
+
+"settings.rest_increment.section" = "Rust-interval";
+"settings.rest_increment.title" = "Interval";
+"settings.rest_increment.option.5" = "5 s";
+"settings.rest_increment.option.10" = "10 s";
+"settings.rest_increment.option.15" = "15 s";
+
+"settings.max_sets.section" = "Maximum sets";
+"settings.max_sets.title" = "Maximum";
+"settings.max_sets.option.10" = "10 sets";
+"settings.max_sets.option.15" = "15 sets";
+"settings.max_sets.option.20" = "20 sets";
+"settings.max_sets.option.30" = "30 sets";
+
+"paywall.info.title" = "Info";
+"progress.accessibility.week_goal_format" = "Work-outs deze week: %ld van %ld";
+"progress.activity.empty" = "Nog geen voltooide work-outs.";
+"progress.badge.first_workout.subtitle" = "Voltooi je eerste work-out.";
+"progress.badge.first_workout.title" = "Eerste work-out";
+"progress.badge.goal_week.subtitle" = "Haal je huidige weekdoel.";
+"progress.badge.goal_week.title" = "Weekdoel behaald";
+"progress.badge.streak_4.subtitle" = "Haal je weekdoel 4 weken op rij.";
+"progress.badge.streak_4.title" = "Reeks van 4 weken";
+"progress.badge.three_week.subtitle" = "Voltooi 3 work-outs in één week.";
+"progress.badge.three_week.title" = "3 in één week";
+"progress.badge.workouts_10.subtitle" = "Voltooi 10 work-outs.";
+"progress.badge.workouts_10.title" = "10 work-outs";
+"progress.badge.workouts_25.subtitle" = "Voltooi 25 work-outs.";
+"progress.badge.workouts_25.title" = "25 work-outs";
+"progress.badge.workouts_5.subtitle" = "Voltooi 5 work-outs.";
+"progress.badge.workouts_5.title" = "5 work-outs";
+"progress.calendar.day.completed_format" = "%ld voltooide work-out(s)";
+"progress.calendar.day.empty" = "Geen voltooide work-outs";
+"progress.calendar.title" = "Deze maand";
+"progress.chart.axis.workouts" = "Work-outs";
+"progress.chart.workouts.accessibility_value_format" = "%ld work-outs";
+"progress.chart.workouts.title" = "Work-outs in de tijd";
+"progress.goal.edit" = "Doelen bewerken";
+"progress.goal.message.completed" = "Weekdoel behaald.";
+"progress.goal.message.many_left_format" = "Nog %ld work-outs tot je doel.";
+"progress.goal.message.one_left" = "Nog 1 work-out tot je doel.";
+"progress.goal.minutes_per_week" = "Minuten per week";
+"progress.goal.settings.title" = "Doelinstellingen";
+"progress.goal.starts_on_monday" = "Week begint op maandag";
+"progress.goal.weekly" = "Weekdoel";
+"progress.goal.workouts_per_week" = "Work-outs per week";
+"progress.period.fortnight" = "14 dagen";
+"progress.period.month" = "Maand";
+"progress.period.quarter" = "Kwartaal";
+"progress.period.title" = "Periode";
+"progress.period.week" = "Week";
+"progress.period.year" = "Jaar";
+"progress.quick_workout_name" = "Snelle work-out";
+"progress.section.activity" = "Recente activiteit";
+"progress.section.badges" = "Badges";
+"progress.streak.subtitle" = "Opeenvolgende weken waarin je je weekdoel haalt.";
+"progress.streak.title" = "Wekelijkse reeks";
+"progress.streak.weeks_format" = "Reeks van %ld weken";
+"progress.summary.most_repeated" = "Meest herhaalde routine";
+"progress.summary.top_classification" = "Topclassificatie";
+"progress.title" = "Voortgang";

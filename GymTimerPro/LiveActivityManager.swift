@@ -1,7 +1,7 @@
 import ActivityKit
 import Combine
 import Foundation
-import UserNotifications
+@preconcurrency import UserNotifications
 
 @MainActor
 final class LiveActivityManager: ObservableObject {
@@ -14,9 +14,10 @@ final class LiveActivityManager: ObservableObject {
             return
         }
 
-        notificationCenter.getNotificationSettings { [notificationCenter] settings in
+        Task {
+            let settings = await notificationCenter.notificationSettings()
             guard settings.authorizationStatus == .notDetermined else { return }
-            notificationCenter.requestAuthorization(options: [.alert, .sound]) { _, _ in }
+            _ = try? await notificationCenter.requestAuthorization(options: [.alert, .sound])
         }
     }
 
@@ -61,13 +62,15 @@ final class LiveActivityManager: ObservableObject {
         }
         guard let activity else { return }
         Task {
-            await activity.end(dismissalPolicy: dismissalPolicy)
+            let finalContent: ActivityContent<GymTimerAttributes.ContentState>? = nil
+            await activity.end(finalContent, dismissalPolicy: dismissalPolicy)
         }
         self.activity = nil
     }
 
     func scheduleEndNotification(endDate: Date, currentSet: Int, totalSets: Int) {
-        notificationCenter.getNotificationSettings { [notificationCenter] settings in
+        Task {
+            let settings = await notificationCenter.notificationSettings()
             guard settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional else {
                 return
             }
@@ -82,7 +85,7 @@ final class LiveActivityManager: ObservableObject {
             let request = UNNotificationRequest(identifier: "restTimer.end", content: content, trigger: trigger)
 
             notificationCenter.removePendingNotificationRequests(withIdentifiers: ["restTimer.end"])
-            notificationCenter.add(request)
+            try? await notificationCenter.add(request)
         }
     }
 

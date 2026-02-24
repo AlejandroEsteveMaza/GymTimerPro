@@ -66,3 +66,281 @@
 "accessibility.set_progress_label" = "セットの進行状況";
 "accessibility.time_remaining" = "残り時間";
 "accessibility.reset_label" = "リセット";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "トレーニング";
+"tab.routines" = "ルーティン";
+"tab.progress" = "進捗";
+"tab.settings" = "設定";
+
+"routines.add" = "新規ルーティン";
+"routines.create.title" = "新規ルーティン";
+"routines.delete" = "ルーティンを削除";
+"routines.discard.confirm" = "破棄";
+"routines.discard.keep_editing" = "編集を続ける";
+"routines.discard.message" = "未保存の変更があります。";
+"routines.discard.title" = "変更を破棄しますか？";
+"routines.edit" = "編集";
+"routines.edit.title" = "ルーティンを編集";
+"routines.empty.message" = "ルーティンを作成してプリセットを保存しましょう。";
+"routines.empty.title" = "ルーティンがありません";
+"routines.field.name" = "名前";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "最大%ld文字";
+"routines.field.weight" = "重量";
+"routines.weight.placeholder" = "0";
+"routines.save" = "保存";
+"routines.section.details" = "名前";
+"routines.section.parameters" = "パラメータ";
+"routines.title" = "ルーティン";
+"routines.weight.empty" = "重量なし";
+
+"routines.select.title" = "ルーティンを選択";
+"training.routine.select" = "選択";
+"training.routine.title" = "ルーティン";
+
+"accessibility.reps_value_format" = "%ld回";
+"routines.field.reps" = "回数";
+"routines.summary_format" = "%ldセット · %ld回 · %@ · %@";
+
+"pro.locked.message" = "Proで利用できます。";
+"pro.locked.progress.title" = "進捗";
+"pro.locked.routines.title" = "ルーティン";
+"pro.locked.settings.title" = "設定";
+
+"pro.locked.unlock" = "Proを解除";
+
+"routines.apply" = "トレーニングに適用";
+"routines.remove_from_training" = "トレーニングから外す";
+
+"routines.delete.message" = "この操作はルーティンを完全に削除します。";
+
+"classifications.section.title" = "Classification";
+"classifications.section.list" = "Classifications";
+"classifications.unclassified.section" = "Unclassified routines";
+"classifications.routines.section" = "Routines";
+"classifications.search.prompt" = "Search routines or classifications";
+"classifications.search.create_placeholder" = "Search or create classification";
+"classifications.create_format" = "Create \"%@\"";
+"classifications.duplicate" = "A classification with that name already exists.";
+"classifications.delete.title" = "Delete classification";
+"classifications.delete.message" = "This will remove the classification from all routines.";
+"classifications.none" = "None";
+"classifications.empty.title" = "No classifications";
+"classifications.empty.message" = "Create a classification to get started.";
+
+"classifications.manage.title" = "Manage classifications";
+"classifications.add.title" = "New classification";
+"classifications.rename.title" = "Rename";
+"classifications.name.title" = "Name";
+"classifications.name.placeholder" = "Classification name";
+"classifications.search.placeholder" = "Search classifications";
+
+"classifications.rename.action" = "Rename…";
+"classifications.more_options_format" = "More options for %@";
+
+/* Paywall v2 copy */
+"paywall.copy.light.pro.title" = "Proモードを解放";
+"paywall.copy.light.pro.subtitle" = "ルーティン・進捗・設定を制限なく。";
+"paywall.copy.light.pro.benefits_title" = "主なメリット";
+"paywall.copy.light.pro.bullet_1" = "日次制限なしでトレーニング。";
+"paywall.copy.light.pro.bullet_2" = "ルーティンを保存してすぐ繰り返せる。";
+"paywall.copy.light.pro.bullet_3" = "進捗を見て習慣化。";
+"paywall.copy.light.pro.plans_title" = "プランを選択";
+"paywall.copy.light.pro.annual_label" = "年額";
+"paywall.copy.light.pro.annual_badge" = "一番お得";
+"paywall.copy.light.pro.monthly_label" = "月額";
+"paywall.copy.light.pro.cta_primary" = "無料で始める";
+"paywall.copy.light.pro.cta_secondary" = "今はやめる";
+"paywall.copy.light.pro.trust" = "Apple IDからいつでも解約できます。";
+"paywall.copy.light.pro.legal1" = "2週間の無料トライアル付き自動更新サブスクリプション。";
+"paywall.copy.light.pro.legal2" = "以降、選択したプランで請求されます。";
+
+"paywall.copy.light.limit.title" = "中断せずにトレーニング";
+"paywall.copy.light.limit.subtitle" = "本日の無料上限に達しました。";
+"paywall.copy.light.limit.benefits_title" = "主なメリット";
+"paywall.copy.light.limit.bullet_1" = "今すぐセッションを続行。";
+"paywall.copy.light.limit.bullet_2" = "日次制限なしで進捗。";
+"paywall.copy.light.limit.bullet_3" = "一つのアプリで完結。";
+"paywall.copy.light.limit.plans_title" = "プランを選択";
+"paywall.copy.light.limit.annual_label" = "年額";
+"paywall.copy.light.limit.annual_badge" = "一番お得";
+"paywall.copy.light.limit.monthly_label" = "月額";
+"paywall.copy.light.limit.cta_primary" = "無料で始める";
+"paywall.copy.light.limit.cta_secondary" = "今はやめる";
+"paywall.copy.light.limit.trust" = "無料で開始、いつでも解約。";
+"paywall.copy.light.limit.legal1" = "2週間の無料トライアル付き自動更新サブスクリプション。";
+"paywall.copy.light.limit.legal2" = "以降、選択したプランで請求されます。";
+
+"paywall.copy.standard.pro.title" = "フルパワーでトレーニング";
+"paywall.copy.standard.pro.subtitle" = "ルーティン、進捗、全機能を解放。";
+"paywall.copy.standard.pro.benefits_title" = "できること";
+"paywall.copy.standard.pro.bullet_1" = "摩擦のないトレーニングフロー。";
+"paywall.copy.standard.pro.bullet_2" = "いつでも繰り返せるルーティン。";
+"paywall.copy.standard.pro.bullet_3" = "わかりやすい進捗で継続。";
+"paywall.copy.standard.pro.plans_title" = "プランを選ぶ";
+"paywall.copy.standard.pro.annual_label" = "年額プラン";
+"paywall.copy.standard.pro.annual_badge" = "一番お得";
+"paywall.copy.standard.pro.monthly_label" = "月額プラン";
+"paywall.copy.standard.pro.cta_primary" = "無料で始める";
+"paywall.copy.standard.pro.cta_secondary" = "今はやめる";
+"paywall.copy.standard.pro.trust" = "縛りなし。Appleで管理・解約。";
+"paywall.copy.standard.pro.legal1" = "2週間無料。以降プランごとに請求。";
+"paywall.copy.standard.pro.legal2" = "解約まで自動更新。";
+
+"paywall.copy.standard.limit.title" = "今日の進捗を止めない";
+"paywall.copy.standard.limit.subtitle" = "Proで制限なくトレーニングを完了。";
+"paywall.copy.standard.limit.benefits_title" = "できること";
+"paywall.copy.standard.limit.bullet_1" = "今すぐ中断なく続ける。";
+"paywall.copy.standard.limit.bullet_2" = "ルーティン保存で次回を短縮。";
+"paywall.copy.standard.limit.bullet_3" = "追加アプリなしで進捗確認。";
+"paywall.copy.standard.limit.plans_title" = "プランを選ぶ";
+"paywall.copy.standard.limit.annual_label" = "年額プラン";
+"paywall.copy.standard.limit.annual_badge" = "一番お得";
+"paywall.copy.standard.limit.monthly_label" = "月額プラン";
+"paywall.copy.standard.limit.cta_primary" = "無料で始める";
+"paywall.copy.standard.limit.cta_secondary" = "今はやめる";
+"paywall.copy.standard.limit.trust" = "無料で試せます。いつでも解約。";
+"paywall.copy.standard.limit.legal1" = "2週間無料。以降プランごとに請求。";
+"paywall.copy.standard.limit.legal2" = "解約まで自動更新。";
+
+"paywall.copy.detailed.pro.title" = "Proのすべてを解放";
+"paywall.copy.detailed.pro.subtitle" = "ルーティン、進捗、管理を一箇所に。";
+"paywall.copy.detailed.pro.benefits_title" = "トレーニングを強化";
+"paywall.copy.detailed.pro.bullet_1" = "セット向けタイマーで集中。";
+"paywall.copy.detailed.pro.bullet_2" = "ルーティンと分類をいつでも再利用。";
+"paywall.copy.detailed.pro.bullet_3" = "視覚的な進捗で把握。";
+"paywall.copy.detailed.pro.plans_title" = "プランを選ぶ";
+"paywall.copy.detailed.pro.annual_label" = "年額プラン";
+"paywall.copy.detailed.pro.annual_badge" = "一番お得";
+"paywall.copy.detailed.pro.monthly_label" = "月額プラン";
+"paywall.copy.detailed.pro.cta_primary" = "無料で始める";
+"paywall.copy.detailed.pro.cta_secondary" = "今はやめる";
+"paywall.copy.detailed.pro.trust" = "いつでも解約。長期契約なし。";
+"paywall.copy.detailed.pro.legal1" = "無料トライアル付き自動更新サブスクリプション。";
+"paywall.copy.detailed.pro.legal2" = "購入復元、利用規約、プライバシーを含む。";
+"paywall.copy.detailed.pro.include_title" = "Proに含まれるもの";
+"paywall.copy.detailed.pro.include_1" = "無制限のルーティン";
+"paywall.copy.detailed.pro.include_2" = "整理用の分類";
+"paywall.copy.detailed.pro.include_3" = "進捗グラフ";
+"paywall.copy.detailed.pro.include_4" = "アクティビティカレンダー";
+"paywall.copy.detailed.pro.include_5" = "ストリークとバッジ";
+"paywall.copy.detailed.pro.include_6" = "トレーニング中の制限なし";
+
+"paywall.copy.detailed.limit.title" = "最後まで強く、制限なし";
+"paywall.copy.detailed.limit.subtitle" = "Proを有効化して今すぐ続行。";
+"paywall.copy.detailed.limit.benefits_title" = "今日もこれからも成果を";
+"paywall.copy.detailed.limit.bullet_1" = "このセッションを今すぐ継続。";
+"paywall.copy.detailed.limit.bullet_2" = "再利用ルーティンで時間短縮。";
+"paywall.copy.detailed.limit.bullet_3" = "見える進捗で継続。";
+"paywall.copy.detailed.limit.plans_title" = "プランを選ぶ";
+"paywall.copy.detailed.limit.annual_label" = "年額プラン";
+"paywall.copy.detailed.limit.annual_badge" = "一番お得";
+"paywall.copy.detailed.limit.monthly_label" = "月額プラン";
+"paywall.copy.detailed.limit.cta_primary" = "無料で始める";
+"paywall.copy.detailed.limit.cta_secondary" = "今はやめる";
+"paywall.copy.detailed.limit.trust" = "無料で開始。トライアル後に請求。";
+"paywall.copy.detailed.limit.legal1" = "自動更新サブスクリプション。";
+"paywall.copy.detailed.limit.legal2" = "Appleで管理・解約。購入は復元可能。";
+"paywall.copy.detailed.limit.include_title" = "Proに含まれるもの";
+"paywall.copy.detailed.limit.include_1" = "日次制限なし";
+"paywall.copy.detailed.limit.include_2" = "ルーティンと分類";
+"paywall.copy.detailed.limit.include_3" = "トレーニング履歴";
+"paywall.copy.detailed.limit.include_4" = "グラフとカレンダー";
+"paywall.copy.detailed.limit.include_5" = "最近のアクティビティ";
+"paywall.copy.detailed.limit.include_6" = "ストリークとバッジ";
+
+"paywall.trial_incentive_format" = "無料で%@付き。";
+"paywall.period.generic" = "期間";
+"paywall.button.manage" = "サブスクリプション管理";
+"paywall.button.privacy" = "プライバシー";
+"paywall.restore.no_purchases" = "復元する購入はありません。";
+
+"config.rest_time.title" = "休憩時間";
+"settings.timer_display.section" = "タイマー表示";
+"settings.timer_display.title" = "時間表示形式";
+"settings.timer_display.option.seconds" = "秒";
+"settings.timer_display.option.minutes_seconds" = "分:秒";
+"accessibility.rest_time_value_seconds_format" = "%ld秒";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld分%ld秒";
+"notification.rest_finished.body_with_duration_format" = "セット%ld/%ld ・ 休憩 %@";
+
+"settings.energy.section" = "省電力";
+"settings.energy.mode.title" = "モード";
+"settings.energy.mode.off" = "オフ";
+"settings.energy.mode.automatic" = "自動";
+"settings.energy.mode.on" = "オン";
+"settings.energy.description" = "オフは現在の動作を維持します。自動はiOSの低電力モードに従います。オンは画面ロックを許可し、タイマーの起動頻度を下げ、休憩終了時の触覚を無効化します。";
+
+"settings.weight_unit.section" = "重量単位";
+"settings.weight_unit.title" = "重量単位";
+"settings.weight_unit.option.automatic" = "自動";
+"settings.weight_unit.option.kilograms" = "キログラム (kg)";
+"settings.weight_unit.option.pounds" = "ポンド (lb)";
+
+"settings.rest_increment.section" = "休憩の増分";
+"settings.rest_increment.title" = "増分";
+"settings.rest_increment.option.5" = "5秒";
+"settings.rest_increment.option.10" = "10秒";
+"settings.rest_increment.option.15" = "15秒";
+
+"settings.max_sets.section" = "最大セット";
+"settings.max_sets.title" = "最大";
+"settings.max_sets.option.10" = "10セット";
+"settings.max_sets.option.15" = "15セット";
+"settings.max_sets.option.20" = "20セット";
+"settings.max_sets.option.30" = "30セット";
+
+"paywall.info.title" = "情報";
+"progress.accessibility.week_goal_format" = "今週のワークアウト: %ld/%ld";
+"progress.activity.empty" = "完了したワークアウトはまだありません。";
+"progress.badge.first_workout.subtitle" = "最初のワークアウトを完了しましょう。";
+"progress.badge.first_workout.title" = "初回ワークアウト";
+"progress.badge.goal_week.subtitle" = "今週の目標を達成しましょう。";
+"progress.badge.goal_week.title" = "週間目標達成";
+"progress.badge.streak_4.subtitle" = "週間目標を4週連続で達成。";
+"progress.badge.streak_4.title" = "4週連続";
+"progress.badge.three_week.subtitle" = "1週間で3回ワークアウトを完了。";
+"progress.badge.three_week.title" = "週3回達成";
+"progress.badge.workouts_10.subtitle" = "10回ワークアウトを完了。";
+"progress.badge.workouts_10.title" = "10回達成";
+"progress.badge.workouts_25.subtitle" = "25回ワークアウトを完了。";
+"progress.badge.workouts_25.title" = "25回達成";
+"progress.badge.workouts_5.subtitle" = "5回ワークアウトを完了。";
+"progress.badge.workouts_5.title" = "5回達成";
+"progress.calendar.day.completed_format" = "完了ワークアウト %ld 回";
+"progress.calendar.day.empty" = "完了したワークアウトなし";
+"progress.calendar.title" = "今月";
+"progress.chart.axis.workouts" = "ワークアウト";
+"progress.chart.workouts.accessibility_value_format" = "%ld 回のワークアウト";
+"progress.chart.workouts.title" = "ワークアウト推移";
+"progress.goal.edit" = "目標を編集";
+"progress.goal.message.completed" = "週間目標を達成しました。";
+"progress.goal.message.many_left_format" = "目標まであと %ld 回です。";
+"progress.goal.message.one_left" = "目標まであと1回です。";
+"progress.goal.minutes_per_week" = "週あたりの分数";
+"progress.goal.settings.title" = "目標設定";
+"progress.goal.starts_on_monday" = "週の開始は月曜日";
+"progress.goal.weekly" = "週間目標";
+"progress.goal.workouts_per_week" = "週あたりのワークアウト回数";
+"progress.period.fortnight" = "14日間";
+"progress.period.month" = "月";
+"progress.period.quarter" = "四半期";
+"progress.period.title" = "期間";
+"progress.period.week" = "週";
+"progress.period.year" = "年";
+"progress.quick_workout_name" = "クイックワークアウト";
+"progress.section.activity" = "最近のアクティビティ";
+"progress.section.badges" = "バッジ";
+"progress.streak.subtitle" = "週間目標を達成した連続週数。";
+"progress.streak.title" = "週間ストリーク";
+"progress.streak.weeks_format" = "%ld 週連続";
+"progress.summary.most_repeated" = "最も繰り返したルーティン";
+"progress.summary.top_classification" = "主な分類";
+"progress.title" = "進捗";

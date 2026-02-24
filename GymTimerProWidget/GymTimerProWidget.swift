@@ -177,7 +177,7 @@ private struct LiveActivityLockScreenView: View {
 private func appDisplayName() -> String {
     let displayName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
     let bundleName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
-    return displayName ?? bundleName ?? "GymTimerPro"
+    return displayName ?? bundleName ?? L10n.tr("app.name.fallback")
 }
 
 private struct LiveActivityCountdownText: View {

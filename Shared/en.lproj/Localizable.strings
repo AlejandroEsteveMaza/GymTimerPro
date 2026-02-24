@@ -66,3 +66,290 @@
 "accessibility.set_progress_label" = "Set progress";
 "accessibility.time_remaining" = "Time remaining";
 "accessibility.reset_label" = "Reset";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "Training";
+"tab.routines" = "Routines";
+"tab.progress" = "Progress";
+"tab.settings" = "Settings";
+
+"routines.add" = "New Routine";
+"routines.create.title" = "New Routine";
+"routines.delete" = "Delete Routine";
+"routines.discard.confirm" = "Discard";
+"routines.discard.keep_editing" = "Keep Editing";
+"routines.discard.message" = "You have unsaved changes.";
+"routines.discard.title" = "Discard Changes?";
+"routines.edit" = "Edit";
+"routines.edit.title" = "Edit Routine";
+"routines.empty.message" = "Create a routine to save your presets.";
+"routines.empty.title" = "No Routines";
+"routines.field.name" = "Name";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Maximum %ld characters";
+"routines.field.weight" = "Weight";
+"routines.weight.placeholder" = "0";
+"routines.save" = "Save";
+"routines.section.details" = "Name";
+"routines.section.parameters" = "Parameters";
+"routines.title" = "Routines";
+"routines.weight.empty" = "No weight";
+
+"routines.select.title" = "Select Routine";
+"training.routine.select" = "Select";
+"training.routine.title" = "Routine";
+
+"accessibility.reps_value_format" = "%ld reps";
+"routines.field.reps" = "Reps";
+"routines.summary_format" = "%ld sets · %ld reps · %@ · %@";
+
+"pro.locked.message" = "Available in Pro.";
+"pro.locked.progress.title" = "Progress";
+"pro.locked.routines.title" = "Routines";
+"pro.locked.settings.title" = "Settings";
+
+"pro.locked.unlock" = "Unlock Pro";
+
+"routines.apply" = "Apply to Training";
+"routines.remove_from_training" = "Remove from Training";
+
+"routines.delete.message" = "This will permanently delete this routine.";
+
+"classifications.section.title" = "Classification";
+"classifications.section.list" = "Classifications";
+"classifications.unclassified.section" = "Unclassified routines";
+"classifications.routines.section" = "Routines";
+"classifications.search.prompt" = "Search routines or classifications";
+"classifications.search.create_placeholder" = "Search or create classification";
+"classifications.create_format" = "Create \"%@\"";
+"classifications.duplicate" = "A classification with that name already exists.";
+"classifications.delete.title" = "Delete classification";
+"classifications.delete.message" = "This will remove the classification from all routines.";
+"classifications.none" = "None";
+"classifications.empty.title" = "No classifications";
+"classifications.empty.message" = "Create a classification to get started.";
+
+"classifications.manage.title" = "Manage classifications";
+"classifications.add.title" = "New classification";
+"classifications.rename.title" = "Rename";
+"classifications.name.title" = "Name";
+"classifications.name.placeholder" = "Classification name";
+"classifications.search.placeholder" = "Search classifications";
+
+"classifications.rename.action" = "Rename…";
+"classifications.more_options_format" = "More options for %@";
+
+"progress.title" = "Progress";
+"progress.quick_workout_name" = "Quick workout";
+
+"progress.summary.most_repeated" = "Most repeated routine";
+"progress.summary.top_classification" = "Top classification";
+
+"progress.goal.weekly" = "Weekly goal";
+"progress.goal.edit" = "Edit goals";
+"progress.goal.message.completed" = "Weekly goal completed.";
+"progress.goal.message.one_left" = "1 workout left to hit your goal.";
+"progress.goal.message.many_left_format" = "%ld workouts left to hit your goal.";
+"progress.goal.settings.title" = "Goal settings";
+"progress.goal.workouts_per_week" = "Workouts per week";
+"progress.goal.minutes_per_week" = "Minutes per week";
+"progress.goal.starts_on_monday" = "Week starts on Monday";
+"progress.accessibility.week_goal_format" = "Workouts this week: %ld of %ld";
+
+"progress.streak.title" = "Weekly streak";
+"progress.streak.weeks_format" = "%ld week streak";
+"progress.streak.subtitle" = "Consecutive weeks meeting your weekly goal.";
+
+"progress.period.title" = "Period";
+"progress.period.week" = "Week";
+"progress.period.fortnight" = "14 days";
+"progress.period.month" = "Month";
+"progress.period.quarter" = "Quarter";
+"progress.period.year" = "Year";
+
+"progress.chart.workouts.title" = "Workouts over time";
+"progress.chart.axis.workouts" = "Workouts";
+"progress.chart.workouts.accessibility_value_format" = "%ld workouts";
+
+"progress.calendar.title" = "This month";
+"progress.calendar.day.completed_format" = "%ld completed workout(s)";
+"progress.calendar.day.empty" = "No completed workout";
+
+"progress.section.activity" = "Recent activity";
+"progress.activity.empty" = "No completed workouts yet.";
+
+"progress.section.badges" = "Badges";
+"progress.badge.first_workout.title" = "First workout";
+"progress.badge.first_workout.subtitle" = "Complete your first workout.";
+"progress.badge.workouts_5.title" = "5 workouts";
+"progress.badge.workouts_5.subtitle" = "Complete 5 workouts.";
+"progress.badge.workouts_10.title" = "10 workouts";
+"progress.badge.workouts_10.subtitle" = "Complete 10 workouts.";
+"progress.badge.workouts_25.title" = "25 workouts";
+"progress.badge.workouts_25.subtitle" = "Complete 25 workouts.";
+"progress.badge.three_week.title" = "3 in a week";
+"progress.badge.three_week.subtitle" = "Complete 3 workouts in one week.";
+"progress.badge.streak_4.title" = "4-week streak";
+"progress.badge.streak_4.subtitle" = "Meet your weekly goal for 4 consecutive weeks.";
+"progress.badge.goal_week.title" = "Weekly goal done";
+"progress.badge.goal_week.subtitle" = "Hit your current weekly goal.";
+
+/* Paywall v2 copy */
+"paywall.copy.light.pro.title" = "Unlock Pro mode";
+"paywall.copy.light.pro.subtitle" = "Routines, progress, and settings without limits.";
+"paywall.copy.light.pro.benefits_title" = "Key benefits";
+"paywall.copy.light.pro.bullet_1" = "Train without daily limit cuts.";
+"paywall.copy.light.pro.bullet_2" = "Save routines and repeat them in seconds.";
+"paywall.copy.light.pro.bullet_3" = "Track progress to stay consistent.";
+"paywall.copy.light.pro.plans_title" = "Choose a plan";
+"paywall.copy.light.pro.annual_label" = "Annual";
+"paywall.copy.light.pro.annual_badge" = "Best value";
+"paywall.copy.light.pro.monthly_label" = "Monthly";
+"paywall.copy.light.pro.cta_primary" = "Start free";
+"paywall.copy.light.pro.cta_secondary" = "Not now";
+"paywall.copy.light.pro.trust" = "Cancel anytime from your Apple ID.";
+"paywall.copy.light.pro.legal1" = "Auto-renewing subscription with a 2-week free trial.";
+"paywall.copy.light.pro.legal2" = "Then you’re charged for the chosen plan until you cancel.";
+
+"paywall.copy.light.limit.title" = "Keep training without cuts";
+"paywall.copy.light.limit.subtitle" = "You reached today’s free limit.";
+"paywall.copy.light.limit.benefits_title" = "Key benefits";
+"paywall.copy.light.limit.bullet_1" = "Continue your session right now.";
+"paywall.copy.light.limit.bullet_2" = "No daily limit while you progress.";
+"paywall.copy.light.limit.bullet_3" = "Your whole flow in one app.";
+"paywall.copy.light.limit.plans_title" = "Choose a plan";
+"paywall.copy.light.limit.annual_label" = "Annual";
+"paywall.copy.light.limit.annual_badge" = "Best value";
+"paywall.copy.light.limit.monthly_label" = "Monthly";
+"paywall.copy.light.limit.cta_primary" = "Start free";
+"paywall.copy.light.limit.cta_secondary" = "Not now";
+"paywall.copy.light.limit.trust" = "Start free and cancel anytime.";
+"paywall.copy.light.limit.legal1" = "Auto-renewing subscription with a 2-week free trial.";
+"paywall.copy.light.limit.legal2" = "Then you’re charged for the chosen plan until you cancel.";
+
+"paywall.copy.standard.pro.title" = "Train with full potential";
+"paywall.copy.standard.pro.subtitle" = "Unlock routines, progress, and full control.";
+"paywall.copy.standard.pro.benefits_title" = "What you get";
+"paywall.copy.standard.pro.bullet_1" = "Complete training flow without friction.";
+"paywall.copy.standard.pro.bullet_2" = "Routines ready to repeat anytime.";
+"paywall.copy.standard.pro.bullet_3" = "Clear progress to keep the habit.";
+"paywall.copy.standard.pro.plans_title" = "Select your plan";
+"paywall.copy.standard.pro.annual_label" = "Annual plan";
+"paywall.copy.standard.pro.annual_badge" = "Best value";
+"paywall.copy.standard.pro.monthly_label" = "Monthly plan";
+"paywall.copy.standard.pro.cta_primary" = "Start free";
+"paywall.copy.standard.pro.cta_secondary" = "Not now";
+"paywall.copy.standard.pro.trust" = "No commitment. Manage or cancel in Apple.";
+"paywall.copy.standard.pro.legal1" = "2-week free trial. Then billed per plan.";
+"paywall.copy.standard.pro.legal2" = "Auto-renews unless canceled.";
+
+"paywall.copy.standard.limit.title" = "Don’t stop your progress today";
+"paywall.copy.standard.limit.subtitle" = "Go Pro and finish your session without limits.";
+"paywall.copy.standard.limit.benefits_title" = "What you get";
+"paywall.copy.standard.limit.bullet_1" = "Keep training now, no interruptions.";
+"paywall.copy.standard.limit.bullet_2" = "Save routines to move faster next time.";
+"paywall.copy.standard.limit.bullet_3" = "See progress without extra apps.";
+"paywall.copy.standard.limit.plans_title" = "Select your plan";
+"paywall.copy.standard.limit.annual_label" = "Annual plan";
+"paywall.copy.standard.limit.annual_badge" = "Best value";
+"paywall.copy.standard.limit.monthly_label" = "Monthly plan";
+"paywall.copy.standard.limit.cta_primary" = "Start free";
+"paywall.copy.standard.limit.cta_secondary" = "Not now";
+"paywall.copy.standard.limit.trust" = "Try it free. Cancel anytime.";
+"paywall.copy.standard.limit.legal1" = "2-week free trial. Then billed per plan.";
+"paywall.copy.standard.limit.legal2" = "Auto-renews unless canceled.";
+
+"paywall.copy.detailed.pro.title" = "Unlock everything Pro offers";
+"paywall.copy.detailed.pro.subtitle" = "All routines, progress, and control in one place.";
+"paywall.copy.detailed.pro.benefits_title" = "Your training, upgraded";
+"paywall.copy.detailed.pro.bullet_1" = "Stay focused with timers made for sets.";
+"paywall.copy.detailed.pro.bullet_2" = "Reuse routines and classifications anytime.";
+"paywall.copy.detailed.pro.bullet_3" = "Track progress with clear visuals.";
+"paywall.copy.detailed.pro.plans_title" = "Select your plan";
+"paywall.copy.detailed.pro.annual_label" = "Annual plan";
+"paywall.copy.detailed.pro.annual_badge" = "Best value";
+"paywall.copy.detailed.pro.monthly_label" = "Monthly plan";
+"paywall.copy.detailed.pro.cta_primary" = "Start free";
+"paywall.copy.detailed.pro.cta_secondary" = "Not now";
+"paywall.copy.detailed.pro.trust" = "Cancel anytime. No long commitments.";
+"paywall.copy.detailed.pro.legal1" = "Auto-renewing subscription with a free trial period.";
+"paywall.copy.detailed.pro.legal2" = "Includes restore purchases, terms, and privacy.";
+"paywall.copy.detailed.pro.include_title" = "What Pro includes";
+"paywall.copy.detailed.pro.include_1" = "Unlimited routines";
+"paywall.copy.detailed.pro.include_2" = "Classifications to organize";
+"paywall.copy.detailed.pro.include_3" = "Progress charts";
+"paywall.copy.detailed.pro.include_4" = "Activity calendar";
+"paywall.copy.detailed.pro.include_5" = "Streaks and badges";
+"paywall.copy.detailed.pro.include_6" = "No daily limit during training";
+
+"paywall.copy.detailed.limit.title" = "Finish strong, no limits";
+"paywall.copy.detailed.limit.subtitle" = "Activate Pro and continue this workout now.";
+"paywall.copy.detailed.limit.benefits_title" = "Results for today and beyond";
+"paywall.copy.detailed.limit.bullet_1" = "Continue this session right now.";
+"paywall.copy.detailed.limit.bullet_2" = "Save time with reusable routines.";
+"paywall.copy.detailed.limit.bullet_3" = "Stay consistent with visible progress.";
+"paywall.copy.detailed.limit.plans_title" = "Select your plan";
+"paywall.copy.detailed.limit.annual_label" = "Annual plan";
+"paywall.copy.detailed.limit.annual_badge" = "Best value";
+"paywall.copy.detailed.limit.monthly_label" = "Monthly plan";
+"paywall.copy.detailed.limit.cta_primary" = "Start free";
+"paywall.copy.detailed.limit.cta_secondary" = "Not now";
+"paywall.copy.detailed.limit.trust" = "Start free. You’re billed only after the trial.";
+"paywall.copy.detailed.limit.legal1" = "Auto-renewing subscription with automatic renewal.";
+"paywall.copy.detailed.limit.legal2" = "Manage or cancel in Apple. Purchases can be restored.";
+"paywall.copy.detailed.limit.include_title" = "What Pro includes";
+"paywall.copy.detailed.limit.include_1" = "No daily limit";
+"paywall.copy.detailed.limit.include_2" = "Routines and classifications";
+"paywall.copy.detailed.limit.include_3" = "Workout history";
+"paywall.copy.detailed.limit.include_4" = "Charts and calendar";
+"paywall.copy.detailed.limit.include_5" = "Recent activity";
+"paywall.copy.detailed.limit.include_6" = "Streaks and badges";
+
+"paywall.trial_incentive_format" = "Includes %@ free.";
+"paywall.period.generic" = "period";
+"paywall.button.manage" = "Manage subscription";
+"paywall.button.privacy" = "Privacy";
+"paywall.restore.no_purchases" = "No purchases to restore.";
+
+"config.rest_time.title" = "Rest time";
+"settings.timer_display.section" = "Timer display";
+"settings.timer_display.title" = "Time format";
+"settings.timer_display.option.seconds" = "Seconds";
+"settings.timer_display.option.minutes_seconds" = "Min:Sec";
+"accessibility.rest_time_value_seconds_format" = "%ld seconds";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld minutes and %ld seconds";
+"notification.rest_finished.body_with_duration_format" = "Set %ld/%ld · Rest %@";
+
+"settings.energy.section" = "Energy saving";
+"settings.energy.mode.title" = "Mode";
+"settings.energy.mode.off" = "Off";
+"settings.energy.mode.automatic" = "Automatic";
+"settings.energy.mode.on" = "On";
+"settings.energy.description" = "Off keeps current behavior. Automatic follows iOS Low Power Mode. On allows screen lock, reduces timer wakeups, and disables haptics at rest end.";
+
+"settings.weight_unit.section" = "Weight unit";
+"settings.weight_unit.title" = "Weight unit";
+"settings.weight_unit.option.automatic" = "Automatic";
+"settings.weight_unit.option.kilograms" = "Kilograms (kg)";
+"settings.weight_unit.option.pounds" = "Pounds (lb)";
+
+"settings.rest_increment.section" = "Rest increment";
+"settings.rest_increment.title" = "Step";
+"settings.rest_increment.option.5" = "5 sec";
+"settings.rest_increment.option.10" = "10 sec";
+"settings.rest_increment.option.15" = "15 sec";
+
+"settings.max_sets.section" = "Max sets";
+"settings.max_sets.title" = "Maximum";
+"settings.max_sets.option.10" = "10 sets";
+"settings.max_sets.option.15" = "15 sets";
+"settings.max_sets.option.20" = "20 sets";
+"settings.max_sets.option.30" = "30 sets";
+
+"paywall.info.title" = "Info";

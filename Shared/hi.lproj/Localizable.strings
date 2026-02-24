@@ -66,3 +66,281 @@
 "accessibility.set_progress_label" = "सेट प्रगति";
 "accessibility.time_remaining" = "बचा हुआ समय";
 "accessibility.reset_label" = "रीसेट";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "ट्रेनिंग";
+"tab.routines" = "रूटीन";
+"tab.progress" = "प्रगति";
+"tab.settings" = "सेटिंग्स";
+
+"routines.add" = "नई रूटीन";
+"routines.create.title" = "नई रूटीन";
+"routines.delete" = "रूटीन हटाएं";
+"routines.discard.confirm" = "छोड़ें";
+"routines.discard.keep_editing" = "एडिट जारी रखें";
+"routines.discard.message" = "आपके बदलाव सेव नहीं हुए हैं.";
+"routines.discard.title" = "बदलाव छोड़ें?";
+"routines.edit" = "संपादित करें";
+"routines.edit.title" = "रूटीन संपादित करें";
+"routines.empty.message" = "अपने प्रीसेट सेव करने के लिए एक रूटीन बनाएं.";
+"routines.empty.title" = "कोई रूटीन नहीं";
+"routines.field.name" = "नाम";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "अधिकतम %ld वर्ण";
+"routines.field.weight" = "वज़न";
+"routines.weight.placeholder" = "0";
+"routines.save" = "सहेजें";
+"routines.section.details" = "नाम";
+"routines.section.parameters" = "पैरामीटर";
+"routines.title" = "रूटीन";
+"routines.weight.empty" = "वज़न नहीं";
+
+"routines.select.title" = "रूटीन चुनें";
+"training.routine.select" = "चुनें";
+"training.routine.title" = "रूटीन";
+
+"accessibility.reps_value_format" = "%ld रेप्स";
+"routines.field.reps" = "रेप्स";
+"routines.summary_format" = "%ld सेट · %ld रेप्स · %@ · %@";
+
+"pro.locked.message" = "Pro में उपलब्ध है.";
+"pro.locked.progress.title" = "प्रगति";
+"pro.locked.routines.title" = "रूटीन";
+"pro.locked.settings.title" = "सेटिंग्स";
+
+"pro.locked.unlock" = "Pro अनलॉक करें";
+
+"routines.apply" = "ट्रेनिंग पर लागू करें";
+"routines.remove_from_training" = "ट्रेनिंग से हटाएं";
+
+"routines.delete.message" = "यह क्रिया इस रूटीन को स्थायी रूप से हटा देगी।";
+
+"classifications.section.title" = "Classification";
+"classifications.section.list" = "Classifications";
+"classifications.unclassified.section" = "Unclassified routines";
+"classifications.routines.section" = "Routines";
+"classifications.search.prompt" = "Search routines or classifications";
+"classifications.search.create_placeholder" = "Search or create classification";
+"classifications.create_format" = "Create \"%@\"";
+"classifications.duplicate" = "A classification with that name already exists.";
+"classifications.delete.title" = "Delete classification";
+"classifications.delete.message" = "This will remove the classification from all routines.";
+"classifications.none" = "None";
+"classifications.empty.title" = "No classifications";
+"classifications.empty.message" = "Create a classification to get started.";
+
+"classifications.manage.title" = "Manage classifications";
+"classifications.add.title" = "New classification";
+"classifications.rename.title" = "Rename";
+"classifications.name.title" = "Name";
+"classifications.name.placeholder" = "Classification name";
+"classifications.search.placeholder" = "Search classifications";
+
+"classifications.rename.action" = "Rename…";
+"classifications.more_options_format" = "More options for %@";
+
+/* Paywall v2 copy */
+"paywall.copy.light.pro.title" = "Pro मोड अनलॉक करें";
+"paywall.copy.light.pro.subtitle" = "रूटीन, प्रोग्रेस और सेटिंग्स बिना सीमा।";
+"paywall.copy.light.pro.benefits_title" = "मुख्य लाभ";
+"paywall.copy.light.pro.bullet_1" = "रोज़ाना सीमा के बिना ट्रेन करें।";
+"paywall.copy.light.pro.bullet_2" = "रूटीन सेव करें और सेकंड में दोहराएँ।";
+"paywall.copy.light.pro.bullet_3" = "प्रोग्रेस ट्रैक करें और लगातार रहें।";
+"paywall.copy.light.pro.plans_title" = "प्लान चुनें";
+"paywall.copy.light.pro.annual_label" = "वार्षिक";
+"paywall.copy.light.pro.annual_badge" = "सबसे अच्छा मूल्य";
+"paywall.copy.light.pro.monthly_label" = "मासिक";
+"paywall.copy.light.pro.cta_primary" = "मुफ़्त शुरू करें";
+"paywall.copy.light.pro.cta_secondary" = "अभी नहीं";
+"paywall.copy.light.pro.trust" = "अपने Apple ID से कभी भी रद्द करें।";
+"paywall.copy.light.pro.legal1" = "2 हफ्ते की मुफ़्त ट्रायल वाली ऑटो‑रिन्यू सब्सक्रिप्शन।";
+"paywall.copy.light.pro.legal2" = "इसके बाद चुने गए प्लान के अनुसार शुल्क लगेगा।";
+
+"paywall.copy.light.limit.title" = "बिना रुकावट ट्रेनिंग जारी रखें";
+"paywall.copy.light.limit.subtitle" = "आज की मुफ़्त सीमा पूरी हो गई है।";
+"paywall.copy.light.limit.benefits_title" = "मुख्य लाभ";
+"paywall.copy.light.limit.bullet_1" = "अपना सेशन अभी जारी रखें।";
+"paywall.copy.light.limit.bullet_2" = "प्रगति के दौरान कोई दैनिक सीमा नहीं।";
+"paywall.copy.light.limit.bullet_3" = "पूरा फ़्लो एक ही ऐप में।";
+"paywall.copy.light.limit.plans_title" = "प्लान चुनें";
+"paywall.copy.light.limit.annual_label" = "वार्षिक";
+"paywall.copy.light.limit.annual_badge" = "सबसे अच्छा मूल्य";
+"paywall.copy.light.limit.monthly_label" = "मासिक";
+"paywall.copy.light.limit.cta_primary" = "मुफ़्त शुरू करें";
+"paywall.copy.light.limit.cta_secondary" = "अभी नहीं";
+"paywall.copy.light.limit.trust" = "मुफ़्त शुरू करें और कभी भी रद्द करें।";
+"paywall.copy.light.limit.legal1" = "2 हफ्ते की मुफ़्त ट्रायल वाली ऑटो‑रिन्यू सब्सक्रिप्शन।";
+"paywall.copy.light.limit.legal2" = "इसके बाद चुने गए प्लान के अनुसार शुल्क लगेगा।";
+
+"paywall.copy.standard.pro.title" = "पूरा पोटेंशियल के साथ ट्रेन करें";
+"paywall.copy.standard.pro.subtitle" = "रूटीन, प्रोग्रेस और पूरी कंट्रोल अनलॉक करें।";
+"paywall.copy.standard.pro.benefits_title" = "आपको क्या मिलेगा";
+"paywall.copy.standard.pro.bullet_1" = "बिना रुकावट पूरा ट्रेनिंग फ़्लो।";
+"paywall.copy.standard.pro.bullet_2" = "रूटीन को कभी भी दोहराएँ।";
+"paywall.copy.standard.pro.bullet_3" = "स्पष्ट प्रोग्रेस से आदत बनी रहे।";
+"paywall.copy.standard.pro.plans_title" = "अपना प्लान चुनें";
+"paywall.copy.standard.pro.annual_label" = "वार्षिक प्लान";
+"paywall.copy.standard.pro.annual_badge" = "सबसे अच्छा मूल्य";
+"paywall.copy.standard.pro.monthly_label" = "मासिक प्लान";
+"paywall.copy.standard.pro.cta_primary" = "मुफ़्त शुरू करें";
+"paywall.copy.standard.pro.cta_secondary" = "अभी नहीं";
+"paywall.copy.standard.pro.trust" = "कोई बंधन नहीं। Apple में मैनेज या रद्द करें।";
+"paywall.copy.standard.pro.legal1" = "2 हफ्ते मुफ़्त। इसके बाद प्लान के अनुसार शुल्क।";
+"paywall.copy.standard.pro.legal2" = "रद्द करने तक ऑटो‑रिन्यू।";
+
+"paywall.copy.standard.limit.title" = "आज की प्रगति रोकें नहीं";
+"paywall.copy.standard.limit.subtitle" = "Pro लें और बिना सीमा ट्रेनिंग पूरी करें।";
+"paywall.copy.standard.limit.benefits_title" = "आपको क्या मिलेगा";
+"paywall.copy.standard.limit.bullet_1" = "अभी ट्रेनिंग जारी रखें, बिना रुकावट।";
+"paywall.copy.standard.limit.bullet_2" = "रूटीन सेव करें ताकि अगली बार तेज़ी हो।";
+"paywall.copy.standard.limit.bullet_3" = "अतिरिक्त ऐप्स के बिना प्रोग्रेस देखें।";
+"paywall.copy.standard.limit.plans_title" = "अपना प्लान चुनें";
+"paywall.copy.standard.limit.annual_label" = "वार्षिक प्लान";
+"paywall.copy.standard.limit.annual_badge" = "सबसे अच्छा मूल्य";
+"paywall.copy.standard.limit.monthly_label" = "मासिक प्लान";
+"paywall.copy.standard.limit.cta_primary" = "मुफ़्त शुरू करें";
+"paywall.copy.standard.limit.cta_secondary" = "अभी नहीं";
+"paywall.copy.standard.limit.trust" = "मुफ़्त आज़माएँ। कभी भी रद्द करें।";
+"paywall.copy.standard.limit.legal1" = "2 हफ्ते मुफ़्त। इसके बाद प्लान के अनुसार शुल्क।";
+"paywall.copy.standard.limit.legal2" = "रद्द करने तक ऑटो‑रिन्यू।";
+
+"paywall.copy.detailed.pro.title" = "Pro के सभी फीचर अनलॉक करें";
+"paywall.copy.detailed.pro.subtitle" = "सभी रूटीन, प्रोग्रेस और कंट्रोल एक जगह।";
+"paywall.copy.detailed.pro.benefits_title" = "आपकी ट्रेनिंग, बेहतर";
+"paywall.copy.detailed.pro.bullet_1" = "सेट्स के लिए बने टाइमर से फोकस बनाएँ।";
+"paywall.copy.detailed.pro.bullet_2" = "रूटीन और क्लासिफिकेशन फिर से इस्तेमाल करें।";
+"paywall.copy.detailed.pro.bullet_3" = "स्पष्ट विज़ुअल्स से प्रोग्रेस देखें।";
+"paywall.copy.detailed.pro.plans_title" = "अपना प्लान चुनें";
+"paywall.copy.detailed.pro.annual_label" = "वार्षिक प्लान";
+"paywall.copy.detailed.pro.annual_badge" = "सबसे अच्छा मूल्य";
+"paywall.copy.detailed.pro.monthly_label" = "मासिक प्लान";
+"paywall.copy.detailed.pro.cta_primary" = "मुफ़्त शुरू करें";
+"paywall.copy.detailed.pro.cta_secondary" = "अभी नहीं";
+"paywall.copy.detailed.pro.trust" = "कभी भी रद्द करें। लंबा बंधन नहीं।";
+"paywall.copy.detailed.pro.legal1" = "मुफ़्त ट्रायल के साथ ऑटो‑रिन्यू सब्सक्रिप्शन।";
+"paywall.copy.detailed.pro.legal2" = "खरीद बहाल करें, शर्तें और गोपनीयता शामिल।";
+"paywall.copy.detailed.pro.include_title" = "Pro में शामिल";
+"paywall.copy.detailed.pro.include_1" = "अनलिमिटेड रूटीन";
+"paywall.copy.detailed.pro.include_2" = "ऑर्गनाइज़ करने के लिए क्लासिफिकेशन";
+"paywall.copy.detailed.pro.include_3" = "प्रोग्रेस चार्ट्स";
+"paywall.copy.detailed.pro.include_4" = "एक्टिविटी कैलेंडर";
+"paywall.copy.detailed.pro.include_5" = "स्ट्रिक और बैज";
+"paywall.copy.detailed.pro.include_6" = "ट्रेनिंग के दौरान कोई दैनिक सीमा नहीं";
+
+"paywall.copy.detailed.limit.title" = "मज़बूती से खत्म करें, बिना सीमा";
+"paywall.copy.detailed.limit.subtitle" = "Pro सक्रिय करें और अभी जारी रखें।";
+"paywall.copy.detailed.limit.benefits_title" = "आज और आगे के लिए परिणाम";
+"paywall.copy.detailed.limit.bullet_1" = "इस सेशन को अभी जारी रखें।";
+"paywall.copy.detailed.limit.bullet_2" = "रीयूज़ेबल रूटीन से समय बचाएँ।";
+"paywall.copy.detailed.limit.bullet_3" = "दिखने वाली प्रोग्रेस से लगातार रहें।";
+"paywall.copy.detailed.limit.plans_title" = "अपना प्लान चुनें";
+"paywall.copy.detailed.limit.annual_label" = "वार्षिक प्लान";
+"paywall.copy.detailed.limit.annual_badge" = "सबसे अच्छा मूल्य";
+"paywall.copy.detailed.limit.monthly_label" = "मासिक प्लान";
+"paywall.copy.detailed.limit.cta_primary" = "मुफ़्त शुरू करें";
+"paywall.copy.detailed.limit.cta_secondary" = "अभी नहीं";
+"paywall.copy.detailed.limit.trust" = "मुफ़्त शुरू करें। ट्रायल के बाद ही शुल्क।";
+"paywall.copy.detailed.limit.legal1" = "ऑटो‑रिन्यू सब्सक्रिप्शन।";
+"paywall.copy.detailed.limit.legal2" = "Apple में मैनेज/रद्द करें। खरीद बहाली संभव।";
+"paywall.copy.detailed.limit.include_title" = "Pro में शामिल";
+"paywall.copy.detailed.limit.include_1" = "कोई दैनिक सीमा नहीं";
+"paywall.copy.detailed.limit.include_2" = "रूटीन और क्लासिफिकेशन";
+"paywall.copy.detailed.limit.include_3" = "वर्कआउट इतिहास";
+"paywall.copy.detailed.limit.include_4" = "चार्ट्स और कैलेंडर";
+"paywall.copy.detailed.limit.include_5" = "हाल की गतिविधि";
+"paywall.copy.detailed.limit.include_6" = "स्ट्रिक और बैज";
+
+"paywall.trial_incentive_format" = "%@ मुफ़्त शामिल है।";
+"paywall.period.generic" = "अवधि";
+"paywall.button.manage" = "सब्सक्रिप्शन प्रबंधित करें";
+"paywall.button.privacy" = "गोपनीयता";
+"paywall.restore.no_purchases" = "पुनर्स्थापित करने के लिए कोई खरीद नहीं है।";
+
+"config.rest_time.title" = "आराम का समय";
+"settings.timer_display.section" = "टाइमर डिस्प्ले";
+"settings.timer_display.title" = "समय प्रारूप";
+"settings.timer_display.option.seconds" = "सेकंड";
+"settings.timer_display.option.minutes_seconds" = "मिन:सेक";
+"accessibility.rest_time_value_seconds_format" = "%ld सेकंड";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld मिनट और %ld सेकंड";
+"notification.rest_finished.body_with_duration_format" = "सेट %ld/%ld · आराम %@";
+
+"settings.energy.section" = "ऊर्जा बचत";
+"settings.energy.mode.title" = "मोड";
+"settings.energy.mode.off" = "बंद";
+"settings.energy.mode.automatic" = "स्वचालित";
+"settings.energy.mode.on" = "चालू";
+"settings.energy.description" = "बंद वर्तमान व्यवहार रखता है। स्वचालित iOS लो पावर मोड का पालन करता है। चालू पर स्क्रीन लॉक की अनुमति, टाइमर वेकअप कम, और आराम खत्म होने पर हैप्टिक बंद।";
+
+"settings.weight_unit.section" = "वजन इकाई";
+"settings.weight_unit.title" = "वजन इकाई";
+"settings.weight_unit.option.automatic" = "स्वचालित";
+"settings.weight_unit.option.kilograms" = "किलोग्राम (kg)";
+"settings.weight_unit.option.pounds" = "पाउंड (lb)";
+
+"settings.rest_increment.section" = "आराम वृद्धि";
+"settings.rest_increment.title" = "वृद्धि";
+"settings.rest_increment.option.5" = "5 सेकंड";
+"settings.rest_increment.option.10" = "10 सेकंड";
+"settings.rest_increment.option.15" = "15 सेकंड";
+
+"settings.max_sets.section" = "अधिकतम सेट";
+"settings.max_sets.title" = "अधिकतम";
+"settings.max_sets.option.10" = "10 सेट";
+"settings.max_sets.option.15" = "15 सेट";
+"settings.max_sets.option.20" = "20 सेट";
+"settings.max_sets.option.30" = "30 सेट";
+
+"paywall.info.title" = "जानकारी";
+"progress.accessibility.week_goal_format" = "इस सप्ताह वर्कआउट: %ld में से %ld";
+"progress.activity.empty" = "अभी तक कोई वर्कआउट पूरा नहीं हुआ है।";
+"progress.badge.first_workout.subtitle" = "अपना पहला वर्कआउट पूरा करें।";
+"progress.badge.first_workout.title" = "पहला वर्कआउट";
+"progress.badge.goal_week.subtitle" = "अपना मौजूदा साप्ताहिक लक्ष्य पूरा करें।";
+"progress.badge.goal_week.title" = "साप्ताहिक लक्ष्य पूरा";
+"progress.badge.streak_4.subtitle" = "लगातार 4 हफ्तों तक साप्ताहिक लक्ष्य पूरा करें।";
+"progress.badge.streak_4.title" = "4-सप्ताह की स्ट्रीक";
+"progress.badge.three_week.subtitle" = "एक सप्ताह में 3 वर्कआउट पूरे करें।";
+"progress.badge.three_week.title" = "एक सप्ताह में 3";
+"progress.badge.workouts_10.subtitle" = "10 वर्कआउट पूरे करें।";
+"progress.badge.workouts_10.title" = "10 वर्कआउट";
+"progress.badge.workouts_25.subtitle" = "25 वर्कआउट पूरे करें।";
+"progress.badge.workouts_25.title" = "25 वर्कआउट";
+"progress.badge.workouts_5.subtitle" = "5 वर्कआउट पूरे करें।";
+"progress.badge.workouts_5.title" = "5 वर्कआउट";
+"progress.calendar.day.completed_format" = "%ld वर्कआउट पूरा हुआ";
+"progress.calendar.day.empty" = "कोई पूरा वर्कआउट नहीं";
+"progress.calendar.title" = "इस महीने";
+"progress.chart.axis.workouts" = "वर्कआउट";
+"progress.chart.workouts.accessibility_value_format" = "%ld वर्कआउट";
+"progress.chart.workouts.title" = "समय के साथ वर्कआउट";
+"progress.goal.edit" = "लक्ष्य संपादित करें";
+"progress.goal.message.completed" = "साप्ताहिक लक्ष्य पूरा हो गया।";
+"progress.goal.message.many_left_format" = "आपके लक्ष्य के लिए %ld वर्कआउट बाकी हैं।";
+"progress.goal.message.one_left" = "आपके लक्ष्य के लिए 1 वर्कआउट बाकी है।";
+"progress.goal.minutes_per_week" = "प्रति सप्ताह मिनट";
+"progress.goal.settings.title" = "लक्ष्य सेटिंग्स";
+"progress.goal.starts_on_monday" = "सप्ताह सोमवार से शुरू होता है";
+"progress.goal.weekly" = "साप्ताहिक लक्ष्य";
+"progress.goal.workouts_per_week" = "प्रति सप्ताह वर्कआउट";
+"progress.period.fortnight" = "14 दिन";
+"progress.period.month" = "महीना";
+"progress.period.quarter" = "तिमाही";
+"progress.period.title" = "अवधि";
+"progress.period.week" = "सप्ताह";
+"progress.period.year" = "वर्ष";
+"progress.quick_workout_name" = "क्विक वर्कआउट";
+"progress.section.activity" = "हाल की गतिविधि";
+"progress.section.badges" = "बैज";
+"progress.streak.subtitle" = "लगातार वे सप्ताह जिनमें आपने अपना साप्ताहिक लक्ष्य पूरा किया।";
+"progress.streak.title" = "साप्ताहिक स्ट्रीक";
+"progress.streak.weeks_format" = "%ld सप्ताह की स्ट्रीक";
+"progress.summary.most_repeated" = "सबसे अधिक दोहराई गई रूटीन";
+"progress.summary.top_classification" = "शीर्ष वर्गीकरण";
+"progress.title" = "प्रगति";

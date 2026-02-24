@@ -66,3 +66,281 @@
 "accessibility.set_progress_label" = "Progression des séries";
 "accessibility.time_remaining" = "Temps restant";
 "accessibility.reset_label" = "Réinitialiser";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "Entraînement";
+"tab.routines" = "Routines";
+"tab.progress" = "Progrès";
+"tab.settings" = "Réglages";
+
+"routines.add" = "Nouvelle routine";
+"routines.create.title" = "Nouvelle routine";
+"routines.delete" = "Supprimer la routine";
+"routines.discard.confirm" = "Ignorer";
+"routines.discard.keep_editing" = "Continuer";
+"routines.discard.message" = "Vous avez des modifications non enregistrées.";
+"routines.discard.title" = "Ignorer les modifications ?";
+"routines.edit" = "Modifier";
+"routines.edit.title" = "Modifier la routine";
+"routines.empty.message" = "Créez une routine pour enregistrer vos préréglages.";
+"routines.empty.title" = "Aucune routine";
+"routines.field.name" = "Nom";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Maximum %ld caractères";
+"routines.field.weight" = "Poids";
+"routines.weight.placeholder" = "0";
+"routines.save" = "Enregistrer";
+"routines.section.details" = "Nom";
+"routines.section.parameters" = "Paramètres";
+"routines.title" = "Routines";
+"routines.weight.empty" = "Sans poids";
+
+"routines.select.title" = "Sélectionner une routine";
+"training.routine.select" = "Sélectionner";
+"training.routine.title" = "Routine";
+
+"accessibility.reps_value_format" = "%ld répétitions";
+"routines.field.reps" = "Répétitions";
+"routines.summary_format" = "%ld séries · %ld reps · %@ · %@";
+
+"pro.locked.message" = "Disponible dans Pro.";
+"pro.locked.progress.title" = "Progrès";
+"pro.locked.routines.title" = "Routines";
+"pro.locked.settings.title" = "Réglages";
+
+"pro.locked.unlock" = "Débloquer Pro";
+
+"routines.apply" = "Appliquer à l’entraînement";
+"routines.remove_from_training" = "Retirer de l’entraînement";
+
+"routines.delete.message" = "Cette action supprimera définitivement cette routine.";
+
+"classifications.section.title" = "Classification";
+"classifications.section.list" = "Classifications";
+"classifications.unclassified.section" = "Unclassified routines";
+"classifications.routines.section" = "Routines";
+"classifications.search.prompt" = "Search routines or classifications";
+"classifications.search.create_placeholder" = "Search or create classification";
+"classifications.create_format" = "Create \"%@\"";
+"classifications.duplicate" = "A classification with that name already exists.";
+"classifications.delete.title" = "Delete classification";
+"classifications.delete.message" = "This will remove the classification from all routines.";
+"classifications.none" = "None";
+"classifications.empty.title" = "No classifications";
+"classifications.empty.message" = "Create a classification to get started.";
+
+"classifications.manage.title" = "Manage classifications";
+"classifications.add.title" = "New classification";
+"classifications.rename.title" = "Rename";
+"classifications.name.title" = "Name";
+"classifications.name.placeholder" = "Classification name";
+"classifications.search.placeholder" = "Search classifications";
+
+"classifications.rename.action" = "Rename…";
+"classifications.more_options_format" = "More options for %@";
+
+/* Paywall v2 copy */
+"paywall.copy.light.pro.title" = "Débloquez le mode Pro";
+"paywall.copy.light.pro.subtitle" = "Routines, progrès et réglages sans limites.";
+"paywall.copy.light.pro.benefits_title" = "Avantages clés";
+"paywall.copy.light.pro.bullet_1" = "Entraînez-vous sans limite quotidienne.";
+"paywall.copy.light.pro.bullet_2" = "Enregistrez des routines et répétez-les en secondes.";
+"paywall.copy.light.pro.bullet_3" = "Suivez vos progrès et restez constant.";
+"paywall.copy.light.pro.plans_title" = "Choisissez un plan";
+"paywall.copy.light.pro.annual_label" = "Annuel";
+"paywall.copy.light.pro.annual_badge" = "Meilleure valeur";
+"paywall.copy.light.pro.monthly_label" = "Mensuel";
+"paywall.copy.light.pro.cta_primary" = "Commencer gratuitement";
+"paywall.copy.light.pro.cta_secondary" = "Pas maintenant";
+"paywall.copy.light.pro.trust" = "Annulez à tout moment via votre Apple ID.";
+"paywall.copy.light.pro.legal1" = "Abonnement auto-renouvelé avec 2 semaines gratuites.";
+"paywall.copy.light.pro.legal2" = "Ensuite, facturation du plan choisi jusqu’à annulation.";
+
+"paywall.copy.light.limit.title" = "Continuez à vous entraîner sans coupure";
+"paywall.copy.light.limit.subtitle" = "Vous avez atteint la limite gratuite du jour.";
+"paywall.copy.light.limit.benefits_title" = "Avantages clés";
+"paywall.copy.light.limit.bullet_1" = "Reprenez votre séance tout de suite.";
+"paywall.copy.light.limit.bullet_2" = "Aucune limite quotidienne en progressant.";
+"paywall.copy.light.limit.bullet_3" = "Tout votre flux dans une seule app.";
+"paywall.copy.light.limit.plans_title" = "Choisissez un plan";
+"paywall.copy.light.limit.annual_label" = "Annuel";
+"paywall.copy.light.limit.annual_badge" = "Meilleure valeur";
+"paywall.copy.light.limit.monthly_label" = "Mensuel";
+"paywall.copy.light.limit.cta_primary" = "Commencer gratuitement";
+"paywall.copy.light.limit.cta_secondary" = "Pas maintenant";
+"paywall.copy.light.limit.trust" = "Commencez gratuitement et annulez quand vous voulez.";
+"paywall.copy.light.limit.legal1" = "Abonnement auto-renouvelé avec 2 semaines gratuites.";
+"paywall.copy.light.limit.legal2" = "Ensuite, facturation du plan choisi jusqu’à annulation.";
+
+"paywall.copy.standard.pro.title" = "Entraînez-vous à plein potentiel";
+"paywall.copy.standard.pro.subtitle" = "Débloquez routines, progrès et contrôle total.";
+"paywall.copy.standard.pro.benefits_title" = "Ce que vous obtenez";
+"paywall.copy.standard.pro.bullet_1" = "Flux d’entraînement complet sans friction.";
+"paywall.copy.standard.pro.bullet_2" = "Routines prêtes à répéter à tout moment.";
+"paywall.copy.standard.pro.bullet_3" = "Progrès clairs pour garder l’habitude.";
+"paywall.copy.standard.pro.plans_title" = "Sélectionnez votre plan";
+"paywall.copy.standard.pro.annual_label" = "Plan annuel";
+"paywall.copy.standard.pro.annual_badge" = "Meilleure valeur";
+"paywall.copy.standard.pro.monthly_label" = "Plan mensuel";
+"paywall.copy.standard.pro.cta_primary" = "Commencer gratuitement";
+"paywall.copy.standard.pro.cta_secondary" = "Pas maintenant";
+"paywall.copy.standard.pro.trust" = "Sans engagement. Gérez ou annulez dans Apple.";
+"paywall.copy.standard.pro.legal1" = "2 semaines gratuites. Puis facturation selon le plan.";
+"paywall.copy.standard.pro.legal2" = "Renouvellement automatique jusqu’à annulation.";
+
+"paywall.copy.standard.limit.title" = "Ne stoppez pas vos progrès aujourd’hui";
+"paywall.copy.standard.limit.subtitle" = "Passez Pro et finissez la séance sans limites.";
+"paywall.copy.standard.limit.benefits_title" = "Ce que vous obtenez";
+"paywall.copy.standard.limit.bullet_1" = "Continuez maintenant, sans interruptions.";
+"paywall.copy.standard.limit.bullet_2" = "Enregistrez des routines pour aller plus vite ensuite.";
+"paywall.copy.standard.limit.bullet_3" = "Voyez vos progrès sans app en plus.";
+"paywall.copy.standard.limit.plans_title" = "Sélectionnez votre plan";
+"paywall.copy.standard.limit.annual_label" = "Plan annuel";
+"paywall.copy.standard.limit.annual_badge" = "Meilleure valeur";
+"paywall.copy.standard.limit.monthly_label" = "Plan mensuel";
+"paywall.copy.standard.limit.cta_primary" = "Commencer gratuitement";
+"paywall.copy.standard.limit.cta_secondary" = "Pas maintenant";
+"paywall.copy.standard.limit.trust" = "Essayez gratuitement. Annulez quand vous voulez.";
+"paywall.copy.standard.limit.legal1" = "2 semaines gratuites. Puis facturation selon le plan.";
+"paywall.copy.standard.limit.legal2" = "Renouvellement automatique jusqu’à annulation.";
+
+"paywall.copy.detailed.pro.title" = "Débloquez tout ce que Pro offre";
+"paywall.copy.detailed.pro.subtitle" = "Toutes les routines, les progrès et le contrôle.";
+"paywall.copy.detailed.pro.benefits_title" = "Votre entraînement, amélioré";
+"paywall.copy.detailed.pro.bullet_1" = "Restez concentré avec des timers pour séries.";
+"paywall.copy.detailed.pro.bullet_2" = "Réutilisez routines et classifications quand vous voulez.";
+"paywall.copy.detailed.pro.bullet_3" = "Suivez vos progrès avec des visuels clairs.";
+"paywall.copy.detailed.pro.plans_title" = "Sélectionnez votre plan";
+"paywall.copy.detailed.pro.annual_label" = "Plan annuel";
+"paywall.copy.detailed.pro.annual_badge" = "Meilleure valeur";
+"paywall.copy.detailed.pro.monthly_label" = "Plan mensuel";
+"paywall.copy.detailed.pro.cta_primary" = "Commencer gratuitement";
+"paywall.copy.detailed.pro.cta_secondary" = "Pas maintenant";
+"paywall.copy.detailed.pro.trust" = "Annulez quand vous voulez. Sans engagement long.";
+"paywall.copy.detailed.pro.legal1" = "Abonnement auto-renouvelé avec période d’essai gratuite.";
+"paywall.copy.detailed.pro.legal2" = "Inclut restaurer achats, conditions et confidentialité.";
+"paywall.copy.detailed.pro.include_title" = "Ce que Pro inclut";
+"paywall.copy.detailed.pro.include_1" = "Routines illimitées";
+"paywall.copy.detailed.pro.include_2" = "Classifications pour organiser";
+"paywall.copy.detailed.pro.include_3" = "Graphiques de progression";
+"paywall.copy.detailed.pro.include_4" = "Calendrier d’activité";
+"paywall.copy.detailed.pro.include_5" = "Séries et badges";
+"paywall.copy.detailed.pro.include_6" = "Aucune limite quotidienne en entraînement";
+
+"paywall.copy.detailed.limit.title" = "Terminez en force, sans limites";
+"paywall.copy.detailed.limit.subtitle" = "Activez Pro et continuez cet entraînement maintenant.";
+"paywall.copy.detailed.limit.benefits_title" = "Résultats pour aujourd’hui et demain";
+"paywall.copy.detailed.limit.bullet_1" = "Continuez cette séance tout de suite.";
+"paywall.copy.detailed.limit.bullet_2" = "Gagnez du temps avec des routines réutilisables.";
+"paywall.copy.detailed.limit.bullet_3" = "Restez régulier avec des progrès visibles.";
+"paywall.copy.detailed.limit.plans_title" = "Sélectionnez votre plan";
+"paywall.copy.detailed.limit.annual_label" = "Plan annuel";
+"paywall.copy.detailed.limit.annual_badge" = "Meilleure valeur";
+"paywall.copy.detailed.limit.monthly_label" = "Plan mensuel";
+"paywall.copy.detailed.limit.cta_primary" = "Commencer gratuitement";
+"paywall.copy.detailed.limit.cta_secondary" = "Pas maintenant";
+"paywall.copy.detailed.limit.trust" = "Commencez gratuitement. Facturation après l’essai.";
+"paywall.copy.detailed.limit.legal1" = "Abonnement auto-renouvelé avec renouvellement automatique.";
+"paywall.copy.detailed.limit.legal2" = "Gérez ou annulez dans Apple. Achats restaurables.";
+"paywall.copy.detailed.limit.include_title" = "Ce que Pro inclut";
+"paywall.copy.detailed.limit.include_1" = "Pas de limite quotidienne";
+"paywall.copy.detailed.limit.include_2" = "Routines et classifications";
+"paywall.copy.detailed.limit.include_3" = "Historique des entraînements";
+"paywall.copy.detailed.limit.include_4" = "Graphiques et calendrier";
+"paywall.copy.detailed.limit.include_5" = "Activité récente";
+"paywall.copy.detailed.limit.include_6" = "Séries et badges";
+
+"paywall.trial_incentive_format" = "Inclut %@ gratuitement.";
+"paywall.period.generic" = "période";
+"paywall.button.manage" = "Gérer l’abonnement";
+"paywall.button.privacy" = "Confidentialité";
+"paywall.restore.no_purchases" = "Aucun achat à restaurer.";
+
+"config.rest_time.title" = "Temps de repos";
+"settings.timer_display.section" = "Affichage du minuteur";
+"settings.timer_display.title" = "Format de temps";
+"settings.timer_display.option.seconds" = "Secondes";
+"settings.timer_display.option.minutes_seconds" = "Min:Sec";
+"accessibility.rest_time_value_seconds_format" = "%ld secondes";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld minutes et %ld secondes";
+"notification.rest_finished.body_with_duration_format" = "Série %ld/%ld · Repos %@";
+
+"settings.energy.section" = "Economie d\u2019energie";
+"settings.energy.mode.title" = "Mode";
+"settings.energy.mode.off" = "Desactive";
+"settings.energy.mode.automatic" = "Automatique";
+"settings.energy.mode.on" = "Active";
+"settings.energy.description" = "Desactive conserve le comportement actuel. Automatique suit le mode economie d\u2019energie iOS. Active autorise le verrouillage de l\u2019ecran, reduit les reveils du minuteur et desactive l\u2019haptique a la fin du repos.";
+
+"settings.weight_unit.section" = "Unité de poids";
+"settings.weight_unit.title" = "Unité de poids";
+"settings.weight_unit.option.automatic" = "Automatique";
+"settings.weight_unit.option.kilograms" = "Kilogrammes (kg)";
+"settings.weight_unit.option.pounds" = "Livres (lb)";
+
+"settings.rest_increment.section" = "Incrément de repos";
+"settings.rest_increment.title" = "Incrément";
+"settings.rest_increment.option.5" = "5 s";
+"settings.rest_increment.option.10" = "10 s";
+"settings.rest_increment.option.15" = "15 s";
+
+"settings.max_sets.section" = "Maximum de series";
+"settings.max_sets.title" = "Maximum";
+"settings.max_sets.option.10" = "10 series";
+"settings.max_sets.option.15" = "15 series";
+"settings.max_sets.option.20" = "20 series";
+"settings.max_sets.option.30" = "30 series";
+
+"paywall.info.title" = "Info";
+"progress.accessibility.week_goal_format" = "Entraînements cette semaine : %ld sur %ld";
+"progress.activity.empty" = "Aucun entraînement terminé pour le moment.";
+"progress.badge.first_workout.subtitle" = "Termine ton premier entraînement.";
+"progress.badge.first_workout.title" = "Premier entraînement";
+"progress.badge.goal_week.subtitle" = "Atteins ton objectif hebdomadaire actuel.";
+"progress.badge.goal_week.title" = "Objectif hebdo atteint";
+"progress.badge.streak_4.subtitle" = "Atteins ton objectif hebdo pendant 4 semaines de suite.";
+"progress.badge.streak_4.title" = "Série de 4 semaines";
+"progress.badge.three_week.subtitle" = "Termine 3 entraînements en une semaine.";
+"progress.badge.three_week.title" = "3 en une semaine";
+"progress.badge.workouts_10.subtitle" = "Termine 10 entraînements.";
+"progress.badge.workouts_10.title" = "10 entraînements";
+"progress.badge.workouts_25.subtitle" = "Termine 25 entraînements.";
+"progress.badge.workouts_25.title" = "25 entraînements";
+"progress.badge.workouts_5.subtitle" = "Termine 5 entraînements.";
+"progress.badge.workouts_5.title" = "5 entraînements";
+"progress.calendar.day.completed_format" = "%ld entraînement(s) terminé(s)";
+"progress.calendar.day.empty" = "Aucun entraînement terminé";
+"progress.calendar.title" = "Ce mois-ci";
+"progress.chart.axis.workouts" = "Entraînements";
+"progress.chart.workouts.accessibility_value_format" = "%ld entraînements";
+"progress.chart.workouts.title" = "Entraînements dans le temps";
+"progress.goal.edit" = "Modifier les objectifs";
+"progress.goal.message.completed" = "Objectif hebdomadaire atteint.";
+"progress.goal.message.many_left_format" = "Il te reste %ld entraînements pour atteindre ton objectif.";
+"progress.goal.message.one_left" = "Il te reste 1 entraînement pour atteindre ton objectif.";
+"progress.goal.minutes_per_week" = "Minutes par semaine";
+"progress.goal.settings.title" = "Paramètres des objectifs";
+"progress.goal.starts_on_monday" = "La semaine commence le lundi";
+"progress.goal.weekly" = "Objectif hebdomadaire";
+"progress.goal.workouts_per_week" = "Entraînements par semaine";
+"progress.period.fortnight" = "14 jours";
+"progress.period.month" = "Mois";
+"progress.period.quarter" = "Trimestre";
+"progress.period.title" = "Période";
+"progress.period.week" = "Semaine";
+"progress.period.year" = "Année";
+"progress.quick_workout_name" = "Entraînement rapide";
+"progress.section.activity" = "Activité récente";
+"progress.section.badges" = "Badges";
+"progress.streak.subtitle" = "Semaines consécutives avec l’objectif hebdomadaire atteint.";
+"progress.streak.title" = "Série hebdomadaire";
+"progress.streak.weeks_format" = "Série de %ld semaines";
+"progress.summary.most_repeated" = "Routine la plus répétée";
+"progress.summary.top_classification" = "Catégorie principale";
+"progress.title" = "Progression";

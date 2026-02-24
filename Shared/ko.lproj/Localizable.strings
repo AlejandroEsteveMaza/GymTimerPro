@@ -66,3 +66,281 @@
 "accessibility.set_progress_label" = "세트 진행";
 "accessibility.time_remaining" = "남은 시간";
 "accessibility.reset_label" = "리셋";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "운동";
+"tab.routines" = "루틴";
+"tab.progress" = "진행";
+"tab.settings" = "설정";
+
+"routines.add" = "새 루틴";
+"routines.create.title" = "새 루틴";
+"routines.delete" = "루틴 삭제";
+"routines.discard.confirm" = "폐기";
+"routines.discard.keep_editing" = "계속 편집";
+"routines.discard.message" = "저장되지 않은 변경 사항이 있습니다.";
+"routines.discard.title" = "변경 사항을 폐기할까요?";
+"routines.edit" = "편집";
+"routines.edit.title" = "루틴 편집";
+"routines.empty.message" = "루틴을 만들어 프리셋을 저장하세요.";
+"routines.empty.title" = "루틴 없음";
+"routines.field.name" = "이름";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "최대 %ld자";
+"routines.field.weight" = "무게";
+"routines.weight.placeholder" = "0";
+"routines.save" = "저장";
+"routines.section.details" = "이름";
+"routines.section.parameters" = "매개변수";
+"routines.title" = "루틴";
+"routines.weight.empty" = "무게 없음";
+
+"routines.select.title" = "루틴 선택";
+"training.routine.select" = "선택";
+"training.routine.title" = "루틴";
+
+"accessibility.reps_value_format" = "%ld회";
+"routines.field.reps" = "반복";
+"routines.summary_format" = "%ld세트 · %ld회 · %@ · %@";
+
+"pro.locked.message" = "Pro에서 사용할 수 있습니다.";
+"pro.locked.progress.title" = "진행";
+"pro.locked.routines.title" = "루틴";
+"pro.locked.settings.title" = "설정";
+
+"pro.locked.unlock" = "Pro 잠금 해제";
+
+"routines.apply" = "훈련에 적용";
+"routines.remove_from_training" = "훈련에서 제거";
+
+"routines.delete.message" = "이 작업은 루틴을 영구적으로 삭제합니다.";
+
+"classifications.section.title" = "Classification";
+"classifications.section.list" = "Classifications";
+"classifications.unclassified.section" = "Unclassified routines";
+"classifications.routines.section" = "Routines";
+"classifications.search.prompt" = "Search routines or classifications";
+"classifications.search.create_placeholder" = "Search or create classification";
+"classifications.create_format" = "Create \"%@\"";
+"classifications.duplicate" = "A classification with that name already exists.";
+"classifications.delete.title" = "Delete classification";
+"classifications.delete.message" = "This will remove the classification from all routines.";
+"classifications.none" = "None";
+"classifications.empty.title" = "No classifications";
+"classifications.empty.message" = "Create a classification to get started.";
+
+"classifications.manage.title" = "Manage classifications";
+"classifications.add.title" = "New classification";
+"classifications.rename.title" = "Rename";
+"classifications.name.title" = "Name";
+"classifications.name.placeholder" = "Classification name";
+"classifications.search.placeholder" = "Search classifications";
+
+"classifications.rename.action" = "Rename…";
+"classifications.more_options_format" = "More options for %@";
+
+/* Paywall v2 copy */
+"paywall.copy.light.pro.title" = "Pro 모드 잠금 해제";
+"paywall.copy.light.pro.subtitle" = "루틴, 진행 상황, 설정을 제한 없이.";
+"paywall.copy.light.pro.benefits_title" = "주요 혜택";
+"paywall.copy.light.pro.bullet_1" = "일일 제한 없이 운동.";
+"paywall.copy.light.pro.bullet_2" = "루틴을 저장하고 즉시 반복.";
+"paywall.copy.light.pro.bullet_3" = "진행 상황을 확인하며 꾸준히.";
+"paywall.copy.light.pro.plans_title" = "요금제 선택";
+"paywall.copy.light.pro.annual_label" = "연간";
+"paywall.copy.light.pro.annual_badge" = "최고의 가치";
+"paywall.copy.light.pro.monthly_label" = "월간";
+"paywall.copy.light.pro.cta_primary" = "무료로 시작";
+"paywall.copy.light.pro.cta_secondary" = "나중에";
+"paywall.copy.light.pro.trust" = "Apple ID에서 언제든 취소.";
+"paywall.copy.light.pro.legal1" = "2주 무료 체험이 포함된 자동 갱신 구독.";
+"paywall.copy.light.pro.legal2" = "이후 선택한 요금제로 청구됩니다.";
+
+"paywall.copy.light.limit.title" = "중단 없이 계속 운동";
+"paywall.copy.light.limit.subtitle" = "오늘의 무료 한도에 도달했습니다.";
+"paywall.copy.light.limit.benefits_title" = "주요 혜택";
+"paywall.copy.light.limit.bullet_1" = "지금 바로 세션을 계속.";
+"paywall.copy.light.limit.bullet_2" = "진행 중에는 일일 제한 없음.";
+"paywall.copy.light.limit.bullet_3" = "모든 흐름을 한 앱에서.";
+"paywall.copy.light.limit.plans_title" = "요금제 선택";
+"paywall.copy.light.limit.annual_label" = "연간";
+"paywall.copy.light.limit.annual_badge" = "최고의 가치";
+"paywall.copy.light.limit.monthly_label" = "월간";
+"paywall.copy.light.limit.cta_primary" = "무료로 시작";
+"paywall.copy.light.limit.cta_secondary" = "나중에";
+"paywall.copy.light.limit.trust" = "무료로 시작하고 언제든 취소.";
+"paywall.copy.light.limit.legal1" = "2주 무료 체험이 포함된 자동 갱신 구독.";
+"paywall.copy.light.limit.legal2" = "이후 선택한 요금제로 청구됩니다.";
+
+"paywall.copy.standard.pro.title" = "최대 잠재력으로 운동";
+"paywall.copy.standard.pro.subtitle" = "루틴, 진행 상황, 전체 제어를 해제.";
+"paywall.copy.standard.pro.benefits_title" = "제공 내용";
+"paywall.copy.standard.pro.bullet_1" = "마찰 없는 완전한 트레이닝 흐름.";
+"paywall.copy.standard.pro.bullet_2" = "언제든 반복 가능한 루틴.";
+"paywall.copy.standard.pro.bullet_3" = "명확한 진행으로 습관 유지.";
+"paywall.copy.standard.pro.plans_title" = "요금제 선택";
+"paywall.copy.standard.pro.annual_label" = "연간 플랜";
+"paywall.copy.standard.pro.annual_badge" = "최고의 가치";
+"paywall.copy.standard.pro.monthly_label" = "월간 플랜";
+"paywall.copy.standard.pro.cta_primary" = "무료로 시작";
+"paywall.copy.standard.pro.cta_secondary" = "나중에";
+"paywall.copy.standard.pro.trust" = "약정 없음. Apple에서 관리/취소.";
+"paywall.copy.standard.pro.legal1" = "2주 무료. 이후 플랜별 결제.";
+"paywall.copy.standard.pro.legal2" = "취소 전까지 자동 갱신.";
+
+"paywall.copy.standard.limit.title" = "오늘의 진전을 멈추지 마세요";
+"paywall.copy.standard.limit.subtitle" = "Pro로 전환해 제한 없이 마무리.";
+"paywall.copy.standard.limit.benefits_title" = "제공 내용";
+"paywall.copy.standard.limit.bullet_1" = "지금 바로 중단 없이 계속.";
+"paywall.copy.standard.limit.bullet_2" = "루틴 저장으로 다음엔 더 빠르게.";
+"paywall.copy.standard.limit.bullet_3" = "추가 앱 없이 진행 확인.";
+"paywall.copy.standard.limit.plans_title" = "요금제 선택";
+"paywall.copy.standard.limit.annual_label" = "연간 플랜";
+"paywall.copy.standard.limit.annual_badge" = "최고의 가치";
+"paywall.copy.standard.limit.monthly_label" = "월간 플랜";
+"paywall.copy.standard.limit.cta_primary" = "무료로 시작";
+"paywall.copy.standard.limit.cta_secondary" = "나중에";
+"paywall.copy.standard.limit.trust" = "무료로 사용해 보세요. 언제든 취소.";
+"paywall.copy.standard.limit.legal1" = "2주 무료. 이후 플랜별 결제.";
+"paywall.copy.standard.limit.legal2" = "취소 전까지 자동 갱신.";
+
+"paywall.copy.detailed.pro.title" = "Pro의 모든 기능 해제";
+"paywall.copy.detailed.pro.subtitle" = "모든 루틴, 진행, 제어를 한곳에.";
+"paywall.copy.detailed.pro.benefits_title" = "훈련 업그레이드";
+"paywall.copy.detailed.pro.bullet_1" = "세트용 타이머로 집중.";
+"paywall.copy.detailed.pro.bullet_2" = "루틴과 분류를 언제든 재사용.";
+"paywall.copy.detailed.pro.bullet_3" = "명확한 시각화로 진행 확인.";
+"paywall.copy.detailed.pro.plans_title" = "요금제 선택";
+"paywall.copy.detailed.pro.annual_label" = "연간 플랜";
+"paywall.copy.detailed.pro.annual_badge" = "최고의 가치";
+"paywall.copy.detailed.pro.monthly_label" = "월간 플랜";
+"paywall.copy.detailed.pro.cta_primary" = "무료로 시작";
+"paywall.copy.detailed.pro.cta_secondary" = "나중에";
+"paywall.copy.detailed.pro.trust" = "언제든 취소. 장기 약정 없음.";
+"paywall.copy.detailed.pro.legal1" = "무료 체험이 포함된 자동 갱신 구독.";
+"paywall.copy.detailed.pro.legal2" = "구매 복원, 약관, 개인정보 포함.";
+"paywall.copy.detailed.pro.include_title" = "Pro에 포함";
+"paywall.copy.detailed.pro.include_1" = "무제한 루틴";
+"paywall.copy.detailed.pro.include_2" = "정리용 분류";
+"paywall.copy.detailed.pro.include_3" = "진행 그래프";
+"paywall.copy.detailed.pro.include_4" = "활동 캘린더";
+"paywall.copy.detailed.pro.include_5" = "연속 기록과 배지";
+"paywall.copy.detailed.pro.include_6" = "운동 중 일일 제한 없음";
+
+"paywall.copy.detailed.limit.title" = "강하게 마무리, 제한 없이";
+"paywall.copy.detailed.limit.subtitle" = "Pro를 활성화하고 지금 계속.";
+"paywall.copy.detailed.limit.benefits_title" = "오늘과 앞으로의 결과";
+"paywall.copy.detailed.limit.bullet_1" = "이 세션을 지금 바로 계속.";
+"paywall.copy.detailed.limit.bullet_2" = "재사용 루틴으로 시간 절약.";
+"paywall.copy.detailed.limit.bullet_3" = "보이는 진행으로 꾸준히.";
+"paywall.copy.detailed.limit.plans_title" = "요금제 선택";
+"paywall.copy.detailed.limit.annual_label" = "연간 플랜";
+"paywall.copy.detailed.limit.annual_badge" = "최고의 가치";
+"paywall.copy.detailed.limit.monthly_label" = "월간 플랜";
+"paywall.copy.detailed.limit.cta_primary" = "무료로 시작";
+"paywall.copy.detailed.limit.cta_secondary" = "나중에";
+"paywall.copy.detailed.limit.trust" = "무료로 시작. 체험 후에만 결제.";
+"paywall.copy.detailed.limit.legal1" = "자동 갱신 구독.";
+"paywall.copy.detailed.limit.legal2" = "Apple에서 관리/취소. 구매 복원 가능.";
+"paywall.copy.detailed.limit.include_title" = "Pro에 포함";
+"paywall.copy.detailed.limit.include_1" = "일일 제한 없음";
+"paywall.copy.detailed.limit.include_2" = "루틴 및 분류";
+"paywall.copy.detailed.limit.include_3" = "운동 기록";
+"paywall.copy.detailed.limit.include_4" = "그래프와 캘린더";
+"paywall.copy.detailed.limit.include_5" = "최근 활동";
+"paywall.copy.detailed.limit.include_6" = "연속 기록과 배지";
+
+"paywall.trial_incentive_format" = "%@ 무료 제공.";
+"paywall.period.generic" = "기간";
+"paywall.button.manage" = "구독 관리";
+"paywall.button.privacy" = "개인정보";
+"paywall.restore.no_purchases" = "복원할 구매가 없습니다.";
+
+"config.rest_time.title" = "휴식 시간";
+"settings.timer_display.section" = "타이머 표시";
+"settings.timer_display.title" = "시간 형식";
+"settings.timer_display.option.seconds" = "초";
+"settings.timer_display.option.minutes_seconds" = "분:초";
+"accessibility.rest_time_value_seconds_format" = "%ld초";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld분 %ld초";
+"notification.rest_finished.body_with_duration_format" = "세트 %ld/%ld · 휴식 %@";
+
+"settings.energy.section" = "절전";
+"settings.energy.mode.title" = "모드";
+"settings.energy.mode.off" = "끔";
+"settings.energy.mode.automatic" = "자동";
+"settings.energy.mode.on" = "켬";
+"settings.energy.description" = "끔은 현재 동작을 유지합니다. 자동은 iOS 저전력 모드를 따릅니다. 켬은 화면 잠금을 허용하고 타이머 깨움 빈도를 줄이며 휴식 종료 시 햅틱을 끕니다.";
+
+"settings.weight_unit.section" = "무게 단위";
+"settings.weight_unit.title" = "무게 단위";
+"settings.weight_unit.option.automatic" = "자동";
+"settings.weight_unit.option.kilograms" = "킬로그램 (kg)";
+"settings.weight_unit.option.pounds" = "파운드 (lb)";
+
+"settings.rest_increment.section" = "휴식 증가 단위";
+"settings.rest_increment.title" = "증가 단위";
+"settings.rest_increment.option.5" = "5초";
+"settings.rest_increment.option.10" = "10초";
+"settings.rest_increment.option.15" = "15초";
+
+"settings.max_sets.section" = "최대 세트";
+"settings.max_sets.title" = "최대";
+"settings.max_sets.option.10" = "10세트";
+"settings.max_sets.option.15" = "15세트";
+"settings.max_sets.option.20" = "20세트";
+"settings.max_sets.option.30" = "30세트";
+
+"paywall.info.title" = "정보";
+"progress.accessibility.week_goal_format" = "이번 주 운동: %ld/%ld";
+"progress.activity.empty" = "아직 완료한 운동이 없습니다.";
+"progress.badge.first_workout.subtitle" = "첫 운동을 완료하세요.";
+"progress.badge.first_workout.title" = "첫 운동";
+"progress.badge.goal_week.subtitle" = "현재 주간 목표를 달성하세요.";
+"progress.badge.goal_week.title" = "주간 목표 달성";
+"progress.badge.streak_4.subtitle" = "4주 연속으로 주간 목표를 달성하세요.";
+"progress.badge.streak_4.title" = "4주 연속";
+"progress.badge.three_week.subtitle" = "한 주에 운동 3회를 완료하세요.";
+"progress.badge.three_week.title" = "주간 3회 달성";
+"progress.badge.workouts_10.subtitle" = "운동 10회를 완료하세요.";
+"progress.badge.workouts_10.title" = "운동 10회";
+"progress.badge.workouts_25.subtitle" = "운동 25회를 완료하세요.";
+"progress.badge.workouts_25.title" = "운동 25회";
+"progress.badge.workouts_5.subtitle" = "운동 5회를 완료하세요.";
+"progress.badge.workouts_5.title" = "운동 5회";
+"progress.calendar.day.completed_format" = "완료한 운동 %ld회";
+"progress.calendar.day.empty" = "완료한 운동 없음";
+"progress.calendar.title" = "이번 달";
+"progress.chart.axis.workouts" = "운동";
+"progress.chart.workouts.accessibility_value_format" = "운동 %ld회";
+"progress.chart.workouts.title" = "시간에 따른 운동";
+"progress.goal.edit" = "목표 편집";
+"progress.goal.message.completed" = "주간 목표를 달성했습니다.";
+"progress.goal.message.many_left_format" = "목표까지 운동 %ld회 남았습니다.";
+"progress.goal.message.one_left" = "목표까지 운동 1회 남았습니다.";
+"progress.goal.minutes_per_week" = "주당 분";
+"progress.goal.settings.title" = "목표 설정";
+"progress.goal.starts_on_monday" = "주 시작일은 월요일";
+"progress.goal.weekly" = "주간 목표";
+"progress.goal.workouts_per_week" = "주당 운동 횟수";
+"progress.period.fortnight" = "14일";
+"progress.period.month" = "월";
+"progress.period.quarter" = "분기";
+"progress.period.title" = "기간";
+"progress.period.week" = "주";
+"progress.period.year" = "년";
+"progress.quick_workout_name" = "빠른 운동";
+"progress.section.activity" = "최근 활동";
+"progress.section.badges" = "배지";
+"progress.streak.subtitle" = "주간 목표를 달성한 연속 주 수입니다.";
+"progress.streak.title" = "주간 연속 기록";
+"progress.streak.weeks_format" = "%ld주 연속";
+"progress.summary.most_repeated" = "가장 많이 반복한 루틴";
+"progress.summary.top_classification" = "대표 분류";
+"progress.title" = "진행 상황";

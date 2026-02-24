@@ -66,3 +66,281 @@
 "accessibility.set_progress_label" = "Sæt-fremgang";
 "accessibility.time_remaining" = "Resterende tid";
 "accessibility.reset_label" = "Nulstil";
+
+
+"placeholder.coming_soon" = "Proximamente";
+
+"common.now" = "now";
+
+"app.name.fallback" = "GymTimerPro";
+
+"tab.training" = "Træning";
+"tab.routines" = "Rutiner";
+"tab.progress" = "Fremskridt";
+"tab.settings" = "Indstillinger";
+
+"routines.add" = "Ny rutine";
+"routines.create.title" = "Ny rutine";
+"routines.delete" = "Slet rutine";
+"routines.discard.confirm" = "Kassér";
+"routines.discard.keep_editing" = "Fortsæt redigering";
+"routines.discard.message" = "Du har ændringer, der ikke er gemt.";
+"routines.discard.title" = "Kassér ændringer?";
+"routines.edit" = "Rediger";
+"routines.edit.title" = "Rediger rutine";
+"routines.empty.message" = "Opret en rutine for at gemme dine presets.";
+"routines.empty.title" = "Ingen rutiner";
+"routines.field.name" = "Navn";
+"routines.name.counter_format" = "%ld/%ld";
+"routines.name.max_length_format" = "Maks. %ld tegn";
+"routines.field.weight" = "Vægt";
+"routines.weight.placeholder" = "0";
+"routines.save" = "Gem";
+"routines.section.details" = "Navn";
+"routines.section.parameters" = "Parametre";
+"routines.title" = "Rutiner";
+"routines.weight.empty" = "Ingen vægt";
+
+"routines.select.title" = "Vælg rutine";
+"training.routine.select" = "Vælg";
+"training.routine.title" = "Rutine";
+
+"accessibility.reps_value_format" = "%ld gentagelser";
+"routines.field.reps" = "Gentagelser";
+"routines.summary_format" = "%ld sæt · %ld reps · %@ · %@";
+
+"pro.locked.message" = "Tilgaengelig i Pro.";
+"pro.locked.progress.title" = "Fremskridt";
+"pro.locked.routines.title" = "Rutiner";
+"pro.locked.settings.title" = "Indstillinger";
+
+"pro.locked.unlock" = "Lås op for Pro";
+
+"routines.apply" = "Anvend i træning";
+"routines.remove_from_training" = "Fjern fra træning";
+
+"routines.delete.message" = "Denne handling sletter rutinen permanent.";
+
+"classifications.section.title" = "Classification";
+"classifications.section.list" = "Classifications";
+"classifications.unclassified.section" = "Unclassified routines";
+"classifications.routines.section" = "Routines";
+"classifications.search.prompt" = "Search routines or classifications";
+"classifications.search.create_placeholder" = "Search or create classification";
+"classifications.create_format" = "Create \"%@\"";
+"classifications.duplicate" = "A classification with that name already exists.";
+"classifications.delete.title" = "Delete classification";
+"classifications.delete.message" = "This will remove the classification from all routines.";
+"classifications.none" = "None";
+"classifications.empty.title" = "No classifications";
+"classifications.empty.message" = "Create a classification to get started.";
+
+"classifications.manage.title" = "Manage classifications";
+"classifications.add.title" = "New classification";
+"classifications.rename.title" = "Rename";
+"classifications.name.title" = "Name";
+"classifications.name.placeholder" = "Classification name";
+"classifications.search.placeholder" = "Search classifications";
+
+"classifications.rename.action" = "Rename…";
+"classifications.more_options_format" = "More options for %@";
+
+/* Paywall v2 copy */
+"paywall.copy.light.pro.title" = "Lås op for Pro";
+"paywall.copy.light.pro.subtitle" = "Rutiner, fremskridt og indstillinger uden begrænsninger.";
+"paywall.copy.light.pro.benefits_title" = "Vigtigste fordele";
+"paywall.copy.light.pro.bullet_1" = "Træn uden daglige begrænsninger.";
+"paywall.copy.light.pro.bullet_2" = "Gem rutiner og gentag på sekunder.";
+"paywall.copy.light.pro.bullet_3" = "Følg fremskridt og hold dig konsekvent.";
+"paywall.copy.light.pro.plans_title" = "Vælg en plan";
+"paywall.copy.light.pro.annual_label" = "Årlig";
+"paywall.copy.light.pro.annual_badge" = "Bedste værdi";
+"paywall.copy.light.pro.monthly_label" = "Månedlig";
+"paywall.copy.light.pro.cta_primary" = "Start gratis";
+"paywall.copy.light.pro.cta_secondary" = "Ikke nu";
+"paywall.copy.light.pro.trust" = "Annuller når som helst fra dit Apple‑ID.";
+"paywall.copy.light.pro.legal1" = "Auto‑fornyende abonnement med 2 ugers gratis prøve.";
+"paywall.copy.light.pro.legal2" = "Derefter opkræves du for den valgte plan, indtil du annullerer.";
+
+"paywall.copy.light.limit.title" = "Fortsæt træningen uden afbrydelser";
+"paywall.copy.light.limit.subtitle" = "Du har nået dagens gratis grænse.";
+"paywall.copy.light.limit.benefits_title" = "Vigtigste fordele";
+"paywall.copy.light.limit.bullet_1" = "Fortsæt din session med det samme.";
+"paywall.copy.light.limit.bullet_2" = "Ingen daglig grænse, mens du gør fremskridt.";
+"paywall.copy.light.limit.bullet_3" = "Hele dit flow i én app.";
+"paywall.copy.light.limit.plans_title" = "Vælg en plan";
+"paywall.copy.light.limit.annual_label" = "Årlig";
+"paywall.copy.light.limit.annual_badge" = "Bedste værdi";
+"paywall.copy.light.limit.monthly_label" = "Månedlig";
+"paywall.copy.light.limit.cta_primary" = "Start gratis";
+"paywall.copy.light.limit.cta_secondary" = "Ikke nu";
+"paywall.copy.light.limit.trust" = "Start gratis og annuller når som helst.";
+"paywall.copy.light.limit.legal1" = "Auto‑fornyende abonnement med 2 ugers gratis prøve.";
+"paywall.copy.light.limit.legal2" = "Derefter opkræves du for den valgte plan, indtil du annullerer.";
+
+"paywall.copy.standard.pro.title" = "Træn med fuldt potentiale";
+"paywall.copy.standard.pro.subtitle" = "Lås op for rutiner, fremskridt og fuld kontrol.";
+"paywall.copy.standard.pro.benefits_title" = "Det får du";
+"paywall.copy.standard.pro.bullet_1" = "Komplet træningsflow uden friktion.";
+"paywall.copy.standard.pro.bullet_2" = "Rutiner klar til at gentage når som helst.";
+"paywall.copy.standard.pro.bullet_3" = "Klar fremgang for at fastholde vanen.";
+"paywall.copy.standard.pro.plans_title" = "Vælg din plan";
+"paywall.copy.standard.pro.annual_label" = "Årsplan";
+"paywall.copy.standard.pro.annual_badge" = "Bedste værdi";
+"paywall.copy.standard.pro.monthly_label" = "Månedsplan";
+"paywall.copy.standard.pro.cta_primary" = "Start gratis";
+"paywall.copy.standard.pro.cta_secondary" = "Ikke nu";
+"paywall.copy.standard.pro.trust" = "Ingen binding. Administrer eller annuller i Apple.";
+"paywall.copy.standard.pro.legal1" = "2 ugers gratis prøve. Derefter betaling pr. plan.";
+"paywall.copy.standard.pro.legal2" = "Fornyes automatisk indtil annullering.";
+
+"paywall.copy.standard.limit.title" = "Stop ikke din fremgang i dag";
+"paywall.copy.standard.limit.subtitle" = "Bliv Pro og afslut træningen uden begrænsninger.";
+"paywall.copy.standard.limit.benefits_title" = "Det får du";
+"paywall.copy.standard.limit.bullet_1" = "Fortsæt træningen nu, uden afbrydelser.";
+"paywall.copy.standard.limit.bullet_2" = "Gem rutiner for at komme hurtigere næste gang.";
+"paywall.copy.standard.limit.bullet_3" = "Se fremskridt uden ekstra apps.";
+"paywall.copy.standard.limit.plans_title" = "Vælg din plan";
+"paywall.copy.standard.limit.annual_label" = "Årsplan";
+"paywall.copy.standard.limit.annual_badge" = "Bedste værdi";
+"paywall.copy.standard.limit.monthly_label" = "Månedsplan";
+"paywall.copy.standard.limit.cta_primary" = "Start gratis";
+"paywall.copy.standard.limit.cta_secondary" = "Ikke nu";
+"paywall.copy.standard.limit.trust" = "Prøv gratis. Annuller når som helst.";
+"paywall.copy.standard.limit.legal1" = "2 ugers gratis prøve. Derefter betaling pr. plan.";
+"paywall.copy.standard.limit.legal2" = "Fornyes automatisk indtil annullering.";
+
+"paywall.copy.detailed.pro.title" = "Lås op for alt Pro tilbyder";
+"paywall.copy.detailed.pro.subtitle" = "Alle rutiner, fremskridt og kontrol ét sted.";
+"paywall.copy.detailed.pro.benefits_title" = "Din træning, opgraderet";
+"paywall.copy.detailed.pro.bullet_1" = "Hold fokus med timere til serier.";
+"paywall.copy.detailed.pro.bullet_2" = "Genbrug rutiner og klassifikationer når som helst.";
+"paywall.copy.detailed.pro.bullet_3" = "Følg fremskridt med klare visninger.";
+"paywall.copy.detailed.pro.plans_title" = "Vælg din plan";
+"paywall.copy.detailed.pro.annual_label" = "Årsplan";
+"paywall.copy.detailed.pro.annual_badge" = "Bedste værdi";
+"paywall.copy.detailed.pro.monthly_label" = "Månedsplan";
+"paywall.copy.detailed.pro.cta_primary" = "Start gratis";
+"paywall.copy.detailed.pro.cta_secondary" = "Ikke nu";
+"paywall.copy.detailed.pro.trust" = "Annuller når som helst. Ingen lang binding.";
+"paywall.copy.detailed.pro.legal1" = "Auto‑fornyende abonnement med gratis prøveperiode.";
+"paywall.copy.detailed.pro.legal2" = "Inkluderer gendan køb, vilkår og privatliv.";
+"paywall.copy.detailed.pro.include_title" = "Hvad Pro inkluderer";
+"paywall.copy.detailed.pro.include_1" = "Ubegrænsede rutiner";
+"paywall.copy.detailed.pro.include_2" = "Klassifikationer til organisering";
+"paywall.copy.detailed.pro.include_3" = "Fremskridtsgrafer";
+"paywall.copy.detailed.pro.include_4" = "Aktivitetskalender";
+"paywall.copy.detailed.pro.include_5" = "Streaks og badges";
+"paywall.copy.detailed.pro.include_6" = "Ingen daglig grænse under træning";
+
+"paywall.copy.detailed.limit.title" = "Afslut stærkt, uden begrænsninger";
+"paywall.copy.detailed.limit.subtitle" = "Aktivér Pro og fortsæt denne træning nu.";
+"paywall.copy.detailed.limit.benefits_title" = "Resultater for i dag og fremover";
+"paywall.copy.detailed.limit.bullet_1" = "Fortsæt denne session med det samme.";
+"paywall.copy.detailed.limit.bullet_2" = "Spar tid med genanvendelige rutiner.";
+"paywall.copy.detailed.limit.bullet_3" = "Hold dig konsekvent med synlige fremskridt.";
+"paywall.copy.detailed.limit.plans_title" = "Vælg din plan";
+"paywall.copy.detailed.limit.annual_label" = "Årsplan";
+"paywall.copy.detailed.limit.annual_badge" = "Bedste værdi";
+"paywall.copy.detailed.limit.monthly_label" = "Månedsplan";
+"paywall.copy.detailed.limit.cta_primary" = "Start gratis";
+"paywall.copy.detailed.limit.cta_secondary" = "Ikke nu";
+"paywall.copy.detailed.limit.trust" = "Start gratis. Betaling først efter prøveperioden.";
+"paywall.copy.detailed.limit.legal1" = "Auto‑fornyende abonnement.";
+"paywall.copy.detailed.limit.legal2" = "Administrer eller annuller i Apple. Køb kan gendannes.";
+"paywall.copy.detailed.limit.include_title" = "Hvad Pro inkluderer";
+"paywall.copy.detailed.limit.include_1" = "Ingen daglig grænse";
+"paywall.copy.detailed.limit.include_2" = "Rutiner og klassifikationer";
+"paywall.copy.detailed.limit.include_3" = "Træningshistorik";
+"paywall.copy.detailed.limit.include_4" = "Grafer og kalender";
+"paywall.copy.detailed.limit.include_5" = "Seneste aktivitet";
+"paywall.copy.detailed.limit.include_6" = "Streaks og badges";
+
+"paywall.trial_incentive_format" = "Inkluderer %@ gratis.";
+"paywall.period.generic" = "periode";
+"paywall.button.manage" = "Administrer abonnement";
+"paywall.button.privacy" = "Privatliv";
+"paywall.restore.no_purchases" = "Ingen køb at gendanne.";
+
+"config.rest_time.title" = "Hviletid";
+"settings.timer_display.section" = "Timervisning";
+"settings.timer_display.title" = "Tidsformat";
+"settings.timer_display.option.seconds" = "Sekunder";
+"settings.timer_display.option.minutes_seconds" = "Min:Sek";
+"accessibility.rest_time_value_seconds_format" = "%ld sekunder";
+"accessibility.rest_time_value_minutes_seconds_format" = "%ld minutter og %ld sekunder";
+"notification.rest_finished.body_with_duration_format" = "Sæt %ld/%ld · Pause %@";
+
+"settings.energy.section" = "Strombesparelse";
+"settings.energy.mode.title" = "Tilstand";
+"settings.energy.mode.off" = "Fra";
+"settings.energy.mode.automatic" = "Automatisk";
+"settings.energy.mode.on" = "Til";
+"settings.energy.description" = "Fra bevarer nuvaerende adfaerd. Automatisk folger iOS lavstromtilstand. Til tillader skærmlaas, reducerer timer-opvaagninger og deaktiverer haptik ved hvileslut.";
+
+"settings.weight_unit.section" = "Vægtenhed";
+"settings.weight_unit.title" = "Vægtenhed";
+"settings.weight_unit.option.automatic" = "Automatisk";
+"settings.weight_unit.option.kilograms" = "Kilogram (kg)";
+"settings.weight_unit.option.pounds" = "Pund (lb)";
+
+"settings.rest_increment.section" = "Pauseinterval";
+"settings.rest_increment.title" = "Interval";
+"settings.rest_increment.option.5" = "5 s";
+"settings.rest_increment.option.10" = "10 s";
+"settings.rest_increment.option.15" = "15 s";
+
+"settings.max_sets.section" = "Maksimale saet";
+"settings.max_sets.title" = "Maksimum";
+"settings.max_sets.option.10" = "10 saet";
+"settings.max_sets.option.15" = "15 saet";
+"settings.max_sets.option.20" = "20 saet";
+"settings.max_sets.option.30" = "30 saet";
+
+"paywall.info.title" = "Info";
+"progress.accessibility.week_goal_format" = "Træninger denne uge: %ld af %ld";
+"progress.activity.empty" = "Ingen afsluttede træninger endnu.";
+"progress.badge.first_workout.subtitle" = "Fuldfør din første træning.";
+"progress.badge.first_workout.title" = "Første træning";
+"progress.badge.goal_week.subtitle" = "Nå dit nuværende ugemål.";
+"progress.badge.goal_week.title" = "Ugemål nået";
+"progress.badge.streak_4.subtitle" = "Nå dit ugemål i 4 uger i træk.";
+"progress.badge.streak_4.title" = "4-ugers stime";
+"progress.badge.three_week.subtitle" = "Fuldfør 3 træninger på en uge.";
+"progress.badge.three_week.title" = "3 på en uge";
+"progress.badge.workouts_10.subtitle" = "Fuldfør 10 træninger.";
+"progress.badge.workouts_10.title" = "10 træninger";
+"progress.badge.workouts_25.subtitle" = "Fuldfør 25 træninger.";
+"progress.badge.workouts_25.title" = "25 træninger";
+"progress.badge.workouts_5.subtitle" = "Fuldfør 5 træninger.";
+"progress.badge.workouts_5.title" = "5 træninger";
+"progress.calendar.day.completed_format" = "%ld afsluttet/afsluttede træning(er)";
+"progress.calendar.day.empty" = "Ingen afsluttede træninger";
+"progress.calendar.title" = "Denne måned";
+"progress.chart.axis.workouts" = "Træninger";
+"progress.chart.workouts.accessibility_value_format" = "%ld træninger";
+"progress.chart.workouts.title" = "Træninger over tid";
+"progress.goal.edit" = "Rediger mål";
+"progress.goal.message.completed" = "Ugemål fuldført.";
+"progress.goal.message.many_left_format" = "%ld træninger tilbage til dit mål.";
+"progress.goal.message.one_left" = "1 træning tilbage til dit mål.";
+"progress.goal.minutes_per_week" = "Minutter pr. uge";
+"progress.goal.settings.title" = "Målindstillinger";
+"progress.goal.starts_on_monday" = "Ugen starter på mandag";
+"progress.goal.weekly" = "Ugentligt mål";
+"progress.goal.workouts_per_week" = "Træninger pr. uge";
+"progress.period.fortnight" = "14 dage";
+"progress.period.month" = "Måned";
+"progress.period.quarter" = "Kvartal";
+"progress.period.title" = "Periode";
+"progress.period.week" = "Uge";
+"progress.period.year" = "År";
+"progress.quick_workout_name" = "Hurtig træning";
+"progress.section.activity" = "Seneste aktivitet";
+"progress.section.badges" = "Badges";
+"progress.streak.subtitle" = "Sammenhængende uger, hvor du når dit ugemål.";
+"progress.streak.title" = "Uge-stime";
+"progress.streak.weeks_format" = "%ld ugers stime";
+"progress.summary.most_repeated" = "Mest gentagne rutine";
+"progress.summary.top_classification" = "Topklassifikation";
+"progress.title" = "Fremskridt";
