@@ -1,0 +1,126 @@
+{
+  "premium_monthly": {
+    "da": {
+      "name": "GymTimer Pro Månedlig",
+      "description": "Træn uden begrænsninger (Månedlig)."
+    },
+    "de-DE": {
+      "name": "GymTimer Pro Monatlich",
+      "description": "Trainiere ohne Limits (Monatlich)."
+    },
+    "en-US": {
+      "name": "GymTimer Pro Monthly",
+      "description": "Train without limits (Monthly)."
+    },
+    "es-ES": {
+      "name": "GymTimer Pro Mensual",
+      "description": "Entrena sin límites (Mensual)."
+    },
+    "fr-FR": {
+      "name": "GymTimer Pro Mensuel",
+      "description": "Entraînez-vous sans limites (Mensuel)."
+    },
+    "hi": {
+      "name": "GymTimer Pro मासिक",
+      "description": "सीमाओं के बिना ट्रेन करें (मासिक)."
+    },
+    "it": {
+      "name": "GymTimer Pro Mensile",
+      "description": "Allenati senza limiti (Mensile)."
+    },
+    "ja": {
+      "name": "GymTimer Pro 月額",
+      "description": "制限なくトレーニング (月額)."
+    },
+    "ko": {
+      "name": "GymTimer Pro 월간",
+      "description": "제한 없이 운동 (월간)."
+    },
+    "no": {
+      "name": "GymTimer Pro Månedlig",
+      "description": "Tren uten grenser (Månedlig)."
+    },
+    "nl-NL": {
+      "name": "GymTimer Pro Maandelijks",
+      "description": "Train zonder grenzen (Maandelijks)."
+    },
+    "pt-BR": {
+      "name": "GymTimer Pro Mensal",
+      "description": "Treine sem limites (Mensal)."
+    },
+    "pt-PT": {
+      "name": "GymTimer Pro Mensal",
+      "description": "Treine sem limites (Mensal)."
+    },
+    "sv": {
+      "name": "GymTimer Pro Månadsvis",
+      "description": "Träna utan gränser (Månadsvis)."
+    },
+    "zh-Hans": {
+      "name": "GymTimer Pro 月付",
+      "description": "无极限训练 (月付)."
+    }
+  },
+  "premium_yearly": {
+    "da": {
+      "name": "GymTimer Pro Årlig",
+      "description": "Træn uden begrænsninger (Årlig)."
+    },
+    "de-DE": {
+      "name": "GymTimer Pro Jährlich",
+      "description": "Trainiere ohne Limits (Jährlich)."
+    },
+    "en-US": {
+      "name": "GymTimer Pro Yearly",
+      "description": "Train without limits (Annual)."
+    },
+    "es-ES": {
+      "name": "GymTimer Pro Anual",
+      "description": "Entrena sin límites (Anual)."
+    },
+    "fr-FR": {
+      "name": "GymTimer Pro Annuel",
+      "description": "Entraînez-vous sans limites (Annuel)."
+    },
+    "hi": {
+      "name": "GymTimer Pro वार्षिक",
+      "description": "सीमाओं के बिना ट्रेन करें (वार्षिक)."
+    },
+    "it": {
+      "name": "GymTimer Pro Annuale",
+      "description": "Allenati senza limiti (Annuale)."
+    },
+    "ja": {
+      "name": "GymTimer Pro 年額",
+      "description": "制限なくトレーニング (年額)."
+    },
+    "ko": {
+      "name": "GymTimer Pro 연간",
+      "description": "제한 없이 운동 (연간)."
+    },
+    "no": {
+      "name": "GymTimer Pro Årlig",
+      "description": "Tren uten grenser (Årlig)."
+    },
+    "nl-NL": {
+      "name": "GymTimer Pro Jaarlijks",
+      "description": "Train zonder grenzen (Jaarlijks)."
+    },
+    "pt-BR": {
+      "name": "GymTimer Pro Anual",
+      "description": "Treine sem limites (Anual)."
+    },
+    "pt-PT": {
+      "name": "GymTimer Pro Anual",
+      "description": "Treine sem limites (Anual)."
+    },
+    "sv": {
+      "name": "GymTimer Pro Årsvis",
+      "description": "Träna utan gränser (Årsvis)."
+    },
+    "zh-Hans": {
+      "name": "GymTimer Pro 年付",
+      "description": "无极限训练 (年付)."
+    }
+  }
+}
