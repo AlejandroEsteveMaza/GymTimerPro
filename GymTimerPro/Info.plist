@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>PAYWALL_PRIVACY_URL</key>
+	<string>https://alejandroestevemaza.github.io/GymTimerPro-privacy/</string>
+	<key>PAYWALL_TERMS_URL</key>
+	<string>https://www.apple.com/legal/internet-services/itunes/dev/stdeula/</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
