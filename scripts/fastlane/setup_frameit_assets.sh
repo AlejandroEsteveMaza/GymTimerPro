@@ -3,9 +3,9 @@ set -euo pipefail
 
 # -----------------------------------------------------------------------------
 # Frameit bootstrap for GymTimerPro
-# - Creates localized fastlane/frameit/work/screenshots folders from app locales
-# - Copies screenshots from a source root (Desktop by default)
-# - Generates a runtime Framefile.json in work/ and a template in logic/
+# - Creates localized fastlane/frameit/work/screenshots* folders from app locales
+# - Copies screenshots from a source root (device-specific default)
+# - Generates a runtime Framefile.json in work/ and a device template in logic/
 # - Generates title.strings for each locale
 # - Generates default backgrounds/fonts in resources/assets
 #
@@ -15,10 +15,13 @@ set -euo pipefail
 # -----------------------------------------------------------------------------
 
 PROJECT_ROOT_DEFAULT="/Users/alejandroestevemaza/Code/GymTimerPro"
-SOURCE_ROOT_DEFAULT="/Users/alejandroestevemaza/Desktop"
+SOURCE_ROOT_DEFAULT_IPHONE="${PROJECT_ROOT_DEFAULT}/fastlane/frameit/resources/screenshots"
+SOURCE_ROOT_DEFAULT_IPAD="${PROJECT_ROOT_DEFAULT}/fastlane/frameit/resources/screenshots-ipad"
 
 PROJECT_ROOT="${PROJECT_ROOT_DEFAULT}"
-SOURCE_ROOT="${SOURCE_ROOT_DEFAULT}"
+DEVICE="iphone"
+SOURCE_ROOT=""
+SOURCE_ROOT_SET="0"
 DEST_ROOT=""
 FRAMEIT_ROOT=""
 RESOURCES_ROOT=""
@@ -36,8 +39,9 @@ Usage:
 
 Options:
   --project-root PATH       Project root (default: /Users/alejandroestevemaza/Code/GymTimerPro)
-  --source-root PATH        Source screenshots root (default: /Users/alejandroestevemaza/Desktop)
-  --dest-root PATH          Destination work screenshots root (default: <project>/fastlane/frameit/work/screenshots)
+  --device NAME             Target device: iphone | ipad (default: iphone)
+  --source-root PATH        Source screenshots root (default depends on --device)
+  --dest-root PATH          Destination work screenshots root (default depends on --device)
   --map-file PATH           Optional locale-to-folder map file
   --overwrite-framefile     Overwrite Framefile.json if it exists
   --overwrite-titles        Overwrite title.strings files if they exist
@@ -46,7 +50,8 @@ Options:
 
 Example:
   ./scripts/fastlane/setup_frameit_assets.sh \
-    --source-root /Users/alejandroestevemaza/Desktop \
+    --device ipad \
+    --source-root /Users/alejandroestevemaza/Code/GymTimerPro/fastlane/frameit/resources/screenshots-ipad \
     --map-file /Users/alejandroestevemaza/Desktop/screenshot_map.txt \
     --overwrite-framefile \
     --overwrite-titles \
@@ -60,8 +65,13 @@ while [[ $# -gt 0 ]]; do
       PROJECT_ROOT="$2"
       shift 2
       ;;
+    --device)
+      DEVICE="$(echo "$2" | tr '[:upper:]' '[:lower:]')"
+      shift 2
+      ;;
     --source-root)
       SOURCE_ROOT="$2"
+      SOURCE_ROOT_SET="1"
       shift 2
       ;;
     --dest-root)
@@ -96,14 +106,69 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if [[ "${DEVICE}" != "iphone" && "${DEVICE}" != "ipad" ]]; then
+  echo "ERROR: --device must be 'iphone' or 'ipad' (got: ${DEVICE})"
+  exit 1
+fi
+
+dir_has_images() {
+  local dir="$1"
+  shopt -s nullglob
+  local imgs=(
+    "${dir}"/*.png "${dir}"/*.PNG
+    "${dir}"/*.jpg "${dir}"/*.JPG
+    "${dir}"/*.jpeg "${dir}"/*.JPEG
+  )
+  shopt -u nullglob
+  (( ${#imgs[@]} > 0 ))
+}
+
 if [[ -z "${DEST_ROOT}" ]]; then
-  DEST_ROOT="${PROJECT_ROOT}/fastlane/frameit/work/screenshots"
+  if [[ "${DEVICE}" == "ipad" ]]; then
+    DEST_ROOT="${PROJECT_ROOT}/fastlane/frameit/work/screenshots-ipad"
+  else
+    DEST_ROOT="${PROJECT_ROOT}/fastlane/frameit/work/screenshots"
+  fi
+fi
+
+if [[ "${SOURCE_ROOT_SET}" == "0" ]]; then
+  if [[ "${DEVICE}" == "ipad" ]]; then
+    local_fallback=""
+    for candidate in \
+      "${PROJECT_ROOT}/fastlane/frameit/resources/screenshots-ipad" \
+      "${PROJECT_ROOT}/fastlane/frameit/resources/screenshots-ipad " \
+      "${PROJECT_ROOT}/fastlane/frameit/resources/Screenshots iPad"
+    do
+      if [[ -d "${candidate}" ]]; then
+        if dir_has_images "${candidate}"; then
+          SOURCE_ROOT="${candidate}"
+          break
+        fi
+        if [[ -z "${local_fallback}" ]]; then
+          local_fallback="${candidate}"
+        fi
+      fi
+    done
+    if [[ -z "${SOURCE_ROOT}" ]]; then
+      if [[ -n "${local_fallback}" ]]; then
+        SOURCE_ROOT="${local_fallback}"
+      else
+        SOURCE_ROOT="${SOURCE_ROOT_DEFAULT_IPAD}"
+      fi
+    fi
+  else
+    SOURCE_ROOT="${SOURCE_ROOT_DEFAULT_IPHONE}"
+  fi
 fi
 
 FRAMEIT_ROOT="$(cd "${DEST_ROOT}/../.." && pwd)"
 RESOURCES_ROOT="${FRAMEIT_ROOT}/resources"
 LOGIC_ROOT="${FRAMEIT_ROOT}/logic"
-RESULTS_ROOT="${FRAMEIT_ROOT}/results/screenshots"
+if [[ "${DEVICE}" == "ipad" ]]; then
+  RESULTS_ROOT="${FRAMEIT_ROOT}/results/screenshots-ipad"
+else
+  RESULTS_ROOT="${FRAMEIT_ROOT}/results/screenshots"
+fi
 
 if [[ ! -d "${PROJECT_ROOT}" ]]; then
   echo "ERROR: project root not found: ${PROJECT_ROOT}"
@@ -192,6 +257,19 @@ find_source_dir_for_locale() {
     return 0
   fi
 
+  # If screenshots are placed directly in the source root, reuse them for all locales.
+  shopt -s nullglob
+  local root_images=(
+    "${SOURCE_ROOT}"/*.png "${SOURCE_ROOT}"/*.PNG
+    "${SOURCE_ROOT}"/*.jpg "${SOURCE_ROOT}"/*.JPG
+    "${SOURCE_ROOT}"/*.jpeg "${SOURCE_ROOT}"/*.JPEG
+  )
+  shopt -u nullglob
+  if (( ${#root_images[@]} > 0 )); then
+    echo "${SOURCE_ROOT}"
+    return 0
+  fi
+
   return 1
 }
 
@@ -208,6 +286,41 @@ copy_images() {
   done
   shopt -u nullglob
   echo "${copied}"
+}
+
+ensure_standard_capture_names() {
+  local dst="$1"
+  local -a existing=()
+  local -a images=()
+  local -a sorted=()
+  local file=""
+
+  # If standard names already exist, keep them.
+  shopt -s nullglob
+  existing=("${dst}"/01_TIMER.*)
+  if (( ${#existing[@]} > 0 )); then
+    shopt -u nullglob
+    return 0
+  fi
+
+  for file in "${dst}"/*.png "${dst}"/*.PNG "${dst}"/*.jpg "${dst}"/*.JPG "${dst}"/*.jpeg "${dst}"/*.JPEG; do
+    if [[ "${file}" == *_framed.png ]]; then
+      continue
+    fi
+    images+=("${file}")
+  done
+  shopt -u nullglob
+
+  if (( ${#images[@]} < 3 )); then
+    return 0
+  fi
+
+  IFS=$'\n' sorted=($(printf '%s\n' "${images[@]}" | sort))
+  unset IFS
+
+  cp "${sorted[0]}" "${dst}/01_TIMER.png"
+  cp "${sorted[1]}" "${dst}/02_CATEGORIES.png"
+  cp "${sorted[2]}" "${dst}/03_PROGRESS.png"
 }
 
 write_title_strings() {
@@ -356,6 +469,7 @@ generate_backgrounds() {
 }
 
 echo "Project root : ${PROJECT_ROOT}"
+echo "Device       : ${DEVICE}"
 echo "Source root  : ${SOURCE_ROOT}"
 echo "Frameit root : ${FRAMEIT_ROOT}"
 echo "Work root    : ${DEST_ROOT}"
@@ -385,6 +499,7 @@ for locale in ${LOCALES}; do
   source_dir="$(find_source_dir_for_locale "${locale}" || true)"
   if [[ -n "${source_dir}" ]]; then
     copied="$(copy_images "${source_dir}" "${locale_dir}")"
+    ensure_standard_capture_names "${locale_dir}"
     echo "OK: ${locale} <- ${source_dir} (${copied} files)"
   else
     echo "WARN: no screenshot source found for locale '${locale}'"
@@ -407,7 +522,7 @@ if [[ ! -f "${framefile}" || "${OVERWRITE_FRAMEFILE}" == "1" ]]; then
   echo "OK: ${framefile}"
 fi
 
-framefile_template="${LOGIC_ROOT}/Framefile.template.json"
+framefile_template="${LOGIC_ROOT}/Framefile.template.${DEVICE}.json"
 if [[ ! -f "${framefile_template}" || "${OVERWRITE_FRAMEFILE}" == "1" ]]; then
   cp "${framefile}" "${framefile_template}"
   echo "OK: ${framefile_template}"
@@ -416,4 +531,4 @@ fi
 echo ""
 echo "Done."
 echo "Run rendering pipeline with:"
-echo "  ${PROJECT_ROOT}/scripts/fastlane/run_frameit_pipeline.sh"
+echo "  ${PROJECT_ROOT}/scripts/fastlane/run_frameit_pipeline.sh --device ${DEVICE}"

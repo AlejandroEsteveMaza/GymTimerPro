@@ -6,6 +6,7 @@ This folder contains scripts to update:
   - `premium_monthly`
   - `premium_yearly`
 - App metadata localizations (`description`, `promotionalText`, `keywords`, `name`, `subtitle`, `supportUrl`, `marketingUrl`)
+- App Store screenshots per locale/display type (`appScreenshotSets` + `appScreenshots`)
 
 
 ## Files
@@ -15,6 +16,7 @@ This folder contains scripts to update:
 - `subscription_texts.example.json`: translation payload example.
 - `update_app_metadata_localizations.py`: app metadata localizations updater.
 - `app_metadata_texts.gymtimerpro.json`: ready-to-run metadata payload.
+- `upload_app_screenshots.py`: uploads localized screenshots from frameit folders.
 - `api_examples.sh`: complete `curl` examples for list + patch + post.
 
 ## Requirements
@@ -85,3 +87,52 @@ python3 scripts/app_store_connect/update_app_metadata_localizations.py \
   --version-string "1.0" \
   --apply
 ```
+
+## App screenshots upload (dry-run first)
+
+By default, the uploader scans:
+
+- `fastlane/frameit/results/screenshots` -> `APP_IPHONE_67`
+- `fastlane/frameit/results/screenshots-ipad` -> `APP_IPAD_PRO_129`
+
+Each subfolder name is treated as locale (e.g. `es`, `en-US`, `pt-BR`) and all images inside it are uploaded in sorted order.
+
+```bash
+python3 scripts/app_store_connect/upload_app_screenshots.py \
+  --bundle-id "com.yourcompany.yourapp"
+```
+
+Only validate local folder discovery (no ASC API calls):
+
+```bash
+python3 scripts/app_store_connect/upload_app_screenshots.py \
+  --bundle-id "com.yourcompany.yourapp" \
+  --scan-only
+```
+
+Apply real uploads:
+
+```bash
+python3 scripts/app_store_connect/upload_app_screenshots.py \
+  --bundle-id "com.yourcompany.yourapp" \
+  --version-string "1.0" \
+  --apply
+```
+
+Safer replace mode (recommended): upload first, delete old only after processing succeeds.
+
+```bash
+python3 scripts/app_store_connect/upload_app_screenshots.py \
+  --bundle-id "com.yourcompany.yourapp" \
+  --version-string "1.0" \
+  --replace-strategy safe \
+  --apply
+```
+
+Useful options:
+
+- `--skip-ipad` or `--skip-iphone`
+- `--keep-existing` (do not delete existing ASC screenshots before upload)
+- `--replace-strategy safe|eager` (`safe` is default)
+- `--iphone-display-type` / `--ipad-display-type` (override ASC display type constants)
+- `--prefer-existing-display-type` (reuse existing locale display type when possible)

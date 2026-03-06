@@ -3,12 +3,15 @@ set -euo pipefail
 
 PROJECT_ROOT_DEFAULT="/Users/alejandroestevemaza/Code/GymTimerPro"
 PROJECT_ROOT="${PROJECT_ROOT_DEFAULT}"
+DEVICE="iphone"
 WORK_ROOT=""
 RESULTS_ROOT=""
 CLEAN_RESULTS="0"
 NORMALIZE_SIZE="1"
-TARGET_WIDTH="1290"
-TARGET_HEIGHT="2796"
+TARGET_WIDTH=""
+TARGET_HEIGHT=""
+TARGET_WIDTH_SET="0"
+TARGET_HEIGHT_SET="0"
 
 usage() {
   cat <<'EOF'
@@ -17,12 +20,13 @@ Usage:
 
 Options:
   --project-root PATH    Project root (default: /Users/alejandroestevemaza/Code/GymTimerPro)
-  --work-root PATH       Frameit work screenshots root (default: <project>/fastlane/frameit/work/screenshots)
-  --results-root PATH    Final framed screenshots root (default: <project>/fastlane/frameit/results/screenshots)
+  --device NAME          Target device: iphone | ipad (default: iphone)
+  --work-root PATH       Frameit work screenshots root (default depends on --device)
+  --results-root PATH    Final framed screenshots root (default depends on --device)
   --clean-results        Remove previous framed output from results root before copying
   --no-normalize         Do not normalize input screenshot size before frameit
-  --target-width PX      Normalize width (default: 1290)
-  --target-height PX     Normalize height (default: 2796)
+  --target-width PX      Normalize width (default: 1290 for iPhone, 2048 for iPad)
+  --target-height PX     Normalize height (default: 2796 for iPhone, 2732 for iPad)
   -h, --help             Show this help
 EOF
 }
@@ -31,6 +35,10 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --project-root)
       PROJECT_ROOT="$2"
+      shift 2
+      ;;
+    --device)
+      DEVICE="$(echo "$2" | tr '[:upper:]' '[:lower:]')"
       shift 2
       ;;
     --work-root)
@@ -51,10 +59,12 @@ while [[ $# -gt 0 ]]; do
       ;;
     --target-width)
       TARGET_WIDTH="$2"
+      TARGET_WIDTH_SET="1"
       shift 2
       ;;
     --target-height)
       TARGET_HEIGHT="$2"
+      TARGET_HEIGHT_SET="1"
       shift 2
       ;;
     -h|--help)
@@ -69,11 +79,40 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if [[ "${DEVICE}" != "iphone" && "${DEVICE}" != "ipad" ]]; then
+  echo "ERROR: --device must be 'iphone' or 'ipad' (got: ${DEVICE})"
+  exit 1
+fi
+
+if [[ "${TARGET_WIDTH_SET}" == "0" ]]; then
+  if [[ "${DEVICE}" == "ipad" ]]; then
+    TARGET_WIDTH="2048"
+  else
+    TARGET_WIDTH="1290"
+  fi
+fi
+
+if [[ "${TARGET_HEIGHT_SET}" == "0" ]]; then
+  if [[ "${DEVICE}" == "ipad" ]]; then
+    TARGET_HEIGHT="2732"
+  else
+    TARGET_HEIGHT="2796"
+  fi
+fi
+
 if [[ -z "${WORK_ROOT}" ]]; then
-  WORK_ROOT="${PROJECT_ROOT}/fastlane/frameit/work/screenshots"
+  if [[ "${DEVICE}" == "ipad" ]]; then
+    WORK_ROOT="${PROJECT_ROOT}/fastlane/frameit/work/screenshots-ipad"
+  else
+    WORK_ROOT="${PROJECT_ROOT}/fastlane/frameit/work/screenshots"
+  fi
 fi
 if [[ -z "${RESULTS_ROOT}" ]]; then
-  RESULTS_ROOT="${PROJECT_ROOT}/fastlane/frameit/results/screenshots"
+  if [[ "${DEVICE}" == "ipad" ]]; then
+    RESULTS_ROOT="${PROJECT_ROOT}/fastlane/frameit/results/screenshots-ipad"
+  else
+    RESULTS_ROOT="${PROJECT_ROOT}/fastlane/frameit/results/screenshots"
+  fi
 fi
 
 if [[ ! -d "${WORK_ROOT}" ]]; then
@@ -111,6 +150,7 @@ trap 'sync_framed_outputs >/dev/null || true' EXIT
 
 echo "Work root    : ${WORK_ROOT}"
 echo "Results root : ${RESULTS_ROOT}"
+echo "Device       : ${DEVICE}"
 echo ""
 
 if [[ "${NORMALIZE_SIZE}" == "1" ]]; then
