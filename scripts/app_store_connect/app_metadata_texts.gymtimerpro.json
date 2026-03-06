@@ -1,0 +1,139 @@
+{
+  "localizations": {
+    "en-US": {
+      "promotionalText": "Track your rest between sets with one tap: fewer distractions, better focus, and real progress in every strength workout.",
+      "description": "GymTimerPro is a rest timer designed for strength training in the gym.\nIt is not for running, yoga, or cardio: it is built for weightlifting sets so you can train with rhythm, focus, and consistency.\n\nDo your set, tap once to start your rest, and return to training when time is up.\nNo constant phone checking. No unnecessary interruptions.\n\nWith GymTimerPro you can:\n- Track rest between sets quickly and accurately\n- Train with fewer distractions and better focus\n- Create and save routines to repeat workouts easily\n- Follow your progress with a clear view of your activity\n\nIf you train for real strength, controlling rest makes a difference.\nGymTimerPro helps you keep it simple, fast, and consistent.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "gym timer,rest timer,weightlifting,workout routine,strength training,progress tracker,training",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Strength Rest Timer"
+    },
+    "es-ES": {
+      "promotionalText": "Controla tus descansos entre series con un solo toque: menos distracciones, más enfoque y progreso real en cada entrenamiento de fuerza.",
+      "description": "GymTimerPro es el temporizador de descansos diseñado para entrenamiento de fuerza en gimnasio.\nNo es para running, yoga ni cardio: está pensado para series de pesas y para que entrenes con ritmo, foco y constancia.\n\nHaz tu serie, toca una vez para iniciar el descanso y vuelve al entrenamiento cuando termine el tiempo.\nSin estar mirando el móvil todo el rato. Sin interrupciones innecesarias.\n\nCon GymTimerPro puedes:\n- Medir descansos entre series de forma rápida y precisa\n- Entrenar con menos distracciones y más concentración\n- Crear y guardar rutinas para repetir entrenamientos fácilmente\n- Hacer seguimiento de tu progreso con una vista clara de tu actividad\n\nSi entrenas fuerza de verdad, controlar los descansos marca la diferencia.\nGymTimerPro te ayuda a hacerlo simple, rápido y constante.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "temporizador gym,descanso series,pesas,rutinas gym,fuerza,seguimiento progreso,entrenamiento",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Descanso entre series gym"
+    },
+    "de-DE": {
+      "promotionalText": "Steuere deine Satzpausen mit einem Tipp: weniger Ablenkung, mehr Fokus und echter Fortschritt im Krafttraining.",
+      "description": "GymTimerPro ist der Pausentimer für Krafttraining im Fitnessstudio.\nNicht für Running, Yoga oder Cardio: die App ist für Hantel-Sätze gemacht, damit du mit Rhythmus, Fokus und Konstanz trainierst.\n\nMache deinen Satz, tippe einmal für die Pause und trainiere weiter, sobald die Zeit abläuft.\nDu musst nicht ständig aufs Handy schauen. Keine unnötigen Unterbrechungen.\n\nMit GymTimerPro kannst du:\n- Satzpausen schnell und präzise messen\n- Mit weniger Ablenkung und mehr Konzentration trainieren\n- Routinen erstellen und speichern, um Workouts einfach zu wiederholen\n- Deinen Fortschritt mit einer klaren Aktivitätsansicht verfolgen\n\nWenn du ernsthaft Kraft trainierst, macht Pausenkontrolle den Unterschied.\nGymTimerPro hält es einfach, schnell und konstant.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "gym timer,pausentimer,krafttraining,hanteltraining,workout routine,fortschritt,training",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Krafttraining Pausentimer"
+    },
+    "fr-FR": {
+      "promotionalText": "Gérez vos repos entre séries en un geste: moins de distractions, plus de focus et de vrais progrès en musculation.",
+      "description": "GymTimerPro est le minuteur de repos conçu pour la musculation en salle.\nCe n'est pas pour le running, le yoga ou le cardio: il est pensé pour les séries de musculation, avec rythme, focus et régularité.\n\nFaites votre série, touchez une fois pour lancer le repos, puis reprenez quand le temps se termine.\nPlus besoin de regarder le téléphone en continu. Pas d'interruptions inutiles.\n\nAvec GymTimerPro, vous pouvez:\n- Mesurer vos temps de repos entre séries rapidement et précisément\n- Vous entraîner avec moins de distractions et plus de concentration\n- Créer et enregistrer des routines pour répéter vos séances facilement\n- Suivre votre progression avec une vue claire de votre activité\n\nSi vous faites vraiment de la force, maîtriser le repos fait la différence.\nGymTimerPro vous aide à rester simple, rapide et constant.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "timer musculation,repos séries,salle de sport,routine fitness,force,suivi progrès,entraînement",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Minuteur repos musculation"
+    },
+    "it": {
+      "promotionalText": "Controlla i recuperi tra le serie con un tocco: meno distrazioni, più focus e progressi reali in ogni allenamento forza.",
+      "description": "GymTimerPro è il timer recupero progettato per l'allenamento di forza in palestra.\nNon è per running, yoga o cardio: è pensato per le serie con i pesi, così ti alleni con ritmo, focus e costanza.\n\nFai la tua serie, tocca una volta per avviare il recupero e riprendi quando il tempo finisce.\nNiente controllo continuo del telefono. Niente interruzioni inutili.\n\nCon GymTimerPro puoi:\n- Misurare i recuperi tra serie in modo rapido e preciso\n- Allenarti con meno distrazioni e più concentrazione\n- Creare e salvare routine per ripetere facilmente gli allenamenti\n- Monitorare i progressi con una vista chiara della tua attività\n\nSe ti alleni davvero per la forza, controllare i recuperi fa la differenza.\nGymTimerPro ti aiuta a farlo in modo semplice, rapido e costante.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "timer palestra,recupero serie,pesi,routine allenamento,forza,monitoraggio progressi,allenamento",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Timer recupero palestra"
+    },
+    "pt-BR": {
+      "promotionalText": "Controle seu descanso entre séries com um toque: menos distrações, mais foco e progresso real no treino de força.",
+      "description": "GymTimerPro é o temporizador de descanso feito para treino de força na academia.\nNão é para corrida, yoga ou cardio: foi pensado para séries com pesos, para treinar com ritmo, foco e consistência.\n\nFaça sua série, toque uma vez para iniciar o descanso e volte ao treino quando o tempo acabar.\nSem ficar olhando o celular toda hora. Sem interrupções desnecessárias.\n\nCom o GymTimerPro você pode:\n- Medir descanso entre séries com rapidez e precisão\n- Treinar com menos distrações e mais concentração\n- Criar e salvar rotinas para repetir treinos com facilidade\n- Acompanhar seu progresso com uma visão clara da atividade\n\nSe você treina força de verdade, controlar o descanso faz diferença.\nO GymTimerPro ajuda a manter tudo simples, rápido e consistente.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "timer academia,descanso séries,musculação,rotina treino,treino de força,progresso,treino",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Descanso entre séries gym"
+    },
+    "pt-PT": {
+      "promotionalText": "Controla os descansos entre séries com um toque: menos distrações, mais foco e progresso real no treino de força.",
+      "description": "GymTimerPro é o temporizador de descanso criado para treino de força no ginásio.\nNão é para corrida, yoga ou cardio: foi pensado para séries com pesos, para treinares com ritmo, foco e consistência.\n\nFaz a tua série, toca uma vez para iniciar o descanso e volta ao treino quando o tempo terminar.\nSem estar sempre a olhar para o telemóvel. Sem interrupções desnecessárias.\n\nCom o GymTimerPro podes:\n- Medir descansos entre séries de forma rápida e precisa\n- Treinar com menos distrações e mais concentração\n- Criar e guardar rotinas para repetir treinos facilmente\n- Acompanhar o teu progresso com uma visão clara da atividade\n\nSe treinas força a sério, controlar os descansos faz a diferença.\nO GymTimerPro ajuda-te a manter tudo simples, rápido e consistente.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "temporizador ginásio,descanso séries,pesos,rotina treino,treino força,progresso,treino",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Descanso entre séries gym"
+    },
+    "nl-NL": {
+      "promotionalText": "Beheer je rust tussen sets met één tik: minder afleiding, meer focus en echte vooruitgang in krachttraining.",
+      "description": "GymTimerPro is de rusttimer voor krachttraining in de sportschool.\nNiet voor hardlopen, yoga of cardio: gemaakt voor gewichthef-sets zodat je met ritme, focus en consistentie traint.\n\nDoe je set, tik één keer om rust te starten en ga verder als de tijd om is.\nNiet steeds naar je telefoon kijken. Geen onnodige onderbrekingen.\n\nMet GymTimerPro kun je:\n- Rust tussen sets snel en nauwkeurig meten\n- Trainen met minder afleiding en meer concentratie\n- Routines maken en opslaan om trainingen makkelijk te herhalen\n- Je voortgang volgen met een duidelijk overzicht van je activiteit\n\nAls je serieus op kracht traint, maakt rustcontrole het verschil.\nGymTimerPro helpt je het simpel, snel en consistent te houden.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "gym timer,rust timer,krachttraining,gewichtheffen,workout schema,voortgang,training",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Rusttimer voor gymsets"
+    },
+    "sv": {
+      "promotionalText": "Kontrollera vilan mellan set med ett tryck: färre distraktioner, bättre fokus och verklig progress i styrketräningen.",
+      "description": "GymTimerPro är en vilotimer byggd för styrketräning på gymmet.\nDen är inte för löpning, yoga eller cardio: den är gjord för set med vikter så att du tränar med rytm, fokus och konsekvens.\n\nGör ditt set, tryck en gång för att starta vilan och fortsätt när tiden är slut.\nDu slipper titta på mobilen hela tiden. Inga onödiga avbrott.\n\nMed GymTimerPro kan du:\n- Mäta vilan mellan set snabbt och exakt\n- Träna med färre distraktioner och bättre koncentration\n- Skapa och spara rutiner för att enkelt upprepa pass\n- Följa din utveckling med en tydlig aktivitetsvy\n\nOm du tränar styrka på riktigt gör vilokontroll skillnad.\nGymTimerPro hjälper dig att hålla det enkelt, snabbt och konsekvent.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "gymtimer,vilotimer,styrketräning,vikter,träningsrutin,progress,träning",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Vilotimer för gymset"
+    },
+    "da": {
+      "promotionalText": "Styr dine pauser mellem sæt med ét tryk: færre forstyrrelser, mere fokus og reel fremgang i styrketræning.",
+      "description": "GymTimerPro er pausetimeren designet til styrketræning i fitnesscenteret.\nDen er ikke til løb, yoga eller cardio: den er lavet til vægttræningssæt, så du træner med rytme, fokus og kontinuitet.\n\nLav dit sæt, tryk én gang for at starte pausen, og fortsæt når tiden er gået.\nDu behøver ikke kigge på telefonen hele tiden. Ingen unødvendige afbrydelser.\n\nMed GymTimerPro kan du:\n- Måle pauser mellem sæt hurtigt og præcist\n- Træne med færre forstyrrelser og mere koncentration\n- Oprette og gemme rutiner for nem gentagelse af træning\n- Følge din fremgang med en klar aktivitetsvisning\n\nHvis du træner styrke seriøst, gør pausekontrol en forskel.\nGymTimerPro hjælper dig med at holde det simpelt, hurtigt og stabilt.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "gym timer,pause timer,styrketræning,vægtløftning,træningsrutine,fremgang,træning",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Pausetimer til gymsæt"
+    },
+    "ja": {
+      "promotionalText": "セット間の休憩をワンタップ管理。無駄な操作を減らし、集中力と筋力トレーニングの成果を高めます。",
+      "description": "GymTimerPro は、ジムでの筋力トレーニング向けに設計された休憩タイマーです。\nランニング、ヨガ、カーディオ向けではありません。ウエイトのセット間休憩に特化し、リズム・集中・継続を支えます。\n\nセットを終えたら1回タップで休憩開始。時間が来たらすぐ次のセットへ。\nスマホを何度も確認する必要はありません。不要な中断を減らせます。\n\nGymTimerPro でできること:\n- セット間の休憩を素早く正確に計測\n- 気が散りにくく、集中してトレーニング\n- ルーティンを作成・保存してワークアウトを簡単に再現\n- アクティビティを見やすく確認して進捗を把握\n\n本気で筋力アップを目指すなら、休憩管理は重要です。\nGymTimerPro は、それをシンプルかつ効率的に実現します。\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "ジムタイマー,休憩タイマー,筋トレ,ウエイトトレーニング,ルーティン,進捗管理,トレーニング",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "筋トレ用レストタイマー"
+    },
+    "ko": {
+      "promotionalText": "세트 사이 휴식을 한 번의 탭으로 관리하세요. 방해는 줄이고, 집중과 근력 운동 성과를 높여줍니다.",
+      "description": "GymTimerPro는 헬스장에서 근력 운동을 위해 설계된 휴식 타이머입니다.\n러닝, 요가, 유산소용이 아닙니다. 웨이트 세트 사이 휴식에 특화되어 리듬, 집중, 꾸준함을 유지하게 도와줍니다.\n\n세트를 마친 뒤 한 번 탭해 휴식을 시작하고, 시간이 끝나면 바로 다음 세트로 돌아가세요.\n폰을 계속 확인할 필요가 없습니다. 불필요한 중단도 줄어듭니다.\n\nGymTimerPro로 할 수 있는 것:\n- 세트 사이 휴식 시간을 빠르고 정확하게 측정\n- 방해를 줄이고 집중해서 운동\n- 루틴을 만들고 저장해 운동을 쉽게 반복\n- 활동을 한눈에 보며 진행 상황 추적\n\n진짜 근력 향상을 원한다면 휴식 관리가 차이를 만듭니다.\nGymTimerPro가 이를 단순하고 빠르고 꾸준하게 만들어 줍니다.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "헬스 타이머,휴식 타이머,근력운동,웨이트트레이닝,운동 루틴,진행 추적,트레이닝",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "근력운동 휴식 타이머"
+    },
+    "zh-Hans": {
+      "promotionalText": "一键管理组间休息：减少干扰、更专注，让每次力量训练都获得真实进步。",
+      "description": "GymTimerPro 是专为健身房力量训练设计的组间休息计时器。\n它不是跑步、瑜伽或有氧工具，而是为举铁训练打造，让你保持节奏、专注和持续性。\n\n完成一组后，轻点一次开始休息，时间结束立即回到训练。\n不用一直盯着手机，也没有不必要的打断。\n\n使用 GymTimerPro，你可以：\n- 快速且准确地记录组间休息\n- 减少干扰，更专注地训练\n- 创建并保存训练例程，轻松重复训练\n- 通过清晰视图跟踪你的训练进度\n\n如果你认真做力量训练，休息控制会带来明显差异。\nGymTimerPro 帮你把这件事做得简单、高效、稳定。\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "健身计时器,组间休息,力量训练,举铁,训练计划,进度追踪,训练",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "力量训练组间休息计时器"
+    },
+    "hi": {
+      "promotionalText": "सेट्स के बीच आराम को एक टैप में ट्रैक करें: कम ध्यान भंग, ज्यादा फोकस और स्ट्रेंथ ट्रेनिंग में असली प्रगति।",
+      "description": "GymTimerPro जिम में स्ट्रेंथ ट्रेनिंग के लिए बनाया गया रेस्ट टाइमर है।\nयह रनिंग, योग या कार्डियो के लिए नहीं है। यह वेटलिफ्टिंग सेट्स के बीच आराम ट्रैक करने के लिए है, ताकि आप रिदम, फोकस और निरंतरता के साथ ट्रेन करें।\n\nअपना सेट पूरा करें, एक बार टैप करके रेस्ट शुरू करें, और समय पूरा होते ही अगला सेट शुरू करें।\nबार-बार फोन देखने की जरूरत नहीं। कोई अनावश्यक रुकावट नहीं।\n\nGymTimerPro के साथ आप:\n- सेट्स के बीच आराम समय तेज़ और सटीक तरीके से माप सकते हैं\n- कम ध्यान भंग के साथ बेहतर फोकस में ट्रेन कर सकते हैं\n- रूटीन बना और सेव कर सकते हैं ताकि वर्कआउट दोहराना आसान हो\n- अपनी गतिविधि का साफ़ व्यू लेकर प्रगति ट्रैक कर सकते हैं\n\nअगर आप सच में स्ट्रेंथ ट्रेनिंग करते हैं, तो रेस्ट कंट्रोल फर्क लाता है।\nGymTimerPro इसे सरल, तेज़ और लगातार बनाता है।\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "जिम टाइमर,रेस्ट टाइमर,वेटलिफ्टिंग,स्ट्रेंथ ट्रेनिंग,वर्कआउट रूटीन,प्रोग्रेस,प्रशिक्षण",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "जिम स्ट्रेंथ रेस्ट टाइमर"
+    },
+    "no": {
+      "promotionalText": "Kontroller pauser mellom settene med ett trykk: færre distraksjoner, mer fokus og reell fremgang i styrketrening.",
+      "description": "GymTimerPro er pausetimeren laget for styrketrening på gymmet.\nIkke for løping, yoga eller cardio: den er laget for vektsettene dine så du trener med rytme, fokus og kontinuitet.\n\nGjør settet ditt, trykk én gang for å starte pausen, og fortsett når tiden er ute.\nIngen konstant mobilsjekking. Ingen unødvendige avbrudd.\n\nMed GymTimerPro kan du:\n- Måle pauser mellom sett raskt og presist\n- Trene med færre distraksjoner og bedre konsentrasjon\n- Lage og lagre rutiner for å gjenta økter enkelt\n- Følge fremgangen med en tydelig aktivitetsoversikt\n\nHvis du trener styrke seriøst, utgjør pausekontroll en forskjell.\nGymTimerPro hjelper deg å holde det enkelt, raskt og konsekvent.\n\nTerms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/\nPrivacy Policy: https://alejandroestevemaza.github.io/GymTimerPro-privacy/",
+      "keywords": "gymtimer,pause timer,styrketrening,vekter,treningsrutine,fremgang,trening",
+      "supportUrl": "https://alejandro-esteve.com/",
+      "marketingUrl": "https://alejandro-esteve.com/",
+      "name": "Gym Timer Pro",
+      "subtitle": "Pausetimer for gymsett"
+    }
+  }
+}

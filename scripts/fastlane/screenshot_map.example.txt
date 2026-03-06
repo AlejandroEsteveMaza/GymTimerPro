@@ -1,0 +1,19 @@
+# locale=folder_or_absolute_path
+# If relative, it is resolved from --source-root.
+
+en=/Users/alejandroestevemaza/Desktop/en-US
+es=/Users/alejandroestevemaza/Desktop/es-ES
+de=/Users/alejandroestevemaza/Desktop/de-DE
+fr=/Users/alejandroestevemaza/Desktop/fr-FR
+it=/Users/alejandroestevemaza/Desktop/it
+pt-BR=/Users/alejandroestevemaza/Desktop/pt-BR
+pt-PT=/Users/alejandroestevemaza/Desktop/pt-PT
+nl=/Users/alejandroestevemaza/Desktop/nl-NL
+sv=/Users/alejandroestevemaza/Desktop/sv
+da=/Users/alejandroestevemaza/Desktop/da
+nb=/Users/alejandroestevemaza/Desktop/no
+ja=/Users/alejandroestevemaza/Desktop/ja
+ko=/Users/alejandroestevemaza/Desktop/ko
+zh-Hans=/Users/alejandroestevemaza/Desktop/zh-Hans
+hi=/Users/alejandroestevemaza/Desktop/hi
+

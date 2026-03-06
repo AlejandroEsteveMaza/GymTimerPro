@@ -1,0 +1,57 @@
+{
+  "default": {
+    "use_platform": "IOS",
+    "background": "../../resources/assets/background_timer.jpg",
+    "padding": "10%x12%",
+    "title_min_height": "18%",
+    "show_complete_frame": true,
+    "font_scale_factor": 0.07,
+    "title": {
+      "color": "#F3F8FF",
+      "font_size": 78,
+      "font_weight": "700",
+      "fonts": [
+        {
+          "font": "../../resources/assets/Avenir Next.ttc",
+          "supported": [
+            "da",
+            "de",
+            "en",
+            "en-US",
+            "es",
+            "fr",
+            "it",
+            "nb",
+            "nl",
+            "pt-BR",
+            "pt-PT",
+            "sv"
+          ]
+        },
+        {
+          "font": "../../resources/assets/ArialUnicode.ttf",
+          "supported": [
+            "hi",
+            "ja",
+            "ko",
+            "zh-Hans"
+          ]
+        }
+      ]
+    }
+  },
+  "data": [
+    {
+      "filter": "01_",
+      "background": "../../resources/assets/background_timer.jpg"
+    },
+    {
+      "filter": "02_",
+      "background": "../../resources/assets/background_categories.jpg"
+    },
+    {
+      "filter": "03_",
+      "background": "../../resources/assets/background_progress.jpg"
+    }
+  ]
+}
