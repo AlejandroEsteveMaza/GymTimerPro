@@ -1,16 +1,20 @@
-# App Store Connect subscription localization updater
+# App Store Connect localization updaters
 
-This folder contains scripts to update subscription texts (`name` + `description`)
-for all locales of:
+This folder contains scripts to update:
 
-- `premium_monthly`
-- `premium_yearly`
+- Subscription texts (`name` + `description`) for:
+  - `premium_monthly`
+  - `premium_yearly`
+- App metadata localizations (`description`, `promotionalText`, `keywords`, `name`, `subtitle`, `supportUrl`, `marketingUrl`)
+
 
 ## Files
 
 - `asc_token.py`: generate ASC JWT token from env vars.
 - `update_subscription_localizations.py`: dry-run/apply updater.
 - `subscription_texts.example.json`: translation payload example.
+- `update_app_metadata_localizations.py`: app metadata localizations updater.
+- `app_metadata_texts.gymtimerpro.json`: ready-to-run metadata payload.
 - `api_examples.sh`: complete `curl` examples for list + patch + post.
 
 ## Requirements
@@ -52,5 +56,32 @@ python3 scripts/app_store_connect/update_subscription_localizations.py \
   --bundle-id "com.yourcompany.yourapp" \
   --translations scripts/app_store_connect/subscription_texts.example.json \
   --max-description-length 0 \
+  --apply
+```
+
+## App metadata localizations (dry-run first)
+
+```bash
+python3 scripts/app_store_connect/update_app_metadata_localizations.py \
+  --bundle-id "com.yourcompany.yourapp" \
+  --translations scripts/app_store_connect/app_metadata_texts.gymtimerpro.json
+```
+
+Apply real changes:
+
+```bash
+python3 scripts/app_store_connect/update_app_metadata_localizations.py \
+  --bundle-id "com.yourcompany.yourapp" \
+  --translations scripts/app_store_connect/app_metadata_texts.gymtimerpro.json \
+  --apply
+```
+
+Target a specific version string (recommended when preparing a release):
+
+```bash
+python3 scripts/app_store_connect/update_app_metadata_localizations.py \
+  --bundle-id "com.yourcompany.yourapp" \
+  --translations scripts/app_store_connect/app_metadata_texts.gymtimerpro.json \
+  --version-string "1.0" \
   --apply
 ```
