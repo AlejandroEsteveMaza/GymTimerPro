@@ -52,6 +52,14 @@ fastlane/Preview.html
 fastlane/logs/
 fastlane/screenshots/**/*.png
 fastlane/screenshots/**/*.html
+fastlane/frameit/work/**
+!fastlane/frameit/work/screenshots/
+!fastlane/frameit/work/screenshots/.gitkeep
+fastlane/frameit/results/**
+!fastlane/frameit/results/screenshots/
+!fastlane/frameit/results/screenshots/.gitkeep
+fastlane/frameit/resources/assets/**
+!fastlane/frameit/resources/assets/.gitkeep
 fastlane/test_output
 fastlane/output/
 fastlane/**/*.xcresult
