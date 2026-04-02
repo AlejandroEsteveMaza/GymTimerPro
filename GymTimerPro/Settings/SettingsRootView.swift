@@ -26,6 +26,7 @@ struct SettingsRootView: View {
                         .tag(WeightUnitPreference.pounds)
                 }
                 .pickerStyle(.menu)
+                .accessibilityIdentifier("settingsWeightUnitPicker")
             }
 
             Section("settings.timer_display.section") {

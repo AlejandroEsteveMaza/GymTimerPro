@@ -601,6 +601,10 @@ struct ContentView: View {
         uiTestOverridesApplied = true
         let env = ProcessInfo.processInfo.environment
 
+        if env["UITEST_RESET_WORKOUT_STATE"] == "1" {
+            resetWorkout()
+        }
+
         if let setsValue = env["UITEST_TOTAL_SETS"], let sets = Int(setsValue) {
             totalSeries = sets
             if serieActual > sets {
@@ -615,6 +619,53 @@ struct ContentView: View {
         }
         if env["UITEST_SHOW_NOTIFICATION_PREVIEW"] == "1" {
             showNotificationPreview = true
+        }
+
+        if let consumedValue = env["UITEST_USAGE_CONSUMED"], let consumed = Int(consumedValue) {
+            let today = Calendar.current.startOfDay(for: .now)
+            UserDefaults.standard.set(today, forKey: "usageLimiter.dayStart")
+            UserDefaults.standard.set(max(0, consumed), forKey: "usageLimiter.consumed")
+            usageLimiter.refresh(now: .now)
+        }
+
+        if let forcedContext = forcedPaywallContext(from: env) {
+            paywallContext = forcedContext
+        }
+    }
+
+    private func forcedPaywallContext(from env: [String: String]) -> PaywallPresentationContext? {
+        guard
+            let entryRaw = env["UITEST_PAYWALL_ENTRY"],
+            let infoRaw = env["UITEST_PAYWALL_INFO_LEVEL"],
+            let entryPoint = parsePaywallEntryPoint(entryRaw),
+            let infoLevel = parsePaywallInfoLevel(infoRaw)
+        else {
+            return nil
+        }
+        return PaywallPresentationContext(entryPoint: entryPoint, infoLevel: infoLevel)
+    }
+
+    private func parsePaywallEntryPoint(_ value: String) -> PaywallEntryPoint? {
+        switch value.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
+        case "promodule", "pro_module", "pro":
+            return .proModule
+        case "dailylimitduringworkout", "daily_limit_during_workout", "daily_limit", "limit":
+            return .dailyLimitDuringWorkout
+        default:
+            return nil
+        }
+    }
+
+    private func parsePaywallInfoLevel(_ value: String) -> PaywallInfoLevel? {
+        switch value.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
+        case "light":
+            return .light
+        case "standard":
+            return .standard
+        case "detailed":
+            return .detailed
+        default:
+            return nil
         }
     }
 

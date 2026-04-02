@@ -78,6 +78,13 @@ final class RoutinesStore: ObservableObject {
         guard !isConfigured else { return }
         modelContext = context
         isConfigured = true
+
+        #if DEBUG
+        if shouldResetRoutines {
+            resetAllRoutinesData()
+        }
+        #endif
+
         refresh()
 
         #if DEBUG
@@ -176,6 +183,33 @@ final class RoutinesStore: ObservableObject {
             return env == "1" || env == "true" || env == "yes"
         }
         return false
+    }
+
+    private var shouldResetRoutines: Bool {
+        let args = ProcessInfo.processInfo.arguments.map { $0.lowercased() }
+        if args.contains("ui-testing-reset-routines") {
+            return true
+        }
+        if let env = ProcessInfo.processInfo.environment["UI_TESTING_RESET_ROUTINES"]?.lowercased() {
+            return env == "1" || env == "true" || env == "yes"
+        }
+        return false
+    }
+
+    private func resetAllRoutinesData() {
+        guard let modelContext else { return }
+
+        let routines = (try? modelContext.fetch(FetchDescriptor<Routine>())) ?? []
+        for routine in routines {
+            modelContext.delete(routine)
+        }
+
+        let classifications = (try? modelContext.fetch(FetchDescriptor<RoutineClassification>())) ?? []
+        for classification in classifications {
+            modelContext.delete(classification)
+        }
+
+        try? modelContext.save()
     }
 
     private func seedSampleRoutines() {

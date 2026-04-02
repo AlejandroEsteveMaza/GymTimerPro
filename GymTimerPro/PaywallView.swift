@@ -17,6 +17,15 @@ struct PaywallView: View {
     @State private var selectedProductID: String?
     @State private var infoMessage: String?
 
+    private var shouldDismissWhenUserIsPro: Bool {
+        let args = ProcessInfo.processInfo.arguments.map { $0.lowercased() }
+        let isUITesting = args.contains("-ui_testing") || args.contains("ui-testing")
+        if isUITesting, ProcessInfo.processInfo.environment["UITEST_KEEP_PAYWALL_VISIBLE_FOR_PRO"] == "1" {
+            return false
+        }
+        return true
+    }
+
     init(
         dailyLimit: Int,
         consumedToday: Int,
@@ -66,7 +75,7 @@ struct PaywallView: View {
         .task {
             await purchaseManager.refresh()
             selectDefaultProductIfNeeded()
-            if purchaseManager.isPro {
+            if purchaseManager.isPro && shouldDismissWhenUserIsPro {
                 dismiss()
             }
         }
@@ -74,7 +83,7 @@ struct PaywallView: View {
             selectDefaultProductIfNeeded()
         }
         .onChange(of: purchaseManager.isPro) { _, isPro in
-            if isPro {
+            if isPro && shouldDismissWhenUserIsPro {
                 dismiss()
             }
         }

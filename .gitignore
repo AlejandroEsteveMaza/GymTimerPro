@@ -76,6 +76,9 @@ fastlane/**/*.xcresult
 GymTimerPro.xcodeproj/project.xcworkspace/xcshareddata/
 GymTimerPro.xcodeproj/project.xcworkspace/xcuserdata/
 
+# Android port
+android-port/
+
 # Env / tooling
 .env
 .env.*
