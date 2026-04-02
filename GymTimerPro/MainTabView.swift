@@ -11,7 +11,9 @@ import SwiftUI
 struct MainTabView: View {
     @EnvironmentObject private var purchaseManager: PurchaseManager
     @StateObject private var usageLimiter = DailyUsageLimiter(dailyLimit: 16)
+    @StateObject private var alertReadinessChecker = AlertReadinessChecker()
     @State private var paywallContext: PaywallPresentationContext?
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         TabView {
@@ -88,6 +90,15 @@ struct MainTabView: View {
                 infoLevel: context.infoLevel
             )
             .environmentObject(purchaseManager)
+        }
+        .environmentObject(alertReadinessChecker)
+        .onAppear {
+            alertReadinessChecker.check()
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active {
+                alertReadinessChecker.check()
+            }
         }
     }
 }

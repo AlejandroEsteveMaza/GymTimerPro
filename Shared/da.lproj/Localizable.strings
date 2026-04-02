@@ -298,6 +298,16 @@
 "settings.max_sets.option.30" = "30 saet";
 
 "paywall.info.title" = "Info";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "Alarmer";
+"alert_readiness.settings.sound_disabled.title" = "Notifikationslyde slået fra";
+"alert_readiness.settings.time_sensitive_disabled.title" = "Tidsfølsomme slået fra";
+"alert_readiness.sound_disabled" = "Notifikationslyde er deaktiveret for denne app. Du hører muligvis ikke alarmen, når telefonen er låst.";
+"alert_readiness.time_sensitive_disabled" = "Tidsfølsomme notifikationer er deaktiveret for denne app. Alarmer bryder muligvis ikke igennem Forstyr ikke.";
+"alert_readiness.cta.open_settings" = "Indstillinger";
+"tip.keep_app_open" = "Hold appen åben og ringestyrken oppe for den bedste alarmoplevelse.";
+
 "progress.accessibility.week_goal_format" = "Træninger denne uge: %ld af %ld";
 "progress.activity.empty" = "Ingen afsluttede træninger endnu.";
 "progress.badge.first_workout.subtitle" = "Fuldfør din første træning.";

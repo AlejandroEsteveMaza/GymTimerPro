@@ -10,6 +10,7 @@ import Combine
 import SwiftData
 import UIKit
 import AudioToolbox
+import AVFoundation
 
 struct ContentView: View {
     @AppStorage("training.total_sets") private var totalSeries: Int = 4
@@ -31,12 +32,16 @@ struct ContentView: View {
     @State private var uiTestOverridesApplied = false
     @State private var isPresentingRoutinePicker = false
     @State private var lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
+    @State private var showKeepOpenTip = false
+    @State private var keepOpenTipShownThisSession = false
+    @State private var alertReadinessBannerDismissed = false
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var purchaseManager: PurchaseManager
     @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
+    @EnvironmentObject private var alertReadinessChecker: AlertReadinessChecker
 
     var body: some View {
         ZStack {
@@ -44,6 +49,8 @@ struct ContentView: View {
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: Layout.sectionSpacing) {
+                    alertReadinessBanner
+                    keepOpenTipBanner
                     configurationSection
                     progressSection
                 }
@@ -96,6 +103,9 @@ struct ContentView: View {
         .onChange(of: routineSelectionStore.selection) { _, selection in
             applyRoutineSelection(selection)
         }
+        .onChange(of: alertReadinessChecker.activeWarning) { _, _ in
+            alertReadinessBannerDismissed = false
+        }
         .onChange(of: scenePhase) { _, newPhase in
             restTimer.handleScenePhase(newPhase)
             if newPhase == .active {
@@ -144,6 +154,87 @@ struct ContentView: View {
                     routineSelectionStore.apply(routine)
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private var alertReadinessBanner: some View {
+        if let warning = alertReadinessChecker.activeWarning, !alertReadinessBannerDismissed {
+            HStack(spacing: 10) {
+                Image(systemName: warningIcon(for: warning))
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(.orange)
+
+                Text(LocalizedStringKey(warningMessageKey(for: warning)))
+                    .font(.subheadline)
+                    .foregroundStyle(Color(uiColor: .label))
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Spacer(minLength: 0)
+
+                Button(L10n.tr("alert_readiness.cta.open_settings")) {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+                .font(.subheadline.weight(.semibold))
+
+                Button {
+                    withAnimation { alertReadinessBannerDismissed = true }
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Color(uiColor: .tertiaryLabel))
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(12)
+            .background(Color.orange.opacity(0.1), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .transition(.opacity.combined(with: .move(edge: .top)))
+        }
+    }
+
+    private func warningIcon(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "speaker.slash.fill"
+        case .timeSensitiveDisabled: return "bell.slash.fill"
+        }
+    }
+
+    private func warningMessageKey(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "alert_readiness.sound_disabled"
+        case .timeSensitiveDisabled: return "alert_readiness.time_sensitive_disabled"
+        }
+    }
+
+    @ViewBuilder
+    private var keepOpenTipBanner: some View {
+        if showKeepOpenTip {
+            HStack(spacing: 10) {
+                Image(systemName: "iphone.radiowaves.left.and.right")
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(.blue)
+
+                Text("tip.keep_app_open")
+                    .font(.subheadline)
+                    .foregroundStyle(Color(uiColor: .secondaryLabel))
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Spacer(minLength: 0)
+
+                Button {
+                    withAnimation { showKeepOpenTip = false }
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Color(uiColor: .tertiaryLabel))
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(12)
+            .background(Color.blue.opacity(0.08), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .transition(.opacity.combined(with: .move(edge: .top)))
         }
     }
 
@@ -428,16 +519,36 @@ struct ContentView: View {
         if let endDate = restTimer.endDate {
             updateLiveActivity(endDate: endDate, mode: .resting)
         }
+
+        if !keepOpenTipShownThisSession {
+            keepOpenTipShownThisSession = true
+            showKeepOpenTip = true
+        }
     }
 
     private func handleRestFinished() {
         restTimer.acknowledgeFinish()
         liveActivityManager.end()
         liveActivityManager.cancelEndNotification()
-        // Sound is always enabled (power saving only affects extra feedback like haptics/animations).
-        AudioServicesPlaySystemSound(restFinishedSoundID)
+        playRestFinishedSound()
         if !isEnergySavingActive {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
+        withAnimation { showKeepOpenTip = false }
+    }
+
+    private func playRestFinishedSound() {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playback, options: .mixWithOthers)
+            try session.setActive(true)
+        } catch {
+            AudioServicesPlaySystemSound(restFinishedSoundID)
+            return
+        }
+        AudioServicesPlayAlertSound(restFinishedSoundID)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            try? session.setActive(false, options: .notifyOthersOnDeactivation)
         }
     }
 
@@ -462,6 +573,7 @@ struct ContentView: View {
         restTimer.reset()
         liveActivityManager.end()
         liveActivityManager.cancelEndNotification()
+        withAnimation { showKeepOpenTip = false }
 
         withAnimation(.snappy) {
             serieActual = 1

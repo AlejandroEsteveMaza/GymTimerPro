@@ -298,6 +298,16 @@
 "settings.max_sets.option.30" = "30 set";
 
 "paywall.info.title" = "Info";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "Varningar";
+"alert_readiness.settings.sound_disabled.title" = "Aviseringsljud av";
+"alert_readiness.settings.time_sensitive_disabled.title" = "Tidskänsliga av";
+"alert_readiness.sound_disabled" = "Aviseringsljud är avstängda för den här appen. Du kanske inte hör viloalarmet när telefonen är låst.";
+"alert_readiness.time_sensitive_disabled" = "Tidskänsliga aviseringar är avstängda för den här appen. Larm kanske inte bryter igenom Stör ej.";
+"alert_readiness.cta.open_settings" = "Inställningar";
+"tip.keep_app_open" = "Håll appen öppen och ringsignalsvolymen uppe för bästa larmupplevelse.";
+
 "progress.accessibility.week_goal_format" = "Träningspass den här veckan: %ld av %ld";
 "progress.activity.empty" = "Inga avslutade träningspass ännu.";
 "progress.badge.first_workout.subtitle" = "Slutför ditt första träningspass.";

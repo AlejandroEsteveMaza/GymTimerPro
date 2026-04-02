@@ -353,3 +353,12 @@
 "settings.max_sets.option.30" = "30 sets";
 
 "paywall.info.title" = "Info";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "Alerts";
+"alert_readiness.settings.sound_disabled.title" = "Notification sounds off";
+"alert_readiness.settings.time_sensitive_disabled.title" = "Time Sensitive off";
+"alert_readiness.sound_disabled" = "Notification sounds are disabled for this app. You may not hear the rest timer alert when the phone is locked.";
+"alert_readiness.time_sensitive_disabled" = "Time Sensitive notifications are disabled for this app. Alerts may not break through Do Not Disturb.";
+"alert_readiness.cta.open_settings" = "Settings";
+"tip.keep_app_open" = "Keep the app open and the ringer volume up for the best alert experience.";

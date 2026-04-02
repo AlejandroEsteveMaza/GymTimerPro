@@ -79,6 +79,7 @@ final class LiveActivityManager: ObservableObject {
             content.title = L10n.tr("notification.rest_finished.title")
             content.body = L10n.format("notification.rest_finished.body_format", currentSet, totalSets)
             content.sound = .default
+            content.interruptionLevel = .timeSensitive
 
             let interval = max(1, endDate.timeIntervalSince(Date()))
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)

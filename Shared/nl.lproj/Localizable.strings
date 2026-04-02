@@ -298,6 +298,16 @@
 "settings.max_sets.option.30" = "30 sets";
 
 "paywall.info.title" = "Info";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "Meldingen";
+"alert_readiness.settings.sound_disabled.title" = "Meldingsgeluiden uit";
+"alert_readiness.settings.time_sensitive_disabled.title" = "Tijdgevoelige uit";
+"alert_readiness.sound_disabled" = "Meldingsgeluiden zijn uitgeschakeld voor deze app. Je hoort de rusttimer mogelijk niet als je telefoon vergrendeld is.";
+"alert_readiness.time_sensitive_disabled" = "Tijdgevoelige meldingen zijn uitgeschakeld voor deze app. Meldingen doorbreken mogelijk niet de Niet storen-modus.";
+"alert_readiness.cta.open_settings" = "Instellingen";
+"tip.keep_app_open" = "Houd de app open en het beltoonvolume omhoog voor de beste meldingservaring.";
+
 "progress.accessibility.week_goal_format" = "Work-outs deze week: %ld van %ld";
 "progress.activity.empty" = "Nog geen voltooide work-outs.";
 "progress.badge.first_workout.subtitle" = "Voltooi je eerste work-out.";

@@ -298,6 +298,16 @@
 "settings.max_sets.option.30" = "30组";
 
 "paywall.info.title" = "信息";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "提醒";
+"alert_readiness.settings.sound_disabled.title" = "通知声音已关闭";
+"alert_readiness.settings.time_sensitive_disabled.title" = "时效通知已关闭";
+"alert_readiness.sound_disabled" = "此 App 的通知声音已关闭。锁屏时可能听不到休息计时器提醒。";
+"alert_readiness.time_sensitive_disabled" = "此 App 的时效通知已关闭。提醒可能无法在勿扰模式中送达。";
+"alert_readiness.cta.open_settings" = "设置";
+"tip.keep_app_open" = "保持 App 打开并调高铃声音量，以获得最佳提醒体验。";
+
 "progress.accessibility.week_goal_format" = "本周训练：%ld / %ld";
 "progress.activity.empty" = "还没有完成的训练。";
 "progress.badge.first_workout.subtitle" = "完成你的第一次训练。";

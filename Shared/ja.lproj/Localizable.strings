@@ -298,6 +298,16 @@
 "settings.max_sets.option.30" = "30セット";
 
 "paywall.info.title" = "情報";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "アラート";
+"alert_readiness.settings.sound_disabled.title" = "通知音がオフ";
+"alert_readiness.settings.time_sensitive_disabled.title" = "即時通知がオフ";
+"alert_readiness.sound_disabled" = "このアプリの通知音がオフになっています。画面ロック時に休憩タイマーのアラートが聞こえない場合があります。";
+"alert_readiness.time_sensitive_disabled" = "このアプリの即時通知がオフになっています。おやすみモード中にアラートが届かない場合があります。";
+"alert_readiness.cta.open_settings" = "設定";
+"tip.keep_app_open" = "最適なアラート体験のためにアプリを開いたままにし、着信音の音量を上げておいてください。";
+
 "progress.accessibility.week_goal_format" = "今週のワークアウト: %ld/%ld";
 "progress.activity.empty" = "完了したワークアウトはまだありません。";
 "progress.badge.first_workout.subtitle" = "最初のワークアウトを完了しましょう。";

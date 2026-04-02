@@ -298,6 +298,16 @@
 "settings.max_sets.option.30" = "30 Satze";
 
 "paywall.info.title" = "Info";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "Hinweise";
+"alert_readiness.settings.sound_disabled.title" = "Benachrichtigungstöne aus";
+"alert_readiness.settings.time_sensitive_disabled.title" = "Zeitkritische aus";
+"alert_readiness.sound_disabled" = "Benachrichtigungstöne sind für diese App deaktiviert. Du hörst den Pausenalarm möglicherweise nicht, wenn das Telefon gesperrt ist.";
+"alert_readiness.time_sensitive_disabled" = "Zeitkritische Mitteilungen sind für diese App deaktiviert. Alarme durchbrechen den Fokus-Modus möglicherweise nicht.";
+"alert_readiness.cta.open_settings" = "Einstellungen";
+"tip.keep_app_open" = "Lass die App geöffnet und die Klingeltonlautstärke hoch für die beste Alarmerfahrung.";
+
 "progress.accessibility.week_goal_format" = "Trainings diese Woche: %ld von %ld";
 "progress.activity.empty" = "Noch keine abgeschlossenen Trainings.";
 "progress.badge.first_workout.subtitle" = "Schließe dein erstes Training ab.";

@@ -298,6 +298,16 @@
 "settings.max_sets.option.30" = "30 सेट";
 
 "paywall.info.title" = "जानकारी";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "अलर्ट";
+"alert_readiness.settings.sound_disabled.title" = "नोटिफ़िकेशन ध्वनि बंद";
+"alert_readiness.settings.time_sensitive_disabled.title" = "टाइम सेंसिटिव बंद";
+"alert_readiness.sound_disabled" = "इस ऐप के लिए नोटिफ़िकेशन ध्वनियाँ बंद हैं। फ़ोन लॉक होने पर आराम टाइमर अलर्ट सुनाई नहीं दे सकता।";
+"alert_readiness.time_sensitive_disabled" = "इस ऐप के लिए टाइम सेंसिटिव नोटिफ़िकेशन बंद हैं। अलर्ट डू नॉट डिस्टर्ब मोड में नहीं पहुँच सकते।";
+"alert_readiness.cta.open_settings" = "सेटिंग्स";
+"tip.keep_app_open" = "सबसे अच्छे अलर्ट अनुभव के लिए ऐप खुली रखें और रिंगर वॉल्यूम ऊंचा रखें।";
+
 "progress.accessibility.week_goal_format" = "इस सप्ताह वर्कआउट: %ld में से %ld";
 "progress.activity.empty" = "अभी तक कोई वर्कआउट पूरा नहीं हुआ है।";
 "progress.badge.first_workout.subtitle" = "अपना पहला वर्कआउट पूरा करें।";

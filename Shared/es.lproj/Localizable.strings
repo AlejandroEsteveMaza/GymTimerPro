@@ -353,3 +353,12 @@
 "settings.max_sets.option.30" = "30 series";
 
 "paywall.info.title" = "Información";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "Alertas";
+"alert_readiness.settings.sound_disabled.title" = "Sonidos de notificación apagados";
+"alert_readiness.settings.time_sensitive_disabled.title" = "Urgentes desactivadas";
+"alert_readiness.sound_disabled" = "Los sonidos de notificación están desactivados para esta app. Puede que no oigas la alerta de fin de descanso con el teléfono bloqueado.";
+"alert_readiness.time_sensitive_disabled" = "Las notificaciones urgentes están desactivadas para esta app. Las alertas pueden no atravesar el modo No Molestar.";
+"alert_readiness.cta.open_settings" = "Ajustes";
+"tip.keep_app_open" = "Mantén la app abierta y el volumen del ringer subido para la mejor experiencia de alerta.";

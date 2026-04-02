@@ -298,6 +298,16 @@
 "settings.max_sets.option.30" = "30 sett";
 
 "paywall.info.title" = "Info";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "Varsler";
+"alert_readiness.settings.sound_disabled.title" = "Varsellyder er av";
+"alert_readiness.settings.time_sensitive_disabled.title" = "Tidssensitive er av";
+"alert_readiness.sound_disabled" = "Varsellyder er deaktivert for denne appen. Du hører kanskje ikke hviletidsalarmen når telefonen er låst.";
+"alert_readiness.time_sensitive_disabled" = "Tidssensitive varsler er deaktivert for denne appen. Alarmer bryter kanskje ikke gjennom Ikke forstyrr.";
+"alert_readiness.cta.open_settings" = "Innstillinger";
+"tip.keep_app_open" = "Hold appen åpen og ringevolumet oppe for den beste alarmopplevelsen.";
+
 "progress.accessibility.week_goal_format" = "Økter denne uken: %ld av %ld";
 "progress.activity.empty" = "Ingen fullførte økter ennå.";
 "progress.badge.first_workout.subtitle" = "Fullfør din første økt.";

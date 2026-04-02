@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SettingsRootView: View {
+    @EnvironmentObject private var alertReadinessChecker: AlertReadinessChecker
     @AppStorage(WeightUnitPreference.appStorageKey) private var weightUnitPreferenceRawValue: Int = WeightUnitPreference.automatic.rawValue
     @AppStorage(MaxSetsPreference.appStorageKey) private var maxSetsPreferenceRawValue: Int = MaxSetsPreference.ten.rawValue
     @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
@@ -16,6 +18,8 @@ struct SettingsRootView: View {
 
     var body: some View {
         List {
+            alertReadinessSection
+
             Section("settings.weight_unit.section") {
                 Picker("settings.weight_unit.title", selection: weightUnitPreferenceBinding) {
                     Text("settings.weight_unit.option.automatic")
@@ -90,6 +94,61 @@ struct SettingsRootView: View {
             }
         }
         .navigationTitle("tab.settings")
+    }
+
+    @ViewBuilder
+    private var alertReadinessSection: some View {
+        if let warning = alertReadinessChecker.activeWarning {
+            Section {
+                HStack(spacing: 12) {
+                    Image(systemName: settingsWarningIcon(for: warning))
+                        .foregroundStyle(.orange)
+                        .font(.title3)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(LocalizedStringKey(settingsWarningTitleKey(for: warning)))
+                            .font(.subheadline.weight(.semibold))
+                        Text(LocalizedStringKey(settingsWarningMessageKey(for: warning)))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Spacer(minLength: 0)
+
+                    Button {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text("alert_readiness.cta.open_settings")
+                            .font(.subheadline.weight(.semibold))
+                    }
+                }
+            } header: {
+                Text("alert_readiness.settings.section")
+            }
+        }
+    }
+
+    private func settingsWarningIcon(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "speaker.slash.fill"
+        case .timeSensitiveDisabled: return "bell.slash.fill"
+        }
+    }
+
+    private func settingsWarningTitleKey(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "alert_readiness.settings.sound_disabled.title"
+        case .timeSensitiveDisabled: return "alert_readiness.settings.time_sensitive_disabled.title"
+        }
+    }
+
+    private func settingsWarningMessageKey(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "alert_readiness.sound_disabled"
+        case .timeSensitiveDisabled: return "alert_readiness.time_sensitive_disabled"
+        }
     }
 
     private var weightUnitPreferenceBinding: Binding<WeightUnitPreference> {
