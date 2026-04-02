@@ -13,7 +13,7 @@ struct ProgramProgressView: View {
     @Query(sort: [SortDescriptor(\WorkoutCompletion.completedAt, order: .reverse)]) private var completions: [WorkoutCompletion]
 
     @State private var store = ProgramProgressStore()
-    @State private var selectedPeriod: ProgressPeriod = .month
+    @State private var selectedPeriod: ProgressPeriod = .fortnight
     @State private var selectedDay: ProgressSelectedDay?
     @State private var didApplyUITestOverrides = false
     private let chartCalendar = Calendar.autoupdatingCurrent
