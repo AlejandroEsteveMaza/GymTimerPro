@@ -82,6 +82,8 @@
 "routines.add" = "Ny rutine";
 "routines.create.title" = "Ny rutine";
 "routines.delete" = "Slett rutine";
+"routines.duplicate" = "Dupliser";
+"routines.copy_suffix_format" = "%@ (Kopi)";
 "routines.discard.confirm" = "Forkast";
 "routines.discard.keep_editing" = "Fortsett å redigere";
 "routines.discard.message" = "Du har ulagrede endringer.";

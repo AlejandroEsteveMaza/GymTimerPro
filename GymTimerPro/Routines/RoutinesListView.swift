@@ -56,7 +56,41 @@ struct RoutinesListView: View {
                             .tint(.blue)
                         }
                     }
-                    .swipeActions {
+                    .swipeActions(allowsFullSwipe: false) {
+                        Button(role: .destructive) {
+                            if isApplied {
+                                routineSelectionStore.clear()
+                            }
+                            store.delete(routine)
+                        } label: {
+                            Label("routines.delete", systemImage: "trash")
+                        }
+                    }
+                    .contextMenu {
+                        Button {
+                            store.duplicate(routine)
+                        } label: {
+                            Label("routines.duplicate", systemImage: "doc.on.doc")
+                        }
+
+                        Divider()
+
+                        if isApplied {
+                            Button {
+                                routineSelectionStore.clear()
+                            } label: {
+                                Label("routines.remove_from_training", systemImage: "xmark.circle")
+                            }
+                        } else {
+                            Button {
+                                routineSelectionStore.apply(routine)
+                            } label: {
+                                Label("routines.apply", systemImage: "checkmark.circle")
+                            }
+                        }
+
+                        Divider()
+
                         Button(role: .destructive) {
                             if isApplied {
                                 routineSelectionStore.clear()

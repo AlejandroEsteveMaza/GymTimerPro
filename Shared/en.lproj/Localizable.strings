@@ -82,6 +82,8 @@
 "routines.add" = "New Routine";
 "routines.create.title" = "New Routine";
 "routines.delete" = "Delete Routine";
+"routines.duplicate" = "Duplicate";
+"routines.copy_suffix_format" = "%@ (Copy)";
 "routines.discard.confirm" = "Discard";
 "routines.discard.keep_editing" = "Keep Editing";
 "routines.discard.message" = "You have unsaved changes.";

@@ -82,6 +82,8 @@
 "routines.add" = "नई रूटीन";
 "routines.create.title" = "नई रूटीन";
 "routines.delete" = "रूटीन हटाएं";
+"routines.duplicate" = "डुप्लिकेट";
+"routines.copy_suffix_format" = "%@ (प्रति)";
 "routines.discard.confirm" = "छोड़ें";
 "routines.discard.keep_editing" = "एडिट जारी रखें";
 "routines.discard.message" = "आपके बदलाव सेव नहीं हुए हैं.";

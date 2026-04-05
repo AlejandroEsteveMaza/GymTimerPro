@@ -140,6 +140,13 @@ final class RoutinesStore: ObservableObject {
         refresh()
     }
 
+    func duplicate(_ routine: Routine) {
+        var draft = RoutineDraft(routine: routine)
+        let suffix = L10n.format("routines.copy_suffix_format", routine.name)
+        draft.name = String(suffix.prefix(50))
+        create(from: draft)
+    }
+
     func delete(_ routine: Routine) {
         syncClassifications(for: routine, previous: routine.classifications, current: [])
         routine.classifications.removeAll()

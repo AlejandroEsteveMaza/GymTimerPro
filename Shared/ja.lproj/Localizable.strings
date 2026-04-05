@@ -82,6 +82,8 @@
 "routines.add" = "新規ルーティン";
 "routines.create.title" = "新規ルーティン";
 "routines.delete" = "ルーティンを削除";
+"routines.duplicate" = "複製";
+"routines.copy_suffix_format" = "%@（コピー）";
 "routines.discard.confirm" = "破棄";
 "routines.discard.keep_editing" = "編集を続ける";
 "routines.discard.message" = "未保存の変更があります。";

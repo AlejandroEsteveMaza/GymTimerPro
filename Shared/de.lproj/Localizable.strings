@@ -82,6 +82,8 @@
 "routines.add" = "Neue Routine";
 "routines.create.title" = "Neue Routine";
 "routines.delete" = "Routine löschen";
+"routines.duplicate" = "Duplizieren";
+"routines.copy_suffix_format" = "%@ (Kopie)";
 "routines.discard.confirm" = "Verwerfen";
 "routines.discard.keep_editing" = "Weiter bearbeiten";
 "routines.discard.message" = "Du hast ungespeicherte Änderungen.";

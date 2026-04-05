@@ -82,6 +82,8 @@
 "routines.add" = "Ny rutin";
 "routines.create.title" = "Ny rutin";
 "routines.delete" = "Radera rutin";
+"routines.duplicate" = "Duplicera";
+"routines.copy_suffix_format" = "%@ (Kopia)";
 "routines.discard.confirm" = "Kassera";
 "routines.discard.keep_editing" = "Fortsätt redigera";
 "routines.discard.message" = "Du har osparade ändringar.";

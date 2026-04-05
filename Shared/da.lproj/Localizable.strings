@@ -82,6 +82,8 @@
 "routines.add" = "Ny rutine";
 "routines.create.title" = "Ny rutine";
 "routines.delete" = "Slet rutine";
+"routines.duplicate" = "Duplikér";
+"routines.copy_suffix_format" = "%@ (Kopi)";
 "routines.discard.confirm" = "Kassér";
 "routines.discard.keep_editing" = "Fortsæt redigering";
 "routines.discard.message" = "Du har ændringer, der ikke er gemt.";
