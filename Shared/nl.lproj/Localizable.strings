@@ -112,11 +112,7 @@
 "routines.summary_format" = "%ld sets · %ld reps · %@ · %@";
 
 "pro.locked.message" = "16 sets per dag";
-"pro.locked.progress.title" = "Voortgang";
-"pro.locked.routines.title" = "Routines";
-"pro.locked.settings.title" = "Instellingen";
-
-"pro.locked.unlock" = "Pro ontgrendelen";
+/* Dead keys removed: pro.locked.progress.title, pro.locked.routines.title, pro.locked.settings.title, pro.locked.unlock (tabs are no longer locked) */
 
 "routines.apply" = "Toepassen op training";
 "routines.remove_from_training" = "Verwijderen uit training";
@@ -149,11 +145,11 @@
 
 /* Paywall v2 copy */
 "paywall.copy.light.pro.title" = "Ontgrendel Pro-modus";
-"paywall.copy.light.pro.subtitle" = "Routines, voortgang en instellingen zonder limiet.";
+"paywall.copy.light.pro.subtitle" = "Train elke dag zonder setlimiet.";
 "paywall.copy.light.pro.benefits_title" = "Belangrijkste voordelen";
 "paywall.copy.light.pro.bullet_1" = "Train zonder dagelijkse limieten.";
-"paywall.copy.light.pro.bullet_2" = "Sla routines op en herhaal in seconden.";
-"paywall.copy.light.pro.bullet_3" = "Volg je voortgang en blijf consistent.";
+"paywall.copy.light.pro.bullet_2" = "Geen plafond — train zoveel je wilt.";
+"paywall.copy.light.pro.bullet_3" = "Ononderbroken sessies, elke dag.";
 "paywall.copy.light.pro.plans_title" = "Kies een plan";
 "paywall.copy.light.pro.annual_label" = "Jaarlijks";
 "paywall.copy.light.pro.annual_badge" = "Beste waarde";
@@ -181,11 +177,11 @@
 "paywall.copy.light.limit.legal2" = "Daarna wordt het gekozen plan in rekening gebracht tot je opzegt.";
 
 "paywall.copy.standard.pro.title" = "Train op volle kracht";
-"paywall.copy.standard.pro.subtitle" = "Ontgrendel routines, voortgang en volledige controle.";
+"paywall.copy.standard.pro.subtitle" = "Verwijder de dagelijkse limiet en train vrij.";
 "paywall.copy.standard.pro.benefits_title" = "Wat je krijgt";
 "paywall.copy.standard.pro.bullet_1" = "Complete trainingsflow zonder frictie.";
-"paywall.copy.standard.pro.bullet_2" = "Routines klaar om altijd te herhalen.";
-"paywall.copy.standard.pro.bullet_3" = "Duidelijke voortgang om de gewoonte vast te houden.";
+"paywall.copy.standard.pro.bullet_2" = "Geen onderbrekingen wanneer je in de zone bent.";
+"paywall.copy.standard.pro.bullet_3" = "Elke set telt, zonder plafond.";
 "paywall.copy.standard.pro.plans_title" = "Kies je plan";
 "paywall.copy.standard.pro.annual_label" = "Jaarplan";
 "paywall.copy.standard.pro.annual_badge" = "Beste waarde";
@@ -200,8 +196,8 @@
 "paywall.copy.standard.limit.subtitle" = "Word Pro en rond je training af zonder limieten.";
 "paywall.copy.standard.limit.benefits_title" = "Wat je krijgt";
 "paywall.copy.standard.limit.bullet_1" = "Blijf nu trainen, zonder onderbrekingen.";
-"paywall.copy.standard.limit.bullet_2" = "Sla routines op om de volgende keer sneller te gaan.";
-"paywall.copy.standard.limit.bullet_3" = "Zie je voortgang zonder extra apps.";
+"paywall.copy.standard.limit.bullet_2" = "Geen plafond — train zolang je lichaam het toelaat.";
+"paywall.copy.standard.limit.bullet_3" = "Pak het op waar je gebleven was, elke dag.";
 "paywall.copy.standard.limit.plans_title" = "Kies je plan";
 "paywall.copy.standard.limit.annual_label" = "Jaarplan";
 "paywall.copy.standard.limit.annual_badge" = "Beste waarde";
@@ -213,11 +209,11 @@
 "paywall.copy.standard.limit.legal2" = "Wordt automatisch verlengd tot je opzegt.";
 
 "paywall.copy.detailed.pro.title" = "Ontgrendel alles van Pro";
-"paywall.copy.detailed.pro.subtitle" = "Alle routines, voortgang en controle op één plek.";
+"paywall.copy.detailed.pro.subtitle" = "Verwijder de dagelijkse setlimiet en train zonder beperkingen.";
 "paywall.copy.detailed.pro.benefits_title" = "Je training, verbeterd";
 "paywall.copy.detailed.pro.bullet_1" = "Blijf gefocust met timers voor sets.";
-"paywall.copy.detailed.pro.bullet_2" = "Gebruik routines en classificaties opnieuw.";
-"paywall.copy.detailed.pro.bullet_3" = "Volg voortgang met duidelijke visuals.";
+"paywall.copy.detailed.pro.bullet_2" = "Geen onderbrekingen — blijf in de zone.";
+"paywall.copy.detailed.pro.bullet_3" = "Train zoveel je wilt, elke dag.";
 "paywall.copy.detailed.pro.plans_title" = "Kies je plan";
 "paywall.copy.detailed.pro.annual_label" = "Jaarplan";
 "paywall.copy.detailed.pro.annual_badge" = "Beste waarde";
@@ -228,19 +224,19 @@
 "paywall.copy.detailed.pro.legal1" = "Automatisch verlengend abonnement met gratis proefperiode.";
 "paywall.copy.detailed.pro.legal2" = "Inclusief aankopen herstellen, voorwaarden en privacy.";
 "paywall.copy.detailed.pro.include_title" = "Wat Pro bevat";
-"paywall.copy.detailed.pro.include_1" = "Onbeperkte routines";
-"paywall.copy.detailed.pro.include_2" = "Classificaties om te ordenen";
-"paywall.copy.detailed.pro.include_3" = "Voortgangsgrafieken";
-"paywall.copy.detailed.pro.include_4" = "Activiteitskalender";
-"paywall.copy.detailed.pro.include_5" = "Streaks en badges";
-"paywall.copy.detailed.pro.include_6" = "Geen dagelijkse limiet tijdens training";
+"paywall.copy.detailed.pro.include_1" = "Onbeperkte sets per dag";
+"paywall.copy.detailed.pro.include_2" = "Geen trainingsonderbrekingen";
+"paywall.copy.detailed.pro.include_3" = "Train zolang je lichaam het toelaat";
+"paywall.copy.detailed.pro.include_4" = "Geen dagelijkse limiet-aftelling";
+"paywall.copy.detailed.pro.include_5" = "Steun onafhankelijke ontwikkeling";
+"paywall.copy.detailed.pro.include_6" = "Alle toekomstige Pro-functies inbegrepen";
 
 "paywall.copy.detailed.limit.title" = "Sterk afronden, zonder limieten";
 "paywall.copy.detailed.limit.subtitle" = "Activeer Pro en ga nu verder met deze training.";
 "paywall.copy.detailed.limit.benefits_title" = "Resultaat voor vandaag en daarna";
 "paywall.copy.detailed.limit.bullet_1" = "Ga nu direct verder met deze sessie.";
-"paywall.copy.detailed.limit.bullet_2" = "Bespaar tijd met herbruikbare routines.";
-"paywall.copy.detailed.limit.bullet_3" = "Blijf consistent met zichtbare voortgang.";
+"paywall.copy.detailed.limit.bullet_2" = "Geen plafond voor je training vandaag.";
+"paywall.copy.detailed.limit.bullet_3" = "Elke set telt, zonder beperkingen.";
 "paywall.copy.detailed.limit.plans_title" = "Kies je plan";
 "paywall.copy.detailed.limit.annual_label" = "Jaarplan";
 "paywall.copy.detailed.limit.annual_badge" = "Beste waarde";
@@ -252,11 +248,11 @@
 "paywall.copy.detailed.limit.legal2" = "Beheer of annuleer in Apple. Aankopen te herstellen.";
 "paywall.copy.detailed.limit.include_title" = "Wat Pro bevat";
 "paywall.copy.detailed.limit.include_1" = "Geen dagelijkse limiet";
-"paywall.copy.detailed.limit.include_2" = "Routines en classificaties";
-"paywall.copy.detailed.limit.include_3" = "Trainingshistorie";
-"paywall.copy.detailed.limit.include_4" = "Grafieken en kalender";
-"paywall.copy.detailed.limit.include_5" = "Recente activiteit";
-"paywall.copy.detailed.limit.include_6" = "Streaks en badges";
+"paywall.copy.detailed.limit.include_2" = "Maak deze sessie nu af";
+"paywall.copy.detailed.limit.include_3" = "Train zonder sets te tellen";
+"paywall.copy.detailed.limit.include_4" = "Geen onderbrekingen midden in de training";
+"paywall.copy.detailed.limit.include_5" = "Onbeperkt elke dag";
+"paywall.copy.detailed.limit.include_6" = "Alle toekomstige Pro-functies";
 
 "paywall.trial_incentive_format" = "Inclusief %@ gratis.";
 "paywall.period.generic" = "periode";

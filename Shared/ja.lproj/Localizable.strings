@@ -112,11 +112,7 @@
 "routines.summary_format" = "%ldセット · %ld回 · %@ · %@";
 
 "pro.locked.message" = "1日16セット";
-"pro.locked.progress.title" = "進捗";
-"pro.locked.routines.title" = "ルーティン";
-"pro.locked.settings.title" = "設定";
-
-"pro.locked.unlock" = "Proを解除";
+/* Dead keys removed: pro.locked.progress.title, pro.locked.routines.title, pro.locked.settings.title, pro.locked.unlock (tabs are no longer locked) */
 
 "routines.apply" = "トレーニングに適用";
 "routines.remove_from_training" = "トレーニングから外す";
@@ -149,11 +145,11 @@
 
 /* Paywall v2 copy */
 "paywall.copy.light.pro.title" = "Proモードを解放";
-"paywall.copy.light.pro.subtitle" = "ルーティン・進捗・設定を制限なく。";
+"paywall.copy.light.pro.subtitle" = "毎日セット数の制限なくトレーニング。";
 "paywall.copy.light.pro.benefits_title" = "主なメリット";
 "paywall.copy.light.pro.bullet_1" = "日次制限なしでトレーニング。";
-"paywall.copy.light.pro.bullet_2" = "ルーティンを保存してすぐ繰り返せる。";
-"paywall.copy.light.pro.bullet_3" = "進捗を見て習慣化。";
+"paywall.copy.light.pro.bullet_2" = "上限なし — 好きなだけトレーニング。";
+"paywall.copy.light.pro.bullet_3" = "中断のないセッションを毎日。";
 "paywall.copy.light.pro.plans_title" = "プランを選択";
 "paywall.copy.light.pro.annual_label" = "年額";
 "paywall.copy.light.pro.annual_badge" = "一番お得";
@@ -181,11 +177,11 @@
 "paywall.copy.light.limit.legal2" = "以降、選択したプランで請求されます。";
 
 "paywall.copy.standard.pro.title" = "フルパワーでトレーニング";
-"paywall.copy.standard.pro.subtitle" = "ルーティン、進捗、全機能を解放。";
+"paywall.copy.standard.pro.subtitle" = "1日の制限を解除して自由にトレーニング。";
 "paywall.copy.standard.pro.benefits_title" = "できること";
 "paywall.copy.standard.pro.bullet_1" = "摩擦のないトレーニングフロー。";
-"paywall.copy.standard.pro.bullet_2" = "いつでも繰り返せるルーティン。";
-"paywall.copy.standard.pro.bullet_3" = "わかりやすい進捗で継続。";
+"paywall.copy.standard.pro.bullet_2" = "集中しているときに中断なし。";
+"paywall.copy.standard.pro.bullet_3" = "すべてのセットが上限なしでカウント。";
 "paywall.copy.standard.pro.plans_title" = "プランを選ぶ";
 "paywall.copy.standard.pro.annual_label" = "年額プラン";
 "paywall.copy.standard.pro.annual_badge" = "一番お得";
@@ -200,8 +196,8 @@
 "paywall.copy.standard.limit.subtitle" = "Proで制限なくトレーニングを完了。";
 "paywall.copy.standard.limit.benefits_title" = "できること";
 "paywall.copy.standard.limit.bullet_1" = "今すぐ中断なく続ける。";
-"paywall.copy.standard.limit.bullet_2" = "ルーティン保存で次回を短縮。";
-"paywall.copy.standard.limit.bullet_3" = "追加アプリなしで進捗確認。";
+"paywall.copy.standard.limit.bullet_2" = "上限なし — 体が続く限りトレーニング。";
+"paywall.copy.standard.limit.bullet_3" = "毎日、前回の続きから再開。";
 "paywall.copy.standard.limit.plans_title" = "プランを選ぶ";
 "paywall.copy.standard.limit.annual_label" = "年額プラン";
 "paywall.copy.standard.limit.annual_badge" = "一番お得";
@@ -213,11 +209,11 @@
 "paywall.copy.standard.limit.legal2" = "解約まで自動更新。";
 
 "paywall.copy.detailed.pro.title" = "Proのすべてを解放";
-"paywall.copy.detailed.pro.subtitle" = "ルーティン、進捗、管理を一箇所に。";
+"paywall.copy.detailed.pro.subtitle" = "1日のセット制限を解除して制限なくトレーニング。";
 "paywall.copy.detailed.pro.benefits_title" = "トレーニングを強化";
 "paywall.copy.detailed.pro.bullet_1" = "セット向けタイマーで集中。";
-"paywall.copy.detailed.pro.bullet_2" = "ルーティンと分類をいつでも再利用。";
-"paywall.copy.detailed.pro.bullet_3" = "視覚的な進捗で把握。";
+"paywall.copy.detailed.pro.bullet_2" = "中断なし — ゾーンに留まる。";
+"paywall.copy.detailed.pro.bullet_3" = "好きなだけ毎日トレーニング。";
 "paywall.copy.detailed.pro.plans_title" = "プランを選ぶ";
 "paywall.copy.detailed.pro.annual_label" = "年額プラン";
 "paywall.copy.detailed.pro.annual_badge" = "一番お得";
@@ -228,19 +224,19 @@
 "paywall.copy.detailed.pro.legal1" = "無料トライアル付き自動更新サブスクリプション。";
 "paywall.copy.detailed.pro.legal2" = "購入復元、利用規約、プライバシーを含む。";
 "paywall.copy.detailed.pro.include_title" = "Proに含まれるもの";
-"paywall.copy.detailed.pro.include_1" = "無制限のルーティン";
-"paywall.copy.detailed.pro.include_2" = "整理用の分類";
-"paywall.copy.detailed.pro.include_3" = "進捗グラフ";
-"paywall.copy.detailed.pro.include_4" = "アクティビティカレンダー";
-"paywall.copy.detailed.pro.include_5" = "ストリークとバッジ";
-"paywall.copy.detailed.pro.include_6" = "トレーニング中の制限なし";
+"paywall.copy.detailed.pro.include_1" = "1日のセット数無制限";
+"paywall.copy.detailed.pro.include_2" = "トレーニング中断なし";
+"paywall.copy.detailed.pro.include_3" = "体が続く限りトレーニング";
+"paywall.copy.detailed.pro.include_4" = "毎日のリセットカウントダウンなし";
+"paywall.copy.detailed.pro.include_5" = "独立した開発を支援";
+"paywall.copy.detailed.pro.include_6" = "将来のPro機能すべて含む";
 
 "paywall.copy.detailed.limit.title" = "最後まで強く、制限なし";
 "paywall.copy.detailed.limit.subtitle" = "Proを有効化して今すぐ続行。";
 "paywall.copy.detailed.limit.benefits_title" = "今日もこれからも成果を";
 "paywall.copy.detailed.limit.bullet_1" = "このセッションを今すぐ継続。";
-"paywall.copy.detailed.limit.bullet_2" = "再利用ルーティンで時間短縮。";
-"paywall.copy.detailed.limit.bullet_3" = "見える進捗で継続。";
+"paywall.copy.detailed.limit.bullet_2" = "今日のトレーニングに上限なし。";
+"paywall.copy.detailed.limit.bullet_3" = "すべてのセットがカウント、制限なし。";
 "paywall.copy.detailed.limit.plans_title" = "プランを選ぶ";
 "paywall.copy.detailed.limit.annual_label" = "年額プラン";
 "paywall.copy.detailed.limit.annual_badge" = "一番お得";
@@ -252,11 +248,11 @@
 "paywall.copy.detailed.limit.legal2" = "Appleで管理・解約。購入は復元可能。";
 "paywall.copy.detailed.limit.include_title" = "Proに含まれるもの";
 "paywall.copy.detailed.limit.include_1" = "日次制限なし";
-"paywall.copy.detailed.limit.include_2" = "ルーティンと分類";
-"paywall.copy.detailed.limit.include_3" = "トレーニング履歴";
-"paywall.copy.detailed.limit.include_4" = "グラフとカレンダー";
-"paywall.copy.detailed.limit.include_5" = "最近のアクティビティ";
-"paywall.copy.detailed.limit.include_6" = "ストリークとバッジ";
+"paywall.copy.detailed.limit.include_2" = "今すぐこのセッションを完了";
+"paywall.copy.detailed.limit.include_3" = "セットを数えずにトレーニング";
+"paywall.copy.detailed.limit.include_4" = "トレーニング中に中断なし";
+"paywall.copy.detailed.limit.include_5" = "毎日無制限";
+"paywall.copy.detailed.limit.include_6" = "将来のPro機能すべて";
 
 "paywall.trial_incentive_format" = "無料で%@付き。";
 "paywall.period.generic" = "期間";

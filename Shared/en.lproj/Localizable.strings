@@ -112,11 +112,7 @@
 "routines.summary_format" = "%ld sets · %ld reps · %@ · %@";
 
 "pro.locked.message" = "16 sets per day";
-"pro.locked.progress.title" = "Progress";
-"pro.locked.routines.title" = "Routines";
-"pro.locked.settings.title" = "Settings";
-
-"pro.locked.unlock" = "Unlock Pro";
+/* Dead keys removed: pro.locked.progress.title, pro.locked.routines.title, pro.locked.settings.title, pro.locked.unlock (tabs are no longer locked) */
 
 "routines.apply" = "Apply to Training";
 "routines.remove_from_training" = "Remove from Training";
@@ -204,11 +200,11 @@
 
 /* Paywall v2 copy */
 "paywall.copy.light.pro.title" = "Unlock Pro mode";
-"paywall.copy.light.pro.subtitle" = "Routines, progress, and settings without limits.";
+"paywall.copy.light.pro.subtitle" = "Train every day without set limits.";
 "paywall.copy.light.pro.benefits_title" = "Key benefits";
 "paywall.copy.light.pro.bullet_1" = "Train without daily limit cuts.";
-"paywall.copy.light.pro.bullet_2" = "Save routines and repeat them in seconds.";
-"paywall.copy.light.pro.bullet_3" = "Track progress to stay consistent.";
+"paywall.copy.light.pro.bullet_2" = "No cap — train as much as you want.";
+"paywall.copy.light.pro.bullet_3" = "Uninterrupted sessions, every day.";
 "paywall.copy.light.pro.plans_title" = "Choose a plan";
 "paywall.copy.light.pro.annual_label" = "Annual";
 "paywall.copy.light.pro.annual_badge" = "Best value";
@@ -236,11 +232,11 @@
 "paywall.copy.light.limit.legal2" = "Then you’re charged for the chosen plan until you cancel.";
 
 "paywall.copy.standard.pro.title" = "Train with full potential";
-"paywall.copy.standard.pro.subtitle" = "Unlock routines, progress, and full control.";
+"paywall.copy.standard.pro.subtitle" = "Remove the daily limit and train freely.";
 "paywall.copy.standard.pro.benefits_title" = "What you get";
 "paywall.copy.standard.pro.bullet_1" = "Complete training flow without friction.";
-"paywall.copy.standard.pro.bullet_2" = "Routines ready to repeat anytime.";
-"paywall.copy.standard.pro.bullet_3" = "Clear progress to keep the habit.";
+"paywall.copy.standard.pro.bullet_2" = "No interruptions when you're in the zone.";
+"paywall.copy.standard.pro.bullet_3" = "Every set counts, with no cap.";
 "paywall.copy.standard.pro.plans_title" = "Select your plan";
 "paywall.copy.standard.pro.annual_label" = "Annual plan";
 "paywall.copy.standard.pro.annual_badge" = "Best value";
@@ -255,8 +251,8 @@
 "paywall.copy.standard.limit.subtitle" = "Go Pro and finish your session without limits.";
 "paywall.copy.standard.limit.benefits_title" = "What you get";
 "paywall.copy.standard.limit.bullet_1" = "Keep training now, no interruptions.";
-"paywall.copy.standard.limit.bullet_2" = "Save routines to move faster next time.";
-"paywall.copy.standard.limit.bullet_3" = "See progress without extra apps.";
+"paywall.copy.standard.limit.bullet_2" = "No cap — train as long as your body can.";
+"paywall.copy.standard.limit.bullet_3" = "Pick up where you left off, every day.";
 "paywall.copy.standard.limit.plans_title" = "Select your plan";
 "paywall.copy.standard.limit.annual_label" = "Annual plan";
 "paywall.copy.standard.limit.annual_badge" = "Best value";
@@ -268,11 +264,11 @@
 "paywall.copy.standard.limit.legal2" = "Auto-renews unless canceled.";
 
 "paywall.copy.detailed.pro.title" = "Unlock everything Pro offers";
-"paywall.copy.detailed.pro.subtitle" = "All routines, progress, and control in one place.";
+"paywall.copy.detailed.pro.subtitle" = "Remove the daily set limit and train without restrictions.";
 "paywall.copy.detailed.pro.benefits_title" = "Your training, upgraded";
 "paywall.copy.detailed.pro.bullet_1" = "Stay focused with timers made for sets.";
-"paywall.copy.detailed.pro.bullet_2" = "Reuse routines and classifications anytime.";
-"paywall.copy.detailed.pro.bullet_3" = "Track progress with clear visuals.";
+"paywall.copy.detailed.pro.bullet_2" = "No interruptions — stay in the zone.";
+"paywall.copy.detailed.pro.bullet_3" = "Train as much as you want, every day.";
 "paywall.copy.detailed.pro.plans_title" = "Select your plan";
 "paywall.copy.detailed.pro.annual_label" = "Annual plan";
 "paywall.copy.detailed.pro.annual_badge" = "Best value";
@@ -283,19 +279,19 @@
 "paywall.copy.detailed.pro.legal1" = "Auto-renewing subscription with a free trial period.";
 "paywall.copy.detailed.pro.legal2" = "Includes restore purchases, terms, and privacy.";
 "paywall.copy.detailed.pro.include_title" = "What Pro includes";
-"paywall.copy.detailed.pro.include_1" = "Unlimited routines";
-"paywall.copy.detailed.pro.include_2" = "Classifications to organize";
-"paywall.copy.detailed.pro.include_3" = "Progress charts";
-"paywall.copy.detailed.pro.include_4" = "Activity calendar";
-"paywall.copy.detailed.pro.include_5" = "Streaks and badges";
-"paywall.copy.detailed.pro.include_6" = "No daily limit during training";
+"paywall.copy.detailed.pro.include_1" = "Unlimited sets per day";
+"paywall.copy.detailed.pro.include_2" = "No training interruptions";
+"paywall.copy.detailed.pro.include_3" = "Train as long as your body can";
+"paywall.copy.detailed.pro.include_4" = "No daily reset countdown";
+"paywall.copy.detailed.pro.include_5" = "Support independent development";
+"paywall.copy.detailed.pro.include_6" = "All future Pro features included";
 
 "paywall.copy.detailed.limit.title" = "Finish strong, no limits";
 "paywall.copy.detailed.limit.subtitle" = "Activate Pro and continue this workout now.";
 "paywall.copy.detailed.limit.benefits_title" = "Results for today and beyond";
 "paywall.copy.detailed.limit.bullet_1" = "Continue this session right now.";
-"paywall.copy.detailed.limit.bullet_2" = "Save time with reusable routines.";
-"paywall.copy.detailed.limit.bullet_3" = "Stay consistent with visible progress.";
+"paywall.copy.detailed.limit.bullet_2" = "No cap on your training today.";
+"paywall.copy.detailed.limit.bullet_3" = "Every set counts, no restrictions.";
 "paywall.copy.detailed.limit.plans_title" = "Select your plan";
 "paywall.copy.detailed.limit.annual_label" = "Annual plan";
 "paywall.copy.detailed.limit.annual_badge" = "Best value";
@@ -307,11 +303,11 @@
 "paywall.copy.detailed.limit.legal2" = "Manage or cancel in Apple. Purchases can be restored.";
 "paywall.copy.detailed.limit.include_title" = "What Pro includes";
 "paywall.copy.detailed.limit.include_1" = "No daily limit";
-"paywall.copy.detailed.limit.include_2" = "Routines and classifications";
-"paywall.copy.detailed.limit.include_3" = "Workout history";
-"paywall.copy.detailed.limit.include_4" = "Charts and calendar";
-"paywall.copy.detailed.limit.include_5" = "Recent activity";
-"paywall.copy.detailed.limit.include_6" = "Streaks and badges";
+"paywall.copy.detailed.limit.include_2" = "Finish this session now";
+"paywall.copy.detailed.limit.include_3" = "Train without counting sets";
+"paywall.copy.detailed.limit.include_4" = "No interruptions mid-workout";
+"paywall.copy.detailed.limit.include_5" = "Unlimited every day";
+"paywall.copy.detailed.limit.include_6" = "All future Pro features";
 
 "paywall.trial_incentive_format" = "Includes %@ free.";
 "paywall.period.generic" = "period";

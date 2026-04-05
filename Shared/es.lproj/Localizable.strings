@@ -112,11 +112,7 @@
 "routines.summary_format" = "%ld series · %ld reps · %@ · %@";
 
 "pro.locked.message" = "16 series al día";
-"pro.locked.progress.title" = "Progreso";
-"pro.locked.routines.title" = "Rutinas";
-"pro.locked.settings.title" = "Ajustes";
-
-"pro.locked.unlock" = "Desbloquear Pro";
+/* Dead keys removed: pro.locked.progress.title, pro.locked.routines.title, pro.locked.settings.title, pro.locked.unlock (tabs are no longer locked) */
 
 "routines.apply" = "Aplicar al entrenamiento";
 "routines.remove_from_training" = "Quitar del entrenamiento";
@@ -204,11 +200,11 @@
 
 /* Paywall v2 copy */
 "paywall.copy.light.pro.title" = "Desbloquea el modo Pro";
-"paywall.copy.light.pro.subtitle" = "Rutinas, progreso y ajustes sin límites.";
+"paywall.copy.light.pro.subtitle" = "Entrena cada día sin límite de series.";
 "paywall.copy.light.pro.benefits_title" = "Beneficios clave";
 "paywall.copy.light.pro.bullet_1" = "Entrena sin cortes por límites diarios.";
-"paywall.copy.light.pro.bullet_2" = "Guarda rutinas y repítelas en segundos.";
-"paywall.copy.light.pro.bullet_3" = "Sigue el progreso y mantén la constancia.";
+"paywall.copy.light.pro.bullet_2" = "Sin tope — entrena todo lo que quieras.";
+"paywall.copy.light.pro.bullet_3" = "Sesiones sin interrupciones, cada día.";
 "paywall.copy.light.pro.plans_title" = "Elige un plan";
 "paywall.copy.light.pro.annual_label" = "Anual";
 "paywall.copy.light.pro.annual_badge" = "Mejor valor";
@@ -236,11 +232,11 @@
 "paywall.copy.light.limit.legal2" = "Luego se cobrará el plan elegido hasta que canceles.";
 
 "paywall.copy.standard.pro.title" = "Entrena a tu máximo potencial";
-"paywall.copy.standard.pro.subtitle" = "Desbloquea rutinas, progreso y control total.";
+"paywall.copy.standard.pro.subtitle" = "Elimina el límite diario y entrena libremente.";
 "paywall.copy.standard.pro.benefits_title" = "Lo que obtienes";
 "paywall.copy.standard.pro.bullet_1" = "Flujo de entrenamiento completo sin fricción.";
-"paywall.copy.standard.pro.bullet_2" = "Rutinas listas para repetir cuando quieras.";
-"paywall.copy.standard.pro.bullet_3" = "Progreso claro para mantener el hábito.";
+"paywall.copy.standard.pro.bullet_2" = "Sin interrupciones cuando estás en racha.";
+"paywall.copy.standard.pro.bullet_3" = "Cada serie cuenta, sin tope.";
 "paywall.copy.standard.pro.plans_title" = "Selecciona tu plan";
 "paywall.copy.standard.pro.annual_label" = "Plan anual";
 "paywall.copy.standard.pro.annual_badge" = "Mejor valor";
@@ -255,8 +251,8 @@
 "paywall.copy.standard.limit.subtitle" = "Hazte Pro y termina la sesión sin límites.";
 "paywall.copy.standard.limit.benefits_title" = "Lo que obtienes";
 "paywall.copy.standard.limit.bullet_1" = "Sigue entrenando ahora, sin interrupciones.";
-"paywall.copy.standard.limit.bullet_2" = "Guarda rutinas para ir más rápido la próxima vez.";
-"paywall.copy.standard.limit.bullet_3" = "Mira el progreso sin apps extra.";
+"paywall.copy.standard.limit.bullet_2" = "Sin tope — entrena todo lo que tu cuerpo aguante.";
+"paywall.copy.standard.limit.bullet_3" = "Retoma donde lo dejaste, cada día.";
 "paywall.copy.standard.limit.plans_title" = "Selecciona tu plan";
 "paywall.copy.standard.limit.annual_label" = "Plan anual";
 "paywall.copy.standard.limit.annual_badge" = "Mejor valor";
@@ -268,11 +264,11 @@
 "paywall.copy.standard.limit.legal2" = "Se renueva automáticamente salvo cancelación.";
 
 "paywall.copy.detailed.pro.title" = "Desbloquea todo lo que ofrece Pro";
-"paywall.copy.detailed.pro.subtitle" = "Rutinas, progreso y control en un solo lugar.";
+"paywall.copy.detailed.pro.subtitle" = "Elimina el límite diario de series y entrena sin restricciones.";
 "paywall.copy.detailed.pro.benefits_title" = "Tu entrenamiento, mejorado";
 "paywall.copy.detailed.pro.bullet_1" = "Enfócate con timers pensados para series.";
-"paywall.copy.detailed.pro.bullet_2" = "Reutiliza rutinas y clasificaciones cuando quieras.";
-"paywall.copy.detailed.pro.bullet_3" = "Sigue el progreso con visuales claros.";
+"paywall.copy.detailed.pro.bullet_2" = "Sin interrupciones — mantente en la zona.";
+"paywall.copy.detailed.pro.bullet_3" = "Entrena todo lo que quieras, cada día.";
 "paywall.copy.detailed.pro.plans_title" = "Selecciona tu plan";
 "paywall.copy.detailed.pro.annual_label" = "Plan anual";
 "paywall.copy.detailed.pro.annual_badge" = "Mejor valor";
@@ -283,19 +279,19 @@
 "paywall.copy.detailed.pro.legal1" = "Suscripción auto-renovable con período de prueba gratis.";
 "paywall.copy.detailed.pro.legal2" = "Incluye restaurar compras, términos y privacidad.";
 "paywall.copy.detailed.pro.include_title" = "Qué incluye Pro";
-"paywall.copy.detailed.pro.include_1" = "Rutinas sin límite";
-"paywall.copy.detailed.pro.include_2" = "Clasificaciones para ordenar";
-"paywall.copy.detailed.pro.include_3" = "Gráficas de progreso";
-"paywall.copy.detailed.pro.include_4" = "Calendario de actividad";
-"paywall.copy.detailed.pro.include_5" = "Rachas e insignias";
-"paywall.copy.detailed.pro.include_6" = "Sin límite diario en entreno";
+"paywall.copy.detailed.pro.include_1" = "Series ilimitadas por día";
+"paywall.copy.detailed.pro.include_2" = "Sin interrupciones en el entrenamiento";
+"paywall.copy.detailed.pro.include_3" = "Entrena todo lo que tu cuerpo aguante";
+"paywall.copy.detailed.pro.include_4" = "Sin cuenta atrás del límite diario";
+"paywall.copy.detailed.pro.include_5" = "Apoya el desarrollo independiente";
+"paywall.copy.detailed.pro.include_6" = "Todas las futuras funciones Pro incluidas";
 
 "paywall.copy.detailed.limit.title" = "Termina fuerte, sin límites";
 "paywall.copy.detailed.limit.subtitle" = "Activa Pro y continúa este entreno al instante.";
 "paywall.copy.detailed.limit.benefits_title" = "Resultados para hoy y mañana";
 "paywall.copy.detailed.limit.bullet_1" = "Sigue esta sesión justo ahora.";
-"paywall.copy.detailed.limit.bullet_2" = "Ahorra tiempo con rutinas reutilizables.";
-"paywall.copy.detailed.limit.bullet_3" = "Mantén constancia con progreso visible.";
+"paywall.copy.detailed.limit.bullet_2" = "Sin tope en tu entrenamiento de hoy.";
+"paywall.copy.detailed.limit.bullet_3" = "Cada serie cuenta, sin restricciones.";
 "paywall.copy.detailed.limit.plans_title" = "Selecciona tu plan";
 "paywall.copy.detailed.limit.annual_label" = "Plan anual";
 "paywall.copy.detailed.limit.annual_badge" = "Mejor valor";
@@ -307,11 +303,11 @@
 "paywall.copy.detailed.limit.legal2" = "Gestiona o cancela en Apple. Compras restaurables.";
 "paywall.copy.detailed.limit.include_title" = "Qué incluye Pro";
 "paywall.copy.detailed.limit.include_1" = "Sin límite diario";
-"paywall.copy.detailed.limit.include_2" = "Rutinas y clasificaciones";
-"paywall.copy.detailed.limit.include_3" = "Histórico de entrenos";
-"paywall.copy.detailed.limit.include_4" = "Gráficas y calendario";
-"paywall.copy.detailed.limit.include_5" = "Actividad reciente";
-"paywall.copy.detailed.limit.include_6" = "Rachas e insignias";
+"paywall.copy.detailed.limit.include_2" = "Termina esta sesión ahora";
+"paywall.copy.detailed.limit.include_3" = "Entrena sin contar series";
+"paywall.copy.detailed.limit.include_4" = "Sin interrupciones en el entreno";
+"paywall.copy.detailed.limit.include_5" = "Ilimitado cada día";
+"paywall.copy.detailed.limit.include_6" = "Todas las futuras funciones Pro";
 
 "paywall.trial_incentive_format" = "Incluye %@ gratis.";
 "paywall.period.generic" = "período";

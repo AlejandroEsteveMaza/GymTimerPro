@@ -112,11 +112,7 @@
 "routines.summary_format" = "%ld sett · %ld reps · %@ · %@";
 
 "pro.locked.message" = "16 sett per dag";
-"pro.locked.progress.title" = "Fremdrift";
-"pro.locked.routines.title" = "Rutiner";
-"pro.locked.settings.title" = "Innstillinger";
-
-"pro.locked.unlock" = "Lås opp Pro";
+/* Dead keys removed: pro.locked.progress.title, pro.locked.routines.title, pro.locked.settings.title, pro.locked.unlock (tabs are no longer locked) */
 
 "routines.apply" = "Bruk i trening";
 "routines.remove_from_training" = "Fjern fra trening";
@@ -149,11 +145,11 @@
 
 /* Paywall v2 copy */
 "paywall.copy.light.pro.title" = "Lås opp Pro-modus";
-"paywall.copy.light.pro.subtitle" = "Rutiner, fremdrift og innstillinger uten begrensninger.";
+"paywall.copy.light.pro.subtitle" = "Tren hver dag uten settgrense.";
 "paywall.copy.light.pro.benefits_title" = "Viktigste fordeler";
 "paywall.copy.light.pro.bullet_1" = "Tren uten daglige begrensninger.";
-"paywall.copy.light.pro.bullet_2" = "Lagre rutiner og gjenta på sekunder.";
-"paywall.copy.light.pro.bullet_3" = "Følg fremdriften og hold deg jevn.";
+"paywall.copy.light.pro.bullet_2" = "Ingen tak — tren så mye du vil.";
+"paywall.copy.light.pro.bullet_3" = "Uavbrutte økter, hver dag.";
 "paywall.copy.light.pro.plans_title" = "Velg en plan";
 "paywall.copy.light.pro.annual_label" = "Årlig";
 "paywall.copy.light.pro.annual_badge" = "Beste verdi";
@@ -181,11 +177,11 @@
 "paywall.copy.light.limit.legal2" = "Deretter blir du belastet for valgt plan til du avslutter.";
 
 "paywall.copy.standard.pro.title" = "Tren med fullt potensial";
-"paywall.copy.standard.pro.subtitle" = "Lås opp rutiner, fremdrift og full kontroll.";
+"paywall.copy.standard.pro.subtitle" = "Fjern den daglige grensen og tren fritt.";
 "paywall.copy.standard.pro.benefits_title" = "Dette får du";
 "paywall.copy.standard.pro.bullet_1" = "Komplett treningsflyt uten friksjon.";
-"paywall.copy.standard.pro.bullet_2" = "Rutiner klare til å gjentas når som helst.";
-"paywall.copy.standard.pro.bullet_3" = "Tydelig fremdrift for å holde vanen.";
+"paywall.copy.standard.pro.bullet_2" = "Ingen avbrudd når du er i sonen.";
+"paywall.copy.standard.pro.bullet_3" = "Hvert sett teller, uten tak.";
 "paywall.copy.standard.pro.plans_title" = "Velg planen din";
 "paywall.copy.standard.pro.annual_label" = "Årsplan";
 "paywall.copy.standard.pro.annual_badge" = "Beste verdi";
@@ -200,8 +196,8 @@
 "paywall.copy.standard.limit.subtitle" = "Bli Pro og fullfør økten uten begrensninger.";
 "paywall.copy.standard.limit.benefits_title" = "Dette får du";
 "paywall.copy.standard.limit.bullet_1" = "Fortsett å trene nå, uten avbrudd.";
-"paywall.copy.standard.limit.bullet_2" = "Lagre rutiner for å gå raskere neste gang.";
-"paywall.copy.standard.limit.bullet_3" = "Se fremdrift uten ekstra apper.";
+"paywall.copy.standard.limit.bullet_2" = "Ingen tak — tren så lenge kroppen holder.";
+"paywall.copy.standard.limit.bullet_3" = "Fortsett der du slapp, hver dag.";
 "paywall.copy.standard.limit.plans_title" = "Velg planen din";
 "paywall.copy.standard.limit.annual_label" = "Årsplan";
 "paywall.copy.standard.limit.annual_badge" = "Beste verdi";
@@ -213,11 +209,11 @@
 "paywall.copy.standard.limit.legal2" = "Fornyes automatisk til du avslutter.";
 
 "paywall.copy.detailed.pro.title" = "Lås opp alt Pro tilbyr";
-"paywall.copy.detailed.pro.subtitle" = "Alle rutiner, fremdrift og kontroll på ett sted.";
+"paywall.copy.detailed.pro.subtitle" = "Fjern den daglige settgrensen og tren uten begrensninger.";
 "paywall.copy.detailed.pro.benefits_title" = "Treningen din, oppgradert";
 "paywall.copy.detailed.pro.bullet_1" = "Hold fokus med timere laget for sett.";
-"paywall.copy.detailed.pro.bullet_2" = "Gjenbruk rutiner og klassifiseringer når som helst.";
-"paywall.copy.detailed.pro.bullet_3" = "Følg fremdrift med tydelige visninger.";
+"paywall.copy.detailed.pro.bullet_2" = "Ingen avbrudd — bli i sonen.";
+"paywall.copy.detailed.pro.bullet_3" = "Tren så mye du vil, hver dag.";
 "paywall.copy.detailed.pro.plans_title" = "Velg planen din";
 "paywall.copy.detailed.pro.annual_label" = "Årsplan";
 "paywall.copy.detailed.pro.annual_badge" = "Beste verdi";
@@ -228,19 +224,19 @@
 "paywall.copy.detailed.pro.legal1" = "Auto‑fornyende abonnement med gratis prøveperiode.";
 "paywall.copy.detailed.pro.legal2" = "Inkluderer gjenopprett kjøp, vilkår og personvern.";
 "paywall.copy.detailed.pro.include_title" = "Dette inkluderer Pro";
-"paywall.copy.detailed.pro.include_1" = "Ubegrensede rutiner";
-"paywall.copy.detailed.pro.include_2" = "Klassifiseringer for organisering";
-"paywall.copy.detailed.pro.include_3" = "Fremdriftsgrafer";
-"paywall.copy.detailed.pro.include_4" = "Aktivitetskalender";
-"paywall.copy.detailed.pro.include_5" = "Streaks og merker";
-"paywall.copy.detailed.pro.include_6" = "Ingen daglig grense under trening";
+"paywall.copy.detailed.pro.include_1" = "Ubegrensede sett per dag";
+"paywall.copy.detailed.pro.include_2" = "Ingen treningsavbrudd";
+"paywall.copy.detailed.pro.include_3" = "Tren så lenge kroppen holder";
+"paywall.copy.detailed.pro.include_4" = "Ingen daglig grense-nedtelling";
+"paywall.copy.detailed.pro.include_5" = "Støtt uavhengig utvikling";
+"paywall.copy.detailed.pro.include_6" = "Alle fremtidige Pro-funksjoner inkludert";
 
 "paywall.copy.detailed.limit.title" = "Fullfør sterkt, uten begrensninger";
 "paywall.copy.detailed.limit.subtitle" = "Aktiver Pro og fortsett denne økten nå.";
 "paywall.copy.detailed.limit.benefits_title" = "Resultater for i dag og videre";
 "paywall.copy.detailed.limit.bullet_1" = "Fortsett denne økten med en gang.";
-"paywall.copy.detailed.limit.bullet_2" = "Spar tid med gjenbrukbare rutiner.";
-"paywall.copy.detailed.limit.bullet_3" = "Hold deg jevn med synlig fremdrift.";
+"paywall.copy.detailed.limit.bullet_2" = "Ingen tak for treningen din i dag.";
+"paywall.copy.detailed.limit.bullet_3" = "Hvert sett teller, uten begrensninger.";
 "paywall.copy.detailed.limit.plans_title" = "Velg planen din";
 "paywall.copy.detailed.limit.annual_label" = "Årsplan";
 "paywall.copy.detailed.limit.annual_badge" = "Beste verdi";
@@ -252,11 +248,11 @@
 "paywall.copy.detailed.limit.legal2" = "Administrer eller avslutt i Apple. Kjøp kan gjenopprettes.";
 "paywall.copy.detailed.limit.include_title" = "Dette inkluderer Pro";
 "paywall.copy.detailed.limit.include_1" = "Ingen daglig grense";
-"paywall.copy.detailed.limit.include_2" = "Rutiner og klassifiseringer";
-"paywall.copy.detailed.limit.include_3" = "Treningshistorikk";
-"paywall.copy.detailed.limit.include_4" = "Grafer og kalender";
-"paywall.copy.detailed.limit.include_5" = "Nylig aktivitet";
-"paywall.copy.detailed.limit.include_6" = "Streaks og merker";
+"paywall.copy.detailed.limit.include_2" = "Fullfør denne økten nå";
+"paywall.copy.detailed.limit.include_3" = "Tren uten å telle sett";
+"paywall.copy.detailed.limit.include_4" = "Ingen avbrudd midt i treningen";
+"paywall.copy.detailed.limit.include_5" = "Ubegrenset hver dag";
+"paywall.copy.detailed.limit.include_6" = "Alle fremtidige Pro-funksjoner";
 
 "paywall.trial_incentive_format" = "Inkluderer %@ gratis.";
 "paywall.period.generic" = "periode";
