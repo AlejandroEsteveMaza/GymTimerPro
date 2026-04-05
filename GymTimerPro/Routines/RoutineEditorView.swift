@@ -152,7 +152,7 @@ struct RoutineEditorView: View {
                 }
             }
 
-            if routine != nil {
+            if let routine {
                 Section {
                     Button {
                         handleApplyAction()
@@ -163,11 +163,7 @@ struct RoutineEditorView: View {
                         )
                     }
                     .disabled(!isApplied && !canApply)
-                }
-            }
 
-            if let routine {
-                Section {
                     Button {
                         store.duplicate(routine)
                         dismiss()

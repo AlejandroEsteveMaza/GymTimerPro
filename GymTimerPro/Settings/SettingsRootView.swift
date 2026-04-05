@@ -20,6 +20,14 @@ struct SettingsRootView: View {
         List {
             alertReadinessSection
 
+            Section {
+                NavigationLink {
+                    RoutineClassificationManagerView()
+                } label: {
+                    Text("classifications.manage.title")
+                }
+            }
+
             Section("settings.weight_unit.section") {
                 Picker("settings.weight_unit.title", selection: weightUnitPreferenceBinding) {
                     Text("settings.weight_unit.option.automatic")
@@ -85,13 +93,6 @@ struct SettingsRootView: View {
                 Text("settings.energy.description")
             }
 
-            Section {
-                NavigationLink {
-                    RoutineClassificationManagerView()
-                } label: {
-                    Text("classifications.manage.title")
-                }
-            }
         }
         .navigationTitle("tab.settings")
     }
