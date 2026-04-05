@@ -111,7 +111,7 @@
 "routines.field.reps" = "रेप्स";
 "routines.summary_format" = "%ld सेट · %ld रेप्स · %@ · %@";
 
-"pro.locked.message" = "Pro में उपलब्ध है.";
+"pro.locked.message" = "प्रतिदिन 16 सेट";
 "pro.locked.progress.title" = "प्रगति";
 "pro.locked.routines.title" = "रूटीन";
 "pro.locked.settings.title" = "सेटिंग्स";

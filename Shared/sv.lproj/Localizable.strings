@@ -111,7 +111,7 @@
 "routines.field.reps" = "Repetitioner";
 "routines.summary_format" = "%ld set · %ld reps · %@ · %@";
 
-"pro.locked.message" = "Tillgangligt i Pro.";
+"pro.locked.message" = "16 set per dag";
 "pro.locked.progress.title" = "Framsteg";
 "pro.locked.routines.title" = "Rutiner";
 "pro.locked.settings.title" = "Installningar";

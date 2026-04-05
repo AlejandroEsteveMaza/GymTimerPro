@@ -111,7 +111,7 @@
 "routines.field.reps" = "回数";
 "routines.summary_format" = "%ldセット · %ld回 · %@ · %@";
 
-"pro.locked.message" = "Proで利用できます。";
+"pro.locked.message" = "1日16セット";
 "pro.locked.progress.title" = "進捗";
 "pro.locked.routines.title" = "ルーティン";
 "pro.locked.settings.title" = "設定";

@@ -111,7 +111,7 @@
 "routines.field.reps" = "Repetisjoner";
 "routines.summary_format" = "%ld sett · %ld reps · %@ · %@";
 
-"pro.locked.message" = "Tilgjengelig i Pro.";
+"pro.locked.message" = "16 sett per dag";
 "pro.locked.progress.title" = "Fremdrift";
 "pro.locked.routines.title" = "Rutiner";
 "pro.locked.settings.title" = "Innstillinger";

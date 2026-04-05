@@ -111,7 +111,7 @@
 "routines.field.reps" = "Répétitions";
 "routines.summary_format" = "%ld séries · %ld reps · %@ · %@";
 
-"pro.locked.message" = "Disponible dans Pro.";
+"pro.locked.message" = "16 séries par jour";
 "pro.locked.progress.title" = "Progrès";
 "pro.locked.routines.title" = "Routines";
 "pro.locked.settings.title" = "Réglages";

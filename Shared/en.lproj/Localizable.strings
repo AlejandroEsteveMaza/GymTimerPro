@@ -111,7 +111,7 @@
 "routines.field.reps" = "Reps";
 "routines.summary_format" = "%ld sets · %ld reps · %@ · %@";
 
-"pro.locked.message" = "Available in Pro.";
+"pro.locked.message" = "16 sets per day";
 "pro.locked.progress.title" = "Progress";
 "pro.locked.routines.title" = "Routines";
 "pro.locked.settings.title" = "Settings";

@@ -111,7 +111,7 @@
 "routines.field.reps" = "Herhalingen";
 "routines.summary_format" = "%ld sets · %ld reps · %@ · %@";
 
-"pro.locked.message" = "Beschikbaar in Pro.";
+"pro.locked.message" = "16 sets per dag";
 "pro.locked.progress.title" = "Voortgang";
 "pro.locked.routines.title" = "Routines";
 "pro.locked.settings.title" = "Instellingen";

@@ -111,7 +111,7 @@
 "routines.field.reps" = "Wiederholungen";
 "routines.summary_format" = "%ld Sätze · %ld Wdh. · %@ · %@";
 
-"pro.locked.message" = "Verfügbar in Pro.";
+"pro.locked.message" = "16 Sätze pro Tag";
 "pro.locked.progress.title" = "Fortschritt";
 "pro.locked.routines.title" = "Routinen";
 "pro.locked.settings.title" = "Einstellungen";

@@ -10,6 +10,8 @@ import UIKit
 
 struct SettingsRootView: View {
     @EnvironmentObject private var alertReadinessChecker: AlertReadinessChecker
+    @EnvironmentObject private var purchaseManager: PurchaseManager
+    @State private var paywallContext: PaywallPresentationContext?
     @AppStorage(WeightUnitPreference.appStorageKey) private var weightUnitPreferenceRawValue: Int = WeightUnitPreference.automatic.rawValue
     @AppStorage(MaxSetsPreference.appStorageKey) private var maxSetsPreferenceRawValue: Int = MaxSetsPreference.ten.rawValue
     @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
@@ -93,8 +95,54 @@ struct SettingsRootView: View {
                 Text("settings.energy.description")
             }
 
+            proStatusSection
+
         }
         .navigationTitle("tab.settings")
+        .sheet(item: $paywallContext) { context in
+            PaywallView(
+                dailyLimit: 16,
+                consumedToday: 0,
+                accentColor: Theme.primaryButton,
+                entryPoint: context.entryPoint,
+                infoLevel: context.infoLevel
+            )
+            .environmentObject(purchaseManager)
+        }
+    }
+
+    @ViewBuilder
+    private var proStatusSection: some View {
+        if !purchaseManager.isPro {
+            Section {
+                HStack(spacing: 12) {
+                    Image(systemName: "star.circle.fill")
+                        .foregroundStyle(.orange)
+                        .font(.title3)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("pro.status.free")
+                            .font(.subheadline.weight(.semibold))
+                        Text("pro.locked.message")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Spacer(minLength: 0)
+
+                    Button("pro.button.upgrade") {
+                        paywallContext = PaywallPresentationContext(
+                            entryPoint: .proModule,
+                            infoLevel: .standard
+                        )
+                    }
+                    .font(.subheadline.weight(.semibold))
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.roundedRectangle(radius: 12))
+                    .tint(Theme.primaryButton)
+                }
+            }
+        }
     }
 
     @ViewBuilder
