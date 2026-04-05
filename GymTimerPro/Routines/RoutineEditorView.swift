@@ -166,6 +166,17 @@ struct RoutineEditorView: View {
                 }
             }
 
+            if let routine {
+                Section {
+                    Button {
+                        store.duplicate(routine)
+                        dismiss()
+                    } label: {
+                        Label("routines.duplicate", systemImage: "doc.on.doc")
+                    }
+                }
+            }
+
             if routine != nil {
                 Section {
                     Button(role: .destructive) {
