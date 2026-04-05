@@ -74,7 +74,6 @@ struct RoutineClassificationPickerView: View {
                     .foregroundStyle(Theme.textSecondary)
                 TextField("classifications.search.create_placeholder", text: $searchText)
                     .textInputAutocapitalization(.words)
-                    .autocorrectionDisabled()
                 if canCreate {
                     Button {
                         createClassification(named: trimmed)

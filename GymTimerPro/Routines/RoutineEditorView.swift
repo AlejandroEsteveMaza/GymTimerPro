@@ -50,7 +50,6 @@ struct RoutineEditorView: View {
                 HStack {
                     TextField("routines.field.name", text: nameBinding)
                         .textInputAutocapitalization(.words)
-                        .autocorrectionDisabled()
                         .focused($focusedField, equals: .name)
                         .accessibilityLabel(Text("routines.field.name"))
                         .onChange(of: draft.name) { _, newValue in

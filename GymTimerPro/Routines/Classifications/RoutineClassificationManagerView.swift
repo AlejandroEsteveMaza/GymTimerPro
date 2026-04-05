@@ -134,7 +134,6 @@ struct RoutineClassificationManagerView: View {
             HStack(spacing: 12) {
                 TextField("classifications.name.placeholder", text: $createName)
                     .textInputAutocapitalization(.words)
-                    .autocorrectionDisabled()
                     .focused($isCreateFocused)
                     .submitLabel(.done)
                     .onSubmit { createClassification() }
@@ -283,7 +282,6 @@ private struct ClassificationRow: View {
             if isEditing {
                 TextField("classifications.name.placeholder", text: $editName)
                     .textInputAutocapitalization(.words)
-                    .autocorrectionDisabled()
                     .focused(focusedClassificationID, equals: classification.id)
                     .submitLabel(.done)
                     .onSubmit { onRename(classification, editName) }
