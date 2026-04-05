@@ -218,7 +218,7 @@ struct ContentView: View {
 
                 Text("tip.keep_app_open")
                     .font(.subheadline)
-                    .foregroundStyle(Color(uiColor: .secondaryLabel))
+                    .foregroundStyle(Color(uiColor: .label))
                     .fixedSize(horizontal: false, vertical: true)
 
                 Spacer(minLength: 0)
@@ -233,7 +233,7 @@ struct ContentView: View {
                 .buttonStyle(.plain)
             }
             .padding(12)
-            .background(Color.blue.opacity(0.08), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .background(Color.blue.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             .transition(.opacity.combined(with: .move(edge: .top)))
         }
     }
