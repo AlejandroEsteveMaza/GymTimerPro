@@ -33,27 +33,16 @@ final class DailyUsageLimiter: ObservableObject {
     }
 
     func refresh(now: Date) {
-        let boundary = resetBoundary(for: now)
+        let todayStart = calendar.startOfDay(for: now)
         let storedStart = storage.object(forKey: Keys.dayStart) as? Date
 
-        if storedStart != boundary {
-            storage.set(boundary, forKey: Keys.dayStart)
+        if storedStart != todayStart {
+            storage.set(todayStart, forKey: Keys.dayStart)
             storage.set(0, forKey: Keys.consumed)
         }
 
         let consumed = max(0, storage.integer(forKey: Keys.consumed))
         status = Status(consumedToday: consumed, dailyLimit: status.dailyLimit)
-    }
-
-    /// Returns the most recent 2:00 AM boundary that has already passed.
-    private func resetBoundary(for date: Date) -> Date {
-        let startOfDay = calendar.startOfDay(for: date)
-        let twoAM = calendar.date(byAdding: .hour, value: 2, to: startOfDay)!
-        if date < twoAM {
-            let yesterday = calendar.date(byAdding: .day, value: -1, to: startOfDay)!
-            return calendar.date(byAdding: .hour, value: 2, to: yesterday)!
-        }
-        return twoAM
     }
 
     func canConsume(now: Date, isPro: Bool) -> Bool {
