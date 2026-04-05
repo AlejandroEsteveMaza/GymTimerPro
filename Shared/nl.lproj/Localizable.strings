@@ -81,7 +81,7 @@
 
 "routines.add" = "Nieuwe routine";
 "routines.create.title" = "Nieuwe routine";
-"routines.delete" = "Routine verwijderen";
+"routines.delete" = "Verwijderen";
 "routines.duplicate" = "Dupliceer";
 "routines.copy_suffix_format" = "%@ (Kopie)";
 "routines.discard.confirm" = "Negeren";

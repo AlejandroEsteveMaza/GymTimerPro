@@ -81,7 +81,7 @@
 
 "routines.add" = "Ny rutine";
 "routines.create.title" = "Ny rutine";
-"routines.delete" = "Slet rutine";
+"routines.delete" = "Slet";
 "routines.duplicate" = "Duplikér";
 "routines.copy_suffix_format" = "%@ (Kopi)";
 "routines.discard.confirm" = "Kassér";

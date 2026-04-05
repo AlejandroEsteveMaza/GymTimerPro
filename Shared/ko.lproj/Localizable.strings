@@ -81,7 +81,7 @@
 
 "routines.add" = "새 루틴";
 "routines.create.title" = "새 루틴";
-"routines.delete" = "루틴 삭제";
+"routines.delete" = "삭제";
 "routines.duplicate" = "복제";
 "routines.copy_suffix_format" = "%@ (복사)";
 "routines.discard.confirm" = "폐기";

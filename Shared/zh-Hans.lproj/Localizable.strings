@@ -81,7 +81,7 @@
 
 "routines.add" = "新建例程";
 "routines.create.title" = "新建例程";
-"routines.delete" = "删除例程";
+"routines.delete" = "删除";
 "routines.duplicate" = "复制";
 "routines.copy_suffix_format" = "%@（副本）";
 "routines.discard.confirm" = "放弃";

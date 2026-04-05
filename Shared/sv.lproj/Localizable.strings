@@ -81,7 +81,7 @@
 
 "routines.add" = "Ny rutin";
 "routines.create.title" = "Ny rutin";
-"routines.delete" = "Radera rutin";
+"routines.delete" = "Radera";
 "routines.duplicate" = "Duplicera";
 "routines.copy_suffix_format" = "%@ (Kopia)";
 "routines.discard.confirm" = "Kassera";

@@ -81,7 +81,7 @@
 
 "routines.add" = "Nuova routine";
 "routines.create.title" = "Nuova routine";
-"routines.delete" = "Elimina routine";
+"routines.delete" = "Elimina";
 "routines.duplicate" = "Duplica";
 "routines.copy_suffix_format" = "%@ (Copia)";
 "routines.discard.confirm" = "Scarta";
