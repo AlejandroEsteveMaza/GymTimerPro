@@ -115,10 +115,10 @@ struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
         .listStyle(.insetGrouped)
         .scrollDismissesKeyboard(.interactively)
         .searchable(text: $searchText, prompt: Text(LocalizedStringKey(searchPromptKey)))
+        .onAppear { rebuildViewModel() }
         .onChange(of: searchText) { _, _ in rebuildData() }
-        .onChange(of: routines) { _, _ in rebuildData() }
-        .onChange(of: classifications) { _, _ in rebuildData() }
-        .onAppear { rebuildData() }
+        .onChange(of: routines) { _, _ in rebuildViewModel() }
+        .onChange(of: classifications) { _, _ in rebuildViewModel() }
     }
 
     private func bindingForExpanded(_ id: UUID) -> Binding<Bool> {
@@ -139,13 +139,17 @@ struct RoutineCatalogListView<LeadingContent: View, RowContent: View>: View {
     }
 
     private func rebuildData() {
+        rebuildViewModel()
+        updateExpandedForSearch()
+    }
+
+    private func rebuildViewModel() {
         viewModel.update(
             routines: routines,
             classifications: classifications,
             searchText: searchText,
             modelContext: modelContext
         )
-        updateExpandedForSearch()
     }
 
     private func updateExpandedForSearch() {
