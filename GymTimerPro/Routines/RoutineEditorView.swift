@@ -248,10 +248,7 @@ struct RoutineEditorView: View {
                     }
                 }
         )
-        .onAppear {
-            clampTotalSetsToAllowedMaximum()
-        }
-        .onChange(of: maxSetsPreferenceRawValue) { _, _ in
+        .onChange(of: maxSetsPreferenceRawValue, initial: true) { _, _ in
             clampTotalSetsToAllowedMaximum()
         }
     }
