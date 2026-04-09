@@ -70,7 +70,7 @@ struct ContentView: View {
         .onAppear {
             applyPowerSavingPolicy()
             applyUITestOverridesIfNeeded()
-            applyRoutineSelection(routineSelectionStore.selection)
+            // Routine params are @AppStorage — no need to re-apply on appear.
             clampTotalSetsToAllowedMaximum()
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
             usageLimiter.refresh(now: .now)
