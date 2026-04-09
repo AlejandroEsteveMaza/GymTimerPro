@@ -55,13 +55,13 @@ struct RoutinePickerView: View {
                         }
                     }
                 ) { routine in
-                    Button {
-                        onSelect(routine)
-                        dismiss()
-                    } label: {
-                        RoutineRowView(routine: routine)
-                    }
-                    .buttonStyle(.plain)
+                    RoutineRowView(routine: routine)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            onSelect(routine)
+                            dismiss()
+                        }
+                        .accessibilityAddTraits(.isButton)
                 }
             }
         }
