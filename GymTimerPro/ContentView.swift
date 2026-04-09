@@ -150,7 +150,13 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isPresentingRoutinePicker) {
             NavigationStack {
-                RoutinePickerView { routine in
+                RoutinePickerView(
+                    isApplied: appliedRoutineName != nil,
+                    onRemove: {
+                        routineSelectionStore.clear()
+                        applyRoutineSelection(nil)
+                    }
+                ) { routine in
                     routineSelectionStore.apply(routine)
                 }
             }
