@@ -80,6 +80,15 @@ struct ContentView: View {
             } else {
                 restoreLiveActivityIfNeeded()
             }
+            // Register callback so the sound fires immediately when the timer
+            // reaches zero, even if the training tab is not the active tab.
+            // Guard against background: mirrors the scenePhase == .active check
+            // in onChange, using UIApplication since @Environment is not reliably
+            // readable from a stored closure.
+            restTimer.onFinish = {
+                guard UIApplication.shared.applicationState == .active else { return }
+                handleRestFinished()
+            }
         }
         .onDisappear {
             UIApplication.shared.isIdleTimerDisabled = false
@@ -129,7 +138,11 @@ struct ContentView: View {
             updateLiveActivity(endDate: newDate, mode: .resting)
         }
         .onChange(of: restTimer.didFinish) { _, finished in
-            if finished, scenePhase == .active {
+            // `finished` is the value that triggered this closure (true).
+            // `restTimer.didFinish` is the live value at execution time: if
+            // onFinish already called handleRestFinished() → acknowledgeFinish(),
+            // it is false and we skip to avoid a double call.
+            if finished, restTimer.didFinish, scenePhase == .active {
                 handleRestFinished()
             }
         }
@@ -918,6 +931,10 @@ private final class RestTimerModel: ObservableObject {
     @Published private(set) var endDate: Date?
     @Published var didFinish: Bool = false
 
+    /// Called on the main thread the instant the timer reaches zero.
+    /// Executes imperatively, outside SwiftUI's update cycle.
+    var onFinish: (() -> Void)?
+
     private let storage: UserDefaults
     private var timerCancellable: AnyCancellable?
     private var energySavingEnabled = false
@@ -1060,6 +1077,7 @@ private final class RestTimerModel: ObservableObject {
         remaining = 0
         if !didFinish {
             didFinish = true
+            onFinish?()
         }
         stopTimerLoop()
         persist()
