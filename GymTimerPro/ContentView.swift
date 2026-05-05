@@ -10,6 +10,7 @@ import Combine
 import SwiftData
 import UIKit
 import AudioToolbox
+import AVFoundation
 
 struct ContentView: View {
     @AppStorage("training.total_sets") private var totalSeries: Int = 4
@@ -31,12 +32,16 @@ struct ContentView: View {
     @State private var uiTestOverridesApplied = false
     @State private var isPresentingRoutinePicker = false
     @State private var lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
+    @State private var showKeepOpenTip = false
+    @State private var keepOpenTipShownThisSession = false
+    @State private var alertReadinessBannerDismissed = false
     private let restFinishedSoundID: SystemSoundID = 1322
 
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var purchaseManager: PurchaseManager
     @EnvironmentObject private var routineSelectionStore: RoutineSelectionStore
+    @EnvironmentObject private var alertReadinessChecker: AlertReadinessChecker
 
     var body: some View {
         ZStack {
@@ -44,6 +49,8 @@ struct ContentView: View {
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: Layout.sectionSpacing) {
+                    alertReadinessBanner
+                    keepOpenTipBanner
                     configurationSection
                     progressSection
                 }
@@ -63,7 +70,7 @@ struct ContentView: View {
         .onAppear {
             applyPowerSavingPolicy()
             applyUITestOverridesIfNeeded()
-            applyRoutineSelection(routineSelectionStore.selection)
+            // Routine params are @AppStorage — no need to re-apply on appear.
             clampTotalSetsToAllowedMaximum()
             liveActivityManager.requestNotificationAuthorizationIfNeeded()
             usageLimiter.refresh(now: .now)
@@ -72,6 +79,15 @@ struct ContentView: View {
                 handleRestFinished()
             } else {
                 restoreLiveActivityIfNeeded()
+            }
+            // Register callback so the sound fires immediately when the timer
+            // reaches zero, even if the training tab is not the active tab.
+            // Guard against background: mirrors the scenePhase == .active check
+            // in onChange, using UIApplication since @Environment is not reliably
+            // readable from a stored closure.
+            restTimer.onFinish = {
+                guard UIApplication.shared.applicationState == .active else { return }
+                handleRestFinished()
             }
         }
         .onDisappear {
@@ -96,6 +112,9 @@ struct ContentView: View {
         .onChange(of: routineSelectionStore.selection) { _, selection in
             applyRoutineSelection(selection)
         }
+        .onChange(of: alertReadinessChecker.activeWarning) { _, _ in
+            alertReadinessBannerDismissed = false
+        }
         .onChange(of: scenePhase) { _, newPhase in
             restTimer.handleScenePhase(newPhase)
             if newPhase == .active {
@@ -119,7 +138,11 @@ struct ContentView: View {
             updateLiveActivity(endDate: newDate, mode: .resting)
         }
         .onChange(of: restTimer.didFinish) { _, finished in
-            if finished, scenePhase == .active {
+            // `finished` is the value that triggered this closure (true).
+            // `restTimer.didFinish` is the live value at execution time: if
+            // onFinish already called handleRestFinished() → acknowledgeFinish(),
+            // it is false and we skip to avoid a double call.
+            if finished, restTimer.didFinish, scenePhase == .active {
                 handleRestFinished()
             }
         }
@@ -140,10 +163,97 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isPresentingRoutinePicker) {
             NavigationStack {
-                RoutinePickerView { routine in
+                RoutinePickerView(
+                    isApplied: appliedRoutineName != nil,
+                    onRemove: {
+                        routineSelectionStore.clear()
+                        applyRoutineSelection(nil)
+                    }
+                ) { routine in
                     routineSelectionStore.apply(routine)
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private var alertReadinessBanner: some View {
+        if let warning = alertReadinessChecker.activeWarning, !alertReadinessBannerDismissed {
+            HStack(spacing: 10) {
+                Image(systemName: warningIcon(for: warning))
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(.orange)
+
+                Text(LocalizedStringKey(warningMessageKey(for: warning)))
+                    .font(.subheadline)
+                    .foregroundStyle(Color(uiColor: .label))
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Spacer(minLength: 0)
+
+                Button(L10n.tr("alert_readiness.cta.open_settings")) {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+                .font(.subheadline.weight(.semibold))
+
+                Button {
+                    withAnimation { alertReadinessBannerDismissed = true }
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Color(uiColor: .tertiaryLabel))
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(12)
+            .background(Color.orange.opacity(0.1), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .transition(.opacity.combined(with: .move(edge: .top)))
+        }
+    }
+
+    private func warningIcon(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "speaker.slash.fill"
+        case .timeSensitiveDisabled: return "bell.slash.fill"
+        }
+    }
+
+    private func warningMessageKey(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "alert_readiness.sound_disabled"
+        case .timeSensitiveDisabled: return "alert_readiness.time_sensitive_disabled"
+        }
+    }
+
+    @ViewBuilder
+    private var keepOpenTipBanner: some View {
+        if showKeepOpenTip {
+            HStack(spacing: 10) {
+                Image(systemName: "iphone.radiowaves.left.and.right")
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(.blue)
+
+                Text("tip.keep_app_open")
+                    .font(.subheadline)
+                    .foregroundStyle(Color(uiColor: .label))
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Spacer(minLength: 0)
+
+                Button {
+                    withAnimation { showKeepOpenTip = false }
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Color(uiColor: .tertiaryLabel))
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(12)
+            .background(Color.blue.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .transition(.opacity.combined(with: .move(edge: .top)))
         }
     }
 
@@ -158,11 +268,9 @@ struct ContentView: View {
             }
         ) {
             VStack(spacing: Layout.rowSpacing) {
-                if purchaseManager.isPro {
-                    routineApplyRow
-                    Divider()
-                        .foregroundStyle(Theme.divider)
-                }
+                routineApplyRow
+                Divider()
+                    .foregroundStyle(Theme.divider)
                 configWheelRow(
                     titleKey: "config.total_sets.title",
                     icon: "square.stack.3d.up",
@@ -279,14 +387,7 @@ struct ContentView: View {
 
     private var routineApplyRow: some View {
         Button {
-            if purchaseManager.isPro {
-                isPresentingRoutinePicker = true
-            } else {
-                paywallContext = PaywallPresentationContext(
-                    entryPoint: .proModule,
-                    infoLevel: .standard
-                )
-            }
+            isPresentingRoutinePicker = true
         } label: {
             ConfigRow(icon: "list.bullet.rectangle", titleKey: "training.routine.title") {
                 HStack(spacing: 6) {
@@ -314,7 +415,7 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: Layout.metricSpacing) {
                 HStack(spacing: Layout.metricSpacing) {
                     MetricView(titleKey: "metric.set.title", value: "\(serieActual) / \(totalSeries)")
-                    if purchaseManager.isPro, let reps = appliedRoutineReps {
+                    if let reps = appliedRoutineReps {
                         MetricView(titleKey: "routines.field.reps", value: "\(reps)")
                     }
                 }
@@ -428,16 +529,36 @@ struct ContentView: View {
         if let endDate = restTimer.endDate {
             updateLiveActivity(endDate: endDate, mode: .resting)
         }
+
+        if !keepOpenTipShownThisSession {
+            keepOpenTipShownThisSession = true
+            showKeepOpenTip = true
+        }
     }
 
     private func handleRestFinished() {
         restTimer.acknowledgeFinish()
         liveActivityManager.end()
         liveActivityManager.cancelEndNotification()
-        // Sound is always enabled (power saving only affects extra feedback like haptics/animations).
-        AudioServicesPlaySystemSound(restFinishedSoundID)
+        playRestFinishedSound()
         if !isEnergySavingActive {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
+        withAnimation { showKeepOpenTip = false }
+    }
+
+    private func playRestFinishedSound() {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playback, options: .mixWithOthers)
+            try session.setActive(true)
+        } catch {
+            AudioServicesPlaySystemSound(restFinishedSoundID)
+            return
+        }
+        AudioServicesPlayAlertSound(restFinishedSoundID)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            try? session.setActive(false, options: .notifyOthersOnDeactivation)
         }
     }
 
@@ -462,6 +583,7 @@ struct ContentView: View {
         restTimer.reset()
         liveActivityManager.end()
         liveActivityManager.cancelEndNotification()
+        withAnimation { showKeepOpenTip = false }
 
         withAnimation(.snappy) {
             serieActual = 1
@@ -601,6 +723,10 @@ struct ContentView: View {
         uiTestOverridesApplied = true
         let env = ProcessInfo.processInfo.environment
 
+        if env["UITEST_RESET_WORKOUT_STATE"] == "1" {
+            resetWorkout()
+        }
+
         if let setsValue = env["UITEST_TOTAL_SETS"], let sets = Int(setsValue) {
             totalSeries = sets
             if serieActual > sets {
@@ -615,6 +741,53 @@ struct ContentView: View {
         }
         if env["UITEST_SHOW_NOTIFICATION_PREVIEW"] == "1" {
             showNotificationPreview = true
+        }
+
+        if let consumedValue = env["UITEST_USAGE_CONSUMED"], let consumed = Int(consumedValue) {
+            let today = Calendar.current.startOfDay(for: .now)
+            UserDefaults.standard.set(today, forKey: "usageLimiter.dayStart")
+            UserDefaults.standard.set(max(0, consumed), forKey: "usageLimiter.consumed")
+            usageLimiter.refresh(now: .now)
+        }
+
+        if let forcedContext = forcedPaywallContext(from: env) {
+            paywallContext = forcedContext
+        }
+    }
+
+    private func forcedPaywallContext(from env: [String: String]) -> PaywallPresentationContext? {
+        guard
+            let entryRaw = env["UITEST_PAYWALL_ENTRY"],
+            let infoRaw = env["UITEST_PAYWALL_INFO_LEVEL"],
+            let entryPoint = parsePaywallEntryPoint(entryRaw),
+            let infoLevel = parsePaywallInfoLevel(infoRaw)
+        else {
+            return nil
+        }
+        return PaywallPresentationContext(entryPoint: entryPoint, infoLevel: infoLevel)
+    }
+
+    private func parsePaywallEntryPoint(_ value: String) -> PaywallEntryPoint? {
+        switch value.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
+        case "promodule", "pro_module", "pro":
+            return .proModule
+        case "dailylimitduringworkout", "daily_limit_during_workout", "daily_limit", "limit":
+            return .dailyLimitDuringWorkout
+        default:
+            return nil
+        }
+    }
+
+    private func parsePaywallInfoLevel(_ value: String) -> PaywallInfoLevel? {
+        switch value.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
+        case "light":
+            return .light
+        case "standard":
+            return .standard
+        case "detailed":
+            return .detailed
+        default:
+            return nil
         }
     }
 
@@ -758,6 +931,10 @@ private final class RestTimerModel: ObservableObject {
     @Published private(set) var endDate: Date?
     @Published var didFinish: Bool = false
 
+    /// Called on the main thread the instant the timer reaches zero.
+    /// Executes imperatively, outside SwiftUI's update cycle.
+    var onFinish: (() -> Void)?
+
     private let storage: UserDefaults
     private var timerCancellable: AnyCancellable?
     private var energySavingEnabled = false
@@ -900,6 +1077,7 @@ private final class RestTimerModel: ObservableObject {
         remaining = 0
         if !didFinish {
             didFinish = true
+            onFinish?()
         }
         stopTimerLoop()
         persist()

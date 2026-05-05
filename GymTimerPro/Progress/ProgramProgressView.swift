@@ -13,8 +13,9 @@ struct ProgramProgressView: View {
     @Query(sort: [SortDescriptor(\WorkoutCompletion.completedAt, order: .reverse)]) private var completions: [WorkoutCompletion]
 
     @State private var store = ProgramProgressStore()
-    @State private var selectedPeriod: ProgressPeriod = .month
+    @State private var selectedPeriod: ProgressPeriod = .fortnight
     @State private var selectedDay: ProgressSelectedDay?
+    @State private var didApplyUITestOverrides = false
     private let chartCalendar = Calendar.autoupdatingCurrent
 
     var body: some View {
@@ -32,6 +33,7 @@ struct ProgramProgressView: View {
         .navigationTitle("progress.title")
         .task(id: reloadKey) {
             await store.reload(completions: completions)
+            applyUITestOverridesIfNeeded()
         }
         .sheet(item: $selectedDay) { day in
             NavigationStack {
@@ -65,6 +67,38 @@ struct ProgramProgressView: View {
         store.summary(for: selectedPeriod)
     }
 
+    private func applyUITestOverridesIfNeeded() {
+        guard !didApplyUITestOverrides else { return }
+
+        let args = ProcessInfo.processInfo.arguments.map { $0.lowercased() }
+        guard args.contains("-ui_testing") || args.contains("ui-testing") else { return }
+
+        didApplyUITestOverrides = true
+        let env = ProcessInfo.processInfo.environment
+
+        if let periodRaw = env["UITEST_PROGRESS_PERIOD"]?.lowercased() {
+            switch periodRaw {
+            case "week":
+                selectedPeriod = .week
+            case "fortnight":
+                selectedPeriod = .fortnight
+            case "month":
+                selectedPeriod = .month
+            case "quarter":
+                selectedPeriod = .quarter
+            case "year":
+                selectedPeriod = .year
+            default:
+                break
+            }
+        }
+
+        if env["UITEST_PROGRESS_SELECT_DAY"] == "1",
+           let latest = store.recentCompletions.first {
+            selectedDay = ProgressSelectedDay(date: latest.completedAt)
+        }
+    }
+
     private var chartsSection: some View {
         sectionCard(alignment: .leading, spacing: 16) {
             HStack(alignment: .firstTextBaseline) {
@@ -80,6 +114,7 @@ struct ProgramProgressView: View {
                 .labelsHidden()
                 .font(.subheadline.weight(.semibold))
                 .accessibilityLabel(Text("progress.period.title"))
+                .accessibilityIdentifier("progressPeriodPicker")
             }
 
             Chart(selectedSummary.workoutBuckets) { bucket in

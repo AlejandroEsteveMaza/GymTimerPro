@@ -14,6 +14,7 @@ struct RoutinesListView: View {
     @Query(sort: [SortDescriptor(\RoutineClassification.name, order: .forward)]) private var classifications: [RoutineClassification]
     @State private var editorRoute: RoutineEditorRoute?
     @State private var isShowingClassificationManager = false
+    @State private var didApplyUITestOverrides = false
 
     var body: some View {
         Group {
@@ -55,7 +56,41 @@ struct RoutinesListView: View {
                             .tint(.blue)
                         }
                     }
-                    .swipeActions {
+                    .swipeActions(allowsFullSwipe: false) {
+                        Button(role: .destructive) {
+                            if isApplied {
+                                routineSelectionStore.clear()
+                            }
+                            store.delete(routine)
+                        } label: {
+                            Label("routines.delete", systemImage: "trash")
+                        }
+                    }
+                    .contextMenu {
+                        Button {
+                            store.duplicate(routine)
+                        } label: {
+                            Label("routines.duplicate", systemImage: "doc.on.doc")
+                        }
+
+                        Divider()
+
+                        if isApplied {
+                            Button {
+                                routineSelectionStore.clear()
+                            } label: {
+                                Label("routines.remove_from_training", systemImage: "xmark.circle")
+                            }
+                        } else {
+                            Button {
+                                routineSelectionStore.apply(routine)
+                            } label: {
+                                Label("routines.apply", systemImage: "checkmark.circle")
+                            }
+                        }
+
+                        Divider()
+
                         Button(role: .destructive) {
                             if isApplied {
                                 routineSelectionStore.clear()
@@ -97,6 +132,22 @@ struct RoutinesListView: View {
             NavigationStack {
                 RoutineClassificationManagerView()
             }
+        }
+        .onAppear {
+            applyUITestOverridesIfNeeded()
+        }
+    }
+
+    private func applyUITestOverridesIfNeeded() {
+        guard !didApplyUITestOverrides else { return }
+        didApplyUITestOverrides = true
+
+        let args = ProcessInfo.processInfo.arguments.map { $0.lowercased() }
+        guard args.contains("-ui_testing") || args.contains("ui-testing") else { return }
+
+        let env = ProcessInfo.processInfo.environment
+        if env["UITEST_OPEN_ROUTINE_EDITOR"] == "1" {
+            editorRoute = .create
         }
     }
 }

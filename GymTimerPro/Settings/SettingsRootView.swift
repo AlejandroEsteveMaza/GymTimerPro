@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SettingsRootView: View {
+    @EnvironmentObject private var alertReadinessChecker: AlertReadinessChecker
+    @EnvironmentObject private var purchaseManager: PurchaseManager
+    @State private var paywallContext: PaywallPresentationContext?
     @AppStorage(WeightUnitPreference.appStorageKey) private var weightUnitPreferenceRawValue: Int = WeightUnitPreference.automatic.rawValue
     @AppStorage(MaxSetsPreference.appStorageKey) private var maxSetsPreferenceRawValue: Int = MaxSetsPreference.ten.rawValue
     @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
@@ -16,6 +20,16 @@ struct SettingsRootView: View {
 
     var body: some View {
         List {
+            alertReadinessSection
+
+            Section {
+                NavigationLink {
+                    RoutineClassificationManagerView()
+                } label: {
+                    Text("classifications.manage.title")
+                }
+            }
+
             Section("settings.weight_unit.section") {
                 Picker("settings.weight_unit.title", selection: weightUnitPreferenceBinding) {
                     Text("settings.weight_unit.option.automatic")
@@ -26,6 +40,7 @@ struct SettingsRootView: View {
                         .tag(WeightUnitPreference.pounds)
                 }
                 .pickerStyle(.menu)
+                .accessibilityIdentifier("settingsWeightUnitPicker")
             }
 
             Section("settings.timer_display.section") {
@@ -80,15 +95,109 @@ struct SettingsRootView: View {
                 Text("settings.energy.description")
             }
 
+            proStatusSection
+
+        }
+        .navigationTitle("tab.settings")
+        .sheet(item: $paywallContext) { context in
+            PaywallView(
+                dailyLimit: 16,
+                consumedToday: 0,
+                accentColor: Theme.primaryButton,
+                entryPoint: context.entryPoint,
+                infoLevel: context.infoLevel
+            )
+            .environmentObject(purchaseManager)
+        }
+    }
+
+    @ViewBuilder
+    private var proStatusSection: some View {
+        if !purchaseManager.isPro {
             Section {
-                NavigationLink {
-                    RoutineClassificationManagerView()
-                } label: {
-                    Text("classifications.manage.title")
+                HStack(spacing: 12) {
+                    Image(systemName: "star.circle.fill")
+                        .foregroundStyle(.orange)
+                        .font(.title3)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("pro.status.free")
+                            .font(.subheadline.weight(.semibold))
+                        Text("pro.locked.message")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Spacer(minLength: 0)
+
+                    Button("pro.button.upgrade") {
+                        paywallContext = PaywallPresentationContext(
+                            entryPoint: .proModule,
+                            infoLevel: .standard
+                        )
+                    }
+                    .font(.subheadline.weight(.semibold))
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.roundedRectangle(radius: 12))
+                    .tint(Theme.primaryButton)
                 }
             }
         }
-        .navigationTitle("tab.settings")
+    }
+
+    @ViewBuilder
+    private var alertReadinessSection: some View {
+        if let warning = alertReadinessChecker.activeWarning {
+            Section {
+                HStack(spacing: 12) {
+                    Image(systemName: settingsWarningIcon(for: warning))
+                        .foregroundStyle(.orange)
+                        .font(.title3)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(LocalizedStringKey(settingsWarningTitleKey(for: warning)))
+                            .font(.subheadline.weight(.semibold))
+                        Text(LocalizedStringKey(settingsWarningMessageKey(for: warning)))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Spacer(minLength: 0)
+
+                    Button {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    } label: {
+                        Text("alert_readiness.cta.open_settings")
+                            .font(.subheadline.weight(.semibold))
+                    }
+                }
+            } header: {
+                Text("alert_readiness.settings.section")
+            }
+        }
+    }
+
+    private func settingsWarningIcon(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "speaker.slash.fill"
+        case .timeSensitiveDisabled: return "bell.slash.fill"
+        }
+    }
+
+    private func settingsWarningTitleKey(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "alert_readiness.settings.sound_disabled.title"
+        case .timeSensitiveDisabled: return "alert_readiness.settings.time_sensitive_disabled.title"
+        }
+    }
+
+    private func settingsWarningMessageKey(for warning: AlertReadinessChecker.Warning) -> String {
+        switch warning {
+        case .soundDisabled: return "alert_readiness.sound_disabled"
+        case .timeSensitiveDisabled: return "alert_readiness.time_sensitive_disabled"
+        }
     }
 
     private var weightUnitPreferenceBinding: Binding<WeightUnitPreference> {

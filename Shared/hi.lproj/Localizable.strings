@@ -81,7 +81,9 @@
 
 "routines.add" = "नई रूटीन";
 "routines.create.title" = "नई रूटीन";
-"routines.delete" = "रूटीन हटाएं";
+"routines.delete" = "हटाएं";
+"routines.duplicate" = "डुप्लिकेट";
+"routines.copy_suffix_format" = "%@ (प्रति)";
 "routines.discard.confirm" = "छोड़ें";
 "routines.discard.keep_editing" = "एडिट जारी रखें";
 "routines.discard.message" = "आपके बदलाव सेव नहीं हुए हैं.";
@@ -109,12 +111,8 @@
 "routines.field.reps" = "रेप्स";
 "routines.summary_format" = "%ld सेट · %ld रेप्स · %@ · %@";
 
-"pro.locked.message" = "Pro में उपलब्ध है.";
-"pro.locked.progress.title" = "प्रगति";
-"pro.locked.routines.title" = "रूटीन";
-"pro.locked.settings.title" = "सेटिंग्स";
-
-"pro.locked.unlock" = "Pro अनलॉक करें";
+"pro.locked.message" = "प्रतिदिन 16 सेट";
+/* Dead keys removed: pro.locked.progress.title, pro.locked.routines.title, pro.locked.settings.title, pro.locked.unlock (tabs are no longer locked) */
 
 "routines.apply" = "ट्रेनिंग पर लागू करें";
 "routines.remove_from_training" = "ट्रेनिंग से हटाएं";
@@ -147,11 +145,11 @@
 
 /* Paywall v2 copy */
 "paywall.copy.light.pro.title" = "Pro मोड अनलॉक करें";
-"paywall.copy.light.pro.subtitle" = "रूटीन, प्रोग्रेस और सेटिंग्स बिना सीमा।";
+"paywall.copy.light.pro.subtitle" = "हर दिन सेट की सीमा के बिना प्रशिक्षण करें।";
 "paywall.copy.light.pro.benefits_title" = "मुख्य लाभ";
 "paywall.copy.light.pro.bullet_1" = "रोज़ाना सीमा के बिना ट्रेन करें।";
-"paywall.copy.light.pro.bullet_2" = "रूटीन सेव करें और सेकंड में दोहराएँ।";
-"paywall.copy.light.pro.bullet_3" = "प्रोग्रेस ट्रैक करें और लगातार रहें।";
+"paywall.copy.light.pro.bullet_2" = "कोई सीमा नहीं — जितना चाहें उतना प्रशिक्षण करें।";
+"paywall.copy.light.pro.bullet_3" = "हर दिन बिना रुकावट सत्र।";
 "paywall.copy.light.pro.plans_title" = "प्लान चुनें";
 "paywall.copy.light.pro.annual_label" = "वार्षिक";
 "paywall.copy.light.pro.annual_badge" = "सबसे अच्छा मूल्य";
@@ -179,11 +177,11 @@
 "paywall.copy.light.limit.legal2" = "इसके बाद चुने गए प्लान के अनुसार शुल्क लगेगा।";
 
 "paywall.copy.standard.pro.title" = "पूरा पोटेंशियल के साथ ट्रेन करें";
-"paywall.copy.standard.pro.subtitle" = "रूटीन, प्रोग्रेस और पूरी कंट्रोल अनलॉक करें।";
+"paywall.copy.standard.pro.subtitle" = "दैनिक सीमा हटाएं और स्वतंत्र रूप से प्रशिक्षण करें।";
 "paywall.copy.standard.pro.benefits_title" = "आपको क्या मिलेगा";
 "paywall.copy.standard.pro.bullet_1" = "बिना रुकावट पूरा ट्रेनिंग फ़्लो।";
-"paywall.copy.standard.pro.bullet_2" = "रूटीन को कभी भी दोहराएँ।";
-"paywall.copy.standard.pro.bullet_3" = "स्पष्ट प्रोग्रेस से आदत बनी रहे।";
+"paywall.copy.standard.pro.bullet_2" = "जब आप ज़ोन में हों तो कोई रुकावट नहीं।";
+"paywall.copy.standard.pro.bullet_3" = "हर सेट मायने रखता है, बिना सीमा के।";
 "paywall.copy.standard.pro.plans_title" = "अपना प्लान चुनें";
 "paywall.copy.standard.pro.annual_label" = "वार्षिक प्लान";
 "paywall.copy.standard.pro.annual_badge" = "सबसे अच्छा मूल्य";
@@ -198,8 +196,8 @@
 "paywall.copy.standard.limit.subtitle" = "Pro लें और बिना सीमा ट्रेनिंग पूरी करें।";
 "paywall.copy.standard.limit.benefits_title" = "आपको क्या मिलेगा";
 "paywall.copy.standard.limit.bullet_1" = "अभी ट्रेनिंग जारी रखें, बिना रुकावट।";
-"paywall.copy.standard.limit.bullet_2" = "रूटीन सेव करें ताकि अगली बार तेज़ी हो।";
-"paywall.copy.standard.limit.bullet_3" = "अतिरिक्त ऐप्स के बिना प्रोग्रेस देखें।";
+"paywall.copy.standard.limit.bullet_2" = "कोई सीमा नहीं — जब तक शरीर साथ दे प्रशिक्षण करें।";
+"paywall.copy.standard.limit.bullet_3" = "हर दिन जहां छोड़ा था वहीं से शुरू करें।";
 "paywall.copy.standard.limit.plans_title" = "अपना प्लान चुनें";
 "paywall.copy.standard.limit.annual_label" = "वार्षिक प्लान";
 "paywall.copy.standard.limit.annual_badge" = "सबसे अच्छा मूल्य";
@@ -211,11 +209,11 @@
 "paywall.copy.standard.limit.legal2" = "रद्द करने तक ऑटो‑रिन्यू।";
 
 "paywall.copy.detailed.pro.title" = "Pro के सभी फीचर अनलॉक करें";
-"paywall.copy.detailed.pro.subtitle" = "सभी रूटीन, प्रोग्रेस और कंट्रोल एक जगह।";
+"paywall.copy.detailed.pro.subtitle" = "दैनिक सेट सीमा हटाएं और बिना प्रतिबंध के प्रशिक्षण करें।";
 "paywall.copy.detailed.pro.benefits_title" = "आपकी ट्रेनिंग, बेहतर";
 "paywall.copy.detailed.pro.bullet_1" = "सेट्स के लिए बने टाइमर से फोकस बनाएँ।";
-"paywall.copy.detailed.pro.bullet_2" = "रूटीन और क्लासिफिकेशन फिर से इस्तेमाल करें।";
-"paywall.copy.detailed.pro.bullet_3" = "स्पष्ट विज़ुअल्स से प्रोग्रेस देखें।";
+"paywall.copy.detailed.pro.bullet_2" = "कोई रुकावट नहीं — ज़ोन में बने रहें।";
+"paywall.copy.detailed.pro.bullet_3" = "जितना चाहें उतना हर दिन प्रशिक्षण करें।";
 "paywall.copy.detailed.pro.plans_title" = "अपना प्लान चुनें";
 "paywall.copy.detailed.pro.annual_label" = "वार्षिक प्लान";
 "paywall.copy.detailed.pro.annual_badge" = "सबसे अच्छा मूल्य";
@@ -226,19 +224,19 @@
 "paywall.copy.detailed.pro.legal1" = "मुफ़्त ट्रायल के साथ ऑटो‑रिन्यू सब्सक्रिप्शन।";
 "paywall.copy.detailed.pro.legal2" = "खरीद बहाल करें, शर्तें और गोपनीयता शामिल।";
 "paywall.copy.detailed.pro.include_title" = "Pro में शामिल";
-"paywall.copy.detailed.pro.include_1" = "अनलिमिटेड रूटीन";
-"paywall.copy.detailed.pro.include_2" = "ऑर्गनाइज़ करने के लिए क्लासिफिकेशन";
-"paywall.copy.detailed.pro.include_3" = "प्रोग्रेस चार्ट्स";
-"paywall.copy.detailed.pro.include_4" = "एक्टिविटी कैलेंडर";
-"paywall.copy.detailed.pro.include_5" = "स्ट्रिक और बैज";
-"paywall.copy.detailed.pro.include_6" = "ट्रेनिंग के दौरान कोई दैनिक सीमा नहीं";
+"paywall.copy.detailed.pro.include_1" = "प्रतिदिन असीमित सेट";
+"paywall.copy.detailed.pro.include_2" = "प्रशिक्षण में कोई रुकावट नहीं";
+"paywall.copy.detailed.pro.include_3" = "जब तक शरीर साथ दे प्रशिक्षण करें";
+"paywall.copy.detailed.pro.include_4" = "कोई दैनिक रीसेट काउंटडाउन नहीं";
+"paywall.copy.detailed.pro.include_5" = "स्वतंत्र विकास का समर्थन करें";
+"paywall.copy.detailed.pro.include_6" = "सभी भविष्य की Pro सुविधाएं शामिल";
 
 "paywall.copy.detailed.limit.title" = "मज़बूती से खत्म करें, बिना सीमा";
 "paywall.copy.detailed.limit.subtitle" = "Pro सक्रिय करें और अभी जारी रखें।";
 "paywall.copy.detailed.limit.benefits_title" = "आज और आगे के लिए परिणाम";
 "paywall.copy.detailed.limit.bullet_1" = "इस सेशन को अभी जारी रखें।";
-"paywall.copy.detailed.limit.bullet_2" = "रीयूज़ेबल रूटीन से समय बचाएँ।";
-"paywall.copy.detailed.limit.bullet_3" = "दिखने वाली प्रोग्रेस से लगातार रहें।";
+"paywall.copy.detailed.limit.bullet_2" = "आज के प्रशिक्षण पर कोई सीमा नहीं।";
+"paywall.copy.detailed.limit.bullet_3" = "हर सेट मायने रखता है, कोई प्रतिबंध नहीं।";
 "paywall.copy.detailed.limit.plans_title" = "अपना प्लान चुनें";
 "paywall.copy.detailed.limit.annual_label" = "वार्षिक प्लान";
 "paywall.copy.detailed.limit.annual_badge" = "सबसे अच्छा मूल्य";
@@ -250,11 +248,11 @@
 "paywall.copy.detailed.limit.legal2" = "Apple में मैनेज/रद्द करें। खरीद बहाली संभव।";
 "paywall.copy.detailed.limit.include_title" = "Pro में शामिल";
 "paywall.copy.detailed.limit.include_1" = "कोई दैनिक सीमा नहीं";
-"paywall.copy.detailed.limit.include_2" = "रूटीन और क्लासिफिकेशन";
-"paywall.copy.detailed.limit.include_3" = "वर्कआउट इतिहास";
-"paywall.copy.detailed.limit.include_4" = "चार्ट्स और कैलेंडर";
-"paywall.copy.detailed.limit.include_5" = "हाल की गतिविधि";
-"paywall.copy.detailed.limit.include_6" = "स्ट्रिक और बैज";
+"paywall.copy.detailed.limit.include_2" = "यह सत्र अभी पूरा करें";
+"paywall.copy.detailed.limit.include_3" = "सेट गिने बिना प्रशिक्षण करें";
+"paywall.copy.detailed.limit.include_4" = "प्रशिक्षण के बीच में कोई रुकावट नहीं";
+"paywall.copy.detailed.limit.include_5" = "हर दिन असीमित";
+"paywall.copy.detailed.limit.include_6" = "सभी भविष्य की Pro सुविधाएं";
 
 "paywall.trial_incentive_format" = "%@ मुफ़्त शामिल है।";
 "paywall.period.generic" = "अवधि";
@@ -298,6 +296,16 @@
 "settings.max_sets.option.30" = "30 सेट";
 
 "paywall.info.title" = "जानकारी";
+
+/* Alert readiness warnings */
+"alert_readiness.settings.section" = "अलर्ट";
+"alert_readiness.settings.sound_disabled.title" = "नोटिफ़िकेशन ध्वनि बंद";
+"alert_readiness.settings.time_sensitive_disabled.title" = "टाइम सेंसिटिव बंद";
+"alert_readiness.sound_disabled" = "इस ऐप के लिए नोटिफ़िकेशन ध्वनियाँ बंद हैं। फ़ोन लॉक होने पर आराम टाइमर अलर्ट सुनाई नहीं दे सकता।";
+"alert_readiness.time_sensitive_disabled" = "इस ऐप के लिए टाइम सेंसिटिव नोटिफ़िकेशन बंद हैं। अलर्ट डू नॉट डिस्टर्ब मोड में नहीं पहुँच सकते।";
+"alert_readiness.cta.open_settings" = "सेटिंग्स";
+"tip.keep_app_open" = "सबसे अच्छे अलर्ट अनुभव के लिए ऐप खुली रखें और रिंगर वॉल्यूम ऊंचा रखें।";
+
 "progress.accessibility.week_goal_format" = "इस सप्ताह वर्कआउट: %ld में से %ld";
 "progress.activity.empty" = "अभी तक कोई वर्कआउट पूरा नहीं हुआ है।";
 "progress.badge.first_workout.subtitle" = "अपना पहला वर्कआउट पूरा करें।";

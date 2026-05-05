@@ -1,0 +1,27 @@
+# Snapshot source pattern to golden filename mapping.
+# Format: <source_glob>=<target_filename>
+# The script searches inside fastlane/screenshots/<locale>.
+
+# Training
+*01_Home.png=training__idle__light__iphone17promax.png
+*02_Timer.png=training__resting__light__iphone17promax.png
+*05_TrainingCompleted.png=training__completed__light__iphone17promax.png
+
+# Routines
+*10_RoutinesEmpty.png=routines__empty__light__iphone17promax.png
+*11_RoutinesCatalog.png=routines__catalog__light__iphone17promax.png
+*12_RoutineEditor.png=routines__editor__light__iphone17promax.png
+
+# Progress
+*20_ProgressMonth.png=progress__month__light__iphone17promax.png
+*21_ProgressQuarter.png=progress__quarter__light__iphone17promax.png
+*22_ProgressSelectedDay.png=progress__selected-day__light__iphone17promax.png
+
+# Settings
+*30_SettingsDefault.png=settings__default__light__iphone17promax.png
+*31_SettingsMenu.png=settings__menu-open__light__iphone17promax.png
+
+# Paywall
+*40_PaywallStandardPro.png=paywall__standard-pro__light__iphone17promax.png
+*41_PaywallLightLimit.png=paywall__light-limit__light__iphone17promax.png
+*42_PaywallDetailedPro.png=paywall__detailed-pro__light__iphone17promax.png

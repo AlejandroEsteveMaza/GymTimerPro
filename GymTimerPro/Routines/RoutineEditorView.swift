@@ -33,6 +33,7 @@ struct RoutineEditorView: View {
     @AppStorage(MaxSetsPreference.appStorageKey) private var maxSetsPreferenceRawValue: Int = MaxSetsPreference.ten.rawValue
     @AppStorage(RestIncrementPreference.appStorageKey) private var restIncrementPreferenceRawValue: Int = RestIncrementPreference.fifteenSeconds.rawValue
     @AppStorage(TimerDisplayFormat.appStorageKey) private var timerDisplayFormatRawValue: Int = TimerDisplayFormat.seconds.rawValue
+    @AppStorage(WeightUnitPreference.appStorageKey) private var weightUnitPreferenceRawValue: Int = WeightUnitPreference.automatic.rawValue
 
     init(routine: Routine? = nil) {
         self.routine = routine
@@ -50,7 +51,6 @@ struct RoutineEditorView: View {
                 HStack {
                     TextField("routines.field.name", text: nameBinding)
                         .textInputAutocapitalization(.words)
-                        .autocorrectionDisabled()
                         .focused($focusedField, equals: .name)
                         .accessibilityLabel(Text("routines.field.name"))
                         .onChange(of: draft.name) { _, newValue in
@@ -124,20 +124,26 @@ struct RoutineEditorView: View {
                 )
 
                 ConfigRow(icon: "scalemass", titleKey: "routines.field.weight") {
-                    TextField("routines.weight.placeholder", text: weightBinding)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(Theme.textPrimary)
-                        .monospacedDigit()
-                        .focused($focusedField, equals: .weight)
-                        .accessibilityLabel(Text("routines.field.weight"))
-                        .onChange(of: weightText) { _, newValue in
-                            let clamped = RoutineEditorView.clampWeightText(newValue)
-                            if clamped != newValue {
-                                weightText = clamped
+                    HStack(spacing: 4) {
+                        TextField("routines.weight.placeholder", text: weightBinding)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .font(.system(size: 18, weight: .bold, design: .rounded))
+                            .foregroundStyle(Theme.textPrimary)
+                            .monospacedDigit()
+                            .focused($focusedField, equals: .weight)
+                            .accessibilityLabel(Text("routines.field.weight"))
+                            .onChange(of: weightText) { _, newValue in
+                                let clamped = RoutineEditorView.clampWeightText(newValue)
+                                if clamped != newValue {
+                                    weightText = clamped
+                                }
                             }
-                        }
+
+                        Text(weightUnitAbbreviation)
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .foregroundStyle(Theme.textSecondary)
+                    }
                 }
                 .frame(minHeight: Layout.minTapHeight)
                 .contentShape(Rectangle())
@@ -146,7 +152,7 @@ struct RoutineEditorView: View {
                 }
             }
 
-            if routine != nil {
+            if let routine {
                 Section {
                     Button {
                         handleApplyAction()
@@ -157,6 +163,13 @@ struct RoutineEditorView: View {
                         )
                     }
                     .disabled(!isApplied && !canApply)
+
+                    Button {
+                        store.duplicate(routine)
+                        dismiss()
+                    } label: {
+                        Label("routines.duplicate", systemImage: "doc.on.doc")
+                    }
                 }
             }
 
@@ -235,10 +248,7 @@ struct RoutineEditorView: View {
                     }
                 }
         )
-        .onAppear {
-            clampTotalSetsToAllowedMaximum()
-        }
-        .onChange(of: maxSetsPreferenceRawValue) { _, _ in
+        .onChange(of: maxSetsPreferenceRawValue, initial: true) { _, _ in
             clampTotalSetsToAllowedMaximum()
         }
     }
@@ -257,6 +267,14 @@ struct RoutineEditorView: View {
 
     private var restIncrementPreference: RestIncrementPreference {
         RestIncrementPreference(rawValue: restIncrementPreferenceRawValue) ?? .fifteenSeconds
+    }
+
+    private var weightUnitPreference: WeightUnitPreference {
+        WeightUnitPreference(rawValue: weightUnitPreferenceRawValue) ?? .automatic
+    }
+
+    private var weightUnitAbbreviation: String {
+        weightUnitPreference.resolvedUnit().symbol
     }
 
     private func formattedTime(_ seconds: Int) -> String {

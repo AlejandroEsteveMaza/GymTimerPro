@@ -21,6 +21,7 @@ struct RoutineRowView: View {
             .font(.subheadline)
             .foregroundStyle(.secondary)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .combine)
     }
 

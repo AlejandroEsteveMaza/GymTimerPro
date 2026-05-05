@@ -9,7 +9,19 @@ import SwiftData
 import SwiftUI
 
 struct RoutinePickerView: View {
+    let isApplied: Bool
+    let onRemove: () -> Void
     let onSelect: (Routine) -> Void
+
+    init(
+        isApplied: Bool = false,
+        onRemove: @escaping () -> Void = {},
+        onSelect: @escaping (Routine) -> Void
+    ) {
+        self.isApplied = isApplied
+        self.onRemove = onRemove
+        self.onSelect = onSelect
+    }
 
     @Environment(\.dismiss) private var dismiss
     @Query(sort: [SortDescriptor(\Routine.name, order: .forward)]) private var routines: [Routine]
@@ -31,10 +43,10 @@ struct RoutinePickerView: View {
                     classifications: classifications,
                     unclassifiedPlacement: .bottom,
                     leadingContent: {
-                        if routineSelectionStore.selection != nil {
+                        if isApplied {
                             Section {
                                 Button {
-                                    routineSelectionStore.clear()
+                                    onRemove()
                                     dismiss()
                                 } label: {
                                     Label("routines.remove_from_training", systemImage: "xmark.circle")
@@ -43,13 +55,13 @@ struct RoutinePickerView: View {
                         }
                     }
                 ) { routine in
-                    Button {
-                        onSelect(routine)
-                        dismiss()
-                    } label: {
-                        RoutineRowView(routine: routine)
-                    }
-                    .buttonStyle(.plain)
+                    RoutineRowView(routine: routine)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            onSelect(routine)
+                            dismiss()
+                        }
+                        .accessibilityAddTraits(.isButton)
                 }
             }
         }
