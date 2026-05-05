@@ -415,7 +415,7 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: Layout.metricSpacing) {
                 HStack(spacing: Layout.metricSpacing) {
                     MetricView(titleKey: "metric.set.title", value: "\(serieActual) / \(totalSeries)")
-                    if purchaseManager.isPro, let reps = appliedRoutineReps {
+                    if let reps = appliedRoutineReps {
                         MetricView(titleKey: "routines.field.reps", value: "\(reps)")
                     }
                 }
