@@ -1,5 +1,12 @@
 # App Store Connect localization updaters
 
+## RepBuzz subscription rebrand
+
+For a brand-only update of the two existing subscription products, use the separate
+[safe rebrand workflow](SUBSCRIPTION_REBRAND.md). It defaults to read-only preview,
+uses Subscription Versions and v2 localization PATCH, and requires an explicitly
+confirmed plan before writing. The generic updater below is not brand-only safe.
+
 This folder contains scripts to update:
 
 - Subscription texts (`name` + `description`) for:
