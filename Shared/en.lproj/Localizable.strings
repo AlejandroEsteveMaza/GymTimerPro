@@ -30,7 +30,7 @@
 "paywall.benefit.unlimited" = "Unlimited use";
 "paywall.benefit.no_limits" = "No daily limits";
 "paywall.benefit.one_time" = "One-time purchase, no subscription";
-"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_title" = "RepBuzz";
 "paywall.purchase.option_subtitle" = "Unlimited use";
 "paywall.purchase.one_time" = "One-time";
 "paywall.button.buy" = "Unlock Pro";
@@ -72,7 +72,7 @@
 
 "common.now" = "now";
 
-"app.name.fallback" = "GymTimerPro";
+"app.name.fallback" = "RepBuzz";
 
 "tab.training" = "Training";
 "tab.routines" = "Routines";

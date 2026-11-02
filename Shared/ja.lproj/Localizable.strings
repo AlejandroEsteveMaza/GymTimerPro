@@ -30,7 +30,7 @@
 "paywall.benefit.unlimited" = "無制限の利用";
 "paywall.benefit.no_limits" = "1日の上限なし";
 "paywall.benefit.one_time" = "買い切り、サブスクリプションなし";
-"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_title" = "RepBuzz";
 "paywall.purchase.option_subtitle" = "無制限の利用";
 "paywall.purchase.one_time" = "一度だけ";
 "paywall.button.buy" = "Proをアンロック";
@@ -72,7 +72,7 @@
 
 "common.now" = "now";
 
-"app.name.fallback" = "GymTimerPro";
+"app.name.fallback" = "RepBuzz";
 
 "tab.training" = "トレーニング";
 "tab.routines" = "ルーティン";

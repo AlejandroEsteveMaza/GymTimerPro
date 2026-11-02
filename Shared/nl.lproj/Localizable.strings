@@ -30,7 +30,7 @@
 "paywall.benefit.unlimited" = "Onbeperkt gebruik";
 "paywall.benefit.no_limits" = "Geen dagelijkse limieten";
 "paywall.benefit.one_time" = "Eenmalige aankoop, geen abonnement";
-"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_title" = "RepBuzz";
 "paywall.purchase.option_subtitle" = "Onbeperkt gebruik";
 "paywall.purchase.one_time" = "Eenmalig";
 "paywall.button.buy" = "Pro ontgrendelen";
@@ -72,7 +72,7 @@
 
 "common.now" = "now";
 
-"app.name.fallback" = "GymTimerPro";
+"app.name.fallback" = "RepBuzz";
 
 "tab.training" = "Training";
 "tab.routines" = "Routines";
