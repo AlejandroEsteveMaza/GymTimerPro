@@ -30,7 +30,7 @@
 "paywall.benefit.unlimited" = "무제한 사용";
 "paywall.benefit.no_limits" = "일일 제한 없음";
 "paywall.benefit.one_time" = "일회성 구매, 구독 없음";
-"paywall.purchase.option_title" = "GymTimer Pro";
+"paywall.purchase.option_title" = "RepBuzz";
 "paywall.purchase.option_subtitle" = "무제한 사용";
 "paywall.purchase.one_time" = "한 번";
 "paywall.button.buy" = "프로 잠금 해제";
@@ -72,7 +72,7 @@
 
 "common.now" = "now";
 
-"app.name.fallback" = "GymTimerPro";
+"app.name.fallback" = "RepBuzz";
 
 "tab.training" = "운동";
 "tab.routines" = "루틴";
