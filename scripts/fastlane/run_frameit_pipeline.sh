@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Opt-in branded composition; preserve the legacy pipeline below unchanged.
+if [[ "${1:-}" == "--design-config" ]]; then
+  exec python3 -B "$(dirname "${BASH_SOURCE[0]}")/promo_frameit.py" "$@"
+fi
+
 PROJECT_ROOT_DEFAULT="/Users/alejandroestevemaza/Code/GymTimerPro"
 PROJECT_ROOT="${PROJECT_ROOT_DEFAULT}"
 DEVICE="iphone"
@@ -17,6 +22,7 @@ usage() {
   cat <<'EOF'
 Usage:
   run_frameit_pipeline.sh [options]
+  run_frameit_pipeline.sh --design-config PATH [--results-root NEW_PATH] [--check-only]
 
 Options:
   --project-root PATH    Project root (default: /Users/alejandroestevemaza/Code/GymTimerPro)

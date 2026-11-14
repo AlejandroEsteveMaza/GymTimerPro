@@ -1,4 +1,40 @@
-Frameit structure (organized)
+# RepBuzz promotional screenshots
+
+The approved Spanish design uses the existing pipeline, Frameit device framing
+and an ImageMagick composition stage. Production app code is unchanged.
+
+```sh
+bash scripts/fastlane/run_frameit_pipeline.sh \
+  --design-config fastlane/frameit/logic/repbuzz-es.json --check-only
+bash scripts/fastlane/run_frameit_pipeline.sh \
+  --design-config fastlane/frameit/logic/repbuzz-es.json \
+  --results-root fastlane/frameit/results/repbuzz-es
+python3 -B -m unittest discover -s scripts/fastlane -p 'test_promo_frameit.py'
+```
+
+`--design-config` must be the first option. Other invocations retain the legacy
+flow below. Each results directory must be new: a failed run exports nothing,
+and previous outputs are never used as inputs. All five frames must exist.
+
+Edit `logic/repbuzz-es.json` for explicit screen/source mappings, approved copy,
+fonts, colors, light paths and layout. The source hashes and capture provenance
+must match the current app; recapture and update them when the app changes.
+Originals are never resized in place. Temporary copies are normalized to
+1290×2796 for the cached black iPhone 14 Pro Max bezel; the real source captures
+are from iPhone 17 Pro Max. Final RGB PNGs are 1290×2796.
+
+Dependencies: macOS Arial/Arial Bold, ImageMagick, Python 3, Fastlane and its
+existing frame cache (`~/.fastlane/frameit/latest`). Missing cache fails before
+Frameit starts; this stage does not install tools, upload or download assets.
+`manifest.json` records source and output hashes. Only Spanish is enabled.
+New editor/completion originals and reproducible isolated-test instructions are
+in `references/repbuzz-1.3.1-build4-es-premium-additional/provenance.json`.
+
+## Legacy three-image flow
+
+The legacy setup below still uses old aliases and all app locales. Do not run it
+to prepare the new five-image Spanish delivery; its alphabetical aliases are
+not the approved explicit mapping.
 
 - `logic/`: configuration/templates used to generate screenshots.
 - `resources/`: reusable assets (backgrounds, fonts).

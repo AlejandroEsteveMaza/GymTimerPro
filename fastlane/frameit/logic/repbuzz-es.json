@@ -1,0 +1,65 @@
+{
+  "locale": "es",
+  "version": "1.3.1",
+  "build": "4",
+  "capture_provenance": "references/repbuzz-1.3.1-build4-es-premium-additional/provenance.json",
+  "canvas": [1290, 2796],
+  "screen_size": [1290, 2796],
+  "frame_device": "iPhone 14 Pro Max",
+  "frame_color": "BLACK",
+  "icon": "GymTimerPro/Assets.xcassets/AppIcon.appiconset/1024.png",
+  "style": {
+    "background": ["#071A46", "#020D34"],
+    "blue": "#087BFF",
+    "orange": "#FF850B",
+    "subtitle_color": "#E3E8F4",
+    "orange_paths": ["M -70,290 Q 100,110 310,-55", "M 1050,2870 Q 1240,2730 1370,2470"],
+    "blue_paths": ["M 1050,740 Q 1220,610 1360,440", "M -80,1960 Q 100,1790 260,1650"],
+    "display_font": "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+    "body_font": "/System/Library/Fonts/Supplemental/Arial.ttf",
+    "title_size": 142,
+    "subtitle_size": 57,
+    "brand_y": 36,
+    "title_y": 220,
+    "subtitle_y": 518,
+    "phone_y": 725,
+    "phone_bounds": [1120, 2035]
+  },
+  "screens": [
+    {
+      "id": "02_Timer",
+      "source": "references/repbuzz-1.3.1-build4-es-premium/02_Timer.png",
+      "sha256": "0c20f5dcde2a185a8466ae25fa99f4f6c263418a3b9a4fa8e4027964f32940e5",
+      "title": "Controla tus\ndescansos",
+      "subtitle": "Sigue cada serie con un temporizador\nclaro, rápido y fácil de usar"
+    },
+    {
+      "id": "11_RoutinesCatalog",
+      "source": "references/repbuzz-1.3.1-build4-es-premium/11_RoutinesCatalog.png",
+      "sha256": "f945421778eb7d20543e1039cdddb15f87dcda250e21021a27c435d801deb0dd",
+      "title": "Organiza tus\nrutinas",
+      "subtitle": "Crea, clasifica y encuentra tus\nentrenamientos en segundos"
+    },
+    {
+      "id": "20_ProgressMonth",
+      "source": "references/repbuzz-1.3.1-build4-es-premium/20_ProgressMonth.png",
+      "sha256": "2ef44a8788efb9197b3be294b723386af5c071a87f4810330b1a8b760a8d787f",
+      "title": "Visualiza tu\nprogreso",
+      "subtitle": "Consulta tu actividad y sigue\ntu evolución"
+    },
+    {
+      "id": "12_RoutineEditor",
+      "source": "references/repbuzz-1.3.1-build4-es-premium-additional/12_RoutineEditor.png",
+      "sha256": "e444ba54602214ddd9e08231c5bb64eff8f1c2acd5747e62c9a0434dad456939",
+      "title": "Personaliza tus\nrutinas",
+      "subtitle": "Adapta cada entrenamiento\na tus objetivos"
+    },
+    {
+      "id": "05_TrainingCompleted",
+      "source": "references/repbuzz-1.3.1-build4-es-premium-additional/05_TrainingCompleted.png",
+      "sha256": "15b250039fd9277a712d53890fdb8a4146746c74aa908e9515ceed44558afe2f",
+      "title": "Cada entrenamiento\ncuenta",
+      "subtitle": "Completa tus sesiones y\nregistra tu esfuerzo"
+    }
+  ]
+}
