@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "root": "fastlane/frameit/results/repbuzz-es",
+  "app": {"version": "1.3.1", "build": "4", "bundle_identifier": "alejandroestevemaza.GymTimerPro"},
+  "manifest_sha256": "b2be9dccbbd38318d208524653659a1e3a52326636f8bb50723de1d85df628c5",
+  "design_sha256": "336fd8280e310ece739fc29fe9f61a70d3e7c656b60953faf6824657f7e0dc5c",
+  "provenance_sha256": "3eb5f1f026a95c8bcb20fa38abdf4b9d2f9100d34b2214820240b0d92d96e715",
+  "screens": [
+    {"id": "02_Timer", "path": "01_02_Timer.png", "sha256": "29fdc70eb5f7b9ae91912038d7cd7160a2a94245f45cd7228c9bb531c5b3c52d", "source": "references/repbuzz-1.3.1-build4-es-premium/02_Timer.png", "source_sha256": "0c20f5dcde2a185a8466ae25fa99f4f6c263418a3b9a4fa8e4027964f32940e5"},
+    {"id": "11_RoutinesCatalog", "path": "02_11_RoutinesCatalog.png", "sha256": "eba08879467a025378ca044f4b14c1610ec68d489c4c87619be9d29389b7ee2c", "source": "references/repbuzz-1.3.1-build4-es-premium/11_RoutinesCatalog.png", "source_sha256": "f945421778eb7d20543e1039cdddb15f87dcda250e21021a27c435d801deb0dd"},
+    {"id": "20_ProgressMonth", "path": "03_20_ProgressMonth.png", "sha256": "fbb12eeebba0cb1a49d8091a8b4d8fc9b9ff58494ad65a61bfdc0517a6823287", "source": "references/repbuzz-1.3.1-build4-es-premium/20_ProgressMonth.png", "source_sha256": "2ef44a8788efb9197b3be294b723386af5c071a87f4810330b1a8b760a8d787f"},
+    {"id": "12_RoutineEditor", "path": "04_12_RoutineEditor.png", "sha256": "ace9e79adefa2e81756ef9e9f78d3f0a29a547b069ca47c66b244325ee258b7e", "source": "references/repbuzz-1.3.1-build4-es-premium-additional/12_RoutineEditor.png", "source_sha256": "e444ba54602214ddd9e08231c5bb64eff8f1c2acd5747e62c9a0434dad456939"},
+    {"id": "05_TrainingCompleted", "path": "05_05_TrainingCompleted.png", "sha256": "463966c213e4dddf9998cf45dd4cafe75a86c53f293ccbf1cdb751a0a412d77b", "source": "references/repbuzz-1.3.1-build4-es-premium-additional/05_TrainingCompleted.png", "source_sha256": "15b250039fd9277a712d53890fdb8a4146746c74aa908e9515ceed44558afe2f"}
+  ]
+}

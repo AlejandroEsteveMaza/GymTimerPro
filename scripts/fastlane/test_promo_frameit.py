@@ -1,5 +1,7 @@
 import copy
 import importlib.util
+import contextlib
+import io
 import json
 from pathlib import Path
 import subprocess
@@ -79,6 +81,47 @@ class PromoTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "nothing exported"):
                     self.module.render(self.config, self.root, output)
             self.assertFalse(output.exists())
+
+    def test_publication_copy_failure_exports_nothing(self):
+        with tempfile.TemporaryDirectory() as folder:
+            home = Path(folder)
+            cache = home / ".fastlane/frameit/latest"
+            cache.mkdir(parents=True)
+            for name in ["Apple iPhone 14 Pro Max Black.png", "offsets.json", "version.txt"]:
+                (cache / name).write_text("1")
+            output = home / "results"
+            def fake_command(*args, **kwargs):
+                if args[0] == "fastlane":
+                    for screen in self.config["screens"]:
+                        (kwargs["cwd"] / (screen["id"] + "_framed.png")).write_text("frame")
+                else:
+                    Path(args[-1]).write_text("test image")
+            with patch.object(self.module, "validate"), \
+                    patch.object(Path, "home", return_value=home), \
+                    patch.object(self.module.shutil, "which", return_value="present"), \
+                    patch.object(self.module, "command", side_effect=fake_command), \
+                    patch.object(self.module, "dimensions", return_value=[1290, 2796]), \
+                    patch.object(self.module.shutil, "copytree", side_effect=OSError("copy failed")):
+                with self.assertRaisesRegex(OSError, "copy failed"):
+                    self.module.render(self.config, self.root, output)
+            self.assertFalse(output.exists())
+            self.assertFalse(list(home.glob(".repbuzz-publish-*")))
+            # The same legacy entry point still publishes its five-screen
+            # manifest and exact success message when composition succeeds.
+            stdout = io.StringIO()
+            with patch.object(self.module, "validate"), \
+                    patch.object(Path, "home", return_value=home), \
+                    patch.object(self.module.shutil, "which", return_value="present"), \
+                    patch.object(self.module, "command", side_effect=fake_command), \
+                    patch.object(self.module, "dimensions", return_value=[1290, 2796]), \
+                    contextlib.redirect_stdout(stdout):
+                self.module.render(self.config, self.root, output)
+            self.assertEqual(stdout.getvalue(),
+                             f"Created five verified Spanish screenshots: {output}\n")
+            manifest = json.loads((output / "manifest.json").read_text())
+            self.assertEqual(manifest["locale"], "es")
+            self.assertEqual(len(manifest["screens"]), 5)
+            self.assertTrue(all("typography" not in row for row in manifest["screens"]))
 
 
 if __name__ == "__main__":

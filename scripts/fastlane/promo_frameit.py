@@ -68,10 +68,10 @@ def label(text, font, size, color, bounds, output):
             "label:" + text, "-resize", bounds + ">", output)
 
 
-def render(config, root, output):
+def render(config, root, output, *, source_validator=None, text_renderer=None):
     if output.exists():
         raise ValueError(f"Output already exists; select a new results root: {output}")
-    validate(config, root)
+    (source_validator or validate)(config, root)
     style = config["style"]
     cache = Path.home() / ".fastlane/frameit/latest"
     frame = cache / f"Apple {config['frame_device']} {config['frame_color'].title()}.png"
@@ -129,13 +129,20 @@ def render(config, root, output):
                 "-geometry", "+0+0", "-composite", brand, "-gravity", "west",
                 "-geometry", "+194+0", "-composite", lockup)
         provenance = {"version": config["version"], "build": config["build"],
-                      "locale": "es", "generated_at": datetime.now(timezone.utc).isoformat(),
+                      "locale": config["locale"], "generated_at": datetime.now(timezone.utc).isoformat(),
                       "frame_device": config["frame_device"], "screens": []}
         for index, screen in enumerate(config["screens"], 1):
             title, subtitle, phone = [work / (n + ".png") for n in ["title", "subtitle", "phone"]]
-            label(screen["title"], display, style["title_size"], "white", "1150x280", title)
-            label(screen["subtitle"], body, style["subtitle_size"],
-                  style["subtitle_color"], "1160x150", subtitle)
+            typography = {}
+            for role, font, color, bounds, target in [
+                ("title", display, "white", "1150x280", title),
+                ("subtitle", body, style["subtitle_color"], "1160x150", subtitle)
+            ]:
+                arguments = (screen[role], font, style[role + "_size"], color, bounds, target)
+                if text_renderer:
+                    typography[role] = text_renderer(*arguments)
+                else:
+                    label(*arguments)
             command("magick", stage / (screen["id"] + "_framed.png"),
                     "-resize", "x".join(map(str, style["phone_bounds"])), phone)
             target = final / f"{index:02d}_{screen['id']}.png"
@@ -143,15 +150,25 @@ def render(config, root, output):
             for image, y in [(lockup, style["brand_y"]), (title, style["title_y"]),
                              (subtitle, style["subtitle_y"]), (phone, style["phone_y"])]:
                 args += [image, "-gravity", "north", "-geometry", f"+0+{y}", "-composite"]
-            command(*args, "-alpha", "off", "-colorspace", "sRGB", "-depth", 8, target)
+            command(*args, "-alpha", "off", "-colorspace", "sRGB", "-depth", 8,
+                    "-define", "png:color-type=2", target)
             if dimensions(target) != config["canvas"]:
                 raise ValueError(f"Invalid final dimensions: {target.name}")
-            provenance["screens"].append(dict(screen, output=target.name,
-                                               output_sha256=digest(target)))
+            entry = dict(screen, output=target.name, output_sha256=digest(target))
+            if text_renderer:
+                entry["typography"] = typography
+            provenance["screens"].append(entry)
         (final / "manifest.json").write_text(json.dumps(provenance, ensure_ascii=False, indent=2))
         output.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(final, output)
-    print(f"Created five verified Spanish screenshots: {output}")
+        # Copy failure must never expose a partial destination.
+        with tempfile.TemporaryDirectory(prefix=".repbuzz-publish-", dir=output.parent) as publish:
+            staged = Path(publish) / "complete"
+            shutil.copytree(final, staged)
+            if output.exists():
+                raise ValueError(f"Output already exists: {output}")
+            staged.rename(output)
+    delivery_name = "Spanish" if config["locale"] == "es" else config["locale"]
+    print(f"Created five verified {delivery_name} screenshots: {output}")
 
 
 def main():
