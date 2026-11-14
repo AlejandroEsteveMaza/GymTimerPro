@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "description": "Simulator-only user records. Ordered labels match the existing production sample routine parameters; no production seeds are modified.",
+  "progress_days": [2, 4, 6, 9, 11, 13],
+  "locales": {
+    "en": {"classifications": ["Strength", "Hypertrophy", "Endurance", "Mobility"], "routines": ["Basic Strength", "Hypertrophy", "Calisthenics", "Leg Strength", "Upper Body Strength", "Full Body", "Push", "Pull", "Core", "HIIT", "Endurance", "Deload", "Mobility", "Arms"]},
+    "es": {"classifications": ["Fuerza", "Hipertrofia", "Resistencia", "Movilidad"], "routines": ["Fuerza básica", "Hipertrofia", "Calistenia", "Pierna - Fuerza", "Torso - Fuerza", "Full Body", "Empuje", "Tirón", "Core", "HIIT", "Resistencia", "Descarga", "Movilidad", "Brazos"]},
+    "de": {"classifications": ["Kraft", "Muskelaufbau", "Ausdauer", "Mobilität"], "routines": ["Grundkraft", "Muskelaufbau", "Calisthenics", "Beinkraft", "Oberkörperkraft", "Ganzkörper", "Drücken", "Ziehen", "Rumpf", "HIIT", "Ausdauer", "Entlastung", "Mobilität", "Arme"]},
+    "fr": {"classifications": ["Force", "Hypertrophie", "Endurance", "Mobilité"], "routines": ["Force de base", "Hypertrophie", "Callisthénie", "Force des jambes", "Force du haut du corps", "Corps entier", "Poussée", "Tirage", "Abdominaux", "HIIT", "Endurance", "Récupération", "Mobilité", "Bras"]},
+    "it": {"classifications": ["Forza", "Ipertrofia", "Resistenza", "Mobilità"], "routines": ["Forza di base", "Ipertrofia", "Calisthenics", "Forza gambe", "Forza busto", "Corpo intero", "Spinta", "Trazione", "Addominali", "HIIT", "Resistenza", "Scarico", "Mobilità", "Braccia"]},
+    "pt-BR": {"classifications": ["Força", "Hipertrofia", "Resistência", "Mobilidade"], "routines": ["Força básica", "Hipertrofia", "Calistenia", "Força de pernas", "Força de tronco", "Corpo inteiro", "Empurrar", "Puxar", "Abdominais", "HIIT", "Resistência", "Recuperação", "Mobilidade", "Braços"]},
+    "pt-PT": {"classifications": ["Força", "Hipertrofia", "Resistência", "Mobilidade"], "routines": ["Força básica", "Hipertrofia", "Calistenia", "Força de pernas", "Força de tronco", "Corpo inteiro", "Empurrar", "Puxar", "Abdominais", "HIIT", "Resistência", "Recuperação", "Mobilidade", "Braços"]},
+    "nl": {"classifications": ["Kracht", "Spiergroei", "Uithouding", "Mobiliteit"], "routines": ["Basiskracht", "Spiergroei", "Calisthenics", "Beenkracht", "Bovenlichaam", "Hele lichaam", "Duwen", "Trekken", "Buikspieren", "HIIT", "Uithouding", "Herstel", "Mobiliteit", "Armen"]},
+    "sv": {"classifications": ["Styrka", "Muskeltillväxt", "Uthållighet", "Rörlighet"], "routines": ["Grundstyrka", "Muskeltillväxt", "Calisthenics", "Benstyrka", "Överkroppsstyrka", "Helkropp", "Press", "Drag", "Bål", "HIIT", "Uthållighet", "Återhämtning", "Rörlighet", "Armar"]},
+    "da": {"classifications": ["Styrke", "Muskelvækst", "Udholdenhed", "Mobilitet"], "routines": ["Grundstyrke", "Muskelvækst", "Calisthenics", "Benstyrke", "Overkropsstyrke", "Hele kroppen", "Pres", "Træk", "Kernemuskler", "HIIT", "Udholdenhed", "Restitution", "Mobilitet", "Arme"]},
+    "nb": {"classifications": ["Styrke", "Muskelvekst", "Utholdenhet", "Bevegelighet"], "routines": ["Grunnstyrke", "Muskelvekst", "Calisthenics", "Beinstyrke", "Overkroppsstyrke", "Hele kroppen", "Press", "Trekk", "Kjernemuskler", "HIIT", "Utholdenhet", "Restitusjon", "Bevegelighet", "Armer"]},
+    "ja": {"classifications": ["筋力", "筋肥大", "持久力", "柔軟性"], "routines": ["基礎筋力", "筋肥大", "自重トレーニング", "下半身の筋力", "上半身の筋力", "全身", "プッシュ", "プル", "体幹", "HIIT", "持久力", "負荷軽減", "柔軟性", "腕"]},
+    "ko": {"classifications": ["근력", "근비대", "지구력", "유연성"], "routines": ["기초 근력", "근비대", "맨몸 운동", "하체 근력", "상체 근력", "전신", "밀기", "당기기", "코어", "HIIT", "지구력", "회복", "유연성", "팔"]},
+    "zh-Hans": {"classifications": ["力量", "增肌", "耐力", "灵活性"], "routines": ["基础力量", "增肌", "自重训练", "腿部力量", "上身力量", "全身", "推", "拉", "核心", "HIIT", "耐力", "减量恢复", "灵活性", "手臂"]},
+    "hi": {"classifications": ["शक्ति", "मांसपेशियों की वृद्धि", "सहनशक्ति", "लचीलापन"], "routines": ["बुनियादी शक्ति", "मांसपेशियों की वृद्धि", "बॉडीवेट व्यायाम", "पैरों की शक्ति", "ऊपरी शरीर की शक्ति", "पूरा शरीर", "धक्का", "खींचना", "कोर", "HIIT", "सहनशक्ति", "रिकवरी", "लचीलापन", "बाँहें"]}
+  }
+}
