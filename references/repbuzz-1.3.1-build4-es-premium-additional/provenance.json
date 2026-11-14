@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "app": {
+    "version": "1.3.1",
+    "build": "4",
+    "bundle_identifier": "alejandroestevemaza.GymTimerPro"
+  },
+  "device": {
+    "name": "iPhone 17 Pro Max",
+    "model_identifier": "iPhone18,2",
+    "udid": "A52BEE18-A2DC-4642-8879-30632FC6B48E",
+    "ios": "26.2"
+  },
+  "locale": "es_ES",
+  "languages": [
+    "es"
+  ],
+  "appearance": "light",
+  "status_bar": {
+    "time": "09:41",
+    "battery_state": "charged",
+    "battery_level": 100,
+    "wifi_bars": 3,
+    "cellular_bars": 4
+  },
+  "toolchain": {
+    "xcode": "27.1",
+    "build": "27A9275"
+  },
+  "screenshots": {
+    "05_TrainingCompleted.png": {
+      "sha256": "15b250039fd9277a712d53890fdb8a4146746c74aa908e9515ceed44558afe2f",
+      "dimensions": [
+        1320,
+        2868
+      ],
+      "captured_at_utc": "2026-11-14T13:15:38.723000+00:00"
+    },
+    "12_RoutineEditor.png": {
+      "sha256": "e444ba54602214ddd9e08231c5bb64eff8f1c2acd5747e62c9a0434dad456939",
+      "dimensions": [
+        1320,
+        2868
+      ],
+      "captured_at_utc": "2026-11-14T13:15:30.841000+00:00"
+    }
+  },
+  "pixel_processing": "None. Native XCUIApplication.screenshot attachments exported and copied byte-for-byte.",
+  "premium_proof": {
+    "environment": "Local StoreKitTest only; no real purchase",
+    "product": "premium_yearly",
+    "launch_cached_is_pro": false,
+    "assertions": [
+      "Purchase transaction has no revocation and future expiration.",
+      "SKTestSession contains purchased premium_yearly before editor and before/after completion.",
+      "App displays Pro on home before each screen despite cachedIsPro=false.",
+      "Editor has Full Body and no keyboard.",
+      "Completion text exists following public startRestButton tap."
+    ],
+    "observed_test_result": "1 test passed, 0 failures, 21.219 seconds"
+  },
+  "source": {
+    "scope": [
+      "GymTimerPro/",
+      "GymTimerProWidget/",
+      "Shared/",
+      "GymTimerPro.xcodeproj/ (excluding xcuserdata)",
+      "GymTimerProWidget-Info.plist"
+    ],
+    "file_count": 79,
+    "files_sha256": {
+      "GymTimerPro/.DS_Store": "60960442a846d56b71e383e13f9dac90179feae923eacf2ec6a579aeccdccd32",
+      "GymTimerPro/AlertReadinessChecker.swift": "c1f9ece6e85f3b6f439229a990507837c40845d04f531400140db798c001d35c",
+      "GymTimerPro/Assets.xcassets/.DS_Store": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3",
+      "GymTimerPro/Assets.xcassets/AccentColor.colorset/Contents.json": "9af65086fa30b49252fae1a1225731691de794f7775af74d71befeb507d12b7c",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/100.png": "b4d3a7d1ea49edbb2be2a6b50a74e935b0efa1c8809d2ee520844f5adba246b6",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/1024.png": "c4a45edbca5c34787052f2212a9ab3405da8715a0d6cb30cf8334792fc314d6f",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/114.png": "cda3381d224a0f3b3a8216fd8177568b3cda3b46fa2353811df98f81e16f6d3d",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/120.png": "36d60a20bf2a8186b97ded208404ae06a72f76df3ad85d6461722619cac5779f",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/144.png": "4c1ec1642905fe54607ba2b50bc0d509968d1473c61cdbd1cc1d41789bd6dc73",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/152.png": "2b5147e0b09e86f1c1c15d0b3c920f6d1ffb8483e5d29ce52566c22184aa0a5b",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/167.png": "a5ef160f913a94b7dace9746365a30e82261926deaf3d6ba7b05bc2b3f108262",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/180.png": "f2208954cb4c812a6a359f586f9592e2bd316810fde106b810d0f3056ffeb4f1",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/20.png": "e3276da529c59eb1d838289cd29873c65036aa4f522802cbf3cd8eab296be248",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/29.png": "59235e7b30423e36435eaba6dc9a9a18630123ea82b2a3e1a2c398f3ad76d309",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/40.png": "553770d9ef093683282a6f6528aae5920b41ea3bd281e5d7672b5660ad928f3b",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/50.png": "e6c1e5f490795568494aa1bff9e3a992bff1ae777f619e9f53dc40218778494f",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/57.png": "4248402a7ee00c1a781db6a8712d1690e5ab368199c155d6f65bc02a1d796e9d",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/58.png": "7868c943caee8a3a70fe7681e61e0976a655a4409002b8354e344d12942ea37e",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/60.png": "bf71eacef3bc548a188f249ea52443a048000d5ab241e1bb8e74fb4711f6da1a",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/72.png": "b471696a6dc9fb106afc23463bd0f690107d7af59eee2f18021e334c7c7a853b",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/76.png": "3005157f90378d1f9acc0b7d616d39bcfa88adcf8abf622d3f1771bd760ede0f",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/80.png": "0a0d421eac27d191548f1a2cd5218c455238cd19f3d704b9c9eb044a601f1d23",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/87.png": "097bc1af454765dfe350f18684a6c41578d36ec2add18dfb129cfe5386282a92",
+      "GymTimerPro/Assets.xcassets/AppIcon.appiconset/Contents.json": "bd2abd1f544e77d8c60a51db66dcebcaf6b38f62fa54047108eb1db338af7fa4",
+      "GymTimerPro/Assets.xcassets/Contents.json": "0fd49ba3c3585c709678e0046a821c3c60685ec7063720d30d3a3448be3a208b",
+      "GymTimerPro/ContentView.swift": "9f77223d00fa43be403d088c381231198fb6ed5da3ab46b91937c2541bbe59fa",
+      "GymTimerPro/DailyUsageLimiter.swift": "29d1d56cf738ba56c6eb5b8a29b3293a6a6607922dd13d5d2f52d6d902ac012b",
+      "GymTimerPro/GymTimerPro.entitlements": "b42de51208519b64b04f8bb51b57fd61a0622e483f5bd7d08c70edf5b58279a2",
+      "GymTimerPro/GymTimerPro.storekit": "f2bf11923e3642064d77b5ed5b93d5ce50f50c5b59fa566064aa0d874b2be043",
+      "GymTimerPro/GymTimerProApp.swift": "6a2c49cc1c0b67b68135a0d4b3fb72597bd183734ec2355b48708d7737c50c32",
+      "GymTimerPro/Info.plist": "d2ae34f984a8a1293fe566397a72ac84173d57db968f82ae0cf965a8c8f2c4b3",
+      "GymTimerPro/LiveActivityManager.swift": "7afd8f82e6ab0bde01d33b3dfb25b3b1f35a25b438e65b1b25e9a698fc8a39fb",
+      "GymTimerPro/MainTabView.swift": "60f3d93eb74e1949212ad20d78f84592148e4f65e2a39d4c2f0fd7e31308db30",
+      "GymTimerPro/NumericConfigRow.swift": "e3143112e3d9033d020ec8ff2e651f433617aa98e16373e85a89df6763ca6192",
+      "GymTimerPro/PaywallContent.swift": "acf0a0cd8b25ed8959fd1c514395bb3f93dd7bdca9376e05e01d9faff50dbb24",
+      "GymTimerPro/PaywallView.swift": "4531bafa7cbec066b6ba4267c0e8b5ed315fd5814733aede5636ac783a4f4558",
+      "GymTimerPro/Progress/Models/WorkoutCompletion.swift": "e9a4b510ecdaffd58c3117e621e721a52fdd8455d90fd6a139562b27dc7cc40e",
+      "GymTimerPro/Progress/ProgramProgressStore.swift": "dffafea9698f9f23f4ac571a72ff238e28614b006518451c614f597876b1e782",
+      "GymTimerPro/Progress/ProgramProgressView.swift": "153148361ec467902ddcbcb40e12869785a3c3b81a0d509501c6bd15bcfc6cbf",
+      "GymTimerPro/Progress/ProgressDebugSeeder.swift": "3383eaf137efac8b7e9c8e0884ea59f3e27349303388f3f569a39b6518203af9",
+      "GymTimerPro/PurchaseManager.swift": "7e9bdab4a4a91d5d8ca2b88d3b5691fd712181ee3ad6770c7c516c0ceb9b3152",
+      "GymTimerPro/Routines/Classifications/RoutineClassification.swift": "123fc270b6685d335943ab59ca47b7b08a4b007d63e815a8dccd780028eb1d83",
+      "GymTimerPro/Routines/Classifications/RoutineClassificationManagerView.swift": "1dd4eae315a115405e9656e65baf858da71c239afd043f55d1c54bfcd26af5aa",
+      "GymTimerPro/Routines/Classifications/RoutineClassificationPickerView.swift": "cf545bf6e59e28c43ebcda91f62a8ae2c5637f9910c443d8459e90439daaa63f",
+      "GymTimerPro/Routines/Routine.swift": "4a478778295d8ba4a0c0d01c42353d88740f18a88a59154714f338abb1c4a4c2",
+      "GymTimerPro/Routines/RoutineCatalogListView.swift": "a1c09e9f4fd4d81b1804f4a47c46da19d0a8d523af4dc5906094565274fb4c34",
+      "GymTimerPro/Routines/RoutineEditorView.swift": "7388dd45f29314ba47e2d63829bf66f5a3bb354324ee6f8d986a46dad0f38e95",
+      "GymTimerPro/Routines/RoutineFormatting.swift": "611709d376687c402d7d83380a596b67bc0f616a61760a29baa0764e0ec9816e",
+      "GymTimerPro/Routines/RoutinePickerView.swift": "d07c859dd72ce15532378623f5b71377b2ddbdcb9da1b929dcb6f5e79d6210d3",
+      "GymTimerPro/Routines/RoutineRowView.swift": "23987ceeca2c2a88b0becffd5444bc35f72e414cd853a6d3c58ea63683cc4a02",
+      "GymTimerPro/Routines/RoutineSelectionStore.swift": "51f5a5fc6720e954977225c0c78835df4db155a3ea175f03492b0844e99bdb82",
+      "GymTimerPro/Routines/RoutinesListView.swift": "3f666adef8e4fe254f159f3f6e7cc619c554c9a1cf27acdfb36d5b3aecebb88f",
+      "GymTimerPro/Routines/RoutinesRootView.swift": "e82220f6771b502b2045974fa988a634a2163425f139d785d92a4f1d36f50f8f",
+      "GymTimerPro/Routines/RoutinesStore.swift": "45764a35a1c86b385534e2a1fa409d102ea7dd71c199b50a8e7e951b5322e249",
+      "GymTimerPro/Settings/SettingsRootView.swift": "6a2fa3378428d3f9fa3fff647985e616a41c190dff11d02b969334da7747f09b",
+      "GymTimerPro.xcodeproj/project.pbxproj": "09fae95c02946350f6cde8cb54d3cbe6da5a34c2050b858a02112ded74339dae",
+      "GymTimerPro.xcodeproj/project.xcworkspace/contents.xcworkspacedata": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f",
+      "GymTimerPro.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings": "97704a8960b4facceef54397a08fb5d0a456247c3627359215aa2a27df22656c",
+      "GymTimerPro.xcodeproj/xcshareddata/xcschemes/GymTimerPro.xcscheme": "3a182747493a08171fd971cfeda7a82d408565560fbbcf3734b79395269612d8",
+      "GymTimerPro.xcodeproj/xcshareddata/xcschemes/GymTimerProWidget.xcscheme": "df929caee67bde529b7446c47d8fe0e650c6d0172da09b38bedccba5272f4645",
+      "GymTimerProWidget/GymTimerProWidget.swift": "1c33c98a42cb9e3434299a09c430b5e6317940b075bb07f206a6ffbffce88852",
+      "GymTimerProWidget-Info.plist": "57787bad0088ecd84779cc24b06a25cfbcdd7dfa94afc6ddfd3b373562b5bdf5",
+      "Shared/GymTimerLiveActivityAttributes.swift": "3b66fb47579bce8c6b83668ea952e090c1430cff0df6b341950a61d05810ab06",
+      "Shared/L10n.swift": "425bbc30820a17a1799a3f6177c788a470c4f04a9a0d2fa499674095336e070e",
+      "Shared/da.lproj/Localizable.strings": "d10fad5b7b04fa8dd523251bf0d7f2c9d045899cfa1c6b262761cef0dbaf6761",
+      "Shared/de.lproj/Localizable.strings": "4ac0ecb1ebfc14ff60851b838c2f55062fa5f3a03b66dfc59145c3be06d0a683",
+      "Shared/en.lproj/Localizable.strings": "ecb457206e61f0184a093a241601947b6ce0b94de1e199853e46be3b49302b90",
+      "Shared/es.lproj/Localizable.strings": "bdec771a33f7e67f05e18445b8372c213c7c64150b61f4a75fe3fc955609eab7",
+      "Shared/fr.lproj/Localizable.strings": "637d248ba4e888cf9fd2559fd7cd485a0b5585a2283a4f8fe4277b360cba3a88",
+      "Shared/hi.lproj/Localizable.strings": "c593c03bb70d6c534398f9c3eab9612eca23fc9551909032cde7ef9da669b4d1",
+      "Shared/it.lproj/Localizable.strings": "e4e5246f20a74c314aa3c7125c3efb6f1593e6e235b4da5e492f99fbf27592d4",
+      "Shared/ja.lproj/Localizable.strings": "082dd6a83e94426d46952d3d604ef26a6dbe2a1ed389051e78ce4ac6037aa6d4",
+      "Shared/ko.lproj/Localizable.strings": "ba7ccb49c80c5bc9ba1299a90a7cae8ef728c219286851b331038b7dc41c478a",
+      "Shared/nb.lproj/Localizable.strings": "1bbf8c9871aea6419aa9d0be3b1d02190e6abcb7064c6f81da6530025ab70038",
+      "Shared/nl.lproj/Localizable.strings": "fe3ec71890622f279bd518c255e530af1a9f7417490322a9ff10ea3e4c1b4787",
+      "Shared/pt-BR.lproj/Localizable.strings": "fd4ba59f13a591d20d39e05b8446ac1faff8b153c750f0285cf44cca4426f5d4",
+      "Shared/pt-PT.lproj/Localizable.strings": "6c47106d30c2fe04bc458a49209440b3c52e4728f93c6394e2f13ff7d58c4df6",
+      "Shared/sv.lproj/Localizable.strings": "3984b49c4f31efa48d793ddccb088df40a68af79279987b3339629972ad89ef5",
+      "Shared/zh-Hans.lproj/Localizable.strings": "840abdc535ee1c4e4c3a7464705ae0feeb644f64be0515578da914cdf53ca744"
+    },
+    "aggregate_algorithm": "SHA-256 of sorted lines: <file sha256><two spaces><repository-relative path><LF>, UTF-8",
+    "aggregate_sha256": "d364420470f260c38835a755e82aa428c498af496e391748e90ffe782f0c2165",
+    "copy_byte_identity_verified_before_build_and_after_capture": true
+  },
+  "regeneration": {
+    "steps": [
+      "Create external mktemp scratch; copy GymTimerPro, GymTimerProWidget, Shared, GymTimerPro.xcodeproj, GymTimerProUITests and root GymTimerProWidget-Info.plist into scratch/source. Do not modify production copies.",
+      "Verify production/project file hashes against source.files_sha256.",
+      "Copy GymTimerPro/GymTimerPro.storekit into GymTimerProUITests/GymTimerPro.storekit in scratch only.",
+      "Apply isolated_ui_test_unified_diff to scratch test file only.",
+      "Use retained simulator (or equivalent iPhone 17 Pro Max iOS 26.2); set light appearance and matching simctl status_bar override.",
+      "Run xcodebuild_command from scratch. Export xcresult attachments with export_command; map suggested names to exact two output names without image processing.",
+      "Verify built app Info.plist version/build, source byte identity, local entitlement assertions and images visually. Completion automatically resets after two seconds; capture promptly."
+    ],
+    "isolated_ui_test_unified_diff": "--- GymTimerProUITests/GymTimerProUITests.swift\n+++ GymTimerProUITests/GymTimerProUITests.swift\n@@ -1,5 +1,7 @@\n import UIKit\n import XCTest\n+import StoreKitTest\n+import StoreKit\n \n final class GymTimerProUITests: XCTestCase {\n \n@@ -365,6 +367,7 @@\n     private func launchApp(_ options: LaunchOptions) -> XCUIApplication {\n         let app = XCUIApplication()\n         setupSnapshot(app)\n+        app.launchArguments += [\"-AppleLanguages\", \"(es)\", \"-AppleLocale\", \"es_ES\"]\n         app.launchArguments += [\"ui-testing\"]\n         app.launchArguments += [\"-purchase.cachedIsPro\", options.isPro ? \"1\" : \"0\"]\n \n@@ -434,3 +437,52 @@\n         }\n     }\n }\n+\n+extension GymTimerProUITests {\n+    @MainActor\n+    func testAdditionalPremiumSpanishCaptures() async throws {\n+        let session = try SKTestSession(configurationFileNamed: \"GymTimerPro\")\n+        session.disableDialogs = true\n+        session.resetToDefaultState()\n+        session.clearTransactions()\n+        let transaction = try await session.buyProduct(identifier: \"premium_yearly\")\n+        XCTAssertNil(transaction.revocationDate)\n+        XCTAssertTrue((transaction.expirationDate ?? .distantPast) > Date())\n+        func verifyLocalPremium(_ screen: String) {\n+            XCTAssertTrue(session.allTransactions().contains {\n+                $0.productIdentifier == \"premium_yearly\" && $0.state == .purchased\n+            })\n+            print(\"PREMIUM_PROOF \\(screen): active premium_yearly local StoreKit transaction; cachedIsPro launch override = false\")\n+        }\n+        func attach(_ name: String, _ screenshot: XCUIScreenshot) {\n+            let attachment = XCTAttachment(screenshot: screenshot)\n+            attachment.name = name\n+            attachment.lifetime = .keepAlways\n+            add(attachment)\n+        }\n+        let editorApp = launchApp(LaunchOptions(isPro: false, resetRoutines: true))\n+        XCTAssertTrue(editorApp.staticTexts[\"Pro\"].waitForExistence(timeout: 20))\n+        verifyLocalPremium(\"editor home\")\n+        openTab(at: 1, in: editorApp)\n+        let fullBody = editorApp.staticTexts[\"Full Body\"]\n+        XCTAssertTrue(fullBody.waitForExistence(timeout: 10))\n+        fullBody.tap()\n+        XCTAssertTrue(editorApp.buttons[\"Guardar\"].waitForExistence(timeout: 10))\n+        XCTAssertEqual(editorApp.textFields[\"Nombre\"].value as? String, \"Full Body\")\n+        XCTAssertFalse(editorApp.keyboards.firstMatch.exists)\n+        verifyLocalPremium(\"12_RoutineEditor\")\n+        attach(\"12_RoutineEditor\", editorApp.screenshot())\n+        editorApp.terminate()\n+\n+        let completedApp = launchApp(LaunchOptions(sets: 4, restSeconds: 90, currentSet: 4, isPro: false))\n+        XCTAssertTrue(completedApp.staticTexts[\"Pro\"].waitForExistence(timeout: 20))\n+        verifyLocalPremium(\"completed home immediately before completion\")\n+        let finish = completedApp.descendants(matching: .any)[\"startRestButton\"]\n+        XCTAssertTrue(finish.waitForExistence(timeout: 10))\n+        finish.tap()\n+        XCTAssertTrue(completedApp.staticTexts[\"¡ENTRENAMIENTO COMPLETADO!\"].waitForExistence(timeout: 1))\n+        attach(\"05_TrainingCompleted\", completedApp.screenshot())\n+        verifyLocalPremium(\"05_TrainingCompleted\")\n+        completedApp.terminate()\n+    }\n+}\n",
+    "xcodebuild_command": "xcodebuild -project source/GymTimerPro.xcodeproj -scheme GymTimerPro -destination 'platform=iOS Simulator,id=A52BEE18-A2DC-4642-8879-30632FC6B48E' -derivedDataPath DerivedData -resultBundlePath AdditionalPremium.xcresult -only-testing:GymTimerProUITests/GymTimerProUITests/testAdditionalPremiumSpanishCaptures -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test > xcode-test.log 2>&1",
+    "export_command": "xcrun xcresulttool export attachments --path AdditionalPremium.xcresult --output-path attachments",
+    "editor_fixture": "Publicly open seeded Full Body: 4 sets, 8 reps, 90-second rest, 35 kg, no classification; no keyboard.",
+    "completion_fixture": "Launch existing UI-test workout overrides totalSets=4/currentSet=4/rest=90, then tap public startRestButton. Actual app completeWorkout records completion and presents its existing summary."
+  },
+  "visual_inspection": {
+    "12_RoutineEditor.png": "Spanish light editor; Full Body, 4/8/90/35 kg, all parameter fields visible, no keyboard or modal, native tab bar; delete action partially beneath tab bar.",
+    "05_TrainingCompleted.png": "Spanish light completion checkmark and full completion text; Pro badge visible; no paywall or notification overlay; disabled controls are actual app completion behavior."
+  }
+}
